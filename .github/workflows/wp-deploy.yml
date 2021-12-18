@@ -1,11 +1,10 @@
 name: Deploy to WP.org svn
-workflow_run:
-  workflows: ["Build and release"]
-  branches: [master]
-  types:
-    - completed
+on:
+  release:
+    types: [published]
+
 jobs:
-  on-success:
+  tag:
     name: Tag deploy
     runs-on: ubuntu-latest
     steps:
@@ -37,13 +36,5 @@ jobs:
         run: "yarn build:production"
       - name: Pre deploy scripts
         run: "sh ./.github/scripts/deploy.sh"
-      - name: WordPress Plugin Deploy
-        id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@stable
-        env:
-          SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAAME }}
-          SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
-          ASSETS_DIR : ".wordpress-org/assets"
-        with:
-          generate-zip: false
+
 
