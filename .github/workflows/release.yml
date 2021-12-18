@@ -7,6 +7,9 @@ on:
       - '.wordpress-org/**'
       - '.github/workflows/wp-deploy.yml'
       - '.github/workflows/wp-assets.yml'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - '.codeclimate.yml'
 
 jobs:
   release:
