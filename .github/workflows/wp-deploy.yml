@@ -1,8 +1,8 @@
 name: Deploy to WP.org svn
 on:
   push:
-    tags:
-    - "*"
+    release:
+      types: [published]
 
 jobs:
   tag:
