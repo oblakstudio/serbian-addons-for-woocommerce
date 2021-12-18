@@ -13,6 +13,7 @@
 */
 
 defined('ABSPATH') || exit;
+
 !defined('WCRS_PLUGIN_FILE') && define('WCRS_PLUGIN_FILE', __FILE__);
 
 require __DIR__ . '/vendor/autoload.php';
