@@ -19,6 +19,13 @@
 
 * **build:** Added WP SVN deployment ([6821766](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/6821766aa7b710c4132d9aed7894359c6dcd7d66))
 
+# [1.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.0.0...v1.1.0) (2021-12-18)
+
+
+### Features
+
+* **build:** Added WP SVN deployment ([6821766](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/6821766aa7b710c4132d9aed7894359c6dcd7d66))
+
 # 1.0.0 (2021-12-18)
 
 
