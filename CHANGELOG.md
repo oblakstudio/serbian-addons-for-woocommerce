@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.1.1...v1.2.0) (2021-12-18)
+
+
+### Bug Fixes
+
+* Add null coalesce to avoide PHP notice ([686fc7e](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/686fc7e32a25c3bc14acf34c1d4bc66b8acd7621))
+
+
+### Features
+
+* **build:** Added workflow for asset release ([1171eac](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/1171eac5f164feafbaf62557894c48298f894c7a))
+* **build:** Added workflow for asset release ([f13524d](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/f13524d76513c9fc792fb2e3ae3943206d591d60))
+
 ## [1.1.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.1.0...v1.1.1) (2021-12-18)
 
 
