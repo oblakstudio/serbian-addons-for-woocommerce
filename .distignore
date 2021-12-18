@@ -1,13 +1,18 @@
 # Dirs
 .github
+.git/
+.wordpress-org/
 .yarn
 assets
+docker_tag
 node_modules
 
 #fields
 .babelrc
-.browserlistrc
+.browserslistrc
 .distignore
+.editorconfig
+.eslintrc.js
 .gitignore
 .php-cs-fixer.php
 .prettierrc
@@ -16,9 +21,11 @@ node_modules
 CHANGELOG.md
 composer.json
 composer.lock
+DOCKER_ENV
 LICENSE
 package.json
 phpcs.xml
+output.log
 README.md
 tsconfig.json
 wpwp.config.js
