@@ -1,0 +1,24 @@
+# Dirs
+.github
+.yarn
+assets
+
+#fields
+.babelrc
+.browserlistrc
+.distignore
+.gitignore
+.php-cs-fixer.php
+.prettierrc
+.releaserc
+.yarnrc.yml
+CHANGELOG.md
+composer.json
+composer.lock
+LICENSE
+package.json
+phpcs.xml
+README.md
+tsconfig.json
+wpwp.config.js
+yarn.lock
