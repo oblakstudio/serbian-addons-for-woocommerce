@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.0...v1.2.1) (2021-12-18)
+
+
+### Bug Fixes
+
+* Fixed readme and deploy scripts ([1fb5140](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/1fb5140789aba870c1e0ac2418e87dc6a2c6d4df))
+
 # [1.2.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.1.1...v1.2.0) (2021-12-18)
 
 
