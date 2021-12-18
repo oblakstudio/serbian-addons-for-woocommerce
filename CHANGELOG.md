@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.1.0...v1.1.1) (2021-12-18)
+
+
+### Bug Fixes
+
+* Added build artefacts to .distignore ([e6fb484](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/e6fb48473f8e241774044e98e6554820c3e2fd27))
+
 # [1.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.0.0...v1.1.0) (2021-12-18)
 
 
