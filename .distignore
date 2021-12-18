@@ -2,6 +2,7 @@
 .github
 .yarn
 assets
+node_modules
 
 #fields
 .babelrc
