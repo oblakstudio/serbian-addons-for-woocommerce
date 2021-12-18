@@ -17,6 +17,7 @@ node_modules
 .php-cs-fixer.php
 .prettierrc
 .releaserc
+.stylelintrc.js
 .yarnrc.yml
 CHANGELOG.md
 composer.json
