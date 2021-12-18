@@ -3,10 +3,10 @@ on:
   push:
     branches:
       - master
-    paths:
-      - '!.wordpress-org/**'
-      - '!.github/workflows/wp-deploy.yml'
-      - '!.github/workflows/wp-assets.yml'
+    paths-ignore:
+      - '.wordpress-org/**'
+      - '.github/workflows/wp-deploy.yml'
+      - '.github/workflows/wp-assets.yml'
 
 jobs:
   release:
