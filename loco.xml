@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="Serbian Addons for WooCommerce">
+  <domain name="serbian-addons-for-woocommerce">
+    <project name="Serbian Addons for WooCommerce" slug="serbian-addons-for-woocommerce">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>languages</directory>
+      </target>
+      <template>
+        <file>languages/serbian-addons-for-woocommerce.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>node_modules</directory>
+    <directory>vendor</directory>
+    <directory>languages</directory>
+  </exclude>
+</bundle>

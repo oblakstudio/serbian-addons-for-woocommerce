@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "es2019",
+    "baseUrl": "./"
+  },
+  // "include": ["assets/scripts/**/*", "node_modules/**/*"]
+}

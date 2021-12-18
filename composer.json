@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Oblak\\WCRS\\": "lib/"
+        },
+        "files": [
+          "lib/Utils/core.php",
+          "lib/Utils/helpers.php"
+        ]
+    },
+    "require": {
+        "oblak/serbian-validators": "^1.0",
+        "oblak/asset-loader": "^1.1"
+    }
+}

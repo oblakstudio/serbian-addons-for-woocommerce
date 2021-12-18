@@ -1,0 +1,140 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "a5f639ca22ba109ee4f9c8c0fc55442f",
+    "packages": [
+        {
+            "name": "oblak/asset-loader",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/asset-loader.git",
+                "reference": "a03a35f373ac843d4c7d7ae2b863e4d5791436f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/asset-loader/zipball/a03a35f373ac843d4c7d7ae2b863e4d5791436f5",
+                "reference": "a03a35f373ac843d4c7d7ae2b863e4d5791436f5",
+                "shasum": ""
+            },
+            "require": {
+                "oblak/asset-manifest": "^1.0",
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblak\\Asset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "description": "Simple Asset Loader for WordPress",
+            "support": {
+                "issues": "https://github.com/oblakstudio/asset-loader/issues",
+                "source": "https://github.com/oblakstudio/asset-loader/tree/v1.2.0"
+            },
+            "time": "2021-12-14T07:08:19+00:00"
+        },
+        {
+            "name": "oblak/asset-manifest",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/asset-manifest.git",
+                "reference": "919cc64760a28f6447d5014baa759992be8e012a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/asset-manifest/zipball/919cc64760a28f6447d5014baa759992be8e012a",
+                "reference": "919cc64760a28f6447d5014baa759992be8e012a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblak\\Asset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Asset Manifest handler",
+            "support": {
+                "issues": "https://github.com/oblakstudio/asset-manifest/issues",
+                "source": "https://github.com/oblakstudio/asset-manifest/tree/v1.1.0"
+            },
+            "time": "2021-12-14T07:07:02+00:00"
+        },
+        {
+            "name": "oblak/serbian-validators",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/serbian-validators-php.git",
+                "reference": "7c8ca7bdb769519a7ad4884855a697b01fff217b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/serbian-validators-php/zipball/7c8ca7bdb769519a7ad4884855a697b01fff217b",
+                "reference": "7c8ca7bdb769519a7ad4884855a697b01fff217b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/utils.php",
+                    "src/validate-jmbg.php",
+                    "src/validate-pib.php",
+                    "src/validate-mb.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "This Module Has useful functions for validating various serbian numbers",
+            "support": {
+                "issues": "https://github.com/oblakstudio/serbian-validators-php/issues",
+                "source": "https://github.com/oblakstudio/serbian-validators-php/tree/v1.0.0"
+            },
+            "time": "2021-12-14T02:05:55+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

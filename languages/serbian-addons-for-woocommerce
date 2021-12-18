@@ -1,0 +1,108 @@
+# Copyright (C) 2021 Oblak Studio
+# This file is distributed under the same license as the Serbian Addons for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Serbian Addons for WooCommerce 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/serbian-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-12-17T11:38:02+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: serbian-addons-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+msgid "Serbian Addons for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://oblak.studio/open-source/srpski-woocommerce"
+msgstr ""
+
+#. Description of the plugin
+msgid "Various addons and tweaks that make WooCommerce compatible with Serbian bureaucracy."
+msgstr ""
+
+#. Author of the plugin
+msgid "Oblak Studio"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://oblak.studio"
+msgstr ""
+
+#: lib/Admin/Settings.php:16
+msgid "Enabled customer types"
+msgstr ""
+
+#: lib/Admin/Settings.php:19
+msgid "Which customer types can shop on the store"
+msgstr ""
+
+#: lib/Admin/Settings.php:21
+msgid "Persons and companies"
+msgstr ""
+
+#: lib/Admin/Settings.php:22
+msgid "Persons"
+msgstr ""
+
+#: lib/Admin/Settings.php:23
+msgid "Companies"
+msgstr ""
+
+#: lib/Admin/Settings.php:41
+msgid "Transliterate currency symbol"
+msgstr ""
+
+#: lib/Admin/Settings.php:44
+msgid "Transliterate currency symbol to latin script"
+msgstr ""
+
+#: lib/CustomerType/FieldCustomizer.php:28
+msgid "Customer type"
+msgstr ""
+
+#: lib/CustomerType/FieldDisplay.php:21
+#: lib/CustomerType/FieldDisplay.php:74
+#: lib/CustomerType/FieldDisplay.php:102
+msgid "Company Number"
+msgstr ""
+
+#: lib/CustomerType/FieldDisplay.php:22
+#: lib/CustomerType/FieldDisplay.php:79
+msgid "Tax Identification Number"
+msgstr ""
+
+#: lib/CustomerType/FieldDisplay.php:95
+msgid "Entity type"
+msgstr ""
+
+#: lib/CustomerType/FieldDisplay.php:107
+msgid "Tax Number"
+msgstr ""
+
+#: lib/CustomerType/FieldValidation.php:49
+#: lib/CustomerType/FieldValidation.php:87
+msgid "Company number is invalid"
+msgstr ""
+
+#: lib/CustomerType/FieldValidation.php:58
+#: lib/CustomerType/FieldValidation.php:91
+msgid "Company Tax Number is invalid"
+msgstr ""
+
+#: lib/CustomerType/FieldValidation.php:84
+msgid "Company name is required"
+msgstr ""
+
+#: lib/Utils/helpers.php:6
+msgid "Person"
+msgstr ""
+
+#: lib/Utils/helpers.php:7
+msgid "Company"
+msgstr ""

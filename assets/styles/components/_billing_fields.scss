@@ -1,0 +1,22 @@
+.woocommerce-checkout,
+.woocommerce-edit-address {
+  .woocommerce-billing-fields,
+  .woocommerce-address-fields {
+    .entity-type-control {
+      .woocommerce-input-wrapper {
+        label {
+          display: inline-block;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .hide-if-person {
+      display: none;
+
+      &.shown {
+        display: block;
+      }
+    }
+  }
+}
