@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.1...v1.2.2) (2021-12-18)
+
+
+### Bug Fixes
+
+* Added codeclimate file to distignore ([8ca234a](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/8ca234ab10fac4a59686b305b9029fe10fe4bb91))
+
 ## [1.2.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.0...v1.2.1) (2021-12-18)
 
 
