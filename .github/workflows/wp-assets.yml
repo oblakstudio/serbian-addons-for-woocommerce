@@ -22,4 +22,4 @@ jobs:
         SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
         SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
         ASSETS_DIR : ".wordpress-org/assets"
-        README_NAME: ".wordpress-org/readme.txt"
+        README_NAME: "readme.txt"
