@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Serbian Addons for WooCommerce\n"
-"POT-Creation-Date: 2021-12-18 14:26+0100\n"
-"PO-Revision-Date: 2021-12-18 14:26+0100\n"
+"POT-Creation-Date: 2021-12-18 22:56+0100\n"
+"PO-Revision-Date: 2021-12-18 22:59+0100\n"
 "Last-Translator: Sibin Grasic <sibin.grasic@oblak.studio>\n"
 "Language-Team: Sibin Grasic <sibin.grasic@oblak.studio>\n"
 "Language: sr_RS\n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-WPHeader: serbian-addons-for-woocommerce.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
@@ -66,32 +66,27 @@ msgstr "Преслови валуту"
 msgid "Transliterate currency symbol to latin script"
 msgstr "Пресловљава валуту у латиницу"
 
-#: lib/CustomerType/FieldCustomizer.php:28
+#: lib/CustomerType/FieldCustomizer.php:46
 msgid "Customer type"
 msgstr "Купујем као"
 
-#: lib/CustomerType/FieldCustomizer.php:53 lib/CustomerType/FieldDisplay.php:98
+#: lib/CustomerType/FieldCustomizer.php:71
 msgid "Company Number"
 msgstr "Матични број"
 
-#: lib/CustomerType/FieldCustomizer.php:63
-#: lib/CustomerType/FieldDisplay.php:103
+#: lib/CustomerType/FieldCustomizer.php:81
 msgid "Tax Number"
 msgstr "ПИБ"
 
-#: lib/CustomerType/FieldDisplay.php:70
+#: lib/CustomerType/FieldDisplay.php:94
 msgctxt "Address display"
 msgid "Company Number"
 msgstr "МБ"
 
-#: lib/CustomerType/FieldDisplay.php:75
+#: lib/CustomerType/FieldDisplay.php:99
 msgctxt "Address display"
 msgid "Tax Identification Number"
 msgstr "ПИБ"
-
-#: lib/CustomerType/FieldDisplay.php:91
-msgid "Entity type"
-msgstr "Тип купца"
 
 #: lib/CustomerType/FieldValidation.php:49
 #: lib/CustomerType/FieldValidation.php:87
@@ -107,6 +102,10 @@ msgstr "ПИБ није валидан"
 msgid "Company name is required"
 msgstr "Морате унети име фирме"
 
+#: lib/Utils/Installer.php:63 lib/Utils/Installer.php:64
+msgid "Settings"
+msgstr "Подешавања"
+
 #: lib/Utils/helpers.php:6
 msgid "Person"
 msgstr "Физичко лице"
@@ -121,7 +120,7 @@ msgstr "Српски додаци за WooCommerce"
 
 #. Plugin URI of the plugin/theme
 msgid "https://oblak.studio/open-source/srpski-woocommerce"
-msgstr ""
+msgstr "https://oblak.studio/open-source/srpski-woocommerce"
 
 #. Description of the plugin/theme
 msgid ""
@@ -138,3 +137,6 @@ msgstr "Облак Студио"
 #. Author URI of the plugin/theme
 msgid "https://oblak.studio"
 msgstr "https://oblak.studio"
+
+#~ msgid "Entity type"
+#~ msgstr "Тип купца"

@@ -1,8 +1,6 @@
 <?php
 namespace Oblak\WCRS\Utils;
 
-use Automattic\Jetpack\Constants;
-
 class Installer {
     public static function init() {
         add_action('init', [__CLASS__, 'check_version']);
@@ -10,7 +8,7 @@ class Installer {
     }
 
     public static function check_version() {
-        if (!Constants::is_defined('IFRAME_REQUEST') && version_compare(get_option('wcrs_version', '0.0.1'), WCSRB()->version, '<')) {
+        if (defined('IFRAME_REQUEST') && version_compare(get_option('wcrs_version', '0.0.1'), WCSRB()->version, '<')) {
             self::install();
             do_action('wcrs_updated');
         }

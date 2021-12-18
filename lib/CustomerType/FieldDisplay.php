@@ -45,9 +45,9 @@ class FieldDisplay {
     }
 
     public function modifyAddressReplacements($replacements, $args) {
-        $replacements['{type}'] = $args['type'];
-        $replacements['{mb}']  = $args['mb'];
-        $replacements['{pib}'] = $args['pib'];
+        $replacements['{type}'] = $args['type'] ?? "\n";
+        $replacements['{mb}']  = $args['mb'] ?? "\n";
+        $replacements['{pib}'] = $args['pib'] ?? "\n";
 
         return $replacements;
     }
