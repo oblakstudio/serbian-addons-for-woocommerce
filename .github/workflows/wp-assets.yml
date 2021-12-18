@@ -6,6 +6,7 @@ on:
     paths:
       - ".wordpress-org/**"
       - ".github/workflows/wp-assets.yml"
+      - ".github/scripts/deploy.sh"
 jobs:
   master:
     name: Push to trunk

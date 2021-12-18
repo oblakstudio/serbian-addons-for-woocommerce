@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mv .wordpress-org/readme.txt ./
+cp -p .wordpress-org/readme.txt ./
