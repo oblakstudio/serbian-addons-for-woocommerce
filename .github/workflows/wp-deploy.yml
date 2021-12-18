@@ -39,7 +39,7 @@ jobs:
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         env:
-          SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAAME }}
+          SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
           ASSETS_DIR : ".wordpress-org/assets"
         with:
