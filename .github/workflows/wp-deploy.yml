@@ -1,10 +1,11 @@
 name: Deploy to WP.org svn
-on:
-  push:
-    tags:
-      - '*'
+workflow_run:
+  workflows: ["Build and release"]
+  branches: [master]
+  types:
+    - completed
 jobs:
-  tag:
+  on-success:
     name: Tag deploy
     runs-on: ubuntu-latest
     steps:
