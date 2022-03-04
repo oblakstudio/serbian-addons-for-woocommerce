@@ -83,16 +83,16 @@
         },
         {
             "name": "oblak/serbian-validators",
-            "version": "1.0.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/serbian-validators-php.git",
-                "reference": "7c8ca7bdb769519a7ad4884855a697b01fff217b"
+                "reference": "dafbd9877950a77dabe4ff6325e0b7e429e853eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/serbian-validators-php/zipball/7c8ca7bdb769519a7ad4884855a697b01fff217b",
-                "reference": "7c8ca7bdb769519a7ad4884855a697b01fff217b",
+                "url": "https://api.github.com/repos/oblakstudio/serbian-validators-php/zipball/dafbd9877950a77dabe4ff6325e0b7e429e853eb",
+                "reference": "dafbd9877950a77dabe4ff6325e0b7e429e853eb",
                 "shasum": ""
             },
             "require": {
@@ -104,10 +104,11 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/utils.php",
+                    "src/serbian-validator-utils.php",
                     "src/validate-jmbg.php",
                     "src/validate-pib.php",
-                    "src/validate-mb.php"
+                    "src/validate-mb.php",
+                    "src/validate-bank-account.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -123,9 +124,9 @@
             "description": "This Module Has useful functions for validating various serbian numbers",
             "support": {
                 "issues": "https://github.com/oblakstudio/serbian-validators-php/issues",
-                "source": "https://github.com/oblakstudio/serbian-validators-php/tree/v1.0.0"
+                "source": "https://github.com/oblakstudio/serbian-validators-php/tree/v1.1.1"
             },
-            "time": "2021-12-14T02:05:55+00:00"
+            "time": "2022-01-24T10:18:59+00:00"
         }
     ],
     "packages-dev": [],
@@ -136,5 +137,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }

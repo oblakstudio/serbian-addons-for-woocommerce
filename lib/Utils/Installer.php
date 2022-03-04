@@ -36,7 +36,7 @@ class Installer {
         add_option('woocommerce_serbian', [
             'enabled_customer_type'  => 'both',
             'remove_unneeded_fields' => 'yes',
-            'fix_currency_symbol'    => 'no',
+            'fix_currency_symbol'    => 'yes',
         ]);
     }
 

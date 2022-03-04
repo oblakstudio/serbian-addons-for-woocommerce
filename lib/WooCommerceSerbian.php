@@ -2,6 +2,7 @@
 
 namespace Oblak\WCRS;
 
+use Oblak\WCRS\Core\Scripts;
 use Oblak\WCRS\Utils\Installer;
 
 class WooCommerceSerbian {
@@ -108,7 +109,11 @@ class WooCommerceSerbian {
     }
 
     public function init() {
-        $this->options = get_option('woocommerce_serbian');
+        $this->options = wp_parse_args(get_option('woocommerce_serbian'), [
+            'enabled_customer_type'  => 'both',
+            'remove_unneeded_fields' => 'yes',
+            'fix_currency_symbol'    => 'yes',
+        ]);
 
         if ($this->is_request('admin')) {
             new Admin\Settings();
@@ -118,6 +123,7 @@ class WooCommerceSerbian {
         new CustomerType\FieldValidation();
         new CustomerType\FieldDisplay();
         new Tweaks();
+        new Scripts();
     }
 
     public function getOptions() {

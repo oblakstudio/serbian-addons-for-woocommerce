@@ -112,6 +112,10 @@ class FieldDisplay {
      * @return string          Modified Buyer name
      */
     public function modifyAdminOrderBuyerName($buyer, $order) {
+        if ('RS' != $order->get_billing_country()) {
+            return $buyer;
+        }
+
         $user_type = $order->get_meta('_billing_type');
 
         if ($user_type == 'company') {
