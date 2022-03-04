@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.2...v1.2.3) (2022-03-04)
+
+
+### Bug Fixes
+
+* Fixed MB/PIB validation for Serbia and other countries ([ffd7caf](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/ffd7caf3d89d919076c9bccae23102aa180b355c))
+
 ## [1.2.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.1...v1.2.2) (2021-12-18)
 
 
