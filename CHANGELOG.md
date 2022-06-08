@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.3...v1.2.4) (2022-06-08)
+
+
+### Bug Fixes
+
+* Fixed field validation for WPML ([c815401](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/c81540119a2bf8f71918f84bdf09d246af5c417d))
+
 ## [1.2.3](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.2...v1.2.3) (2022-03-04)
 
 
