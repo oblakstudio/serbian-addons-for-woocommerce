@@ -73,9 +73,6 @@ class FieldValidation {
      * @return void
      */
     public function checkoutFieldsOverride($data, $errors) {
-        if ('RS' !== $data['billing_country']) {
-            return;
-        }
 
         foreach (self::$fields_to_check as $field) {
             if (!empty($errors->get_all_error_data($field . '_required'))) {
@@ -83,7 +80,7 @@ class FieldValidation {
             }
         }
 
-        if ($data['billing_type'] == 'company') {
+        if ($data['billing_type'] == 'company' && 'RS' === $data['billing_country']) {
             if ($data['billing_company'] == '') {
                 $errors->add('billing_company_required', __('Company name is required', 'serbian-addons-for-woocommerce'));
             }
