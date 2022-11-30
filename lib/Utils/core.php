@@ -1,14 +1,18 @@
 <?php
+/**
+ * Core utility functions
+ *
+ * @package Serbian Addons for WooCommerce
+ * @subpackage Utils
+ */
 
-// This file intentionally left without namespace
-
-use Oblak\WCRS\WooCommerceSerbian;
+use Oblak\WCRS\Serbian_WooCommerce;
 
 /**
  * Main Plugin Instance
  *
- * @return WooCommerceSerbian
+ * @return Serbian_WooCommerce
  */
-function WCSRB() {
-    return WooCommerceSerbian::getInstance();
+function WCSRB() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+    return Serbian_WooCommerce::get_instance();
 }
