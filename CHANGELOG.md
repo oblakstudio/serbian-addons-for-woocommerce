@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.4...v2.0.0) (2022-11-30)
+
+
+### Bug Fixes
+
+* **Build:** Fixed release workflow ([ff5535a](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/ff5535adec8fa07a0f127989d3d0697e0d9cf5f8))
+
+
+### Features
+
+* Complete overhaul ([8d58f32](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/8d58f321412c42b84460d581f88a94d9e1c96af0))
+
+
+### BREAKING CHANGES
+
+* Reworked the entire plugin
+
 ## [1.2.4](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.3...v1.2.4) (2022-06-08)
 
 
