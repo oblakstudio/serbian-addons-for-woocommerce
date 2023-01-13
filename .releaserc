@@ -11,9 +11,9 @@
     }],
     ["@semantic-release/git", {
       "assets": [
-        "CHANGELOG.md", "serbian-addons-for-woocommerce.php", ".wordpress-org/readme.txt"
+        "CHANGELOG.md", "serbian-addons-for-woocommerce.php", ".wordpress-org/readme.txt", "lib/Serbian_WooCommerce.php"
       ],
-      "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
     }],
     ["@semantic-release/github", {
       "assets": [{
