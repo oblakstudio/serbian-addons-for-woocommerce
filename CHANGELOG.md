@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.0.0...v2.1.0) (2023-01-13)
+
+
+### Features
+
+* Added support for HPOS ([98f188a](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/98f188a7dfc85ed108a49749386f7588c1e517f9))
+
 # [2.0.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v1.2.4...v2.0.0) (2022-11-30)
 
 
