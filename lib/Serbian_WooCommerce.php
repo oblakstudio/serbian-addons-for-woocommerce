@@ -9,6 +9,8 @@ namespace Oblak\WCRS;
 
 use Automattic\Jetpack\Constants;
 use Oblak\WCRS\Core\Installer;
+use Oblak\WCRS\Utils\Settings_Helper;
+use Oblak\WP\eFis\Client;
 
 /**
  * Main plugin class
@@ -35,6 +37,20 @@ class Serbian_WooCommerce {
      * @var array
      */
     protected $options = array();
+
+    /**
+     * E-Fiscalization client
+     *
+     * @var Client
+     */
+    protected $efis_client = null;
+
+    /**
+     * E-Fiscalization options
+     *
+     * @var array
+     */
+    protected $efis_opts = array();
 
     /**
      * Disable cloning
@@ -86,6 +102,11 @@ class Serbian_WooCommerce {
     private function load_classes() {
         Installer::get_instance()->init();
 
+        $this->efis_opts = Settings_Helper::get_settings(
+            'wcsrb_fiscalization_settings',
+            WCRS_PLUGIN_PATH . 'config/defaults-fiscalization.php'
+        );
+
         if ( $this->is_request( 'admin' ) ) {
             new WooCommerce\Admin\Admin_Core();
         }
@@ -99,7 +120,7 @@ class Serbian_WooCommerce {
      */
     private function init_hooks() {
         add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
-
+        add_action( 'before_woocommerce_init', array( $this, 'declare_compabibility' ) );
         add_action( 'init', array( $this, 'init' ) );
     }
 
@@ -112,6 +133,15 @@ class Serbian_WooCommerce {
             false,
             dirname( WCRS_PLUGIN_BASENAME ) . '/languages'
         );
+    }
+
+    /**
+     * Declares compatibility with various WooCommerce features
+     */
+    public function declare_compabibility() {
+        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+        }
     }
 
     /**
@@ -163,6 +193,35 @@ class Serbian_WooCommerce {
      */
     public function get_options() {
         return $this->options;
+    }
+
+    /**
+     * Get e-fiscalization options
+     *
+     * @param string $section Section name.
+     * @return array
+     */
+    public function get_efis_opts( $section = null ) {
+        return $section
+            ? $this->efis_opts[ $section ] ?? array()
+            : $this->efis_opts;
+    }
+
+    /**
+     * Get e-fiscalization client
+     *
+     * @return Efis_Client
+     */
+    public function get_efis_client() {
+        if ( is_null( $this->efis_client ) ) {
+            $this->efis_client = new Client(
+                $this->efis_opts['general']['api_username'],
+                $this->efis_opts['general']['api_key'],
+                $this->efis_opts['general']['language'],
+            );
+        }
+
+        return $this->efis_client;
     }
 
 }

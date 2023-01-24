@@ -30,8 +30,9 @@
 
 
     <!-- CONFIGURE HERE THE PATHS YOU WANT TO CHECK -->
-    <file>branblan-product-creator.php</file>
-    <file>lib/</file>
+    <file>serbian-addons-for-woocommerce.php</file>
+    <file>lib</file>
+    <file>config</file>
 
     <!-- Show sniff codes in all reports -->
     <arg value="sp"/> <!-- Show sniff and progress -->

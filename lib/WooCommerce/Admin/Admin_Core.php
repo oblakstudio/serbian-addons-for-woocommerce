@@ -18,6 +18,7 @@ class Admin_Core {
      */
     public function __construct() {
         add_action( 'init', array( $this, 'init_classes' ) );
+        add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_pages' ), 150 );
     }
 
     /**
@@ -25,5 +26,24 @@ class Admin_Core {
      */
     public function init_classes() {
         new Settings_General();
+        new Settings\Custom_Fields();
+    }
+
+    /**
+     * Adds the settings page to WooCommerce settings
+     *
+     * @param  array $settings Settings pages.
+     * @return array           Modified settings pages.
+     */
+    public function add_settings_pages( $settings ) {
+        $settings = array_merge(
+            $settings,
+            array(
+                new Settings\Addons_Page(),
+                new Settings\Fiscalization_Page(),
+            )
+        );
+
+        return $settings;
     }
 }
