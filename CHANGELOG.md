@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.1.0...v2.2.0) (2023-07-18)
+
+
+### Bug Fixes
+
+* Changed asset loader package ([ef18714](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/ef18714b53ccaed7c543a738fa077b01f615816a))
+
+
+### Features
+
+* Added filter priority for checkout fields ([2f11126](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/2f1112603eecd1eb383926fc390525e3d06fe980))
+
 # [2.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.0.0...v2.1.0) (2023-01-13)
 
 
