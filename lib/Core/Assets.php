@@ -8,7 +8,7 @@
 
 namespace Oblak\WCRS\Core;
 
-use Oblak\Asset\Loader;
+use Oblak\WP\Asset_Loader;
 
 /**
  * Handles asset management
@@ -26,6 +26,6 @@ class Assets {
      * Initializes asset loader
      */
     public function initialize_loader() {
-        Loader::getInstance()->registerNamespace( 'wcrs', require_once WCRS_PLUGIN_PATH . 'config/assets.php' );
+        Asset_Loader::get_instance()->register_namespace( 'wcrs', require_once WCRS_PLUGIN_PATH . 'config/assets.php' );
     }
 }

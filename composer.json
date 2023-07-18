@@ -5,9 +5,9 @@
     }
   },
   "require": {
-      "oblak/asset-loader": "^1",
       "oblak/serbian-validators": "^1.0",
-      "oblak/wp-plugin-installer": "^1"
+      "oblak/wp-plugin-installer": "^1",
+    "oblak/wp-asset-loader": "^2.0"
   },
   "require-dev": {
       "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",

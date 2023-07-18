@@ -4,26 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d228901803cb609ea32fcbac14d7cfeb",
+    "content-hash": "4bf971b4c155a281f35467688cb5c658",
     "packages": [
         {
             "name": "automattic/jetpack-constants",
-            "version": "v1.6.19",
+            "version": "v1.6.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "a224991e11045e15250bac415cf92788e0b59bb7"
+                "reference": "7b5c44d763c7b0dd7498be2b41a89bfefe84834c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/a224991e11045e15250bac415cf92788e0b59bb7",
-                "reference": "a224991e11045e15250bac415cf92788e0b59bb7",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/7b5c44d763c7b0dd7498be2b41a89bfefe84834c",
+                "reference": "7b5c44d763c7b0dd7498be2b41a89bfefe84834c",
                 "shasum": ""
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^3.2.1",
+                "automattic/jetpack-changelogger": "^3.3.2",
                 "brain/monkey": "2.6.1",
-                "yoast/phpunit-polyfills": "1.0.3"
+                "yoast/phpunit-polyfills": "1.0.4"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
             "type": "jetpack-library",
             "extra": {
@@ -47,9 +50,9 @@
             ],
             "description": "A wrapper for defining constants in a more testable way.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-constants/tree/v1.6.19"
+                "source": "https://github.com/Automattic/jetpack-constants/tree/v1.6.22"
             },
-            "time": "2022-11-22T17:02:34+00:00"
+            "time": "2023-04-10T11:43:45+00:00"
         },
         {
             "name": "oblak/admin-notice-manager",
@@ -90,81 +93,6 @@
                 "source": "https://github.com/oblakstudio/admin-notice-manager/tree/v2.0.0"
             },
             "time": "2022-10-23T15:30:02+00:00"
-        },
-        {
-            "name": "oblak/asset-loader",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oblakstudio/asset-loader.git",
-                "reference": "a03a35f373ac843d4c7d7ae2b863e4d5791436f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/asset-loader/zipball/a03a35f373ac843d4c7d7ae2b863e4d5791436f5",
-                "reference": "a03a35f373ac843d4c7d7ae2b863e4d5791436f5",
-                "shasum": ""
-            },
-            "require": {
-                "oblak/asset-manifest": "^1.0",
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Oblak\\Asset\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "description": "Simple Asset Loader for WordPress",
-            "support": {
-                "issues": "https://github.com/oblakstudio/asset-loader/issues",
-                "source": "https://github.com/oblakstudio/asset-loader/tree/v1.2.0"
-            },
-            "time": "2021-12-14T07:08:19+00:00"
-        },
-        {
-            "name": "oblak/asset-manifest",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oblakstudio/asset-manifest.git",
-                "reference": "919cc64760a28f6447d5014baa759992be8e012a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/asset-manifest/zipball/919cc64760a28f6447d5014baa759992be8e012a",
-                "reference": "919cc64760a28f6447d5014baa759992be8e012a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Oblak\\Asset\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Sibin Grasic",
-                    "email": "sibin.grasic@oblak.studio"
-                }
-            ],
-            "description": "Asset Manifest handler",
-            "support": {
-                "issues": "https://github.com/oblakstudio/asset-manifest/issues",
-                "source": "https://github.com/oblakstudio/asset-manifest/tree/v1.1.0"
-            },
-            "time": "2021-12-14T07:07:02+00:00"
         },
         {
             "name": "oblak/serbian-validators",
@@ -214,17 +142,57 @@
             "time": "2022-01-24T10:18:59+00:00"
         },
         {
-            "name": "oblak/wp-plugin-installer",
-            "version": "1.2.1",
+            "name": "oblak/wp-asset-loader",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
-                "reference": "aa5e320a5d1c720c94cfa3973549c43f924f3174"
+                "url": "https://github.com/oblakstudio/wp-asset-loader.git",
+                "reference": "d67be41e330d170245334d2004e41f06eea4ac20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/aa5e320a5d1c720c94cfa3973549c43f924f3174",
-                "reference": "aa5e320a5d1c720c94cfa3973549c43f924f3174",
+                "url": "https://api.github.com/repos/oblakstudio/wp-asset-loader/zipball/d67be41e330d170245334d2004e41f06eea4ac20",
+                "reference": "d67be41e330d170245334d2004e41f06eea4ac20",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "squizlabs/php_codesniffer": "*",
+                "wp-coding-standards/wpcs": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblak\\WP\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "description": "Simple Asset Loader for WordPress",
+            "support": {
+                "issues": "https://github.com/oblakstudio/wp-asset-loader/issues",
+                "source": "https://github.com/oblakstudio/wp-asset-loader/tree/v2.0.4"
+            },
+            "time": "2023-02-03T10:48:20+00:00"
+        },
+        {
+            "name": "oblak/wp-plugin-installer",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
+                "reference": "7be2728392a36c5b2e9585e326481ae7c2437fc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/7be2728392a36c5b2e9585e326481ae7c2437fc1",
+                "reference": "7be2728392a36c5b2e9585e326481ae7c2437fc1",
                 "shasum": ""
             },
             "require": {
@@ -234,7 +202,7 @@
                 "woocommerce/action-scheduler": "^3.5"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1 || ^1.0.0",
                 "phpcompatibility/phpcompatibility-wp": "*",
                 "squizlabs/php_codesniffer": "*",
                 "wp-coding-standards/wpcs": "*"
@@ -258,25 +226,25 @@
                     "email": "sibin.grasic@oblak.studio"
                 }
             ],
-            "description": "This Module Has useful functions for validating various serbian numbers",
+            "description": "Simplifies the installation and activation of WordPress plugins",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-plugin-installer/issues",
-                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v1.2.1"
+                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v1.3.0"
             },
-            "time": "2022-11-03T17:10:58+00:00"
+            "time": "2023-05-03T10:37:53+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.5.3",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "63ef5af013ca3a6efdd8ef8e9363ac70778713cb"
+                "reference": "7fd383cad3d64b419ec81bcd05bab44355a6e6ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/63ef5af013ca3a6efdd8ef8e9363ac70778713cb",
-                "reference": "63ef5af013ca3a6efdd8ef8e9363ac70778713cb",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/7fd383cad3d64b419ec81bcd05bab44355a6e6ef",
+                "reference": "7fd383cad3d64b419ec81bcd05bab44355a6e6ef",
                 "shasum": ""
             },
             "require-dev": {
@@ -301,9 +269,9 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.5.3"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.6.1"
             },
-            "time": "2022-11-09T17:45:19+00:00"
+            "time": "2023-06-14T19:23:12+00:00"
         }
     ],
     "packages-dev": [
@@ -558,16 +526,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
                 "shasum": ""
             },
             "require": {
@@ -603,14 +571,15 @@
             "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards"
+                "standards",
+                "static analysis"
             ],
             "support": {
                 "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2023-02-22T23:07:41+00:00"
         },
         {
             "name": "woocommerce/woocommerce-sniffs",
@@ -715,5 +684,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
