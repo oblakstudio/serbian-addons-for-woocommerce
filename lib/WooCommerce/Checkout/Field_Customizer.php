@@ -19,9 +19,18 @@ class Field_Customizer {
      * Class constructor
      */
     public function __construct() {
-        add_filter( 'woocommerce_billing_fields', array( $this, 'modify_billing_fields' ), PHP_INT_MAX, 1 );
-        add_filter( 'woocommerce_shipping_fields', array( $this, 'modify_shipping_fields' ), PHP_INT_MAX, 1 );
-        add_filter( 'woocommerce_checkout_fields', array( $this, 'modify_ajax_checkout_fields' ), PHP_INT_MAX, 1 );
+
+        /**
+         * Filters the priority of the checkout fields filter
+         *
+         * @param int $filter_priority Priority of the checkout fields filter
+         * @since 2.2.0
+         */
+        $filter_priority = apply_filters( 'woocommerce_serbian_checkout_fields_priority', 100 );
+
+        add_filter( 'woocommerce_billing_fields', array( $this, 'modify_billing_fields' ), $filter_priority, 1 );
+        add_filter( 'woocommerce_shipping_fields', array( $this, 'modify_shipping_fields' ), $filter_priority, 1 );
+        add_filter( 'woocommerce_checkout_fields', array( $this, 'modify_ajax_checkout_fields' ), $filter_priority, 1 );
     }
 
     /**
