@@ -1,31 +1,22 @@
 {
   "autoload": {
     "psr-4": {
-        "Oblak\\WCRS\\": "lib/"
+      "Oblak\\WCRS\\": "lib/"
     }
   },
   "require": {
-      "oblak/serbian-validators": "^1.0",
-      "oblak/wp-plugin-installer": "^1",
+    "oblak/serbian-validators": "^1.0",
+    "oblak/wp-plugin-installer": "^1",
     "oblak/wp-asset-loader": "^2.0"
   },
   "require-dev": {
-      "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-      "wp-coding-standards/wpcs": "*",
-      "phpcompatibility/phpcompatibility-wp": "*",
-      "woocommerce/woocommerce-sniffs": "^0.1.2"
+    "oblak/wordpress-coding-standard": "^1.0"
   },
   "scripts": {
-      "install-codestandards": [
-          "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
-      ],
-      "post-install-cmd": [
-          "@install-codestandards"
-      ]
   },
   "config": {
-      "allow-plugins": {
-          "dealerdirect/phpcodesniffer-composer-installer": true
-      }
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
