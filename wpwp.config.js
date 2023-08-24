@@ -35,6 +35,7 @@ module.exports = {
   */
   externals: {
     jquery: 'jQuery',
+    lodash: '_',
   },
 
   /*
@@ -57,7 +58,7 @@ module.exports = {
   */
   watch: ['dist/**/**', 'templates/**/*.php', 'template-parts/**/*.php', 'woocommerce/**/*.php', '*.php'],
 
-  devUrl: 'https://sandbox.test',
+  devUrl: 'https://srw.ddev.site',
 
   translation: {
     domain: 'serbian-addons-for-woocommerce',

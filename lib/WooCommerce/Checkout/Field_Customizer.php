@@ -40,7 +40,7 @@ class Field_Customizer {
      * @return array         Modified billing fields
      */
     public function modify_billing_fields( $fields ) {
-        $enabled_type = WCSRB()->get_options()['enabled_customer_type'];
+        $enabled_type = WCSRB()->get_settings( 'general', 'enabled_customer_types' );
 
         $fields = $this->maybe_remove_fields( $fields );
 
@@ -107,7 +107,7 @@ class Field_Customizer {
         $fields[ "{$type}_city" ]['priority']     = 91;
         $fields[ "{$type}_country" ]['priority']  = 91;
 
-        $fields_to_remove = 'yes' === WCSRB()->get_options()['remove_unneeded_fields'] ? array( 'address_2', 'state' ) : array();
+        $fields_to_remove = WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ? array( 'address_2', 'state' ) : array();
 
         /**
          * Filters the fields that should be removed from the checkout page

@@ -19,8 +19,8 @@ return array(
             'scripts' => array( 'scripts/main.js' ),
         ),
         'admin' => array(
-            'styles'  => array(),
-            'scripts' => array(),
+            'styles'  => array( 'styles/admin.css' ),
+            'scripts' => array( 'scripts/admin.js' ),
         ),
     ),
 );

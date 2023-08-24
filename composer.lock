@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "504da92361f20646ef80e03819425821",
+    "content-hash": "6fc05536c744806aaa8b9a9fb18344fd",
     "packages": [
         {
             "name": "automattic/jetpack-constants",
@@ -140,6 +140,53 @@
                 "source": "https://github.com/oblakstudio/serbian-validators-php/tree/v1.1.1"
             },
             "time": "2022-01-24T10:18:59+00:00"
+        },
+        {
+            "name": "oblak/woocommerce-utils",
+            "version": "1.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/woocommerce-utils.git",
+                "reference": "a7167bdce88f2af256b497bc4ee0f671de17911a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/a7167bdce88f2af256b497bc4ee0f671de17911a",
+                "reference": "a7167bdce88f2af256b497bc4ee0f671de17911a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 8.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+                "phpcompatibility/phpcompatibility-wp": "*",
+                "squizlabs/php_codesniffer": "3.*",
+                "woocommerce/woocommerce-sniffs": "^0.1.2",
+                "wp-coding-standards/wpcs": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Oblak\\WooCommerce\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "This module contains various utilities for WooCommerce.",
+            "support": {
+                "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.8.2"
+            },
+            "time": "2023-08-24T10:29:06+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",

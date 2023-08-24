@@ -8,12 +8,19 @@
 namespace Oblak\WCRS;
 
 use Automattic\Jetpack\Constants;
+use Automattic\WooCommerce\RestApi\Utilities\SingletonTrait;
 use Oblak\WCRS\Core\Installer;
+use Oblak\WooCommerce\Core\Settings_Helper;
 
 /**
  * Main plugin class
  */
 class Serbian_WooCommerce {
+    use SingletonTrait;
+    use Settings_Helper {
+        Settings_Helper::load_settings as load_settings_helper;
+    }
+
 
     /**
      * Serbian WooCommerce version.
@@ -23,13 +30,6 @@ class Serbian_WooCommerce {
     public $version = '0.0.0';
 
     /**
-     * Singleton instance
-     *
-     * @var Serbian_WooCommerce
-     */
-    protected static $instance = null;
-
-    /**
      * Plugin options
      *
      * @var array
@@ -37,34 +37,9 @@ class Serbian_WooCommerce {
     protected $options = array();
 
     /**
-     * Disable cloning
-     */
-    public function __clone() {
-        wc_doing_it_wrong( __FUNCTION__, 'Cloning is disabled', 'WooSync 2.1' );
-    }
-
-    /**
-     * Disable unserializing
-     */
-    public function __wakeup() {
-        wc_doing_it_wrong( __FUNCTION__, 'Unserializing is disabled', 'WooSync 2.1' );
-    }
-
-    /**
-     * Retrieves the singleton instance
-     *
-     * @return Serbian_WooCommerce
-     */
-    public static function get_instance() {
-        return is_null( self::$instance )
-            ? self::$instance = new self()
-            : self::$instance;
-    }
-
-    /**
      * Private constructor
      */
-    private function __construct() {
+    protected function __construct() {
         $this->define_constants();
         $this->load_classes();
         $this->init_hooks();
@@ -138,14 +113,7 @@ class Serbian_WooCommerce {
      * Plugin initialization
      */
     public function init() {
-        $this->options = wp_parse_args(
-            get_option( 'woocommerce_serbian' ),
-            array(
-                'enabled_customer_type'  => 'both',
-                'remove_unneeded_fields' => 'yes',
-                'fix_currency_symbol'    => 'yes',
-            )
-        );
+        $this->settings = $this->load_settings( 'wcsrb', require WCRS_PLUGIN_PATH . 'config/settings.php', false );
 
         new WooCommerce\Checkout\Field_Customizer();
         new WooCommerce\Checkout\Field_Validator();
@@ -158,9 +126,30 @@ class Serbian_WooCommerce {
     }
 
     /**
-     * Get plugin options
+     * Get the settings array from the database
+     *
+     * We use the helper settings loader to load the settings, and then we add the company info
+     * because it is a mix of our settings and WooCommerce settings.
+     *
+     * @param  string $prefix        The settings prefix.
+     * @param  array  $raw_settings  The settings fields.
+     * @param  mixed  $default_value The default value for the settings.
+     * @return array                 The settings array.
      */
-    public function get_options() {
-        return $this->options;
+    protected function load_settings( string $prefix, array $raw_settings, mixed $default_value ): array {
+        $settings = $this->load_settings_helper( $prefix, $raw_settings, $default_value );
+        $accounts = get_option( 'woocommerce_store_bank_accounts', array( 'acct' => array() ) );
+
+        $settings['company'] = array(
+            'logo'      => get_option( 'site_icon', 0 ),
+            'name'      => get_option( 'woocommerce_store_name', '' ),
+            'address'   => get_option( 'woocommerce_store_address', '' ),
+            'address_2' => get_option( 'woocommerce_store_address_2', '' ),
+            'postcode'  => get_option( 'woocommerce_store_postcode', '' ),
+            'city'      => get_option( 'woocommerce_store_city', '' ),
+            'accounts'  => $accounts['acct'],
+        );
+
+        return $settings;
     }
 }

@@ -5,15 +5,16 @@
     }
   },
   "require": {
+    "php": ">=7.4",
     "oblak/serbian-validators": "^1.0",
     "oblak/wp-plugin-installer": "^1",
-    "oblak/wp-asset-loader": "^2.0"
+    "oblak/wp-asset-loader": "^2.0",
+    "oblak/woocommerce-utils": "^1.8"
   },
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
