@@ -42,7 +42,6 @@ class Field_Validator {
      * @param  string $load_address Address type being edited - billing or shipping.
      */
     public function validate_saved_address( $user_id, $load_address ) {
-
         if ( 'shipping' === $load_address ) {
             return;
         }
@@ -87,7 +86,6 @@ class Field_Validator {
         $notices['error'] = $errors;
 
         WC()->session->set( 'wc_notices', $notices );
-
     }
 
     /**
@@ -117,7 +115,5 @@ class Field_Validator {
         if ( ! validatePIB( $data['billing_pib'] ) ) {
             $error->add( 'billing_pib_required', __( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' ) );
         }
-
     }
-
 }

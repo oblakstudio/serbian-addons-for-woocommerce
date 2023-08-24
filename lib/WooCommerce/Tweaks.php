@@ -28,7 +28,6 @@ class Tweaks {
      * @return string                  Transliterated currency symbol
      */
     public function change_currency_symbol( $currency_symbol, $currency ) {
-
         if ( 'no' === WCSRB()->get_options()['fix_currency_symbol'] ) {
             return $currency_symbol;
         }

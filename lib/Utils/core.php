@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 /**
  * Core utility functions
  *
@@ -13,6 +13,6 @@ use Oblak\WCRS\Serbian_WooCommerce;
  *
  * @return Serbian_WooCommerce
  */
-function WCSRB() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+function WCSRB() {
     return Serbian_WooCommerce::get_instance();
 }

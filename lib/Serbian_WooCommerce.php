@@ -20,7 +20,7 @@ class Serbian_WooCommerce {
      *
      * @var string
      */
-    public $version = '1.2.4';
+    public $version = '0.0.0';
 
     /**
      * Singleton instance
@@ -91,7 +91,6 @@ class Serbian_WooCommerce {
         }
 
         new Core\Assets();
-
     }
 
     /**
@@ -164,5 +163,4 @@ class Serbian_WooCommerce {
     public function get_options() {
         return $this->options;
     }
-
 }

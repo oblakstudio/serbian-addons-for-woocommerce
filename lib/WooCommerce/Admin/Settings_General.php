@@ -34,27 +34,16 @@ class Settings_General {
             return $settings;
         }
 
-        /**
-         * Filters the available entity types on the general settings page
-         *
-         * @param array $entity_types Entity types
-         * @since 1.3.0
-         */
-        $enabled_customer_types = apply_filters(
-            'woocommerce_serbian_enabled_customer_types',
-            array_merge(
-                array( 'both' => __( 'Companies and persons', 'serbian-addons-for-woocommerce' ) ),
-                get_entity_types()
-            )
-        );
-
         $type_settings = array(
             array(
                 'title'    => __( 'Enabled customer types', 'serbian-addons-for-woocommerce' ),
                 'id'       => 'woocommerce_serbian[enabled_customer_type]',
                 'type'     => 'select',
                 'desc'     => __( 'Which customer types can shop on the store', 'serbian-addons-for-woocommerce' ),
-                'options'  => $enabled_customer_types,
+                'options'  => array_merge(
+                    array( 'both' => __( 'Companies and persons', 'serbian-addons-for-woocommerce' ) ),
+                    get_entity_types()
+                ),
                 'desc_tip' => true,
                 'default'  => 'both',
             ),
