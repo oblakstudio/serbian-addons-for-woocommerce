@@ -26,7 +26,6 @@ class Installer extends Base_Plugin_Installer {
      * Constructor override
      */
     protected function __construct() {
-
         add_action( 'plugin_action_links_' . WCRS_PLUGIN_BASENAME, array( __CLASS__, 'plugin_action_links' ) );
 
         parent::__construct();
@@ -59,5 +58,4 @@ class Installer extends Base_Plugin_Installer {
 
         return array_merge( $action_links, $links );
     }
-
 }

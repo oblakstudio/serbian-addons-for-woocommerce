@@ -26,7 +26,7 @@ composer.lock
 DOCKER_ENV
 LICENSE
 package.json
-phpcs.xml
+.phpcs.xml
 output.log
 README.md
 tsconfig.json

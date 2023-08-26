@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Serbian Addons for WooCommerce\n"
 "POT-Creation-Date: 2021-12-18 22:56+0100\n"
-"PO-Revision-Date: 2023-08-26 12:03+0000\n"
+"PO-Revision-Date: 2023-08-26 11:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: Српски језик\n"
 "Language: sr_RS\n"
@@ -71,7 +71,7 @@ msgctxt "Address display"
 msgid "Tax Identification Number"
 msgstr "ПИБ"
 
-#: config/pg-slip-settings.php:159
+#: config/pg-slip-settings.php:154
 msgid "Advanced Settings"
 msgstr "Напредна подешавања"
 
@@ -130,28 +130,15 @@ msgstr ""
 "Динарска валута ће се подразумевано приказати на ћирилици. Активирање ове "
 "опције ће пресловити валуту"
 
-#. translators: %1$s line break.
-#: config/pg-slip-settings.php:90
-msgid ""
-"Choosing the model 97 will automatically set the payment reference.%1$sWe "
-"recommend using model 97 because payment processor guarantees verbatim "
-"reference transfer only if it is done via model 97 "
-msgstr ""
-"Уколико одаберете Модел 97, позив на број ће бити подешен аутоматски и не "
-"може бити промењен.%1$sПрепоручујемо коришћење модела 97 с обзиром на то да "
-"пружалац платних услуга у складу са прописима одговара за пренети садржај "
-"позива на број одобрења само ако је позив на број уписан у складу са моделом "
-"97"
-
 #: config/pg-slip-settings.php:50
 msgid "Classic"
 msgstr "Класични"
 
-#: config/pg-slip-settings.php:133
+#: config/pg-slip-settings.php:128
 msgid "Color of the corner dots on the QR code"
 msgstr "Боја тачака у углу QR кôда"
 
-#: config/pg-slip-settings.php:125
+#: config/pg-slip-settings.php:120
 msgid "Color of the dots on the QR code"
 msgstr "Боја тачака QR кôда"
 
@@ -186,7 +173,7 @@ msgstr "Матични број фирме није валидан"
 msgid "Company Tax Number is invalid"
 msgstr "ПИБ није валидан"
 
-#: config/pg-slip-settings.php:130
+#: config/pg-slip-settings.php:125
 msgid "Corner dot color"
 msgstr "Боја тачака у угловима"
 
@@ -202,7 +189,7 @@ msgstr "Идентификатор купца"
 msgid "Customer type"
 msgstr "Купујем као"
 
-#: config/pg-slip-settings.php:164
+#: config/pg-slip-settings.php:159
 msgid "Debug log"
 msgstr "Лог за дебаговање"
 
@@ -218,11 +205,11 @@ msgstr "Опис"
 msgid "Direct"
 msgstr "Директна"
 
-#: config/pg-slip-settings.php:122
+#: config/pg-slip-settings.php:117
 msgid "Dot color"
 msgstr "Боја тачака"
 
-#: config/pg-slip-settings.php:166
+#: config/pg-slip-settings.php:161
 msgid "Enable logging"
 msgstr "Омогући логовање"
 
@@ -288,12 +275,12 @@ msgstr "https://oblak.studio"
 msgid "https://oblak.studio/open-source/srpski-woocommerce"
 msgstr "https://oblak.studio/open-source/srpski-woocommerce"
 
-#: config/pg-slip-settings.php:142
+#: config/pg-slip-settings.php:137
 msgid "Image that will be shown on the QR code. "
 msgstr "Слика која ће бити приказана у средини QR кôда"
 
 #. translators: %1$s log file path, %2$s line break.
-#: config/pg-slip-settings.php:170
+#: config/pg-slip-settings.php:165
 msgid ""
 "Log Payment Slip events, inside %1$s %2$sNote: this may log personal "
 "information. We recommend using this for debugging purposes only and "
@@ -359,7 +346,7 @@ msgstr "Идентификатор наруџбине"
 msgid "Order number"
 msgstr "Број наруџбине"
 
-#: config/pg-slip-settings.php:105
+#: config/pg-slip-settings.php:100
 msgid "Order payment"
 msgstr "Плаћање наруџбине"
 
@@ -391,11 +378,11 @@ msgstr "Модел плаћања"
 msgid "Payment model for the payment reference"
 msgstr "Модел за позив на број"
 
-#: config/pg-slip-settings.php:103 woocommerce/checkout/payment-slip.php:57
+#: config/pg-slip-settings.php:98 woocommerce/checkout/payment-slip.php:57
 msgid "Payment purpose"
 msgstr "Сврха уплате"
 
-#: config/pg-slip-settings.php:96 woocommerce/checkout/payment-slip.php:166
+#: config/pg-slip-settings.php:91 woocommerce/checkout/payment-slip.php:166
 msgid "Payment reference"
 msgstr "Позив на број"
 
@@ -417,7 +404,7 @@ msgstr "Поштанска штедионица"
 msgid "ProCredit"
 msgstr "ПроКредит"
 
-#: config/pg-slip-settings.php:109
+#: config/pg-slip-settings.php:104
 msgid "QR Code"
 msgstr "QR кôд"
 
@@ -476,23 +463,23 @@ msgstr "Плаћање општом уплатницом није подржан
 msgid "Settings"
 msgstr "Подешавања"
 
-#: config/pg-slip-settings.php:111
+#: config/pg-slip-settings.php:106
 msgid "Settings for NBS IPS QR Code"
 msgstr "Подешавања за НБС ИПС QR кôд"
 
-#: config/pg-slip-settings.php:138
+#: config/pg-slip-settings.php:133
 msgid "Show image"
 msgstr "Прикажи слику"
 
-#: config/pg-slip-settings.php:140
+#: config/pg-slip-settings.php:135
 msgid "Show image on QR code"
 msgstr "Прикажи слику на QR кôду"
 
-#: config/pg-slip-settings.php:115
+#: config/pg-slip-settings.php:110
 msgid "Show QR code"
 msgstr "Прикажи QR кôд"
 
-#: config/pg-slip-settings.php:117
+#: config/pg-slip-settings.php:112
 msgid "Show QR code on the payment slip"
 msgstr "Приказује QR кôда на општој уплатници"
 
@@ -567,6 +554,6 @@ msgstr ""
 "купца"
 
 #. translators: %1$s opening link tag, %2$s Customizer title, %3$s closing link tag, %3$s current image HTML.
-#: config/pg-slip-settings.php:145
+#: config/pg-slip-settings.php:140
 msgid "You can set it in %1$s%2$s%3$s. Current image is: %4$s"
 msgstr "Слику можете подесити овде: %1$s%2$s%3$s. Тренутна слика: %4$s"

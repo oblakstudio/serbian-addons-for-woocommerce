@@ -1,31 +1,33 @@
 {
   "autoload": {
     "psr-4": {
-        "Oblak\\WCRS\\": "lib/"
-    }
+      "Oblak\\WCRS\\": "lib"
+    },
+    "files": [
+      "lib/Utils/wcsrb-core.php",
+      "lib/Utils/wcsrb-helpers.php",
+      "lib/Utils/wcsrb-payment-slip.php",
+      "lib/Utils/wcsrb-settings.php"
+    ]
   },
   "require": {
-      "oblak/serbian-validators": "^1.0",
-      "oblak/wp-plugin-installer": "^1",
-    "oblak/wp-asset-loader": "^2.0"
+    "php": ">=7.4",
+    "oblak/serbian-validators": "^1.0",
+    "oblak/wp-plugin-installer": "^1",
+    "oblak/wp-asset-loader": "^2.0",
+    "oblak/woocommerce-utils": "^1.8"
   },
   "require-dev": {
-      "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-      "wp-coding-standards/wpcs": "*",
-      "phpcompatibility/phpcompatibility-wp": "*",
-      "woocommerce/woocommerce-sniffs": "^0.1.2"
+    "oblak/wordpress-coding-standard": "^1.0"
   },
   "scripts": {
-      "install-codestandards": [
-          "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
-      ],
-      "post-install-cmd": [
-          "@install-codestandards"
-      ]
+    "generate-pot": [
+      "cd ~/projects/srw && ddev exec wp i18n make-pot wp-content/plugins/serbian-addons-for-woocommerce wp-content/plugins/serbian-addons-for-woocommerce/languages/serbian-addons-for-woocommerce.pot"
+    ]
   },
   "config": {
-      "allow-plugins": {
-          "dealerdirect/phpcodesniffer-composer-installer": true
-      }
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }

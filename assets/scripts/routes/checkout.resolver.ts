@@ -8,7 +8,6 @@ export default class Checkout {
   }
 
   public finalize(): void {
-    console.log('checkout');
     this.billingField.run();
   }
 }

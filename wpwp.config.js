@@ -18,6 +18,9 @@ module.exports = {
       './scripts/main.ts', // Main Javascript
       './styles/main.scss', // Main CSS
     ],
+    qrcode: [
+      './scripts/qrcode.ts', // QR Code Javascript
+    ],
   },
   /*
   File name format to use for production build
@@ -35,6 +38,7 @@ module.exports = {
   */
   externals: {
     jquery: 'jQuery',
+    lodash: '_',
   },
 
   /*
@@ -55,9 +59,15 @@ module.exports = {
   /*
   Files to watch
   */
-  watch: ['dist/**/**', 'templates/**/*.php', 'template-parts/**/*.php', 'woocommerce/**/*.php', '*.php'],
+  watch: [
+    'dist/**/**',
+    'templates/**/*.php',
+    'template-parts/**/*.php',
+    'woocommerce/**/*.php',
+    '*.php',
+  ],
 
-  devUrl: 'https://sandbox.test',
+  devUrl: 'https://srw.ddev.site',
 
   translation: {
     domain: 'serbian-addons-for-woocommerce',

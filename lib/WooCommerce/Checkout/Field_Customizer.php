@@ -19,11 +19,11 @@ class Field_Customizer {
      * Class constructor
      */
     public function __construct() {
-
         /**
          * Filters the priority of the checkout fields filter
          *
-         * @param int $filter_priority Priority of the checkout fields filter
+         * @param  int $filter_priority Priority of the checkout fields filter
+         * @return int                  Modified priority
          * @since 2.2.0
          */
         $filter_priority = apply_filters( 'woocommerce_serbian_checkout_fields_priority', 100 );
@@ -40,7 +40,7 @@ class Field_Customizer {
      * @return array         Modified billing fields
      */
     public function modify_billing_fields( $fields ) {
-        $enabled_type = WCSRB()->get_options()['enabled_customer_type'];
+        $enabled_type = WCSRB()->get_settings( 'general', 'enabled_customer_types' );
 
         $fields = $this->maybe_remove_fields( $fields );
 
@@ -103,17 +103,17 @@ class Field_Customizer {
      * @return array          Modified fields
      */
     private function maybe_remove_fields( $fields, $type = 'billing' ) {
-
         $fields[ "{$type}_postcode" ]['priority'] = 81;
         $fields[ "{$type}_city" ]['priority']     = 91;
         $fields[ "{$type}_country" ]['priority']  = 91;
 
-        $fields_to_remove = 'yes' === WCSRB()->get_options()['remove_unneeded_fields'] ? array( 'address_2', 'state' ) : array();
+        $fields_to_remove = WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ? array( 'address_2', 'state' ) : array();
 
         /**
          * Filters the fields that should be removed from the checkout page
          *
-         * @param array $fields_to_remove Fields to remove
+         * @param  array $fields_to_remove Fields to remove
+         * @return array
          * @since 1.3.0
          */
         $fields_to_remove = apply_filters( 'woocommerce_serbian_checkout_fields_to_remove', $fields_to_remove );
@@ -136,7 +136,6 @@ class Field_Customizer {
      * @since 1.3.0
      */
     private function add_billing_type_field( $enabled_type ) {
-
         $billing_type = array(
             'type'     => 'radio',
             'label'    => __( 'Customer type', 'serbian-addons-for-woocommerce' ),
@@ -167,7 +166,6 @@ class Field_Customizer {
      * @return array                Company fields data.
      */
     private function maybe_add_company_fields( $enabled_type ) {
-
         if ( ! in_array( $enabled_type, array( 'both', 'company' ), true ) ) {
             return array();
         }

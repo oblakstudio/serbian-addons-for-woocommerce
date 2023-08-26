@@ -19,6 +19,7 @@
         "camelcase": "^6.2.0",
         "core-js": "^3.0.0",
         "jquery": "3.5.1",
+        "qr-code-styling": "^1.6.0-rc.1",
         "sass-mq": "^5.0.1"
     },
     "devDependencies": {
@@ -33,6 +34,7 @@
         "@soda/friendly-errors-webpack-plugin": "^1.8.0",
         "@types/awesome-notifications": "^3.1.0",
         "@types/jquery": "^3.5.5",
+        "@types/lodash": "^4.14.197",
         "@typescript-eslint/eslint-plugin": "^4.26.0",
         "@typescript-eslint/parser": "^4.26.0",
         "autoprefixer": "^10.2.6",
@@ -83,5 +85,5 @@
     "engines": {
         "node": ">=12.0.0"
     },
-    "packageManager": "yarn@3.1.1"
+    "packageManager": "yarn@3.6.1"
 }

@@ -20,7 +20,16 @@ class Field_Display {
      * Class constructor
      */
     public function __construct() {
-        add_filter( 'woocommerce_localisation_address_formats', array( $this, 'modify_address_format' ), PHP_INT_MAX, 1 );
+        /**
+         * Filters the priority of the localization address format filter
+         *
+         * @param  int $filter_priority Priority of the localization address format filter
+         * @return int                  Modified priority
+         * @since 2.2.0
+         */
+        $filter_priority = apply_filters( 'woocommerce_serbian_localization_address_priority', 100 );
+
+        add_filter( 'woocommerce_localisation_address_formats', array( $this, 'modify_address_format' ), $filter_priority, 1 );
         add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'modify_address_replacements' ), 99, 2 );
         add_filter( 'woocommerce_my_account_my_address_formatted_address', array( $this, 'modify_account_formatted_address' ), 99, 3 );
         add_filter( 'woocommerce_order_formatted_billing_address', array( $this, 'modify_order_formatted_address' ), 99, 2 );
@@ -36,6 +45,16 @@ class Field_Display {
      */
     public function modify_address_format( $formats ) {
         $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
+
+        if ( WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
+            $formats['RS'] = strtr(
+                $formats['RS'],
+                array(
+					'{state}'     => "\n",
+					'{address_2}' => "\n",
+				)
+            );
+        }
 
         return $formats;
     }
@@ -115,7 +134,6 @@ class Field_Display {
      * @return array                  Modified billing address data array.
      */
     private function address_modifier( $address, $type, $company_number, $tax_number ) {
-
         $address['type'] = $type;
         $address['mb']   = "\n";
         $address['pib']  = "\n";
@@ -124,19 +142,19 @@ class Field_Display {
             return $address;
         }
 
-        $address['first_name']    = "\n";
-            $address['last_name'] = "\n";
+        $address['first_name'] = "\n";
+        $address['last_name']  = "\n";
 
-            $address['mb']  = sprintf(
-                '%s: %s',
-                _x( 'Company Number', 'Address display', 'serbian-addons-for-woocommerce' ),
-                $company_number
-            );
-            $address['pib'] = sprintf(
-                '%s: %s',
-                _x( 'Tax Identification Number', 'Address display', 'serbian-addons-for-woocommerce' ),
-                $tax_number
-            );
+        $address['mb']  = sprintf(
+            '%s: %s',
+            _x( 'Company Number', 'Address display', 'serbian-addons-for-woocommerce' ),
+            $company_number
+        );
+        $address['pib'] = sprintf(
+            '%s: %s',
+            _x( 'Tax Identification Number', 'Address display', 'serbian-addons-for-woocommerce' ),
+            $tax_number
+        );
 
         return $address;
     }
@@ -149,10 +167,8 @@ class Field_Display {
      * @return string          Modified Buyer name
      */
     public function modify_order_buyer_name( $buyer, $order ) {
-
         return ( 'RS' === $order->get_billing_country() && 'company' === $order->get_meta( '_billing_type', true ) )
             ? $order->get_billing_company()
             : $buyer;
-
     }
 }

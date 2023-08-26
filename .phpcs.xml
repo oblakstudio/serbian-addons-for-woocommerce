@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Theme">
+	<config name="minimum_supported_wp_version" value="6.0"/>
+  <config name="testVersion" value="7.3-"/>
+
+  <rule ref="Oblak"/>
+  <rule ref="Oblak-WooCommerce"/>
+  <rule ref="Oblak-Advanced"/>
+
+  <rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" extend="true">
+				<element value="serbian-addons-for-woocommerce"/>
+				<element value="woocommerce"/>
+			</property>
+		</properties>
+	</rule>
+
+  <file>serbian-addons-for-woocommerce.php</file>
+  <file>config/</file>
+  <file>lib/</file>
+  <file>woocommerce/</file>
+</ruleset>
