@@ -18,6 +18,9 @@ module.exports = {
       './scripts/main.ts', // Main Javascript
       './styles/main.scss', // Main CSS
     ],
+    qrcode: [
+      './scripts/qrcode.ts', // QR Code Javascript
+    ],
   },
   /*
   File name format to use for production build
@@ -56,7 +59,13 @@ module.exports = {
   /*
   Files to watch
   */
-  watch: ['dist/**/**', 'templates/**/*.php', 'template-parts/**/*.php', 'woocommerce/**/*.php', '*.php'],
+  watch: [
+    'dist/**/**',
+    'templates/**/*.php',
+    'template-parts/**/*.php',
+    'woocommerce/**/*.php',
+    '*.php',
+  ],
 
   devUrl: 'https://srw.ddev.site',
 

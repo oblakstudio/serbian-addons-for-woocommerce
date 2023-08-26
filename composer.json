@@ -1,8 +1,14 @@
 {
   "autoload": {
     "psr-4": {
-      "Oblak\\WCRS\\": "lib/"
-    }
+      "Oblak\\WCRS\\": "lib"
+    },
+    "files": [
+      "lib/Utils/wcsrb-core.php",
+      "lib/Utils/wcsrb-helpers.php",
+      "lib/Utils/wcsrb-payment-slip.php",
+      "lib/Utils/wcsrb-settings.php"
+    ]
   },
   "require": {
     "php": ">=7.4",
@@ -14,7 +20,11 @@
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.0"
   },
-  "scripts": {},
+  "scripts": {
+    "generate-pot": [
+      "cd ~/projects/srw && ddev exec wp i18n make-pot wp-content/plugins/serbian-addons-for-woocommerce wp-content/plugins/serbian-addons-for-woocommerce/languages/serbian-addons-for-woocommerce.pot"
+    ]
+  },
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true

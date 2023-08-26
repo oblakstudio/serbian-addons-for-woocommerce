@@ -4,7 +4,7 @@
  * Plugin URI:           https://oblak.studio/open-source/srpski-woocommerce
  * Description:          Various addons and tweaks that make WooCommerce compatible with Serbian bureaucracy.
  * Version:              0.0.0
- * Requires PHP:         7.3
+ * Requires PHP:         7.4
  * Author:               Oblak Studio
  * Author URI:           https://oblak.studio
  * Tested up to:         6.3
@@ -18,20 +18,8 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-
 defined( 'WCRS_PLUGIN_FILE' ) || define( 'WCRS_PLUGIN_FILE', __FILE__ );
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/lib/Utils/core.php';
-require __DIR__ . '/lib/Utils/helpers.php';
-
-add_action(
-    'before_woocommerce_init',
-    function () {
-		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
-		}
-	}
-);
 
 add_action( 'woocommerce_loaded', 'WCSRB' );

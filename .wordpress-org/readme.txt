@@ -30,6 +30,24 @@ Secondary objective is to make life easier for owners and administrators of Serb
 
 *WooCommerce logo used with permission*
 
+### Payment Slip Gateway
+
+Payment Slip Gateway is a payment gateway that allows you to generate a standardized payment instruction for your customers.
+
+**FEATURES:**
+* Fully customizable, and can be used to generate payment instructions for any bank in Serbia.
+* Standardized with latest WooCommerce features, so it can be used with any WooCommerce theme.
+* Compatible with multi-currency plugins, so it will work only for Serbian dinar.
+* Customizable payment reference - with optional model 97 support
+* Bank account number validation
+* Customizable payment slip template
+* NBS IPS QR Code display
+* Payment instructions on the checkout thank you page
+* Payment instructions in order confirmation e-mail
+* Payment instructions in order details page
+* Customizable QR code logo
+* Color customization for the QR code
+
 == Installation ==
 
 1. Upload serbian-addons-for-woocommerce.zip to plugins via WordPress admin panel, or upload unzipped folder to your plugins folder
@@ -57,6 +75,12 @@ Yes, you can
 == Changelog ==
 
 You can view the full changelog on [Github](https://github.com/oblakstudio/serbian-addons-for-woocommerce)
+
+= 2.0.0 =
+
+* Added Serbian Payment Slip Payment Gateway
+* Added NBS IPS QR Code display with customization
+* Modified and tweaked existing features
 
 = 1.0.0 =
 Initial Release

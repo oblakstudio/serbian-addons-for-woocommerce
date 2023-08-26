@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fc05536c744806aaa8b9a9fb18344fd",
+    "content-hash": "62b0a89bc086b11f88fe6411139425a9",
     "packages": [
         {
             "name": "automattic/jetpack-constants",
@@ -143,27 +143,23 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.8.2",
+            "version": "1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "a7167bdce88f2af256b497bc4ee0f671de17911a"
+                "reference": "d8e1de2182556f0a6d08b1913627e15bb4ae4c1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/a7167bdce88f2af256b497bc4ee0f671de17911a",
-                "reference": "a7167bdce88f2af256b497bc4ee0f671de17911a",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/d8e1de2182556f0a6d08b1913627e15bb4ae4c1c",
+                "reference": "d8e1de2182556f0a6d08b1913627e15bb4ae4c1c",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 8.0"
+                "php": ">= 7.4"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "squizlabs/php_codesniffer": "3.*",
-                "woocommerce/woocommerce-sniffs": "^0.1.2",
-                "wp-coding-standards/wpcs": "*"
+                "oblak/wordpress-coding-standard": "^1.0"
             },
             "type": "library",
             "autoload": {
@@ -184,9 +180,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.8.2"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.9.2"
             },
-            "time": "2023-08-24T10:29:06+00:00"
+            "time": "2023-08-26T12:40:55+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",
@@ -886,7 +882,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=7.4"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }

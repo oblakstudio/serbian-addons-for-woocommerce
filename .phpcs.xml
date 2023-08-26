@@ -19,4 +19,5 @@
   <file>serbian-addons-for-woocommerce.php</file>
   <file>config/</file>
   <file>lib/</file>
+  <file>woocommerce/</file>
 </ruleset>

@@ -1,0 +1,156 @@
+.woocommerce-account,
+.woocommerce-email {
+  .wcsrb-payment-slip {
+    padding: 0;
+    margin: 0 0 20px;
+
+    .slip-section {
+      vertical-align: top;
+      padding: 0 10px 0 0;
+      width: 40%;
+
+      &.last {
+        padding: 0 0 0 10px;
+        width: 60%;
+      }
+    }
+
+    .spacer {
+      width: 15px;
+    }
+
+    .qr-code-wrap {
+      width: 50%;
+    }
+  }
+}
+
+.woocommerce-email {
+  .wcsrb-payment-slip {
+    font-size: 13px !important;
+
+    .slip-section {
+      padding: 0 5px 0 0 !important;
+
+      .slip-section-inner {
+        margin: 0 !important;
+        border-spacing: 0;
+        width: 100%;
+      }
+
+      &.last {
+        padding: 0 0 0 5px !important;
+      }
+    }
+
+    .block-info {
+      padding: 5px 0 0 !important;
+    }
+
+    .block-content.large {
+      height: auto !important;
+    }
+
+    .spacer {
+      width: 5px;
+      padding: 0 !important;
+    }
+
+    .qr-code {
+      display: none;
+    }
+  }
+}
+
+.wcsrb-payment-slip {
+  width: 100%;
+  max-width: 1024px;
+  background-color: #fff;
+  padding: 20px 0;
+  margin: 0 20px auto;
+
+  &.classic {
+    border: 2px solid #000;
+
+    .block-content {
+      border: 1px solid #000;
+    }
+  }
+
+  &.modern {
+    border-top: 2px dotted #666;
+    border-bottom: 2px dotted #666;
+
+    .block-info {
+      .block-label {
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-size: 11px;
+      }
+    }
+
+    .block-content {
+      background-color: #f1f1f1;
+      border: 1px solid #f0f0f0;
+    }
+  }
+
+  tr,
+  td {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .slip-section {
+    padding: 0 30px;
+    width: 50%;
+  }
+
+  .spacer {
+    width: 30px;
+  }
+
+  tr:not(.top) {
+    .block-info {
+      padding-top: 10px;
+    }
+  }
+
+  .block-info {
+    padding-left: 5px;
+    vertical-align: bottom;
+
+    .block-label {
+      font-weight: 400;
+      font-size: 13px;
+      color: #000 !important;
+    }
+
+    &.code,
+    &.currency {
+      width: 20%;
+    }
+  }
+
+  .block-content {
+    padding: 5px;
+    color: #000;
+    font-weight: 700;
+    vertical-align: middle;
+
+    &.large {
+      height: 95px;
+      line-height: 1.3;
+    }
+  }
+
+  .qr-code-wrap {
+    width: 40%;
+  }
+
+  .qr-code-desc {
+    padding-left: 20px;
+    vertical-align: middle;
+  }
+}

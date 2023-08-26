@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 PROJECT_NAME="serbian-addons-for-woocommerce"
 NEXT_VERSION=$1
@@ -13,5 +13,5 @@ mkdir /tmp/$PROJECT_NAME
 cp -ar config dist languages lib vendor ./*.php loco.xml /tmp/$PROJECT_NAME 2>/dev/null
 cp ./.wordpress-org/readme.txt /tmp/$PROJECT_NAME 2>/dev/null
 
-cd /tmp
+cd /tmp || exit
 zip -qr /tmp/release.zip ./*.php $PROJECT_NAME

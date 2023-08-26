@@ -46,6 +46,16 @@ class Field_Display {
     public function modify_address_format( $formats ) {
         $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
 
+        if ( WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
+            $formats['RS'] = strtr(
+                $formats['RS'],
+                array(
+					'{state}'     => "\n",
+					'{address_2}' => "\n",
+				)
+            );
+        }
+
         return $formats;
     }
 

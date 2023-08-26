@@ -25,30 +25,10 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
             include WCRS_PLUGIN_PATH . 'config/settings.php'
 		);
 
-        add_filter( 'admin_body_class', array( $this, 'add_body_class' ) );
         add_filter( 'woocommerce_get_settings_general', array( $this, 'modify_general_settings' ), PHP_INT_MAX, 2 );
         add_filter( 'woocommerce_formatted_settings_wcsrb', array( $this, 'modify_company_settings' ), 99, 2 );
         add_action( 'woocommerce_admin_field_repeater_text', array( $this, 'output_bank_accounts_field' ), 10, 1 );
         add_filter( 'woocommerce_admin_settings_sanitize_option_woocommerce_store_bank_accounts', array( $this, 'sanitize_bank_accounts_field' ), 99, 3 );
-    }
-
-    /**
-     * Adds the body class to the settings page
-     *
-     * @param string $classes  Body classes.
-     * @return string          Modified body classes
-     */
-    public function add_body_class( $classes ) {
-        global $pagenow;
-
-        $tab     = wc_clean( wp_unslash( $_GET['tab'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-        $section = wc_clean( wp_unslash( $_GET['section'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-        if ( 'admin.php' !== $pagenow || 'wcsrb' !== $tab || 'company' !== $section ) {
-            return $classes;
-        }
-
-        return $classes . ' wcsrb-company-settings';
     }
 
     /**
@@ -75,7 +55,7 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
                         sprintf(
                             '<a href="%s">%s</a>',
                             admin_url( 'admin.php?page=wc-settings&tab=wcsrb&section=company' ),
-                            __( 'here', 'woocommerce' )
+                            __( 'here', 'serbian-addons-for-woocommerce' )
                         )
                     ),
 				),
