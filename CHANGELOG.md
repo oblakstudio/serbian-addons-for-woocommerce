@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.0.0...v3.0.1) (2023-08-26)
+
+
+### Bug Fixes
+
+* Fixed admin options ([d29842e](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/d29842e69d2cdc90f4b14ad611d65538a66a702a))
+
 # [3.0.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.2.0...v3.0.0) (2023-08-26)
 
 
