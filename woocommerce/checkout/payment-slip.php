@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package Serbian Addons for WooCommerce
  * @subpackage Templates
- * @version 2.3.0
+ * @version 2.0.0
  *
  * @var array  $company   Company data.
  * @var string $model     Payment model.
