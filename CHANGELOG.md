@@ -1,3 +1,21 @@
+# [3.0.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.2.0...v3.0.0) (2023-08-26)
+
+
+### Bug Fixes
+
+* Implemented advanced plugin settings ([d21636e](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/d21636ea5cbdd0d71f4495466790d4ddf3889d0e))
+* Release fixes ([45e05c3](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/45e05c3eaa9dedeadf8304aa3bf07b4f722055b0))
+
+
+### Features
+
+* Fully implemented Payment Slip Gateway ([ed5a616](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/ed5a61638ab25d89f161947ddc6d064f9e35b164))
+
+
+### BREAKING CHANGES
+
+* New settings api
+
 # [2.2.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v2.1.0...v2.2.0) (2023-07-18)
 
 
