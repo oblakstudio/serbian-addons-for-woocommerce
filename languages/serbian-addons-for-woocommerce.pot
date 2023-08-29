@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Serbian Addons for WooCommerce 0.0.0\n"
+"Project-Id-Version: Serbian Addons for WooCommerce 3.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/serbian-addons-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-26T12:01:13+00:00\n"
+"POT-Creation-Date: 2023-08-27T08:23:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: serbian-addons-for-woocommerce\n"
@@ -97,7 +97,7 @@ msgid "You can add your bank account details in the %1$sCompany settings%2$s ."
 msgstr ""
 
 #: config/pg-slip-settings.php:70
-#: woocommerce/checkout/payment-slip.php:97
+#: woocommerce/checkout/payment-slip.php:95
 msgid "Payment code"
 msgstr ""
 
@@ -123,12 +123,12 @@ msgid "Choosing the model 97 will automatically set the payment reference.%1$sWe
 msgstr ""
 
 #: config/pg-slip-settings.php:96
-#: woocommerce/checkout/payment-slip.php:166
+#: woocommerce/checkout/payment-slip.php:164
 msgid "Payment reference"
 msgstr ""
 
 #: config/pg-slip-settings.php:103
-#: woocommerce/checkout/payment-slip.php:57
+#: woocommerce/checkout/payment-slip.php:55
 msgid "Payment purpose"
 msgstr ""
 
@@ -509,30 +509,30 @@ msgctxt "Address display"
 msgid "Tax Identification Number"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:28
+#: woocommerce/checkout/payment-slip.php:26
 msgid "Payment instructions"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:41
+#: woocommerce/checkout/payment-slip.php:39
 msgid "Sender"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:72
+#: woocommerce/checkout/payment-slip.php:70
 msgid "Reciever"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:113
+#: woocommerce/checkout/payment-slip.php:111
 msgid "Amount"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:143
+#: woocommerce/checkout/payment-slip.php:141
 msgid "Account payable"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:158
+#: woocommerce/checkout/payment-slip.php:156
 msgid "Model"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:198
+#: woocommerce/checkout/payment-slip.php:196
 msgid "Scan the QR code with your mobile banking app to make an instant payment"
 msgstr ""
