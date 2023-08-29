@@ -7,6 +7,7 @@ vendor
 studio.json
 yarn-error.log
 *.zip
+languages/*backup*
 
 .yarn/*
 !.yarn/cache
