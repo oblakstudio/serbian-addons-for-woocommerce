@@ -35,7 +35,7 @@ class Assets {
                 return is_checkout() && ! is_wc_endpoint_url();
             case 'qrcode':
                 global $wp;
-                $order = wc_get_order( $wp->query_vars['order-received'] );
+                $order = wc_get_order( $wp->query_vars['order-received'] ?? 0 );
                 return is_checkout() &&
                     is_wc_endpoint_url( 'order-received' ) &&
                     $order &&
