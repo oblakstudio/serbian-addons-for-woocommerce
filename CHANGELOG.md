@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.0.1...v3.1.0) (2023-08-29)
+
+
+### Bug Fixes
+
+* Fixed notice on empty orders ([e612451](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/e6124515990c5aaa831e1071c45fc695263cd86d))
+
+
+### Features
+
+* Upgraded woocommerce-utils to 1.11 ([448d2dc](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/448d2dc33b11b7a67457a904569dd91b768b140a))
+
 ## [3.0.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.0.0...v3.0.1) (2023-08-26)
 
 
