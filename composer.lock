@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62b0a89bc086b11f88fe6411139425a9",
+    "content-hash": "257ab9d560b909730c4bc6ab3b0cb59f",
     "packages": [
         {
             "name": "automattic/jetpack-constants",
@@ -143,16 +143,16 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.9.3",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "f5deec6763b8b52fd86040592e28ebdca919d6f4"
+                "reference": "5ca10db7bc9c2543d6fc6876228df52ba30db4a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/f5deec6763b8b52fd86040592e28ebdca919d6f4",
-                "reference": "f5deec6763b8b52fd86040592e28ebdca919d6f4",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/5ca10db7bc9c2543d6fc6876228df52ba30db4a7",
+                "reference": "5ca10db7bc9c2543d6fc6876228df52ba30db4a7",
                 "shasum": ""
             },
             "require": {
@@ -180,9 +180,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.9.3"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.11.0"
             },
-            "time": "2023-08-26T18:26:10+00:00"
+            "time": "2023-08-29T15:04:22+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",

@@ -34,7 +34,8 @@ Secondary objective is to make life easier for owners and administrators of Serb
 
 Payment Slip Gateway is a payment gateway that allows you to generate a standardized payment instruction for your customers.
 
-**FEATURES:**
+**FEATURES**
+
 * Fully customizable, and can be used to generate payment instructions for any bank in Serbia.
 * Standardized with latest WooCommerce features, so it can be used with any WooCommerce theme.
 * Compatible with multi-currency plugins, so it will work only for Serbian dinar.
