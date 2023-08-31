@@ -334,7 +334,11 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
      * @param  WC_Email $email         Email object.
      */
     public function add_payment_slip_to_email( $order, $sent_to_admin, $plain_text, $email ) {
-        if ( 'customer_on_hold_order' !== $email->id || $sent_to_admin || $plain_text ) {
+        if (
+            'customer_on_hold_order' !== $email->id ||
+            $sent_to_admin || $plain_text ||
+            'wcsrb_payment_slip' !== $email->object->get_payment_method()
+        ) {
             return;
         }
 
