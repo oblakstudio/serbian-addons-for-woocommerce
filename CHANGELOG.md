@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.0...v3.1.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* Fixed conditional for email template ([c6aad4a](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/c6aad4a3d482a9568e2ab0540dfabc83b949efc5))
+
 # [3.1.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.0.1...v3.1.0) (2023-08-29)
 
 
