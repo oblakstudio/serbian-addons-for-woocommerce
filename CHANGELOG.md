@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.1...v3.1.2) (2023-09-26)
+
+
+### Bug Fixes
+
+* Fixed settings saving and loading ([e8243bc](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/e8243bcd9af7f7434ba214fb762fc07c08093ba0))
+
 ## [3.1.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.0...v3.1.1) (2023-08-31)
 
 
