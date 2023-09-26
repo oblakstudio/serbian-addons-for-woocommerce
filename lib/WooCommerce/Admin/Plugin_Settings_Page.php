@@ -231,6 +231,6 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
 	 * @param  mixed $raw_value Raw value.
 	 */
     public function sanitize_bank_accounts_field( $value, $option, $raw_value ) {
-        return array_filter( $raw_value, '\Oblak\validateBankAccount' );
+        return array_filter( $raw_value ?? array(), '\Oblak\validateBankAccount' );
     }
 }

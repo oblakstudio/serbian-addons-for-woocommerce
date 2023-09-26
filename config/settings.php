@@ -68,6 +68,7 @@ return array(
                 'placeholder' => __( 'Enter bank account', 'serbian-addons-for-woocommerce' ),
                 'id'          => 'woocommerce_store_bank_accounts',
                 'field_name'  => 'woocommerce_store_bank_accounts[acct][]',
+                'default'     => array(),
             ),
         ),
     ),
