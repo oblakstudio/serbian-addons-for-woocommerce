@@ -175,7 +175,7 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
             </th>
             <td class="bank-accounts forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
                 <div id="<?php echo esc_attr( $value['id'] ); ?>">
-                <?php foreach ( $option_value['acct'] as $row_value ) : ?>
+                <?php foreach ( $option_value['acct'] ?? array() as $row_value ) : ?>
                     <div class="repeater-row row">
                         <input
                             name="<?php echo esc_attr( $value['field_name'] ); ?>"

@@ -125,6 +125,7 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
      * Class constructor.
      */
     public function __construct() {
+        $icon = '';
         /**
          * Filters the payment slip icon.
          *
@@ -133,7 +134,7 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
          *
          * @since 2.3.0
          */
-        $this->icon               = apply_filters( 'wcsrb_payment_slip_icon', '' );
+        $this->icon               = apply_filters( 'wcsrb_payment_slip_icon', $icon );
         $this->id                 = 'wcsrb_payment_slip';
         $this->title              = __( 'Payment Slip', 'serbian-addons-for-woocommerce' );
         $this->method_title       = __( 'Payment Slip', 'serbian-addons-for-woocommerce' );
@@ -265,6 +266,8 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
         $order->add_meta_data( '_payment_slip_data', $this->get_slip_data( $order ), true );
         $order->save();
 
+        $default_order_status = 'on-hold';
+
         /**
          * Filters the payment slip payment order status.
          *
@@ -274,7 +277,7 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
          *
          * @since 2.3.0
          */
-        $order_status = apply_filters( 'wcsrb_payment_slip_payment_order_status', 'on-hold', $order );
+        $order_status = apply_filters( 'wcsrb_payment_slip_payment_order_status', $default_order_status, $order );
 
         if ( $order->get_total() > 0 ) {
             $order->update_status( $order_status, __( 'Awaiting payment', 'woocommerce' ) );
