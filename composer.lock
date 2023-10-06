@@ -143,16 +143,16 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.15.2",
+            "version": "1.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "ca5b9b660cea2d99dc1c8fe31c106a13824f23fa"
+                "reference": "654320022cfd0662b661556da9df947210050b80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/ca5b9b660cea2d99dc1c8fe31c106a13824f23fa",
-                "reference": "ca5b9b660cea2d99dc1c8fe31c106a13824f23fa",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/654320022cfd0662b661556da9df947210050b80",
+                "reference": "654320022cfd0662b661556da9df947210050b80",
                 "shasum": ""
             },
             "require": {
@@ -180,9 +180,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.15.2"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.15.3"
             },
-            "time": "2023-10-05T08:45:11+00:00"
+            "time": "2023-10-06T11:06:30+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",

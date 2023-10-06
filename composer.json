@@ -26,6 +26,8 @@
     ]
   },
   "config": {
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
