@@ -143,16 +143,16 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.15.4",
+            "version": "1.16.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "3afd9a0635adae82aaa3b70c41154b5ae2c1bcc8"
+                "reference": "8955355144c0806ebb4ffa65b20382c14d64b944"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/3afd9a0635adae82aaa3b70c41154b5ae2c1bcc8",
-                "reference": "3afd9a0635adae82aaa3b70c41154b5ae2c1bcc8",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/8955355144c0806ebb4ffa65b20382c14d64b944",
+                "reference": "8955355144c0806ebb4ffa65b20382c14d64b944",
                 "shasum": ""
             },
             "require": {
@@ -164,6 +164,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "\\": "src/Interfaces/Shared",
                     "Oblak\\WooCommerce\\": "src"
                 }
             },
@@ -180,9 +181,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.15.4"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.16.2"
             },
-            "time": "2023-10-06T11:52:55+00:00"
+            "time": "2023-10-16T09:42:51+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",
@@ -278,16 +279,16 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.6.3",
+            "version": "3.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "c33dd732e37c90f37c3f9662f7eed888c11dc60d"
+                "reference": "e7dafe215be5ef823392204535ee2e241f99a8cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/c33dd732e37c90f37c3f9662f7eed888c11dc60d",
-                "reference": "c33dd732e37c90f37c3f9662f7eed888c11dc60d",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/e7dafe215be5ef823392204535ee2e241f99a8cb",
+                "reference": "e7dafe215be5ef823392204535ee2e241f99a8cb",
                 "shasum": ""
             },
             "require-dev": {
@@ -312,9 +313,9 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.6.3"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.6.4"
             },
-            "time": "2023-09-13T13:40:20+00:00"
+            "time": "2023-10-11T18:24:47+00:00"
         }
     ],
     "packages-dev": [
@@ -892,5 +893,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

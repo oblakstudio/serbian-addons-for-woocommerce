@@ -19,6 +19,7 @@ class Field_Customizer {
      * Class constructor
      */
     public function __construct() {
+        $filter_priority = 100;
         /**
          * Filters the priority of the checkout fields filter
          *
@@ -26,7 +27,7 @@ class Field_Customizer {
          * @return int                  Modified priority
          * @since 2.2.0
          */
-        $filter_priority = apply_filters( 'woocommerce_serbian_checkout_fields_priority', 100 );
+        $filter_priority = apply_filters( 'woocommerce_serbian_checkout_fields_priority', $filter_priority );
 
         add_filter( 'woocommerce_billing_fields', array( $this, 'modify_billing_fields' ), $filter_priority, 1 );
         add_filter( 'woocommerce_shipping_fields', array( $this, 'modify_shipping_fields' ), $filter_priority, 1 );
