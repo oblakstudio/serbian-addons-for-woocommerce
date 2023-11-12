@@ -1,3 +1,11 @@
+## [3.1.8](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.7...v3.1.8) (2023-11-12)
+
+
+### Bug Fixes
+
+* Fixed Payment amount for QR code ([91e52dd](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/91e52ddfcb90db406773f4a61be7a625a74f2bdf))
+* Undefined variable error fixed ([7fa90ca](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/7fa90ca4d1d45f000487460b66aeb54accb78ff5))
+
 ## [3.1.7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.6...v3.1.7) (2023-10-16)
 
 
