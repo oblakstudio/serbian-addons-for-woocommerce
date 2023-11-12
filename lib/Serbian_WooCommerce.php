@@ -188,7 +188,7 @@ class Serbian_WooCommerce {
             'postcode'  => get_option( 'woocommerce_store_postcode', '' ),
             'city'      => get_option( 'woocommerce_store_city', '' ),
             'country'   => WC()->countries->countries[ WC()->countries->get_base_country() ],
-            'accounts'  => $accounts['acct'],
+            'accounts'  => $accounts['acct'] ?? array(),
         );
 
         return $settings;
