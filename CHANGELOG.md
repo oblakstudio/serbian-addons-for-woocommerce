@@ -1,3 +1,10 @@
+## [3.1.7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.6...v3.1.7) (2023-10-16)
+
+
+### Bug Fixes
+
+* Fixed notices and errors ([f61c659](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/f61c659d8b4e157162c2f140af3db8e510d48351))
+
 ## [3.1.6](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.5...v3.1.6) (2023-10-06)
 
 
