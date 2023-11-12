@@ -388,7 +388,7 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
             'company'   => $this->get_company_data(),
             'code'      => $this->get_payment_code( $order ),
             'currency'  => $this->get_currency( $order ),
-            'total'     => $this->get_total( $order ),
+            'total'     => $this->get_total( $order, '.' ),
 			'account'   => $this->get_bank_account(),
             'model'     => $this->get_payment_model( $order ),
             'reference' => $this->get_payment_reference( $order ),
@@ -504,11 +504,12 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
     /**
      * Get the total for the order
      *
-     * @param WC_Order $order Order object.
-     * @return string         The total.
+     * @param  WC_Order $order Order object.
+     * @param  string   $sep   The thousand separator.
+     * @return string          The total.
      */
-    protected function get_total( $order ) {
-        return number_format( $order->get_total(), 2, wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
+    protected function get_total( $order, $sep = '' ) {
+        return number_format( $order->get_total( 'edit' ), 2, wc_get_price_decimal_separator(), $sep );
     }
 
     /**
