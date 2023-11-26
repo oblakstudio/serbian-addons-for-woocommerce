@@ -21,6 +21,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
 ?>
 
 <h2> <?php esc_html_e( 'Payment instructions', 'serbian-addons-for-woocommerce' ); ?> </h2>
@@ -185,7 +186,7 @@ defined( 'ABSPATH' ) || exit;
                         <tr>
                             <td class="qr-code-wrap">
                                 <div class="qr-code-holder"
-                                    data-ips="<?php echo wc_esc_json( wp_json_encode( $qr_code ) ); ?>"
+                                    data-ips="<?php echo esc_attr( str_replace( ':::', "\n", $qr_code ) ); ?>"
                                     data-image="<?php echo $qr_image ? esc_url( get_site_icon_url( 128 ) ) : ''; ?>"
                                     data-color="<?php echo esc_attr( $dot_color ); ?>"
                                     data-corner-color="<?php echo esc_attr( $cor_color ); ?>"

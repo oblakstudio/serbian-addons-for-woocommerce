@@ -364,7 +364,9 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
      */
     protected function get_complete_slip_data( $order ) {
         return array_merge(
-            $order->get_meta( '_payment_slip_data', true ),
+            $this->debug
+                ? $this->get_slip_data( $order )
+                : $order->get_meta( '_payment_slip_data', true ),
             array(
                 'style'     => $this->style,
                 'show_qr'   => $this->qrcode_shown,
@@ -392,19 +394,25 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
 			'account'   => $this->get_bank_account(),
             'model'     => $this->get_payment_model( $order ),
             'reference' => $this->get_payment_reference( $order ),
-            'qr_code'   => array(
-                'K'  => 'PR',
-				'V'  => '01',
-				'C'  => '1',
-				'R'  => $this->get_bank_account( true ),
-				'N'  => $this->get_company_data( true ),
-				'I'  => $this->get_currency( $order ) . $this->get_total( $order ),
-				'P'  => $this->get_customer_data( $order, true ),
-				'SF' => $this->get_payment_code( $order ),
-				'S'  => $this->get_payment_purpose( $order ),
-				'RO' => $this->get_payment_model( $order, true ) . $this->get_payment_reference( $order, true ),
+            'qr_code'   => $this->get_qr_code_string(
+                array(
+					'K'  => 'PR',
+					'V'  => '01',
+					'C'  => '1',
+					'R'  => $this->get_bank_account( true ),
+					'N'  => $this->get_company_data( true ),
+					'I'  => $this->get_currency( $order ) . $this->get_total( $order ),
+					'P'  => $this->get_customer_data( $order, true ),
+					'SF' => $this->get_payment_code( $order ),
+					'S'  => $this->get_payment_purpose( $order ),
+					'RO' => $this->get_payment_model( $order, true ) . $this->get_payment_reference( $order, true ),
+                )
             ),
         );
+
+        if ( $this->debug ) {
+            self::log( 'QR Code string is: ' . $slip_data['qr_code'], 'debug' );
+        }
 
         /**
          * Filters the payment slip data.
@@ -416,6 +424,22 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
          * @since 2.3.0
          */
         return apply_filters( 'wcsrb_payment_slip_data', $slip_data, $order );
+    }
+
+    /**
+     * Get the QR code string for the order
+     *
+     * @param  Array<string, string|string[]> $slip_data The payment slip data.
+     * @return string                                    The QR code string.
+     */
+    protected function get_qr_code_string( $slip_data ) {
+        $qr_code_string = array();
+
+        foreach ( $slip_data as $key => $value ) {
+            $qr_code_string[] = $key . ':' . $value;
+        }
+
+        return implode( '|', $qr_code_string );
     }
 
     /**

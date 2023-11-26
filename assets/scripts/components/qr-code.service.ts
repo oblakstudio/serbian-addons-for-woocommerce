@@ -8,14 +8,7 @@ export class QrCodeService {
   }
 
   run(): void {
-    const qrString: string[] = [];
-
-    for (const [key, value] of Object.entries(
-      JSON.parse(this.holder.dataset.ips),
-    )) {
-      qrString.push(`${key}:${value}`);
-    }
-
+    console.log(this.holder.dataset.ips.replace(':::', '\n'));
     new QRCodeStyling({
       width: 160,
       height: 160,
@@ -24,7 +17,7 @@ export class QrCodeService {
       },
       margin: -15,
       type: 'canvas',
-      data: qrString.join('|'),
+      data: this.holder.dataset.ips.replace(':::', '\n'),
       image:
         this.holder.dataset.image !== ''
           ? this.holder.dataset.image
