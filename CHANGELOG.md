@@ -1,3 +1,10 @@
+## [3.1.10](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.9...v3.1.10) (2023-12-26)
+
+
+### Bug Fixes
+
+* Bumped woocommerce-utils version ([9bbe85f](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/9bbe85f64715a77fe5f381ac3428d9191da2f0e1))
+
 ## [3.1.9](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.1.8...v3.1.9) (2023-11-26)
 
 
