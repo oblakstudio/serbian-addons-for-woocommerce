@@ -74,6 +74,7 @@ class Serbian_WooCommerce {
      */
     private function define_constants() {
         $this->namespace = 'wcrs';
+
         Constants::is_defined( 'WCRS_ABSPATH' ) || define( 'WCRS_ABSPATH', dirname( WCRS_PLUGIN_FILE ) . '/' );
         Constants::is_defined( 'WCRS_PLUGIN_BASENAME' ) || define( 'WCRS_PLUGIN_BASENAME', plugin_basename( WCRS_PLUGIN_FILE ) );
         Constants::is_defined( 'WCRS_PLUGIN_PATH' ) || define( 'WCRS_PLUGIN_PATH', plugin_dir_path( WCRS_PLUGIN_FILE ) );
@@ -84,7 +85,7 @@ class Serbian_WooCommerce {
      * Loads the needed plugin classes
      */
     private function load_classes() {
-        Installer::get_instance()->init();
+        Installer::instance()->init();
 
         if ( $this->is_request( 'admin' ) ) {
             new WooCommerce\Admin\Admin_Core();

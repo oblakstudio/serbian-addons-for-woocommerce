@@ -33,11 +33,10 @@ class Installer extends Base_Plugin_Installer {
 
     // phpcs:ignore
     protected function set_defaults() {
-        $this->name          = __( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
-        $this->slug          = 'serbian_woocommerce';
-        $this->version       = WCRS_VERSION;
-        $this->db_version    = WCRS_VERSION;
-        $this->has_db_tables = false;
+        $this->name       = __( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
+        $this->slug       = 'serbian_woocommerce';
+        $this->version    = WCRS_VERSION;
+        $this->db_version = WCRS_VERSION;
     }
 
     /**

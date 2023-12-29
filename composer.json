@@ -12,10 +12,11 @@
   },
   "require": {
     "php": ">=7.4",
+    "automattic/jetpack-autoloader": "^3.0",
     "oblak/serbian-validators": "^1.0",
-    "oblak/wp-plugin-installer": "^1",
+    "oblak/woocommerce-utils": "^1.11",
     "oblak/wp-asset-loader": "^2.0",
-    "oblak/woocommerce-utils": "^1.11"
+    "oblak/wp-plugin-installer": "^2"
   },
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.0"
@@ -28,8 +29,10 @@
   "config": {
     "classmap-authoritative": true,
     "optimize-autoloader": true,
+    "sort-packages": true,
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "automattic/jetpack-autoloader": true
     }
   }
 }
