@@ -24,7 +24,7 @@ jobs:
       - name: Install composer dependencies
         uses: php-actions/composer@v6
         with:
-          php_version: 7.4
+          php_version: '8.0'
           version: 2
           dev: no
           quiet: yes
@@ -32,16 +32,15 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install
       - name: Build
-        run: "yarn build:production"
+        run: 'yarn build:production'
       - name: Pre deploy scripts
-        run: "sh ./.github/scripts/deploy.sh"
+        run: 'sh ./.github/scripts/deploy.sh'
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
         env:
           SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
-          ASSETS_DIR : ".wordpress-org/assets"
+          ASSETS_DIR: '.wordpress-org/assets'
         with:
           generate-zip: false
-
