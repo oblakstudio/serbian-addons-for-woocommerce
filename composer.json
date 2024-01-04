@@ -1,4 +1,5 @@
 {
+  "type": "project",
   "autoload": {
     "psr-4": {
       "Oblak\\WCRS\\": "lib"
@@ -12,14 +13,14 @@
   },
   "require": {
     "php": ">= 8.0",
-    "automattic/jetpack-autoloader": "^3.0",
-    "oblak/serbian-validators": "^1.0",
-    "oblak/woocommerce-utils": "^1.11",
-    "oblak/wp-asset-loader": "^2.0",
-    "oblak/wp-plugin-installer": "^2"
+    "automattic/jetpack-autoloader": "^3.0.2",
+    "oblak/serbian-validators": "^1.1.1",
+    "oblak/woocommerce-utils": "^1.20.2",
+    "oblak/wp-asset-loader": "^3.0.1",
+    "oblak/wp-plugin-installer": "^2.1"
   },
   "require-dev": {
-    "oblak/wordpress-coding-standard": "^1.0"
+    "oblak/wordpress-coding-standard": "^1.0.1"
   },
   "scripts": {
     "generate-pot": [

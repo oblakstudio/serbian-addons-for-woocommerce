@@ -7,7 +7,7 @@
  * Requires PHP:         8.0
  * Author:               Oblak Studio
  * Author URI:           https://oblak.studio
- * Tested up to:         6.3
+ * Tested up to:         6.4
  * WC requires at least: 8.0
  * WC tested up to:      8.3
  * License:              GPLv2 or later

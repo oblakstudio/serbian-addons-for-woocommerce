@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ecc01ceea65591c655d03cd06921ce9d",
+    "content-hash": "d7daaeb5759052696f827a913761897c",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -259,26 +259,26 @@
         },
         {
             "name": "oblak/wp-asset-loader",
-            "version": "2.1.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-asset-loader.git",
-                "reference": "8908b031d78d1aaa8542d6242b3ce83141c6ea1c"
+                "reference": "720a57ec1120fd67e9758f5a93afbbe1948b3cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-asset-loader/zipball/8908b031d78d1aaa8542d6242b3ce83141c6ea1c",
-                "reference": "8908b031d78d1aaa8542d6242b3ce83141c6ea1c",
+                "url": "https://api.github.com/repos/oblakstudio/wp-asset-loader/zipball/720a57ec1120fd67e9758f5a93afbbe1948b3cac",
+                "reference": "720a57ec1120fd67e9758f5a93afbbe1948b3cac",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.3"
+                "php": ">=8.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "squizlabs/php_codesniffer": "*",
-                "wp-coding-standards/wpcs": "*"
+                "oblak/wordpress-coding-standard": "^1"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
             },
             "type": "library",
             "autoload": {
@@ -293,22 +293,22 @@
             "description": "Simple Asset Loader for WordPress",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-asset-loader/issues",
-                "source": "https://github.com/oblakstudio/wp-asset-loader/tree/v2.1.0"
+                "source": "https://github.com/oblakstudio/wp-asset-loader/tree/v3.0.1"
             },
-            "time": "2023-08-08T18:50:42+00:00"
+            "time": "2024-01-04T19:19:19+00:00"
         },
         {
             "name": "oblak/wp-plugin-installer",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
-                "reference": "8223146f0b0db19f953812b399b2b824b88b5752"
+                "reference": "a4f1be7cf4112038914fc0f8b09dd605bb2c81ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/8223146f0b0db19f953812b399b2b824b88b5752",
-                "reference": "8223146f0b0db19f953812b399b2b824b88b5752",
+                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/a4f1be7cf4112038914fc0f8b09dd605bb2c81ab",
+                "reference": "a4f1be7cf4112038914fc0f8b09dd605bb2c81ab",
                 "shasum": ""
             },
             "require": {
@@ -345,9 +345,9 @@
             "description": "Simplifies the installation and activation of WordPress plugins",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-plugin-installer/issues",
-                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.0.4"
+                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.0"
             },
-            "time": "2023-12-29T19:20:18+00:00"
+            "time": "2024-01-03T13:49:51+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",

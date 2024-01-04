@@ -319,7 +319,7 @@ class Payment_Slip_Gateway extends WC_Payment_Gateway {
      * @return string          Modified email CSS.
      */
     public function add_css_to_emails( $css, $email ) {
-        if ( 'customer_on_hold_order' !== $email->id && 'wcsrb_payment_slip' !== $email->object->get_payment_method() ) {
+        if ( 'customer_on_hold_order' !== $email->id || 'wcsrb_payment_slip' !== $email->object?->get_payment_method() ) {
             return $css;
         }
 

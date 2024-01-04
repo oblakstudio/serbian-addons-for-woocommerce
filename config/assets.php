@@ -9,6 +9,7 @@
 defined( 'ABSPATH' ) || exit;
 
 return array(
+    'namespace' => 'wcrs',
     'version'   => WCRS_VERSION,
     'priority'  => 50,
     'dist_path' => WCRS_PLUGIN_PATH . 'dist',
