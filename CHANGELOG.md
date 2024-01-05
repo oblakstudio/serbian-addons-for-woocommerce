@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.2.2...v3.3.0) (2024-01-05)
+
+
+### Features
+
+* QoL tweaks ([48c1646](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/48c164613d4e7e27d0b719e38ea0337fcd0fa5e3))
+
 ## [3.2.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.2.1...v3.2.2) (2023-12-30)
 
 

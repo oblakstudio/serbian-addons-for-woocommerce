@@ -29,7 +29,7 @@ class Serbian_WooCommerce {
      *
      * @var string
      */
-    public string $version = '3.2.2';
+    public string $version = '3.3.0';
 
     /**
      * Plugin options
