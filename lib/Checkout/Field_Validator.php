@@ -6,7 +6,9 @@
  * @subpackage WooCommerce\Checkout
  */
 
-namespace Oblak\WCRS\WooCommerce\Checkout;
+namespace Oblak\WooCommerce\Serbian_Addons\Checkout;
+
+use Oblak\WP\Decorators\Hookable;
 
 use function Oblak\validateMB;
 use function Oblak\validatePIB;
@@ -14,6 +16,7 @@ use function Oblak\validatePIB;
 /**
  * Handles checkout field validation
  */
+#[Hookable( 'woocommerce_init', 99 )]
 class Field_Validator {
 
     /**

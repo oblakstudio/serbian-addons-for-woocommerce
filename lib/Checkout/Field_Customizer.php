@@ -6,13 +6,16 @@
  * @subpackage WooCommerce\Checkout
  */
 
-namespace Oblak\WCRS\WooCommerce\Checkout;
+namespace Oblak\WooCommerce\Serbian_Addons\Checkout;
 
-use function Oblak\WCRS\Utils\get_entity_types;
+use Oblak\WP\Decorators\Hookable;
+
+use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
 
 /**
  * Changes the fields on the checkout page
  */
+#[Hookable( 'woocommerce_init', 99 )]
 class Field_Customizer {
 
     /**

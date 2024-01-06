@@ -6,7 +6,7 @@
  * @subpackage Utils
  */
 
-namespace Oblak\WCRS\Utils;
+namespace Oblak\WooCommerce\Serbian_Addons\Utils;
 
 /**
  * Get the entity types for the customer type field

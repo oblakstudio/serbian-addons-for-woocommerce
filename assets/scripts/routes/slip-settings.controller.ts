@@ -25,14 +25,14 @@ export class SlipSettingsController {
 
   private setPaymentReference(): void {
     if (this.model.value !== 'mod97') {
-      this.ref.value = '%order_number%-%year%';
+      this.ref.value = this.ref.dataset.auto;
       this.btns.forEach((btn) => btn.classList.remove('disabled'));
       this.ref.readOnly = false;
       this.toggleClasses();
       return;
     }
 
-    this.ref.value = '%mod97%-%order_number%-%year%';
+    this.ref.value = this.ref.dataset.mod97;
     this.btns.forEach((btn) => btn.classList.add('disabled'));
     this.ref.readOnly = true;
     this.toggleClasses();

@@ -6,52 +6,39 @@
  * @subpackage WooCommerce\Order
  */
 
-namespace Oblak\WCRS\WooCommerce\Order;
+namespace Oblak\WooCommerce\Serbian_Addons\Order;
 
+use Oblak\WP\Abstracts\Hook_Runner;
+use Oblak\WP\Decorators\Hookable;
 use WC_Customer;
 use WC_Order;
 
 /**
  * Handles the address display customizations for orders and addresses
  */
-class Field_Display {
-
-    /**
-     * Class constructor
-     */
-    public function __construct() {
-        /**
-         * Filters the priority of the localization address format filter
-         *
-         * @param  int $filter_priority Priority of the localization address format filter
-         * @return int                  Modified priority
-         * @since 2.2.0
-         */
-        $filter_priority = apply_filters( 'woocommerce_serbian_localization_address_priority', 100 );
-
-        add_filter( 'woocommerce_localisation_address_formats', array( $this, 'modify_address_format' ), $filter_priority, 1 );
-        add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'modify_address_replacements' ), 99, 2 );
-        add_filter( 'woocommerce_my_account_my_address_formatted_address', array( $this, 'modify_account_formatted_address' ), 99, 3 );
-        add_filter( 'woocommerce_order_formatted_billing_address', array( $this, 'modify_order_formatted_address' ), 99, 2 );
-
-        add_filter( 'woocommerce_admin_order_buyer_name', array( $this, 'modify_order_buyer_name' ), 99, 2 );
-    }
-
+#[Hookable( 'woocommerce_init', 99 )]
+class Field_Display extends Hook_Runner {
     /**
      * Modifies the address format for Serbia to include necessary company information
      *
      * @param  string[] $formats Address formats.
      * @return string[]          Modified address formats
+     *
+     * @hook     woocommerce_localisation_address_formats
+     * @type     filter
+     * @priority filter:woocommerce_serbian_localization_address_priority:100
      */
     public function modify_address_format( $formats ) {
-        $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}\n{state}\n{country}";
+        add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
+
+        $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}, {state} {country}";
 
         if ( WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
             $formats['RS'] = strtr(
                 $formats['RS'],
                 array(
-					'{state}'     => "\n",
-					'{address_2}' => "\n",
+					'{state}'     => '',
+					'{address_2}' => '',
 				)
             );
         }
@@ -70,6 +57,10 @@ class Field_Display {
      * @param  string[] $replacements  Replacements array.
      * @param  array    $args          Address data.
      * @return string[]                Modified replacements array
+     *
+     * @hook     woocommerce_formatted_address_replacements
+     * @type     filter
+     * @priority 99
      */
     public function modify_address_replacements( $replacements, $args ) {
         $replacements['{type}'] = $args['type'] ?? "\n";
@@ -88,6 +79,10 @@ class Field_Display {
      * @param  int    $customer_id  Customer ID.
      * @param  string $address_type Address type (billing or shipping).
      * @return array                Modified address data array
+     *
+     * @hook     woocommerce_my_account_my_address_formatted_address
+     * @type     filter
+     * @priority 99
      */
     public function modify_account_formatted_address( $address, $customer_id, $address_type ) {
         if ( 'billing' !== $address_type ) {
@@ -111,6 +106,10 @@ class Field_Display {
      * @param  array    $address Address data array.
      * @param  WC_Order $order   Order object.
      * @return array             Modified address data array
+     *
+     * @hook     woocommerce_order_formatted_billing_address
+     * @type     filter
+     * @priority 99
      */
     public function modify_order_formatted_address( $address, $order ) {
         return $this->address_modifier(
@@ -165,6 +164,10 @@ class Field_Display {
      * @param  string   $buyer Buyer name.
      * @param  WC_Order $order Order object.
      * @return string          Modified Buyer name
+     *
+     * @hook     woocommerce_admin_order_buyer_name
+     * @type     filter
+     * @priority 99
      */
     public function modify_order_buyer_name( $buyer, $order ) {
         return ( 'RS' === $order->get_billing_country() && 'company' === $order->get_meta( '_billing_type', true ) )

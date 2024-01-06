@@ -19,7 +19,6 @@
         "camelcase": "^6.2.0",
         "core-js": "^3.0.0",
         "jquery": "3.5.1",
-        "qr-code-styling": "^1.6.0-rc.1",
         "sass-mq": "^5.0.1"
     },
     "devDependencies": {

@@ -17,7 +17,7 @@ return array(
     'assets'    => array(
         'front' => array(
             'styles'  => array( 'styles/main.css' ),
-            'scripts' => array( 'scripts/main.js', 'scripts/qrcode.js' ),
+            'scripts' => array( 'scripts/main.js' ),
         ),
         'admin' => array(
             'styles'  => array( 'styles/admin.css' ),

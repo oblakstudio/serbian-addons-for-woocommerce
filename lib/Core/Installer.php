@@ -6,7 +6,7 @@
  * @subpackage Core
  */
 
-namespace Oblak\WCRS\Core;
+namespace Oblak\WooCommerce\Serbian_Addons\Core;
 
 use Oblak\WP\Base_Plugin_Installer;
 
@@ -14,15 +14,7 @@ use Oblak\WP\Base_Plugin_Installer;
  * Plugin installer class
  */
 class Installer extends Base_Plugin_Installer {
-
-    /**
-     * Class instance
-     *
-     * @var Base_Installer
-     */
-    protected static $instance = null;
-
-    /**
+	/**
      * Constructor override
      */
     protected function __construct() {
@@ -56,5 +48,53 @@ class Installer extends Base_Plugin_Installer {
         );
 
         return array_merge( $action_links, $links );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setup_environment() {
+        $this->create_files();
+    }
+
+    /**
+     * Create files and folders
+     *
+     * @return void
+     */
+    protected function create_files() {
+        /**
+		 * Bypass if filesystem is read-only and/or non-standard upload system is used.
+		 *
+         * @return bool
+		 * @since 3.4.0
+		 */
+		if ( apply_filters( 'woocommerce_serbian_install_skip_create_files', false ) ) {
+			return;
+		}
+
+		// Install files and folders for uploading files and prevent hotlinking.
+        $files = array(
+            array(
+				'base'    => WCRS_IPS_DIR,
+				'file'    => 'index.html',
+				'content' => '',
+            ),
+            array(
+                'base'    => WCRS_IPS_DIR,
+                'file'    => '.htaccess',
+                'content' => 'deny from all',
+            ),
+        );
+
+        foreach ( $files as $file ) {
+			if ( wp_mkdir_p( $file['base'] ) && ! file_exists( trailingslashit( $file['base'] ) . $file['file'] ) ) {
+				$file_handle = @fopen( trailingslashit( $file['base'] ) . $file['file'], 'wb' ); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+				if ( $file_handle ) {
+					fwrite( $file_handle, $file['content'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
+					fclose( $file_handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+				}
+			}
+		}
     }
 }

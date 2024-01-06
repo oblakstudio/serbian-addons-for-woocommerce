@@ -6,7 +6,7 @@
  * @subpackage Utils
  */
 
-namespace Oblak\WCRS\Utils;
+namespace Oblak\WooCommerce\Serbian_Addons\Utils;
 
 use WC_Order;
 
@@ -16,7 +16,7 @@ use WC_Order;
  * @return array The available payment models.
  * @since 2.3.0
  */
-function get_payment_models() {
+function get_payment_models(): array {
     $models = array(
         'auto'  => '',
         'mod97' => '97',
@@ -39,7 +39,7 @@ function get_payment_models() {
  * @return array The formatted payment model select options.
  * @since 2.3.0
  */
-function format_payment_model_select() {
+function format_payment_model_select(): array {
     $payment_models = array(
         'auto'  => __( 'Automatic', 'serbian-addons-for-woocommerce' ),
         'mod97' => __( 'Model 97', 'serbian-addons-for-woocommerce' ),
@@ -63,7 +63,7 @@ function format_payment_model_select() {
  *
  * @return string The formatted payment reference description.
  */
-function format_payment_reference_description() {
+function format_payment_reference_description(): string {
     $replacement_pairs = array(
         '%order_id%'     => __( 'Order ID', 'serbian-addons-for-woocommerce' ),
         '%order_number%' => __( 'Order number', 'serbian-addons-for-woocommerce' ),
@@ -106,7 +106,7 @@ function format_payment_reference_description() {
  * @param WC_Order $order The order.
  * @return array          The replacement pairs.
  */
-function get_payment_reference_replacement_pairs( $order ) {
+function get_payment_reference_replacement_pairs( $order ): array {
     $pairs = array(
 		'%order_id%'     => $order->get_id(),
         '%order_number%' => $order->get_order_number(),
@@ -138,8 +138,9 @@ function get_payment_reference_replacement_pairs( $order ) {
  *
  * @param  string $order_number Order number.
  * @param  string $order_year   Order year.
+ * @return string               Check digit.
  */
-function calculate_check_digit( $order_number, $order_year ) {
+function calculate_check_digit( $order_number, $order_year ): string {
     $number = (int) calculate_number_for_reference( $order_number . $order_year );
 
     $remainder = $number % 97;
@@ -153,7 +154,7 @@ function calculate_check_digit( $order_number, $order_year ) {
  * @param  string $letter Letter.
  * @return int            Reference number.
  */
-function string_to_reference( $letter ) {
+function string_to_reference( $letter ): int {
     return ord( strtoupper( $letter ) ) - ord( 'A' ) + 10;
 }
 
@@ -163,7 +164,7 @@ function string_to_reference( $letter ) {
  * @param  string $order_number Order number.
  * @return int                  Reference number.
  */
-function calculate_number_for_reference( $order_number ) {
+function calculate_number_for_reference( $order_number ): int {
     $length = strlen( $order_number );
     $result = '';
     for ( $i = 0; $i < $length; $i++ ) {
@@ -175,4 +176,13 @@ function calculate_number_for_reference( $order_number ) {
         $result .= $order_number[ $i ];
     }
     return $result * 100;
+}
+
+/**
+ * Get the IPS QR Code base directory.
+ *
+ * @return string The IPS QR Code base directory.
+ */
+function get_ips_basedir(): string {
+    return wp_upload_dir()['basedir'] . '/wcrs-ips';
 }

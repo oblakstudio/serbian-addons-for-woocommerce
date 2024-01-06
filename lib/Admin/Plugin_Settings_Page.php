@@ -4,7 +4,7 @@
  *
  * @package Serbian Addons for WooCommerce
  */
-namespace Oblak\WCRS\WooCommerce\Admin;
+namespace Oblak\WooCommerce\Serbian_Addons\Admin;
 
 use Oblak\WooCommerce\Admin\Extended_Settings_Page;
 use WC_Admin_Settings;
