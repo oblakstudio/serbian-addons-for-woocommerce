@@ -8,13 +8,12 @@
 namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 
 use Automattic\Jetpack\Constants;
+use Oblak\WooCommerce\Gateway\Extended_Payment_Gateway;
 use WC_Email;
 use WC_Order;
 use WP_Error;
 
 use function Oblak\validateBankAccount;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_payment_models;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_payment_reference_replacement_pairs;
 use function Oblak\WP\Utils\invoke_class_hooks;
 
 /**
@@ -23,6 +22,7 @@ use function Oblak\WP\Utils\invoke_class_hooks;
  * @since 2.3.0
  */
 class Gateway_Payment_Slip extends Extended_Payment_Gateway {
+
 
     /**
      * Bank account.
