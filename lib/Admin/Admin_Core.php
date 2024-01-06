@@ -6,11 +6,14 @@
  * @subpackage WooCommerce\Admin
  */
 
-namespace Oblak\WCRS\WooCommerce\Admin;
+namespace Oblak\WooCommerce\Serbian_Addons\Admin;
+
+use Oblak\WP\Decorators\Hookable;
 
 /**
  * Handles WP-Admin stuff
  */
+#[Hookable( 'woocommerce_init', 99, 'is_admin' )]
 class Admin_Core {
 
     /**

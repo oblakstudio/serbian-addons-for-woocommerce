@@ -6,7 +6,7 @@
  * @subpackage Utils
  */
 
-use Oblak\WCRS\Serbian_WooCommerce;
+use Oblak\WooCommerce\Serbian_Addons\Serbian_WooCommerce;
 
 /**
  * Main Plugin Instance

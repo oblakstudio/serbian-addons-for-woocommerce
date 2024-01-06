@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7daaeb5759052696f827a913761897c",
+    "content-hash": "4e8feb797a19b226322f26188668da1e",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -121,6 +121,165 @@
             "time": "2023-11-20T20:02:28+00:00"
         },
         {
+            "name": "chillerlan/php-qrcode",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chillerlan/php-qrcode.git",
+                "reference": "a301af5b7faa7fcd690b29f38b283616a7d93b89"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/a301af5b7faa7fcd690b29f38b283616a7d93b89",
+                "reference": "a301af5b7faa7fcd690b29f38b283616a7d93b89",
+                "shasum": ""
+            },
+            "require": {
+                "chillerlan/php-settings-container": "^2.1.4 || ^3.1",
+                "ext-mbstring": "*",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "chillerlan/php-authenticator": "^4.0 || ^5.0",
+                "phan/phan": "^5.4",
+                "phpmd/phpmd": "^2.13",
+                "phpunit/phpunit": "^9.6",
+                "setasign/fpdf": "^1.8.2",
+                "squizlabs/php_codesniffer": "^3.7"
+            },
+            "suggest": {
+                "chillerlan/php-authenticator": "Yet another Google authenticator! Also creates URIs for mobile apps.",
+                "setasign/fpdf": "Required to use the QR FPDF output.",
+                "simple-icons/simple-icons": "SVG icons that you can use to embed as logos in the QR Code"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "chillerlan\\QRCode\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kazuhiko Arase",
+                    "homepage": "https://github.com/kazuhikoarase/qrcode-generator"
+                },
+                {
+                    "name": "ZXing Authors",
+                    "homepage": "https://github.com/zxing/zxing"
+                },
+                {
+                    "name": "Ashot Khanamiryan",
+                    "homepage": "https://github.com/khanamiryan/php-qrcode-detector-decoder"
+                },
+                {
+                    "name": "Smiley",
+                    "email": "smiley@chillerlan.net",
+                    "homepage": "https://github.com/codemasher"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/chillerlan/php-qrcode/graphs/contributors"
+                }
+            ],
+            "description": "A QR code generator and reader with a user friendly API. PHP 7.4+",
+            "homepage": "https://github.com/chillerlan/php-qrcode",
+            "keywords": [
+                "phpqrcode",
+                "qr",
+                "qr code",
+                "qr-reader",
+                "qrcode",
+                "qrcode-generator",
+                "qrcode-reader"
+            ],
+            "support": {
+                "docs": "https://php-qrcode.readthedocs.io",
+                "issues": "https://github.com/chillerlan/php-qrcode/issues",
+                "source": "https://github.com/chillerlan/php-qrcode"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate?hosted_button_id=WLYUNAT9ZTJZ4",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/codemasher",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2023-11-24T15:47:26+00:00"
+        },
+        {
+            "name": "chillerlan/php-settings-container",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chillerlan/php-settings-container.git",
+                "reference": "c41e89f8bf963d1e88584a47fb78d1cd204b6e2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/c41e89f8bf963d1e88584a47fb78d1cd204b6e2a",
+                "reference": "c41e89f8bf963d1e88584a47fb78d1cd204b6e2a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "phan/phan": "^5.4",
+                "phpcsstandards/php_codesniffer": "^3.8",
+                "phpmd/phpmd": "^2.15",
+                "phpunit/phpunit": "^10.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "chillerlan\\Settings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Smiley",
+                    "email": "smiley@chillerlan.net",
+                    "homepage": "https://github.com/codemasher"
+                }
+            ],
+            "description": "A container class for immutable settings objects. Not a DI container.",
+            "homepage": "https://github.com/chillerlan/php-settings-container",
+            "keywords": [
+                "Settings",
+                "configuration",
+                "container",
+                "helper"
+            ],
+            "support": {
+                "issues": "https://github.com/chillerlan/php-settings-container/issues",
+                "source": "https://github.com/chillerlan/php-settings-container"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/donate?hosted_button_id=WLYUNAT9ZTJZ4",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://ko-fi.com/codemasher",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2024-01-05T23:55:20+00:00"
+        },
+        {
             "name": "oblak/admin-notice-manager",
             "version": "2.0.0",
             "source": {
@@ -209,16 +368,16 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.20.2",
+            "version": "1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "eecc3c4c2d12ca339cc1f3301dc27f7e3bdfaabe"
+                "reference": "b5eb47e8c022bb71e9f2c609ef5fe939780a8c0d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/eecc3c4c2d12ca339cc1f3301dc27f7e3bdfaabe",
-                "reference": "eecc3c4c2d12ca339cc1f3301dc27f7e3bdfaabe",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/b5eb47e8c022bb71e9f2c609ef5fe939780a8c0d",
+                "reference": "b5eb47e8c022bb71e9f2c609ef5fe939780a8c0d",
                 "shasum": ""
             },
             "require": {
@@ -253,9 +412,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.20.2"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.21.1"
             },
-            "time": "2023-12-29T19:10:04+00:00"
+            "time": "2024-01-06T21:33:27+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",
@@ -298,17 +457,68 @@
             "time": "2024-01-04T19:19:19+00:00"
         },
         {
-            "name": "oblak/wp-plugin-installer",
-            "version": "2.1.0",
+            "name": "oblak/wp-hook-di",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
-                "reference": "a4f1be7cf4112038914fc0f8b09dd605bb2c81ab"
+                "url": "https://github.com/oblakstudio/wp-hook-di.git",
+                "reference": "06d102066e9fcf746ace022a9039f3eb129e16d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/a4f1be7cf4112038914fc0f8b09dd605bb2c81ab",
-                "reference": "a4f1be7cf4112038914fc0f8b09dd605bb2c81ab",
+                "url": "https://api.github.com/repos/oblakstudio/wp-hook-di/zipball/06d102066e9fcf746ace022a9039f3eb129e16d8",
+                "reference": "06d102066e9fcf746ace022a9039f3eb129e16d8",
+                "shasum": ""
+            },
+            "require": {
+                "automattic/jetpack-constants": "^2.0",
+                "oblak/wp-polyfills": "^1.0",
+                "php": ">= 8.0"
+            },
+            "require-dev": {
+                "oblak/wordpress-coding-standard": "^1"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Utils/oblak-wp-metadata-utils.php"
+                ],
+                "psr-4": {
+                    "Oblak\\WP\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Simplifies the use of WordPress hooks by allowing you to use simple dependency injection.",
+            "support": {
+                "issues": "https://github.com/oblakstudio/wp-hook-di/issues",
+                "source": "https://github.com/oblakstudio/wp-hook-di/tree/v1.0.0"
+            },
+            "time": "2024-01-03T12:52:32+00:00"
+        },
+        {
+            "name": "oblak/wp-plugin-installer",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
+                "reference": "ef18640e480929c8383a11d8b87167180b91e8ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/ef18640e480929c8383a11d8b87167180b91e8ed",
+                "reference": "ef18640e480929c8383a11d8b87167180b91e8ed",
                 "shasum": ""
             },
             "require": {
@@ -345,9 +555,60 @@
             "description": "Simplifies the installation and activation of WordPress plugins",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-plugin-installer/issues",
-                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.0"
+                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.1"
             },
-            "time": "2024-01-03T13:49:51+00:00"
+            "time": "2024-01-05T20:26:26+00:00"
+        },
+        {
+            "name": "oblak/wp-polyfills",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/wp-polyfills.git",
+                "reference": "b5444775f32b555b700a3f447dc2da99a5069ea3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/b5444775f32b555b700a3f447dc2da99a5069ea3",
+                "reference": "b5444775f32b555b700a3f447dc2da99a5069ea3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 8.0"
+            },
+            "require-dev": {
+                "oblak/wordpress-coding-standard": "^1"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/oblak-polyfill-array.php",
+                    "src/oblak-polyfill-terms.php",
+                    "src/oblak-polyfill-wpfs.php"
+                ],
+                "psr-4": {
+                    "Oblak\\WP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Various polyfills for WordPress.",
+            "support": {
+                "issues": "https://github.com/oblakstudio/wp-polyfills/issues",
+                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.1.0"
+            },
+            "time": "2024-01-03T12:46:21+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",

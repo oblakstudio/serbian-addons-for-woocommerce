@@ -18,9 +18,6 @@ module.exports = {
       './scripts/main.ts', // Main Javascript
       './styles/main.scss', // Main CSS
     ],
-    qrcode: [
-      './scripts/qrcode.ts', // QR Code Javascript
-    ],
   },
   /*
   File name format to use for production build

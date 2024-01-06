@@ -2,7 +2,7 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "Oblak\\WCRS\\": "lib"
+      "Oblak\\WooCommerce\\Serbian_Addons\\": "lib"
     },
     "files": [
       "lib/Utils/wcsrb-core.php",
@@ -14,10 +14,12 @@
   "require": {
     "php": ">= 8.0",
     "automattic/jetpack-autoloader": "^3.0.2",
+    "chillerlan/php-qrcode": "^5.0",
     "oblak/serbian-validators": "^1.1.1",
-    "oblak/woocommerce-utils": "^1.20.2",
+    "oblak/woocommerce-utils": "^1.21.0",
     "oblak/wp-asset-loader": "^3.0.1",
-    "oblak/wp-plugin-installer": "^2.1"
+    "oblak/wp-hook-di": "^1.0",
+    "oblak/wp-plugin-installer": "^2.1.1"
   },
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.0.1"

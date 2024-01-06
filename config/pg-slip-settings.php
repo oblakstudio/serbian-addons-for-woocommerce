@@ -6,14 +6,12 @@
  * @see Payment_Slip_Gateway
  */
 
-use function Oblak\WCRS\Utils\format_bank_account_select;
-use function Oblak\WCRS\Utils\format_payment_code_select;
-use function Oblak\WCRS\Utils\format_payment_model_select;
-use function Oblak\WCRS\Utils\format_payment_reference_description;
+use function Oblak\WooCommerce\Serbian_Addons\Utils\format_bank_account_select;
+use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_code_select;
+use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_model_select;
+use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_reference_description;
 
 defined( 'ABSPATH' ) || exit;
-
-$payment_codes = format_payment_code_select();
 
 return array(
     'enabled'             => array(
@@ -57,7 +55,7 @@ return array(
     'bank_account'        => array(
         'title'       => __( 'Bank account', 'serbian-addons-for-woocommerce' ),
         'type'        => 'select',
-        'options'     => format_bank_account_select(),
+        'options'     => fn() => format_bank_account_select(),
         'desc_tip'    => __( 'Bank account number', 'serbian-addons-for-woocommerce' ),
         'description' => sprintf(
             // translators: %1$s opening link tag, %2$s closing link tag.
@@ -69,20 +67,20 @@ return array(
     'payment_code'        => array(
         'title'             => __( 'Payment code', 'serbian-addons-for-woocommerce' ),
         'type'              => 'select',
-        'options'           => $payment_codes,
+        'options'           => fn() => format_payment_code_select(),
         'default'           => 'auto',
         'description'       => __( 'You can choose a payment code only if you limit checkout to a single customer type.', 'serbian-addons-for-woocommerce' ),
         'desc_tip'          => __( 'Payment code on the payment slip', 'serbian-addons-for-woocommerce' ),
-        'custom_attributes' => array_merge(
+        'custom_attributes' => fn() => array_merge(
             array(),
-            count( $payment_codes ) === 1 ? array( 'readonly' => 'readonly' ) : array()
+            count( format_payment_code_select() ) === 1 ? array( 'readonly' => 'readonly' ) : array()
         ),
     ),
 
     'payment_model'       => array(
         'title'       => __( 'Payment model', 'serbian-addons-for-woocommerce' ),
         'type'        => 'select',
-        'options'     => format_payment_model_select(),
+        'options'     => fn() => format_payment_model_select(),
         'default'     => 'auto',
         'desc_tip'    => __( 'Payment model for the payment reference', 'serbian-addons-for-woocommerce' ),
         'description' => sprintf(
@@ -93,10 +91,14 @@ return array(
     ),
 
     'payment_reference'   => array(
-        'title'       => __( 'Payment reference', 'serbian-addons-for-woocommerce' ),
-        'type'        => 'text',
-        'default'     => '%order_number%-%year%',
-        'description' => format_payment_reference_description(),
+        'title'             => __( 'Payment reference', 'serbian-addons-for-woocommerce' ),
+        'type'              => 'text',
+        'default'           => fn() => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
+        'description'       => fn() => format_payment_reference_description(),
+        'custom_attributes' => fn() => array(
+            'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
+            'data-mod97' => has_filter( 'woocommerce_order_number' ) ? '%mod97%-%order_number%' : '%mod97%-%order_id%-%year%',
+        ),
     ),
 
     'payment_purpose'     => array(
@@ -140,7 +142,7 @@ return array(
         'label'       => __( 'Show image on QR code', 'serbian-addons-for-woocommerce' ),
         'default'     => 'yes',
         'desc_tip'    => __( 'Image that will be shown on the QR code. ', 'serbian-addons-for-woocommerce' ),
-        'description' => sprintf(
+        'description' => fn() => sprintf(
             // translators: %1$s opening link tag, %2$s Customizer title, %3$s closing link tag, %3$s current image HTML.
             __( 'You can set it in %1$s%2$s%3$s. Current image is: %4$s', 'serbian-addons-for-woocommerce' ),
             '<a target="_blank" href="' . admin_url( 'customize.php' ) . '">',
@@ -165,7 +167,7 @@ return array(
         'type'        => 'checkbox',
         'label'       => __( 'Enable logging', 'serbian-addons-for-woocommerce' ),
         'default'     => 'no',
-        'description' => sprintf(
+        'description' => fn() => sprintf(
             // translators: %1$s log file path, %2$s line break.
             __(
                 'Log Payment Slip events, inside %1$s %2$sNote: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.',

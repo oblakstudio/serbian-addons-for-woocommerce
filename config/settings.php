@@ -5,7 +5,7 @@
  * @package Serbian Addons for WooCommerce
  */
 
-use function Oblak\WCRS\Utils\get_entity_types;
+use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
 
 return array(
     ''        => array(
@@ -25,7 +25,7 @@ return array(
                 'id'       => 'enabled_customer_types',
                 'type'     => 'select',
                 'desc'     => __( 'Which customer types can shop on the store', 'serbian-addons-for-woocommerce' ),
-                'options'  => array_merge(
+                'options'  => fn() => array_merge(
                     array( 'both' => __( 'Companies and persons', 'serbian-addons-for-woocommerce' ) ),
                     get_entity_types()
                 ),

@@ -19,7 +19,11 @@
 
 defined( 'ABSPATH' ) || exit;
 defined( 'WCRS_PLUGIN_FILE' ) || define( 'WCRS_PLUGIN_FILE', __FILE__ );
+defined( 'WCRS_ABSPATH' ) || define( 'WCRS_ABSPATH', dirname( WCRS_PLUGIN_FILE ) . '/' );
+defined( 'WCRS_PLUGIN_BASENAME' ) || define( 'WCRS_PLUGIN_BASENAME', plugin_basename( WCRS_PLUGIN_FILE ) );
+defined( 'WCRS_PLUGIN_PATH' ) || define( 'WCRS_PLUGIN_PATH', plugin_dir_path( WCRS_PLUGIN_FILE ) );
+defined( 'WCRS_VERSION' ) || define( 'WCRS_VERSION', '3.3.0' );
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-add_action( 'woocommerce_loaded', 'WCSRB' );
+add_action( 'woocommerce_loaded', 'WCSRB', 0 );
