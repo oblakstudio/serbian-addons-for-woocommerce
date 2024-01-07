@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e8feb797a19b226322f26188668da1e",
+    "content-hash": "c98cc6d4c58e6751eac91499b8a10af7",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -216,27 +216,27 @@
         },
         {
             "name": "chillerlan/php-settings-container",
-            "version": "3.1.1",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-settings-container.git",
-                "reference": "c41e89f8bf963d1e88584a47fb78d1cd204b6e2a"
+                "reference": "f705310389264c3578fdd9ffb15aa2cd6d91772e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/c41e89f8bf963d1e88584a47fb78d1cd204b6e2a",
-                "reference": "c41e89f8bf963d1e88584a47fb78d1cd204b6e2a",
+                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/f705310389264c3578fdd9ffb15aa2cd6d91772e",
+                "reference": "f705310389264c3578fdd9ffb15aa2cd6d91772e",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^8.1"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "phan/phan": "^5.4",
                 "phpcsstandards/php_codesniffer": "^3.8",
-                "phpmd/phpmd": "^2.15",
-                "phpunit/phpunit": "^10.5"
+                "phpmd/phpmd": "^2.13",
+                "phpunit/phpunit": "^9.6"
             },
             "type": "library",
             "autoload": {
@@ -255,9 +255,10 @@
                     "homepage": "https://github.com/codemasher"
                 }
             ],
-            "description": "A container class for immutable settings objects. Not a DI container.",
+            "description": "A container class for immutable settings objects. Not a DI container. PHP 7.4+",
             "homepage": "https://github.com/chillerlan/php-settings-container",
             "keywords": [
+                "PHP7",
                 "Settings",
                 "configuration",
                 "container",
@@ -277,7 +278,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2024-01-05T23:55:20+00:00"
+            "time": "2024-01-05T23:20:55+00:00"
         },
         {
             "name": "oblak/admin-notice-manager",

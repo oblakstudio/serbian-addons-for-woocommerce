@@ -16,7 +16,7 @@
     "automattic/jetpack-autoloader": "^3.0.2",
     "chillerlan/php-qrcode": "^5.0",
     "oblak/serbian-validators": "^1.1.1",
-    "oblak/woocommerce-utils": "^1.21.0",
+    "oblak/woocommerce-utils": "^1.21.2",
     "oblak/wp-asset-loader": "^3.0.1",
     "oblak/wp-hook-di": "^1.0",
     "oblak/wp-plugin-installer": "^2.1.1"
