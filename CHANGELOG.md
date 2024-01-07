@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.3.0...v3.4.0) (2024-01-07)
+
+
+### Bug Fixes
+
+* Fixed class namespace ([15bdc7f](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/15bdc7fa5f19b7d8f1af51e1c3b733f619d389c8))
+
+
+### Features
+
+* Reimplemented QR Code ([e2dffe0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/e2dffe0d9c3b03853c3dbf93e6f1fd94041f793e))
+
 # [3.3.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.2.2...v3.3.0) (2024-01-05)
 
 
