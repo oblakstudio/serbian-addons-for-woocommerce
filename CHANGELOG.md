@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.4.0...v3.5.0) (2024-01-21)
+
+
+### Features
+
+* **IPS:** Improved IPS handling ([b2eb205](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/b2eb2056978483067f8c3f6d9e574e91b8fd54bb))
+
 # [3.4.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.3.0...v3.4.0) (2024-01-07)
 
 
