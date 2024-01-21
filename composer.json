@@ -1,5 +1,19 @@
 {
   "type": "project",
+  "require": {
+    "php": "^8.0",
+    "automattic/jetpack-autoloader": "^3.0.2",
+    "chillerlan/php-qrcode": "^5.0.1",
+    "oblak/serbian-validators": "^1.1.1",
+    "oblak/woocommerce-utils": "^1.25.1",
+    "oblak/wp-asset-loader": "^3.0.2",
+    "oblak/wp-hook-di": "^1.0.1",
+    "oblak/wp-plugin-installer": "^2.1.1"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.31",
+    "oblak/wordpress-coding-standard": "^1.0.2"
+  },
   "autoload": {
     "psr-4": {
       "Oblak\\WooCommerce\\Serbian_Addons\\": "lib"
@@ -11,31 +25,22 @@
       "lib/Utils/wcsrb-settings.php"
     ]
   },
-  "require": {
-    "php": ">= 8.0",
-    "automattic/jetpack-autoloader": "^3.0.2",
-    "chillerlan/php-qrcode": "^5.0",
-    "oblak/serbian-validators": "^1.1.1",
-    "oblak/woocommerce-utils": "^1.21.2",
-    "oblak/wp-asset-loader": "^3.0.1",
-    "oblak/wp-hook-di": "^1.0",
-    "oblak/wp-plugin-installer": "^2.1.1"
-  },
-  "require-dev": {
-    "oblak/wordpress-coding-standard": "^1.0.1"
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "automattic/jetpack-autoloader": true,
+      "ergebnis/composer-normalize": true
+    },
+    "classmap-authoritative": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.0"
+    },
+    "sort-packages": true
   },
   "scripts": {
     "generate-pot": [
       "cd ~/projects/srw && ddev exec wp i18n make-pot wp-content/plugins/serbian-addons-for-woocommerce wp-content/plugins/serbian-addons-for-woocommerce/languages/serbian-addons-for-woocommerce.pot"
     ]
-  },
-  "config": {
-    "classmap-authoritative": true,
-    "optimize-autoloader": true,
-    "sort-packages": true,
-    "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
-      "automattic/jetpack-autoloader": true
-    }
   }
 }

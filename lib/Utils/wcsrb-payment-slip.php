@@ -175,7 +175,7 @@ function calculate_number_for_reference( $order_number ): int {
 
         $result .= $order_number[ $i ];
     }
-    return $result * 100;
+    return (int) $result * 100;
 }
 
 /**

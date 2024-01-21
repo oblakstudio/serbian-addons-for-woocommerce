@@ -45,7 +45,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @priority 20
      */
     public function add_slip_metadata( WC_Order $order ) {
-        if ( ! $order || 'wcsrb_payment_slip' !== $order->get_payment_method() ) {
+        if ( ! $order ) {
             return;
         }
 

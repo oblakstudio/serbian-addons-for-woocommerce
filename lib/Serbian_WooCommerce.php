@@ -55,26 +55,15 @@ class Serbian_WooCommerce {
     }
 
     /**
-     * Loads the needed plugin classes
-     *
-     * @hook     plugins_loaded
-     * @type     action
-     * @priority 999
-     */
-    private function activate_installer() {
-        Core\Installer::instance()->init();
-    }
-
-
-
-    /**
      * Loads the plugin textdomain
      *
      * @hook     plugins_loaded
      * @type     action
      * @priority 1000
      */
-    public function load_textdomain() {
+    public function on_plugins_loaded() {
+        Core\Installer::instance()->init();
+
         load_plugin_textdomain(
             'serbian-addons-for-woocommerce',
             false,

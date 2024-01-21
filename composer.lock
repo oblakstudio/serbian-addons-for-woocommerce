@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c98cc6d4c58e6751eac91499b8a10af7",
+    "content-hash": "5e4736129fb5d4544e0af2e4e82d9371",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -122,16 +122,16 @@
         },
         {
             "name": "chillerlan/php-qrcode",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-qrcode.git",
-                "reference": "a301af5b7faa7fcd690b29f38b283616a7d93b89"
+                "reference": "e81ed39ca3c94357aa021c7525fa9ffb451018d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/a301af5b7faa7fcd690b29f38b283616a7d93b89",
-                "reference": "a301af5b7faa7fcd690b29f38b283616a7d93b89",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/e81ed39ca3c94357aa021c7525fa9ffb451018d1",
+                "reference": "e81ed39ca3c94357aa021c7525fa9ffb451018d1",
                 "shasum": ""
             },
             "require": {
@@ -140,12 +140,12 @@
                 "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "chillerlan/php-authenticator": "^4.0 || ^5.0",
+                "chillerlan/php-authenticator": "^4.1 || ^5.1",
                 "phan/phan": "^5.4",
-                "phpmd/phpmd": "^2.13",
+                "phpmd/phpmd": "^2.15",
                 "phpunit/phpunit": "^9.6",
                 "setasign/fpdf": "^1.8.2",
-                "squizlabs/php_codesniffer": "^3.7"
+                "squizlabs/php_codesniffer": "^3.8"
             },
             "suggest": {
                 "chillerlan/php-authenticator": "Yet another Google authenticator! Also creates URIs for mobile apps.",
@@ -212,7 +212,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-11-24T15:47:26+00:00"
+            "time": "2024-01-07T19:37:03+00:00"
         },
         {
             "name": "chillerlan/php-settings-container",
@@ -369,20 +369,21 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.21.2",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "7774117115b36d3fa98c3f2800581ebdc9391dab"
+                "reference": "242cb61ab3ac28631ba095c6c024abbdbd7708a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/7774117115b36d3fa98c3f2800581ebdc9391dab",
-                "reference": "7774117115b36d3fa98c3f2800581ebdc9391dab",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/242cb61ab3ac28631ba095c6c024abbdbd7708a7",
+                "reference": "242cb61ab3ac28631ba095c6c024abbdbd7708a7",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 7.4"
+                "oblak/wp-polyfills": "^1.1",
+                "php": ">= 8.0"
             },
             "require-dev": {
                 "oblak/wordpress-coding-standard": "^1.0"
@@ -413,22 +414,22 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.21.2"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.25.1"
             },
-            "time": "2024-01-06T22:01:18+00:00"
+            "time": "2024-01-18T00:12:27+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",
-            "version": "3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-asset-loader.git",
-                "reference": "720a57ec1120fd67e9758f5a93afbbe1948b3cac"
+                "reference": "521095f114f1b90dde35c921a561562f800c7c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-asset-loader/zipball/720a57ec1120fd67e9758f5a93afbbe1948b3cac",
-                "reference": "720a57ec1120fd67e9758f5a93afbbe1948b3cac",
+                "url": "https://api.github.com/repos/oblakstudio/wp-asset-loader/zipball/521095f114f1b90dde35c921a561562f800c7c17",
+                "reference": "521095f114f1b90dde35c921a561562f800c7c17",
                 "shasum": ""
             },
             "require": {
@@ -453,22 +454,22 @@
             "description": "Simple Asset Loader for WordPress",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-asset-loader/issues",
-                "source": "https://github.com/oblakstudio/wp-asset-loader/tree/v3.0.1"
+                "source": "https://github.com/oblakstudio/wp-asset-loader/tree/v3.0.2"
             },
-            "time": "2024-01-04T19:19:19+00:00"
+            "time": "2024-01-13T15:05:36+00:00"
         },
         {
             "name": "oblak/wp-hook-di",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-hook-di.git",
-                "reference": "06d102066e9fcf746ace022a9039f3eb129e16d8"
+                "reference": "850f818d066daf603c833bf3d37ae64f8c898684"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-hook-di/zipball/06d102066e9fcf746ace022a9039f3eb129e16d8",
-                "reference": "06d102066e9fcf746ace022a9039f3eb129e16d8",
+                "url": "https://api.github.com/repos/oblakstudio/wp-hook-di/zipball/850f818d066daf603c833bf3d37ae64f8c898684",
+                "reference": "850f818d066daf603c833bf3d37ae64f8c898684",
                 "shasum": ""
             },
             "require": {
@@ -480,7 +481,8 @@
                 "oblak/wordpress-coding-standard": "^1"
             },
             "suggest": {
-                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package.",
+                "oblak/composer-wp-di-finder-plugin": "Automatically find Hookable classes"
             },
             "type": "library",
             "autoload": {
@@ -504,9 +506,9 @@
             "description": "Simplifies the use of WordPress hooks by allowing you to use simple dependency injection.",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-hook-di/issues",
-                "source": "https://github.com/oblakstudio/wp-hook-di/tree/v1.0.0"
+                "source": "https://github.com/oblakstudio/wp-hook-di/tree/v1.0.1"
             },
-            "time": "2024-01-03T12:52:32+00:00"
+            "time": "2024-01-13T14:29:04+00:00"
         },
         {
             "name": "oblak/wp-plugin-installer",
@@ -562,16 +564,16 @@
         },
         {
             "name": "oblak/wp-polyfills",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-polyfills.git",
-                "reference": "b5444775f32b555b700a3f447dc2da99a5069ea3"
+                "reference": "1a3c2dacd55925653320f8abbcfb5056ccc686a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/b5444775f32b555b700a3f447dc2da99a5069ea3",
-                "reference": "b5444775f32b555b700a3f447dc2da99a5069ea3",
+                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/1a3c2dacd55925653320f8abbcfb5056ccc686a5",
+                "reference": "1a3c2dacd55925653320f8abbcfb5056ccc686a5",
                 "shasum": ""
             },
             "require": {
@@ -587,6 +589,7 @@
             "autoload": {
                 "files": [
                     "src/oblak-polyfill-array.php",
+                    "src/oblak-polyfill-conditionals.php",
                     "src/oblak-polyfill-terms.php",
                     "src/oblak-polyfill-wpfs.php"
                 ],
@@ -607,9 +610,9 @@
             "description": "Various polyfills for WordPress.",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-polyfills/issues",
-                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.1.0"
+                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.2.0"
             },
-            "time": "2024-01-03T12:46:21+00:00"
+            "time": "2024-01-13T14:28:04+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
@@ -735,17 +738,539 @@
             "time": "2023-01-05T11:28:13+00:00"
         },
         {
-            "name": "oblak/wordpress-coding-standard",
-            "version": "v1.0.1",
+            "name": "ergebnis/composer-normalize",
+            "version": "2.31.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/oblakstudio/wordpress-coding-standards.git",
-                "reference": "1200c99b65b7ea0698bce345bbe10e3b635fab58"
+                "url": "https://github.com/ergebnis/composer-normalize.git",
+                "reference": "da1d18bcc2ca02111359c2c76fd938a907ba0a16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wordpress-coding-standards/zipball/1200c99b65b7ea0698bce345bbe10e3b635fab58",
-                "reference": "1200c99b65b7ea0698bce345bbe10e3b635fab58",
+                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/da1d18bcc2ca02111359c2c76fd938a907ba0a16",
+                "reference": "da1d18bcc2ca02111359c2c76fd938a907ba0a16",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0.0",
+                "ergebnis/json": "^1.0.1",
+                "ergebnis/json-normalizer": "^4.1.0",
+                "ergebnis/json-printer": "^3.3.0",
+                "ext-json": "*",
+                "justinrainbow/json-schema": "^5.2.12",
+                "localheinz/diff": "^1.1.1",
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.5.5",
+                "ergebnis/license": "^2.1.0",
+                "ergebnis/php-cs-fixer-config": "^5.5.2",
+                "fakerphp/faker": "^1.21.0",
+                "infection/infection": "~0.26.19",
+                "phpunit/phpunit": "^9.6.7",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "rector/rector": "~0.15.25",
+                "symfony/filesystem": "^6.0.13",
+                "vimeo/psalm": "^5.9.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Ergebnis\\Composer\\Normalize\\NormalizePlugin",
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                },
+                "plugin-optional": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Composer\\Normalize\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a composer plugin for normalizing composer.json.",
+            "homepage": "https://github.com/ergebnis/composer-normalize",
+            "keywords": [
+                "composer",
+                "normalize",
+                "normalizer",
+                "plugin"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/composer-normalize/issues",
+                "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
+                "source": "https://github.com/ergebnis/composer-normalize"
+            },
+            "time": "2023-05-02T14:10:33+00:00"
+        },
+        {
+            "name": "ergebnis/json",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/json.git",
+                "reference": "d66ea30060856d0729a4aa319a02752519ca63a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/json/zipball/d66ea30060856d0729a4aa319a02752519ca63a0",
+                "reference": "d66ea30060856d0729a4aa319a02752519ca63a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.29.0",
+                "ergebnis/data-provider": "^1.2.0",
+                "ergebnis/license": "^2.1.0",
+                "ergebnis/php-cs-fixer-config": "^5.0.0",
+                "ergebnis/phpstan-rules": "^1.0.0",
+                "fakerphp/faker": "^1.20.0",
+                "infection/infection": "~0.26.16",
+                "phpunit/phpunit": "^9.5.27",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "vimeo/psalm": "^5.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Json\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a Json value object for representing a valid JSON string.",
+            "homepage": "https://github.com/ergebnis/json",
+            "keywords": [
+                "json"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/json/issues",
+                "source": "https://github.com/ergebnis/json"
+            },
+            "time": "2022-12-10T22:38:50+00:00"
+        },
+        {
+            "name": "ergebnis/json-normalizer",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/json-normalizer.git",
+                "reference": "e38f8b27f908686b200e3bd68e1b7bdfb5d53061"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/json-normalizer/zipball/e38f8b27f908686b200e3bd68e1b7bdfb5d53061",
+                "reference": "e38f8b27f908686b200e3bd68e1b7bdfb5d53061",
+                "shasum": ""
+            },
+            "require": {
+                "ergebnis/json": "^1.0.1",
+                "ergebnis/json-pointer": "^3.2.0",
+                "ergebnis/json-printer": "^3.3.0",
+                "ergebnis/json-schema-validator": "^4.0.0",
+                "ext-json": "*",
+                "justinrainbow/json-schema": "^5.2.12",
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+            },
+            "require-dev": {
+                "composer/semver": "^3.2.1",
+                "ergebnis/data-provider": "^1.3.0",
+                "ergebnis/license": "^2.1.0",
+                "ergebnis/php-cs-fixer-config": "^5.5.2",
+                "fakerphp/faker": "^1.21.0",
+                "infection/infection": "~0.26.19",
+                "phpunit/phpunit": "^9.6.7",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "rector/rector": "~0.15.25",
+                "symfony/filesystem": "^6.0.19",
+                "symfony/finder": "^6.0.19",
+                "vimeo/psalm": "^5.9.0"
+            },
+            "suggest": {
+                "composer/semver": "If you want to use ComposerJsonNormalizer or VersionConstraintNormalizer"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Json\\Normalizer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides generic and vendor-specific normalizers for normalizing JSON documents.",
+            "homepage": "https://github.com/ergebnis/json-normalizer",
+            "keywords": [
+                "json",
+                "normalizer"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/json-normalizer/issues",
+                "source": "https://github.com/ergebnis/json-normalizer"
+            },
+            "time": "2023-05-02T11:08:03+00:00"
+        },
+        {
+            "name": "ergebnis/json-pointer",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/json-pointer.git",
+                "reference": "861516ff5afa1aa8905fdf3361315909523a1bf8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/json-pointer/zipball/861516ff5afa1aa8905fdf3361315909523a1bf8",
+                "reference": "861516ff5afa1aa8905fdf3361315909523a1bf8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.28.3",
+                "ergebnis/data-provider": "^1.2.0",
+                "ergebnis/license": "^2.1.0",
+                "ergebnis/php-cs-fixer-config": "^5.0.0",
+                "fakerphp/faker": "^1.20.0",
+                "infection/infection": "~0.26.16",
+                "phpunit/phpunit": "^9.5.26",
+                "psalm/plugin-phpunit": "~0.18.3",
+                "vimeo/psalm": "^4.30"
+            },
+            "type": "library",
+            "extra": {
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Json\\Pointer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides JSON pointer as a value object.",
+            "homepage": "https://github.com/ergebnis/json-pointer",
+            "keywords": [
+                "RFC6901",
+                "json",
+                "pointer"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/json-pointer/issues",
+                "source": "https://github.com/ergebnis/json-pointer"
+            },
+            "time": "2022-11-28T17:03:31+00:00"
+        },
+        {
+            "name": "ergebnis/json-printer",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/json-printer.git",
+                "reference": "18920367473b099633f644f0ca6dc8794345148f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/json-printer/zipball/18920367473b099633f644f0ca6dc8794345148f",
+                "reference": "18920367473b099633f644f0ca6dc8794345148f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ergebnis/license": "^2.0.0",
+                "ergebnis/php-cs-fixer-config": "^4.11.0",
+                "fakerphp/faker": "^1.20.0",
+                "infection/infection": "~0.26.6",
+                "phpunit/phpunit": "^9.5.26",
+                "psalm/plugin-phpunit": "~0.18.3",
+                "vimeo/psalm": "^4.30.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Json\\Printer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a JSON printer, allowing for flexible indentation.",
+            "homepage": "https://github.com/ergebnis/json-printer",
+            "keywords": [
+                "formatter",
+                "json",
+                "printer"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/json-printer/issues",
+                "source": "https://github.com/ergebnis/json-printer"
+            },
+            "time": "2022-11-28T10:27:43+00:00"
+        },
+        {
+            "name": "ergebnis/json-schema-validator",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ergebnis/json-schema-validator.git",
+                "reference": "a6166272ac5691a9bc791f185841e5f92a6d4723"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ergebnis/json-schema-validator/zipball/a6166272ac5691a9bc791f185841e5f92a6d4723",
+                "reference": "a6166272ac5691a9bc791f185841e5f92a6d4723",
+                "shasum": ""
+            },
+            "require": {
+                "ergebnis/json": "^1.0.0",
+                "ergebnis/json-pointer": "^3.2.0",
+                "ext-json": "*",
+                "justinrainbow/json-schema": "^5.2.12",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2.21.0",
+                "ergebnis/data-provider": "^1.2.0",
+                "ergebnis/license": "^2.1.0",
+                "ergebnis/php-cs-fixer-config": "~5.0.0",
+                "fakerphp/faker": "^1.20.0",
+                "infection/infection": "~0.26.16",
+                "phpunit/phpunit": "~9.5.27",
+                "psalm/plugin-phpunit": "~0.18.4",
+                "vimeo/psalm": "^5.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "composer-normalize": {
+                    "indent-size": 2,
+                    "indent-style": "space"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ergebnis\\Json\\SchemaValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Möller",
+                    "email": "am@localheinz.com"
+                }
+            ],
+            "description": "Provides a JSON schema validator, building on top of justinrainbow/json-schema.",
+            "homepage": "https://github.com/ergebnis/json-schema-validator",
+            "keywords": [
+                "json",
+                "schema",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/ergebnis/json-schema-validator/issues",
+                "source": "https://github.com/ergebnis/json-schema-validator"
+            },
+            "time": "2022-12-10T14:50:15+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "v5.2.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "reference": "fbbe7e5d79f618997bc3332a6f49246036c45793",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/justinrainbow/json-schema/issues",
+                "source": "https://github.com/justinrainbow/json-schema/tree/v5.2.13"
+            },
+            "time": "2023-09-26T02:20:38+00:00"
+        },
+        {
+            "name": "localheinz/diff",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/localheinz/diff.git",
+                "reference": "851bb20ea8358c86f677f5f111c4ab031b1c764c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/localheinz/diff/zipball/851bb20ea8358c86f677f5f111c4ab031b1c764c",
+                "reference": "851bb20ea8358c86f677f5f111c4ab031b1c764c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5 || ^8.0",
+                "symfony/process": "^4.2 || ^5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                },
+                {
+                    "name": "Kore Nordmann",
+                    "email": "mail@kore-nordmann.de"
+                }
+            ],
+            "description": "Fork of sebastian/diff for use with ergebnis/composer-normalize",
+            "homepage": "https://github.com/localheinz/diff",
+            "keywords": [
+                "diff",
+                "udiff",
+                "unidiff",
+                "unified diff"
+            ],
+            "support": {
+                "source": "https://github.com/localheinz/diff/tree/main"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sebastianbergmann",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-07-06T04:49:32+00:00"
+        },
+        {
+            "name": "oblak/wordpress-coding-standard",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oblakstudio/wordpress-coding-standards.git",
+                "reference": "aa964f84e76916fbf15b9fa72bdca1948daef30f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oblakstudio/wordpress-coding-standards/zipball/aa964f84e76916fbf15b9fa72bdca1948daef30f",
+                "reference": "aa964f84e76916fbf15b9fa72bdca1948daef30f",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +1280,7 @@
                 "phpcompatibility/phpcompatibility-wp": "2.1.4",
                 "phpcsstandards/phpcsextra": "1.1.0",
                 "phpcsstandards/phpcsutils": "1.0.8",
-                "squizlabs/php_codesniffer": "3.7.2",
+                "squizlabs/php_codesniffer": "3.8.1",
                 "wp-coding-standards/wpcs": "^3"
             },
             "require-dev": {
@@ -783,9 +1308,9 @@
             ],
             "support": {
                 "issues": "https://github.com/oblakstudio/wordpress-coding-standards/issues",
-                "source": "https://github.com/oblakstudio/wordpress-coding-standards/tree/v1.0.1"
+                "source": "https://github.com/oblakstudio/wordpress-coding-standards/tree/v1.0.2"
             },
-            "time": "2023-12-09T17:30:35+00:00"
+            "time": "2024-01-16T15:43:51+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -1099,16 +1624,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.2",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879"
+                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/ed8e00df0a83aa96acf703f8c2979ff33341f879",
-                "reference": "ed8e00df0a83aa96acf703f8c2979ff33341f879",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/14f5fff1e64118595db5408e946f3a22c75807f7",
+                "reference": "14f5fff1e64118595db5408e946f3a22c75807f7",
                 "shasum": ""
             },
             "require": {
@@ -1118,11 +1643,11 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
             },
             "bin": [
-                "bin/phpcs",
-                "bin/phpcbf"
+                "bin/phpcbf",
+                "bin/phpcs"
             ],
             "type": "library",
             "extra": {
@@ -1137,20 +1662,29 @@
             "authors": [
                 {
                     "name": "Greg Sherwood",
-                    "role": "lead"
+                    "role": "Former lead"
+                },
+                {
+                    "name": "Juliette Reinders Folmer",
+                    "role": "Current lead"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
                 }
             ],
             "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
+            "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
                 "standards",
                 "static analysis"
             ],
             "support": {
-                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
-                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
-                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
+                "issues": "https://github.com/PHPCSStandards/PHP_CodeSniffer/issues",
+                "security": "https://github.com/PHPCSStandards/PHP_CodeSniffer/security/policy",
+                "source": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
+                "wiki": "https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki"
             },
             "funding": [
                 {
@@ -1166,7 +1700,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2023-02-22T23:07:41+00:00"
+            "time": "2024-01-11T20:47:48+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -1241,8 +1775,11 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">= 8.0"
+        "php": "^8.0"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.0"
+    },
     "plugin-api-version": "2.6.0"
 }

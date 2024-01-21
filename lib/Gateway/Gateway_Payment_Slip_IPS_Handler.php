@@ -49,7 +49,7 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      *
      * @hook     woocommerce_checkout_order_created
      * @type     action
-     * @priority 30
+     * @priority 20
      */
     public function add_ips_metadata( WC_Order $order ) {
         $slip_data = $order->get_meta( '_payment_slip_data', true );
@@ -178,15 +178,12 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
     }
 
     /**
-     * Generates the QR code for the IPS payment slip.
+     * Get the QR code options
      *
-     * @param  WC_Order $order     The order object.
-     * @param  array    $options   The gateway options.
-     *
-     * @hook woocommerce_serbian_generate_ips_qr_code
-     * @type action
+     * @param  array<string, mixed> $options The gateway options.
+     * @return array<string, mixed>
      */
-    public function generate_qr_code( WC_Order $order, array $options, ) {
+    protected function get_qr_code_options( array $options ): array {
         $module_values = array(
             // Finder.
             QRMatrix::M_FINDER_DARK    => $options['qrcode_corner_color'],
@@ -233,7 +230,20 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
             );
         }
 
-        QR_Code_Handler::instance()->init( $args )->create_file( $order );
+        return $args;
+    }
+
+    /**
+     * Generates the QR code for the IPS payment slip.
+     *
+     * @param  WC_Order $order     The order object.
+     * @param  array    $options   The gateway options.
+     *
+     * @hook woocommerce_serbian_generate_ips_qr_code
+     * @type action
+     */
+    public function generate_qr_code( WC_Order $order, array $options, ) {
+        QR_Code_Handler::instance()->init( $this->get_qr_code_options( $options ) )->create_file( $order );
     }
 
     //phpcs:disable
@@ -300,12 +310,13 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      * @return array
      */
     protected function get_template_args( WC_Order $order, string $type ): array {
+        $qrc = QR_Code_Handler::instance()->init( $this->get_qr_code_options( $this->options ) );
         return array(
             'src'  => 'email' === $type
                 ? 'cid:ips-qr-code'
-                : QR_Code_Handler::instance()->get_file_base64( $order ),
+                : $qrc->get_file_base64( $order ),
             'alt'  => __( 'IPS QR Code', 'serbian-addons-for-woocommerce' ),
-            'path' => QR_Code_Handler::instance()->get_filename( $order ),
+            'path' => $qrc->get_filename( $order ),
         );
     }
 
