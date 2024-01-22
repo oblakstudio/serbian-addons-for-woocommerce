@@ -1,3 +1,10 @@
+## [3.5.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.0...v3.5.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* **IPS:** Gateway availability check ([52337ef](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/52337efcd0bd0a1022456eb916b1fb1519513048))
+
 # [3.5.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.4.0...v3.5.0) (2024-01-21)
 
 
