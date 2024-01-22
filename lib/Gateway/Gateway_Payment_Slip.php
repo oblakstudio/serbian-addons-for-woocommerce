@@ -118,7 +118,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
 
         self::$log_enabled[ self::$log_id ] = $this->debug;
 
-        if ( ! $this->is_valid_for_use() ) {
+        if ( is_wp_error( $this->is_valid_for_use() ) ) {
             $this->enabled = 'no';
         } else {
             new Gateway_Payment_Slip_Data_Handler( $this->get_available_settings() );

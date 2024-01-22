@@ -63,12 +63,6 @@ class Serbian_WooCommerce {
      */
     public function on_plugins_loaded() {
         Core\Installer::instance()->init();
-
-        load_plugin_textdomain(
-            'serbian-addons-for-woocommerce',
-            false,
-            dirname( WCRS_PLUGIN_BASENAME ) . '/languages'
-        );
     }
 
     /**
