@@ -10,16 +10,14 @@ namespace Oblak\WooCommerce\Serbian_Addons\QR;
 use chillerlan\QRCode\Data\QRMatrix;
 use chillerlan\QRCode\Output\QROutputInterface;
 use chillerlan\QRCode\QRCode;
-use Oblak\WP\Traits\Singleton_Trait;
+use Oblak\WP\Traits\Singleton;
 use WC_Order;
-
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_ips_basedir;
 
 /**
  * Handles the creation and rendering of QR Codes.
  */
 class QR_Code_Handler {
-    use Singleton_Trait;
+    use Singleton;
 
     /**
      * QR Code generator.
@@ -66,15 +64,18 @@ class QR_Code_Handler {
          *
          * @since 3.3.0
          */
-        $implementations = apply_filters( 'woocommerce_serbian_qr_code_implementations', $implementations );
+        $implementations = \apply_filters( 'woocommerce_serbian_qr_code_implementations', $implementations );
         $implementation  = false;
 
         foreach ( $implementations as $generator ) {
-            if ( ! call_user_func( array( $generator, 'test' ), $args ) ) {
+            if ( ! \call_user_func( array( $generator, 'test' ), $args ) ) {
                 continue;
             }
 
-            if ( isset( $args['format'] ) && ! call_user_func( array( $generator, 'supports_format' ), $args['format'] ) ) {
+            if (
+                isset( $args['format'] ) &&
+                ! \call_user_func( array( $generator, 'supports_format' ), $args['format'] )
+            ) {
                 continue;
             }
 
@@ -91,25 +92,25 @@ class QR_Code_Handler {
      * @return QRCode
      */
     protected function init_generator( array $args ): QRCode {
-        $args = wp_parse_args(
+        $args = \wp_parse_args(
             $args,
             array(
-                'imagickFormat'    => $args['format'] ?? 'png',
-                'outputType'       => QROutputInterface::CUSTOM,
-                'outputInterface'  => $this->choose_implementation( $args ),
-                'outputBase64'     => false,
-                'bgColor'          => '#fff',
-                'imageTransparent' => false,
-                'scale'            => 5,
-                'drawLightModules' => false,
                 'addQuietzone'     => true,
-                'quietzoneSize'    => 1,
+                'bgColor'          => '#fff',
+                'drawLightModules' => false,
+                'imageTransparent' => false,
+                'imagickFormat'    => $args['format'] ?? 'png',
                 'keepAsSquare'     => array(
                     QRMatrix::M_FINDER_DARK,
                     QRMatrix::M_FINDER_DOT,
                     QRMatrix::M_ALIGNMENT_DARK,
                 ),
-            )
+                'outputBase64'     => false,
+                'outputInterface'  => $this->choose_implementation( $args ),
+                'outputType'       => QROutputInterface::CUSTOM,
+                'quietzoneSize'    => 1,
+                'scale'            => 5,
+            ),
         );
 
         /**
@@ -120,7 +121,7 @@ class QR_Code_Handler {
          *
          * @since 3.3.0
          */
-        $args = apply_filters( 'woocommerce_serbian_qr_code_generator_args', $args );
+        $args = \apply_filters( 'woocommerce_serbian_qr_code_generator_args', $args );
 
         self::$initialized = true;
 
@@ -169,7 +170,7 @@ class QR_Code_Handler {
      * @return bool
      */
     public function save_file( string $qr_code, string $file ): bool {
-        return wp_load_filesystem()->put_contents( $file, $qr_code );
+        return \wp_load_filesystem()->put_contents( $file, $qr_code );
     }
 
     /**
@@ -183,12 +184,12 @@ class QR_Code_Handler {
     public function create_file( WC_Order $order, string $format = 'jpg', ?array $args = null ): bool {
         $qr_code = $this->create_qr_code(
             $order->get_meta( '_payment_slip_ips_data', true ),
-            $args
+            $args,
         );
 
         return $this->save_file(
             $qr_code,
-            $this->get_filename( $order, $format )
+            $this->get_filename( $order, $format ),
         );
     }
 
@@ -203,15 +204,15 @@ class QR_Code_Handler {
     public function get_file( WC_Order $order, string $format = 'jpg', bool $force = false ): string|false {
         $filepath = $this->get_filename( $order, $format );
 
-        if ( ! $force && file_exists( $filepath ) ) {
-            return wp_load_filesystem()->get_contents( $filepath );
+        if ( ! $force && \file_exists( $filepath ) ) {
+            return \wp_load_filesystem()->get_contents( $filepath );
         }
 
         if ( ! $this->create_file( $order, $format ) ) {
             return false;
         }
 
-        return wp_load_filesystem()->get_contents( $filepath );
+        return \wp_load_filesystem()->get_contents( $filepath );
     }
 
     /**
@@ -226,17 +227,18 @@ class QR_Code_Handler {
         $filepath = $this->get_filename( $order, $format );
         $file     = null;
 
-        if ( ! $force && file_exists( $filepath ) ) {
-            $file = wp_load_filesystem()->get_contents( $filepath );
+        if ( ! $force && \file_exists( $filepath ) ) {
+            $file = \wp_load_filesystem()->get_contents( $filepath );
         }
 
         if ( ! $file ) {
             $this->create_file( $order, $format );
-            $file = wp_load_filesystem()->get_contents( $filepath );
+            $file = \wp_load_filesystem()->get_contents( $filepath );
         }
 
         return $file
-            ? 'data:image/jpg;base64, ' . base64_encode( $file )// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+            // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
+            ? 'data:image/jpg;base64, ' . \base64_encode( $file )
             : false;
     }
 
@@ -249,12 +251,12 @@ class QR_Code_Handler {
      * @return string                 The file name.
      */
     public function get_filename( WC_Order $order, string $format = 'jpg', bool $with_basedir = true ): string {
-        return sprintf(
+        return \sprintf(
             '%4$s%1$s-%2$s.%3$s',
             $order->get_id(),
             $order->get_order_key(),
             $format,
-            $with_basedir ? trailingslashit( $this->basedir ) : '',
+            $with_basedir ? \trailingslashit( $this->basedir ) : '',
         );
     }
 }

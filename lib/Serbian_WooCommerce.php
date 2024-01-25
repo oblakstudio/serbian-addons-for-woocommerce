@@ -10,7 +10,7 @@ namespace Oblak\WooCommerce\Serbian_Addons;
 use Oblak\WooCommerce\Core\Settings_Helper;
 use Oblak\WP\Loader_Trait;
 use Oblak\WP\Traits\Hook_Processor_Trait;
-use Oblak\WP\Traits\Singleton_Trait;
+use Oblak\WP\Traits\Singleton;
 
 use function Oblak\WooCommerce\Serbian_Addons\Utils\get_ips_basedir;
 
@@ -19,7 +19,7 @@ use function Oblak\WooCommerce\Serbian_Addons\Utils\get_ips_basedir;
  */
 class Serbian_WooCommerce {
     use Hook_Processor_Trait;
-    use Singleton_Trait;
+    use Singleton;
     use Loader_Trait;
     use Settings_Helper {
         Settings_Helper::load_settings as load_settings_helper;
@@ -36,7 +36,7 @@ class Serbian_WooCommerce {
      * Private constructor
      */
     protected function __construct() {
-        defined( 'WCRS_IPS_DIR' ) || define( 'WCRS_IPS_DIR', get_ips_basedir() );
+        \defined( 'WCRS_IPS_DIR' ) || \define( 'WCRS_IPS_DIR', get_ips_basedir() );
         $this->init( 'woocommerce_loaded', 1 );
         $this->init_asset_loader( require WCRS_PLUGIN_PATH . 'config/assets.php', 'wcrs' );
     }
@@ -73,7 +73,11 @@ class Serbian_WooCommerce {
      * @priority 99
      */
     public function load_plugin_settings() {
-        $this->settings = $this->load_settings( 'wcsrb', require WCRS_PLUGIN_PATH . 'config/settings.php', false );
+        $this->settings = $this->load_settings(
+            'wcsrb',
+            require WCRS_PLUGIN_PATH . 'config/settings.php',
+            false,
+        );
     }
 
     /**
@@ -83,9 +87,15 @@ class Serbian_WooCommerce {
      * @type    action
      */
     public function declare_hpos_compatibility() {
-        if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WCRS_PLUGIN_FILE, true );
-		}
+        if ( ! \class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+            return;
+        }
+
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+            'custom_order_tables',
+            WCRS_PLUGIN_FILE,
+            true,
+        );
     }
 
     /**
@@ -140,7 +150,7 @@ class Serbian_WooCommerce {
      */
     public function check_asset_necessity( $load, $script ) {
         return match ( $script ) {
-            'main' => is_checkout() && ! is_wc_endpoint_url(),
+            'main' => \is_checkout() && ! \is_wc_endpoint_url(),
             default => $load,
         };
     }
@@ -158,17 +168,20 @@ class Serbian_WooCommerce {
      */
     protected function load_settings( string $prefix, array $raw_settings, $default_value ): array {
         $settings = $this->load_settings_helper( $prefix, $raw_settings, $default_value );
-        $accounts = get_option( 'woocommerce_store_bank_accounts', array( 'acct' => array() ) )['acct'] ?? array();
+        $accounts = \get_option(
+            'woocommerce_store_bank_accounts',
+            array( 'acct' => array() ),
+        )['acct'] ?? array();
 
         $settings['company'] = array(
-            'logo'      => get_option( 'site_icon', 0 ),
-            'name'      => get_option( 'woocommerce_store_name', '' ),
-            'address'   => get_option( 'woocommerce_store_address', '' ),
-            'address_2' => get_option( 'woocommerce_store_address_2', '' ),
-            'postcode'  => get_option( 'woocommerce_store_postcode', '' ),
-            'city'      => get_option( 'woocommerce_store_city', '' ),
-            'country'   => wc_get_base_location()['country'],
             'accounts'  => $accounts,
+            'address'   => \get_option( 'woocommerce_store_address', '' ),
+            'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
+            'city'      => \get_option( 'woocommerce_store_city', '' ),
+            'country'   => \wc_get_base_location()['country'],
+            'logo'      => \get_option( 'site_icon', 0 ),
+            'name'      => \get_option( 'woocommerce_store_name', '' ),
+            'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
         );
 
         return $settings;
