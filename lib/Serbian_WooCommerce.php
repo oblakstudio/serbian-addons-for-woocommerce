@@ -10,7 +10,7 @@ namespace Oblak\WooCommerce\Serbian_Addons;
 use Oblak\WooCommerce\Core\Settings_Helper;
 use Oblak\WP\Loader_Trait;
 use Oblak\WP\Traits\Hook_Processor_Trait;
-use Oblak\WP\Traits\Singleton_Trait;
+use Oblak\WP\Traits\Singleton as Singleton_Trait;
 
 use function Oblak\WooCommerce\Serbian_Addons\Utils\get_ips_basedir;
 
