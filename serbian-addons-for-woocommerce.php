@@ -3,7 +3,7 @@
  * Plugin Name:          Serbian Addons for WooCommerce
  * Plugin URI:           https://oblak.studio/open-source/srpski-woocommerce
  * Description:          Various addons and tweaks that make WooCommerce compatible with Serbian bureaucracy.
- * Version:              3.5.3
+ * Version:              3.5.4
  * Requires PHP:         8.0
  * Author:               Oblak Studio
  * Author URI:           https://oblak.studio
