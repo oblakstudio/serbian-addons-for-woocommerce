@@ -1,3 +1,10 @@
+## [3.5.3](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.2...v3.5.3) (2024-01-25)
+
+
+### Bug Fixes
+
+* Class instance fix ([85f7fc7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/85f7fc74bdbca71f67bb5971c25d8f749df5924a))
+
 ## [3.5.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.1...v3.5.2) (2024-01-25)
 
 
