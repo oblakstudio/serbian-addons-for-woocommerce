@@ -369,16 +369,16 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "1.25.1",
+            "version": "v1.27.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "242cb61ab3ac28631ba095c6c024abbdbd7708a7"
+                "reference": "ec1158826221ed818d233616255f8f444767f9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/242cb61ab3ac28631ba095c6c024abbdbd7708a7",
-                "reference": "242cb61ab3ac28631ba095c6c024abbdbd7708a7",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/ec1158826221ed818d233616255f8f444767f9cd",
+                "reference": "ec1158826221ed818d233616255f8f444767f9cd",
                 "shasum": ""
             },
             "require": {
@@ -386,6 +386,7 @@
                 "php": ">= 8.0"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.31",
                 "oblak/wordpress-coding-standard": "^1.0"
             },
             "suggest": {
@@ -414,9 +415,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.25.1"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.27.1"
             },
-            "time": "2024-01-18T00:12:27+00:00"
+            "time": "2024-01-24T12:51:34+00:00"
         },
         {
             "name": "oblak/wp-asset-loader",
@@ -460,16 +461,16 @@
         },
         {
             "name": "oblak/wp-hook-di",
-            "version": "1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-hook-di.git",
-                "reference": "850f818d066daf603c833bf3d37ae64f8c898684"
+                "reference": "0a46de2875a53dac4cf1a8e435042a986dd1324a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-hook-di/zipball/850f818d066daf603c833bf3d37ae64f8c898684",
-                "reference": "850f818d066daf603c833bf3d37ae64f8c898684",
+                "url": "https://api.github.com/repos/oblakstudio/wp-hook-di/zipball/0a46de2875a53dac4cf1a8e435042a986dd1324a",
+                "reference": "0a46de2875a53dac4cf1a8e435042a986dd1324a",
                 "shasum": ""
             },
             "require": {
@@ -478,6 +479,7 @@
                 "php": ">= 8.0"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.31",
                 "oblak/wordpress-coding-standard": "^1"
             },
             "suggest": {
@@ -506,9 +508,9 @@
             "description": "Simplifies the use of WordPress hooks by allowing you to use simple dependency injection.",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-hook-di/issues",
-                "source": "https://github.com/oblakstudio/wp-hook-di/tree/v1.0.1"
+                "source": "https://github.com/oblakstudio/wp-hook-di/tree/v1.0.2"
             },
-            "time": "2024-01-13T14:29:04+00:00"
+            "time": "2024-01-25T00:08:57+00:00"
         },
         {
             "name": "oblak/wp-plugin-installer",
@@ -564,22 +566,23 @@
         },
         {
             "name": "oblak/wp-polyfills",
-            "version": "1.2.0",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-polyfills.git",
-                "reference": "1a3c2dacd55925653320f8abbcfb5056ccc686a5"
+                "reference": "b5d433d81c97339abb6153bc8e1c3fe797815ae0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/1a3c2dacd55925653320f8abbcfb5056ccc686a5",
-                "reference": "1a3c2dacd55925653320f8abbcfb5056ccc686a5",
+                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/b5d433d81c97339abb6153bc8e1c3fe797815ae0",
+                "reference": "b5d433d81c97339abb6153bc8e1c3fe797815ae0",
                 "shasum": ""
             },
             "require": {
-                "php": ">= 8.0"
+                "php": ">= 8.0 < 8.2"
             },
             "require-dev": {
+                "ergebnis/composer-normalize": "^2.31",
                 "oblak/wordpress-coding-standard": "^1"
             },
             "suggest": {
@@ -589,7 +592,9 @@
             "autoload": {
                 "files": [
                     "src/oblak-polyfill-array.php",
+                    "src/oblak-polyfill-block.php",
                     "src/oblak-polyfill-conditionals.php",
+                    "src/oblak-polyfill-filter.php",
                     "src/oblak-polyfill-terms.php",
                     "src/oblak-polyfill-wpfs.php"
                 ],
@@ -608,11 +613,19 @@
                 }
             ],
             "description": "Various polyfills for WordPress.",
+            "keywords": [
+                "compat",
+                "compatibility",
+                "polyfill",
+                "shim",
+                "shims",
+                "wordpress"
+            ],
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-polyfills/issues",
-                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.2.0"
+                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.4.2"
             },
-            "time": "2024-01-13T14:28:04+00:00"
+            "time": "2024-01-24T06:00:19+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
@@ -1261,16 +1274,16 @@
         },
         {
             "name": "oblak/wordpress-coding-standard",
-            "version": "v1.0.2",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wordpress-coding-standards.git",
-                "reference": "aa964f84e76916fbf15b9fa72bdca1948daef30f"
+                "reference": "b1f62524c09c639a9fdf4272ad3fd113259a8952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wordpress-coding-standards/zipball/aa964f84e76916fbf15b9fa72bdca1948daef30f",
-                "reference": "aa964f84e76916fbf15b9fa72bdca1948daef30f",
+                "url": "https://api.github.com/repos/oblakstudio/wordpress-coding-standards/zipball/b1f62524c09c639a9fdf4272ad3fd113259a8952",
+                "reference": "b1f62524c09c639a9fdf4272ad3fd113259a8952",
                 "shasum": ""
             },
             "require": {
@@ -1280,6 +1293,7 @@
                 "phpcompatibility/phpcompatibility-wp": "2.1.4",
                 "phpcsstandards/phpcsextra": "1.1.0",
                 "phpcsstandards/phpcsutils": "1.0.8",
+                "slevomat/coding-standard": "^8.14",
                 "squizlabs/php_codesniffer": "3.8.1",
                 "wp-coding-standards/wpcs": "^3"
             },
@@ -1308,9 +1322,9 @@
             ],
             "support": {
                 "issues": "https://github.com/oblakstudio/wordpress-coding-standards/issues",
-                "source": "https://github.com/oblakstudio/wordpress-coding-standards/tree/v1.0.2"
+                "source": "https://github.com/oblakstudio/wordpress-coding-standards/tree/v1.1.1"
             },
-            "time": "2024-01-16T15:43:51+00:00"
+            "time": "2024-01-24T23:43:48+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -1621,6 +1635,118 @@
                 "source": "https://github.com/PHPCSStandards/PHPCSUtils"
             },
             "time": "2023-07-16T21:39:41+00:00"
+        },
+        {
+            "name": "phpstan/phpdoc-parser",
+            "version": "1.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpdoc-parser.git",
+                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/bd84b629c8de41aa2ae82c067c955e06f1b00240",
+                "reference": "bd84b629c8de41aa2ae82c067c955e06f1b00240",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^2.0",
+                "nikic/php-parser": "^4.15",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^1.5",
+                "phpstan/phpstan-phpunit": "^1.1",
+                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "symfony/process": "^5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPStan\\PhpDocParser\\": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPDoc parser with support for nullable, intersection and generic types",
+            "support": {
+                "issues": "https://github.com/phpstan/phpdoc-parser/issues",
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.25.0"
+            },
+            "time": "2024-01-04T17:06:16+00:00"
+        },
+        {
+            "name": "slevomat/coding-standard",
+            "version": "8.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/slevomat/coding-standard.git",
+                "reference": "fea1fd6f137cc84f9cba0ae30d549615dbc6a926"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/fea1fd6f137cc84f9cba0ae30d549615dbc6a926",
+                "reference": "fea1fd6f137cc84f9cba0ae30d549615dbc6a926",
+                "shasum": ""
+            },
+            "require": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2 || ^0.7 || ^1.0",
+                "php": "^7.2 || ^8.0",
+                "phpstan/phpdoc-parser": "^1.23.1",
+                "squizlabs/php_codesniffer": "^3.7.1"
+            },
+            "require-dev": {
+                "phing/phing": "2.17.4",
+                "php-parallel-lint/php-parallel-lint": "1.3.2",
+                "phpstan/phpstan": "1.10.37",
+                "phpstan/phpstan-deprecation-rules": "1.1.4",
+                "phpstan/phpstan-phpunit": "1.3.14",
+                "phpstan/phpstan-strict-rules": "1.5.1",
+                "phpunit/phpunit": "8.5.21|9.6.8|10.3.5"
+            },
+            "type": "phpcodesniffer-standard",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SlevomatCodingStandard\\": "SlevomatCodingStandard/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
+            "keywords": [
+                "dev",
+                "phpcs"
+            ],
+            "support": {
+                "issues": "https://github.com/slevomat/coding-standard/issues",
+                "source": "https://github.com/slevomat/coding-standard/tree/8.14.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/kukulich",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/slevomat/coding-standard",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-10-08T07:28:08+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
