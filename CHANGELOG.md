@@ -1,3 +1,10 @@
+## [3.5.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.1...v3.5.2) (2024-01-25)
+
+
+### Bug Fixes
+
+* Deps update ([266c327](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/266c327748760afb720c70c72e8bab9340a363f2))
+
 ## [3.5.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.0...v3.5.1) (2024-01-22)
 
 
