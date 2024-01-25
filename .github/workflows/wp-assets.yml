@@ -2,24 +2,24 @@ name: Plugin asset/readme update
 on:
   push:
     branches:
-    - master
+      - master
     paths:
-      - ".wordpress-org/**"
-      - ".github/workflows/wp-assets.yml"
-      - ".github/scripts/deploy.sh"
+      - '.wordpress-org/**'
+      - '.github/workflows/wp-assets.yml'
+      - '.github/scripts/deploy.sh'
 jobs:
   master:
     name: Push to trunk
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2.3.4
-    - name: Pre deploy scripts
-      run: "sh ./.github/scripts/deploy.sh"
-    - name: WordPress.org plugin asset/readme update
-      uses: 10up/action-wordpress-plugin-asset-update@stable
-      env:
-        SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
-        SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
-        ASSETS_DIR : ".wordpress-org/assets"
-        README_NAME: "readme.txt"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Pre deploy scripts
+        run: 'sh ./.github/scripts/deploy.sh'
+      - name: WordPress.org plugin asset/readme update
+        uses: 10up/action-wordpress-plugin-asset-update@2.1.3
+        env:
+          SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
+          ASSETS_DIR: '.wordpress-org/assets'
+          README_NAME: 'readme.txt'
