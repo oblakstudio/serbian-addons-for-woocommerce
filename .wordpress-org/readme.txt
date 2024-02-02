@@ -7,7 +7,7 @@ Tested up to: 6.4
 Requires PHP: 8.0
 WC requires at least: 8.0
 WC tested up to: 8.3
-Stable tag: 3.5.5
+Stable tag: 3.5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
