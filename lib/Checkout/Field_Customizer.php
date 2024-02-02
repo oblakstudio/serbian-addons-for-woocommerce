@@ -8,6 +8,7 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Checkout;
 
+use Oblak\WP\Abstracts\Hook_Runner;
 use Oblak\WP\Decorators\Hookable;
 
 use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
@@ -16,46 +17,31 @@ use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
  * Changes the fields on the checkout page
  */
 #[Hookable( 'woocommerce_init', 99 )]
-class Field_Customizer {
-
-    /**
-     * Class constructor
-     */
-    public function __construct() {
-        $filter_priority = 100;
-        /**
-         * Filters the priority of the checkout fields filter
-         *
-         * @param  int $filter_priority Priority of the checkout fields filter
-         * @return int                  Modified priority
-         * @since 2.2.0
-         */
-        $filter_priority = apply_filters( 'woocommerce_serbian_checkout_fields_priority', $filter_priority );
-
-        add_filter( 'woocommerce_billing_fields', array( $this, 'modify_billing_fields' ), $filter_priority, 1 );
-        add_filter( 'woocommerce_shipping_fields', array( $this, 'modify_shipping_fields' ), $filter_priority, 1 );
-        add_filter( 'woocommerce_checkout_fields', array( $this, 'modify_ajax_checkout_fields' ), $filter_priority, 1 );
-    }
-
+class Field_Customizer extends Hook_Runner {
     /**
      * Modifies the billing fields to add the customer type and additional company fields
      *
      * @param  array $fields Billing fields.
      * @return array         Modified billing fields
+     *
+     * @hook     woocommerce_billing_fields
+     * @type     filter
+     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
     public function modify_billing_fields( $fields ) {
-        $enabled_type = WCSRB()->get_settings( 'general', 'enabled_customer_types' );
+        $enabled_type = \WCSRB()->get_settings( 'general', 'enabled_customer_types' );
 
         $fields = $this->maybe_remove_fields( $fields );
 
         $fields['billing_type'] = $this->add_billing_type_field( $enabled_type );
 
-        $fields = array_merge(
+        $fields = \array_merge(
             $fields,
-            $this->maybe_add_company_fields( $enabled_type )
+            $this->maybe_add_company_fields( $enabled_type ),
         );
 
-        if ( ! in_array( $enabled_type, array( 'both', 'company' ), true ) ) { // If the billing type is not both or company, remove the company field.
+        // If the billing type is not both or company, remove the company field.
+        if ( ! \in_array( $enabled_type, array( 'both', 'company' ), true ) ) {
             unset( $fields['billing_company'] );
         } else { // Else, addin some extra data.
             $fields['billing_company']['class'][]  = 'hide-if-person';
@@ -70,6 +56,10 @@ class Field_Customizer {
      *
      * @param  array $fields Shipping fields.
      * @return array         Modified shipping fields
+     *
+     * @hook     woocommerce_shipping_fields
+     * @type     filter
+     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
     public function modify_shipping_fields( $fields ) {
         $fields = $this->maybe_remove_fields( $fields, 'shipping' );
@@ -82,13 +72,18 @@ class Field_Customizer {
      *
      * @param  array $fields Fields to modify.
      * @return array         Modified fields
+     *
+     * @hook     woocommerce_checkout_fields
+     * @type     filter
+     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
     public function modify_ajax_checkout_fields( $fields ) {
-        if ( ! wp_doing_ajax() ) {
+        if ( ! \wp_doing_ajax() ) {
             return $fields;
         }
 
-        $checkout_customer_type = wc_clean( wp_unslash( $_POST['billing_type'] ?? 'person' ) ); //phpcs:ignore WordPress.Security.NonceVerification.Missing
+        //phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $checkout_customer_type = \wc_clean( \wp_unslash( $_POST['billing_type'] ?? 'person' ) );
 
         if ( 'person' === $checkout_customer_type ) {
             unset( $fields['billing']['billing_company'] );
@@ -111,18 +106,21 @@ class Field_Customizer {
         $fields[ "{$type}_city" ]['priority']     = 91;
         $fields[ "{$type}_country" ]['priority']  = 91;
 
-        $fields_to_remove = WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ? array( 'address_2', 'state' ) : array();
+        $to_remove = \WCSRB()->get_settings(
+            'general',
+            'remove_unneeded_fields',
+        ) ? array( 'address_2', 'state' ) : array();
 
         /**
          * Filters the fields that should be removed from the checkout page
          *
-         * @param  array $fields_to_remove Fields to remove
+         * @param  array $to_remove Fields to remove
          * @return array
          * @since 1.3.0
          */
-        $fields_to_remove = apply_filters( 'woocommerce_serbian_checkout_fields_to_remove', $fields_to_remove );
+        $to_remove = \apply_filters( 'woocommerce_serbian_checkout_fields_to_remove', $to_remove );
 
-        foreach ( $fields_to_remove as $field_name ) {
+        foreach ( $to_remove as $field_name ) {
             unset( $fields[ "{$type}_{$field_name}" ] );
         }
 
@@ -141,13 +139,13 @@ class Field_Customizer {
      */
     private function add_billing_type_field( $enabled_type ) {
         $billing_type = array(
-            'type'     => 'radio',
-            'label'    => __( 'Customer type', 'serbian-addons-for-woocommerce' ),
             'class'    => array( 'form-row-wide', 'entity-type-control', 'update_totals_on_change' ),
-            'required' => true,
             'default'  => 'person',
+            'label'    => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
             'options'  => get_entity_types(),
             'priority' => 21,
+            'required' => true,
+            'type'     => 'radio',
         );
 
         if ( 'both' !== $enabled_type ) {
@@ -170,27 +168,27 @@ class Field_Customizer {
      * @return array                Company fields data.
      */
     private function maybe_add_company_fields( $enabled_type ) {
-        if ( ! in_array( $enabled_type, array( 'both', 'company' ), true ) ) {
+        if ( ! \in_array( $enabled_type, array( 'both', 'company' ), true ) ) {
             return array();
         }
 
         $extra_fields = array(
             'billing_mb'  => array(
-                'type'        => 'text',
-                'label'       => __( 'Company Number', 'serbian-addons-for-woocommerce' ),
                 'class'       => array( 'form-row-first', 'hide-if-person' ),
-                'required'    => true,
-                'placeholder' => '66143627',
+                'label'       => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
+                'placeholder' => \__( 'Enter MB', 'serbian-addons-for-woocommerce' ),
                 'priority'    => 31,
+                'required'    => true,
+                'type'        => 'text',
                 'validate'    => array( 'mb' ),
             ),
             'billing_pib' => array(
-                'type'        => 'text',
-                'label'       => __( 'Tax Number', 'serbian-addons-for-woocommerce' ),
                 'class'       => array( 'form-row-last', 'hide-if-person' ),
-                'required'    => true,
-                'placeholder' => '112497859',
+                'label'       => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
+                'placeholder' => \__( 'Enter PIB', 'serbian-addons-for-woocommerce' ),
                 'priority'    => 32,
+                'required'    => true,
+                'type'        => 'text',
                 'validate'    => array( 'pib' ),
             ),
         );
