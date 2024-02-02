@@ -1,3 +1,10 @@
+## [3.5.6](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.5...v3.5.6) (2024-02-02)
+
+
+### Bug Fixes
+
+* **i18n:** Refreshed translation template ([0481092](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/04810921a46416dc02f3a29d803e1ac2d12699be))
+
 ## [3.5.5](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.4...v3.5.5) (2024-02-02)
 
 
