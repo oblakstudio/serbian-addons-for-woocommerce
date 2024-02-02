@@ -1,3 +1,10 @@
+## [3.5.7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.6...v3.5.7) (2024-02-02)
+
+
+### Bug Fixes
+
+* Test commit for access ([9ed6fdc](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/9ed6fdcda80e4aa2897dba4c73613d37fd61a9d0))
+
 ## [3.5.6](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.5...v3.5.6) (2024-02-02)
 
 
