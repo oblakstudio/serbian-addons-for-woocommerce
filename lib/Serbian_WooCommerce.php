@@ -55,7 +55,7 @@ class Serbian_WooCommerce {
     }
 
     /**
-     * Loads the plugin textdomain
+     * Initializes the installer
      *
      * @hook     plugins_loaded
      * @type     action
@@ -150,7 +150,7 @@ class Serbian_WooCommerce {
      */
     public function check_asset_necessity( $load, $script ) {
         return match ( $script ) {
-            'main' => \is_checkout() && ! \is_wc_endpoint_url(),
+            'main' => ( \is_checkout() && ! \is_wc_endpoint_url() ) || \is_account_page(),
             default => $load,
         };
     }
