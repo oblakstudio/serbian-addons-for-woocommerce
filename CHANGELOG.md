@@ -1,3 +1,12 @@
+## [3.5.5](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.4...v3.5.5) (2024-02-02)
+
+
+### Bug Fixes
+
+* Account address change ([854bf9e](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/854bf9ef82f698e9628f502af2b16c739af80ddd))
+* **Deps:** Bumped dependencies ([e5e9b48](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/e5e9b48d1af4ada913626bc81f4ac4457bb0429b))
+* Removed language files ([4967d5a](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/4967d5ae962e3ab43975ed9e805b3eecbce81121))
+
 ## [3.5.4](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.3...v3.5.4) (2024-01-25)
 
 
