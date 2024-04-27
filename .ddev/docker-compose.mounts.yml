@@ -1,0 +1,6 @@
+services:
+  web:
+    volumes:
+      - '$HOME/projects/plugins:/home/venom/projects/plugins'
+      - '$HOME/projects/composer:/home/venom/projects/composer'
+      - '$HOME/projects/plugins/serbian-addons-for-woocommerce:/var/www/html/public_html/wp-content/plugins/serbian-addons-for-woocommerce'
