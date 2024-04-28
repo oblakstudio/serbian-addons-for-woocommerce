@@ -1,4 +1,5 @@
 # Dirs
+.ddev
 .github
 .git/
 .wordpress-org/
