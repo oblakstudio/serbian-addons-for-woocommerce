@@ -50,39 +50,14 @@ class QR_Code_Handler {
     /**
      * Choose the best QR Code implementation.
      *
-     * @param  array $args QR Code arguments.
      * @return string|false
      */
-    protected function choose_implementation( array $args ): string|false {
-        $implementations = array( QR_Generator_ImageMagick::class, QR_Generator_GD::class );
-
-        /**
-         * Filter the list of QR Code implementations.
-         *
-         * @param  array<int, class-string> $implementations List of QR Code implementations.
-         * @return array<int, class-string>
-         *
-         * @since 3.3.0
-         */
-        $implementations = \apply_filters( 'woocommerce_serbian_qr_code_implementations', $implementations );
-        $implementation  = false;
-
-        foreach ( $implementations as $generator ) {
-            if ( ! \call_user_func( array( $generator, 'test' ), $args ) ) {
-                continue;
-            }
-
-            if (
-                isset( $args['format'] ) &&
-                ! \call_user_func( array( $generator, 'supports_format' ), $args['format'] )
-            ) {
-                continue;
-            }
-
-            return $generator;
+    protected function choose_implementation(): string|false {
+        if ( \class_exists( \Imagick::class ) ) {
+            return QR_Generator_ImageMagick::class;
         }
 
-        return $implementation;
+        return QR_Generator_GD::class;
     }
 
     /**
@@ -106,12 +81,16 @@ class QR_Code_Handler {
                     QRMatrix::M_ALIGNMENT_DARK,
                 ),
                 'outputBase64'     => false,
-                'outputInterface'  => $this->choose_implementation( $args ),
+                'outputInterface'  => $this->choose_implementation(),
                 'outputType'       => QROutputInterface::CUSTOM,
                 'quietzoneSize'    => 1,
                 'scale'            => 5,
             ),
         );
+
+        if ( QR_Generator_GD::class === $args['outputInterface'] ) {
+            $args['moduleValues'] = \array_map( array( $this, 'hex2rgb' ), $args['moduleValues'] );
+        }
 
         /**
          * Filter the QR Code generator arguments.
@@ -126,6 +105,22 @@ class QR_Code_Handler {
         self::$initialized = true;
 
         return new QrCode( new QR_Code_Options( $args ) );
+    }
+
+    /**
+     * Converts a hex color to RGB.
+     *
+     * @param  string $hex Hex color.
+     * @return array       RGB color.
+     */
+    public function hex2rgb( string $hex ): array {
+        $hex = \hexdec( \ltrim( $hex, '#' ) );
+
+        $r = ( $hex >> 16 ) & 0xFF;
+        $g = ( $hex >> 8 ) & 0xFF;
+        $b = $hex & 0xFF;
+
+        return array( $r, $g, $b );
     }
 
     /**
