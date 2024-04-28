@@ -1,3 +1,10 @@
+## [3.5.8](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.7...v3.5.8) (2024-04-28)
+
+
+### Bug Fixes
+
+* GD Image generation ([695a850](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/695a85093aa9950d842adaaa6ddf7a189712d3d0))
+
 ## [3.5.7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.6...v3.5.7) (2024-02-02)
 
 
