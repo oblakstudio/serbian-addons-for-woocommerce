@@ -1,3 +1,10 @@
+## [3.5.9](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.8...v3.5.9) (2024-04-28)
+
+
+### Bug Fixes
+
+* Removed ddev dir from release ([18044d7](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/18044d740fbdcc1809b12e059c309187b0efbb1a))
+
 ## [3.5.8](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.7...v3.5.8) (2024-04-28)
 
 
