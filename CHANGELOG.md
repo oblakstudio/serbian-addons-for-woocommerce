@@ -1,3 +1,10 @@
+## [3.5.10](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.9...v3.5.10) (2024-05-03)
+
+
+### Bug Fixes
+
+* Tweaked plugin initialization ([30f5761](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/30f5761ccef4a97afa738c789d948863748057ef))
+
 ## [3.5.9](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.8...v3.5.9) (2024-04-28)
 
 
