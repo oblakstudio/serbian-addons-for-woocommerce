@@ -1,3 +1,15 @@
+# [3.6.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.10...v3.6.0) (2024-05-25)
+
+
+### Bug Fixes
+
+* Revert change ([c91b775](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/c91b7758001c8cb27710d575183e3de8a32637c0))
+
+
+### Features
+
+* Validation and checkout improvements ([4e9a596](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/4e9a5961187c1cebadd5f499fd6301752bdcb91a))
+
 ## [3.5.10](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.9...v3.5.10) (2024-05-03)
 
 
