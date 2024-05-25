@@ -8,88 +8,58 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Checkout;
 
+use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Hookable;
-
-use function Oblak\validateMB;
-use function Oblak\validatePIB;
 
 /**
  * Handles checkout field validation
  */
 #[Hookable( 'woocommerce_init', 99 )]
 class Field_Validator {
-
     /**
-     * Fields to validate
-     *
-     * @var array
-     */
-    private static $fields_to_check = array(
-        'billing_company',
-        'billing_pib',
-        'billing_mb',
-    );
-
-    /**
-     * Class constructor
+     *  Constructor
      */
     public function __construct() {
-        add_filter( 'woocommerce_after_save_address_validation', array( $this, 'validate_saved_address' ), 99, 2 );
-        add_filter( 'woocommerce_after_checkout_validation', array( $this, 'validate_checkout_fields' ), 99, 2 );
-    }
+        if ( \class_exists( '\XWP\Hook\Invoker' ) ) {
+            return;
+        }
 
+        \xwp_invoke_hooked_methods( $this );
+    }
     /**
      * Adds custom validation to billing address field saving
      *
-     * @param  int    $user_id      Current User ID.
-     * @param  string $load_address Address type being edited - billing or shipping.
+     * @param  int    $user_id Current User ID.
+     * @param  string $type    Address type being edited - billing or shipping.
      */
-    public function validate_saved_address( $user_id, $load_address ) {
-        if ( 'shipping' === $load_address ) {
+    #[Action( 'woocommerce_after_save_address_validation', 99 )]
+    public function validate_saved_address( int $user_id, string $type ) {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        $posted = \wc_clean( \wp_unslash( $_POST ) );
+
+        // If we're not validating billing, we don't need to do anything.
+        if ( ! $this->can_validate( $posted, $type ) ) {
             return;
         }
 
-        $post_data = wc_clean( wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $notices   = WC()->session->get( 'wc_notices', array() );
-        $errors    = $notices['error'] ?? array();
+        $validators = $this->get_field_validators( \current_filter() );
+        $notices    = $this->filter_notices( \array_keys( $validators ) );
 
-        // Unset all errors if they pertain to our fields.
-        foreach ( $errors as $index => $error_notice ) {
-            if ( in_array( $error_notice['data']['id'], self::$fields_to_check, true ) ) {
-                unset( $errors[ $index ] );
+        foreach ( $validators as $field => $args ) {
+            if ( $args['validator']( $posted[ $field ] ) ) {
+                continue;
             }
-        }
 
-        // If the customer is a person, we don't need to validate anything else. Reset the notices, and bailout.
-        if ( 'person' === $post_data['billing_type'] ) {
-            $notices['error'] = $errors;
-            WC()->session->set( 'wc_notices', $notices );
-
-            return;
-        }
-
-        if ( ! validateMB( $post_data['billing_mb'] ) ) {
-            $errors[] = array(
-                'notice' => __( 'Company number is invalid', 'serbian-addons-for-woocommerce' ),
+            $notices['error'][] = array(
                 'data'   => array(
-                    'id' => 'billing_mb',
+                    'id' => $field,
                 ),
+                'notice' => $args['message'],
             );
         }
-
-        if ( ! validatePIB( $post_data['billing_pib'] ) ) {
-            $errors[] = array(
-                'notice' => __( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' ),
-                'data'   => array(
-                    'id' => 'billing_pib',
-                ),
-            );
-        }
-
-        $notices['error'] = $errors;
-
-        WC()->session->set( 'wc_notices', $notices );
+        \WC()->session->set( 'wc_notices', $notices );
     }
+
 
     /**
      * Adds custom validation to billing address field saving
@@ -97,26 +67,93 @@ class Field_Validator {
      * @param  array     $data  Posted data.
      * @param  \WP_Error $error Error object.
      */
+    #[Action( 'woocommerce_after_checkout_validation', 0 )]
     public function validate_checkout_fields( $data, $error ) {
-        foreach ( self::$fields_to_check as $field ) {
-            if ( ! empty( $error->get_all_error_data( $field . '_required' ) ) ) {
-                $error->remove( $field . '_required' );
-            }
+        $fields = $this->get_field_validators( \current_filter() );
+
+        foreach ( \array_keys( $fields ) as $field ) {
+            $error->remove( $field . '_required' );
         }
 
-        if ( 'company' !== $data['billing_type'] || 'RS' !== $data['billing_country'] ) {
+        if ( ! $this->can_validate( $data ) ) {
             return;
         }
 
-        if ( '' === $data['billing_company'] ) {
-            $error->add( 'billing_company_required', __( 'Company name is required', 'serbian-addons-for-woocommerce' ) );
-        }
-        if ( ! validateMB( $data['billing_mb'] ) ) {
-            $error->add( 'billing_mb_required', __( 'Company number is invalid', 'serbian-addons-for-woocommerce' ) );
-        }
+        foreach ( $fields as $field => $args ) {
+            if ( $args['validator']( $data[ $field ] ) ) {
+                continue;
+            }
 
-        if ( ! validatePIB( $data['billing_pib'] ) ) {
-            $error->add( 'billing_pib_required', __( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' ) );
+            $error->add( $args['code'], $args['message'], array( 'id' => $field ) );
         }
+    }
+
+    /**
+     * Checks if the current address can be validated.
+     *
+     * @param  array  $fields    Address fields.
+     * @param  string $addr_type Address type being validated.
+     * @return bool
+     */
+    protected function can_validate( array $fields, string $addr_type = 'billing' ): bool {
+        $type    = $fields['billing_type'] ??= '';
+        $country = $fields['billing_country'] ??= '';
+
+        return 'billing' === $addr_type && 'company' === $type && 'RS' === $country;
+    }
+
+    /**
+     * Returns the field validators for the given action.
+     *
+     * @param  string $action Action being performed.
+     * @return array
+     */
+    protected function get_field_validators( string $action ) {
+        $args = array(
+            'billing_company' => array(
+                'code'      => 'billing_company_required',
+                'message'   => \__( 'Company name is required', 'serbian-addons-for-woocommerce' ),
+                'validator' => static fn( $val ) => '' !== $val,
+            ),
+            'billing_mb'      => array(
+                'code'      => 'billing_mb_validation',
+                'message'   => \__( 'Company number is invalid', 'serbian-addons-for-woocommerce' ),
+                'validator' => '\Oblak\validateMB',
+            ),
+            'billing_pib'     => array(
+                'code'      => 'billing_pib_validation',
+                'message'   => \__( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' ),
+                'validator' => '\Oblak\validatePIB',
+            ),
+        );
+
+        /**
+         * Returns the validation arguments for the given action.
+         *
+         * @param array  $args   Validation arguments.
+         * @param string $action Action being performed.
+         *
+         * @return array
+         *
+         * @since 3.6.0
+         */
+        return \apply_filters( 'wcrs_field_validators', $args, $action );
+    }
+
+    /**
+     * Filters out notices for fields that have been validated.
+     *
+     * @param  array $fields Fields that have been validated.
+     * @return array
+     */
+    protected function filter_notices( array $fields ): array {
+        $notices = \WC()->session->get( 'wc_notices', array() );
+
+        $notices['error'] = \array_filter(
+            $notices['error'] ?? array(),
+            static fn( $e ) => ! \in_array( $e['data']['id'] ?? '', $fields, true )
+        );
+
+        return $notices;
     }
 }

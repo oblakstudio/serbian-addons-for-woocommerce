@@ -8,7 +8,7 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Order;
 
-use Oblak\WP\Abstracts\Hook_Runner;
+use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
 use WC_Customer;
 use WC_Order;
@@ -17,30 +17,31 @@ use WC_Order;
  * Handles the address display customizations for orders and addresses
  */
 #[Hookable( 'woocommerce_init', 99 )]
-class Field_Display extends Hook_Runner {
+class Field_Display {
+    /**
+     *  Constructor
+     */
+    public function __construct() {
+        if ( \class_exists( '\XWP\Hook\Invoker' ) ) {
+            return;
+        }
+
+        \xwp_invoke_hooked_methods( $this );
+    }
     /**
      * Modifies the address format for Serbia to include necessary company information
      *
      * @param  string[] $formats Address formats.
      * @return string[]          Modified address formats
-     *
-     * @hook     woocommerce_localisation_address_formats
-     * @type     filter
-     * @priority filter:woocommerce_serbian_localization_address_priority:100
      */
+    #[Filter( 'woocommerce_localisation_address_formats', 'wcrs_localization_address_priority' )]
     public function modify_address_format( $formats ) {
-        add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
+        \add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
 
         $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}, {state} {country}";
 
-        if ( WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
-            $formats['RS'] = strtr(
-                $formats['RS'],
-                array(
-					'{state}'     => '',
-					'{address_2}' => '',
-				)
-            );
+        if ( \WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
+            $formats['RS'] = \str_replace( array( '{state}', '{address_2}' ), '', $formats['RS'] );
         }
 
         return $formats;
@@ -57,11 +58,8 @@ class Field_Display extends Hook_Runner {
      * @param  string[] $replacements  Replacements array.
      * @param  array    $args          Address data.
      * @return string[]                Modified replacements array
-     *
-     * @hook     woocommerce_formatted_address_replacements
-     * @type     filter
-     * @priority 99
      */
+    #[Filter( 'woocommerce_formatted_address_replacements', 99 )]
     public function modify_address_replacements( $replacements, $args ) {
         $replacements['{type}'] = $args['type'] ?? "\n";
         $replacements['{mb}']   = $args['mb'] ?? "\n";
@@ -79,11 +77,8 @@ class Field_Display extends Hook_Runner {
      * @param  int    $customer_id  Customer ID.
      * @param  string $address_type Address type (billing or shipping).
      * @return array                Modified address data array
-     *
-     * @hook     woocommerce_my_account_my_address_formatted_address
-     * @type     filter
-     * @priority 99
      */
+    #[Filter( 'woocommerce_my_account_my_address_formatted_address', 99 )]
     public function modify_account_formatted_address( $address, $customer_id, $address_type ) {
         if ( 'billing' !== $address_type ) {
             return $address;
@@ -91,7 +86,8 @@ class Field_Display extends Hook_Runner {
 
         $customer = new WC_Customer( $customer_id );
 
-        $user_type   = ! empty( $customer->get_meta( 'billing_type', true ) ) ? $customer->get_meta( 'billing_type', true ) : 'person';
+        // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+        $user_type   = $customer->get_meta( 'billing_type', true ) ?: 'person';
         $company_num = $customer->get_meta( 'billing_mb', true );
         $company_tax = $customer->get_meta( 'billing_pib', true );
 
@@ -106,17 +102,14 @@ class Field_Display extends Hook_Runner {
      * @param  array    $address Address data array.
      * @param  WC_Order $order   Order object.
      * @return array             Modified address data array
-     *
-     * @hook     woocommerce_order_formatted_billing_address
-     * @type     filter
-     * @priority 99
      */
+    #[Filter( 'woocommerce_order_formatted_billing_address', 99 )]
     public function modify_order_formatted_address( $address, $order ) {
         return $this->address_modifier(
             $address,
             $order->get_meta( '_billing_type', true ),
             $order->get_meta( '_billing_mb', true ),
-            $order->get_meta( '_billing_pib', true )
+            $order->get_meta( '_billing_pib', true ),
         );
     }
 
@@ -144,15 +137,17 @@ class Field_Display extends Hook_Runner {
         $address['first_name'] = "\n";
         $address['last_name']  = "\n";
 
-        $address['mb']  = sprintf(
+        if ( $company_number ) {
+            $address['mb'] = \sprintf(
+                '%s: %s',
+                \_x( 'Company Number', 'Address display', 'serbian-addons-for-woocommerce' ),
+                $company_number,
+            );
+        }
+        $address['pib'] = \sprintf(
             '%s: %s',
-            _x( 'Company Number', 'Address display', 'serbian-addons-for-woocommerce' ),
-            $company_number
-        );
-        $address['pib'] = sprintf(
-            '%s: %s',
-            _x( 'Tax Identification Number', 'Address display', 'serbian-addons-for-woocommerce' ),
-            $tax_number
+            \_x( 'Tax Identification Number', 'Address display', 'serbian-addons-for-woocommerce' ),
+            $tax_number,
         );
 
         return $address;
@@ -164,14 +159,51 @@ class Field_Display extends Hook_Runner {
      * @param  string   $buyer Buyer name.
      * @param  WC_Order $order Order object.
      * @return string          Modified Buyer name
-     *
-     * @hook     woocommerce_admin_order_buyer_name
-     * @type     filter
-     * @priority 99
      */
+    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
     public function modify_order_buyer_name( $buyer, $order ) {
-        return ( 'RS' === $order->get_billing_country() && 'company' === $order->get_meta( '_billing_type', true ) )
+        return 'RS' === $order->get_billing_country() && 'company' === $order->get_meta( '_billing_type', true )
             ? $order->get_billing_company()
             : $buyer;
+    }
+
+    /**
+     * Adds the company information to the customer meta fields.
+     *
+     * @param  array $fields Customer meta fields.
+     * @return array         Modified customer meta fields
+     */
+    #[Filter( 'woocommerce_customer_meta_fields' )]
+    public function modify_customer_meta_fields( array $fields ): array {
+        $billing = array();
+
+        foreach ( $fields['billing']['fields'] as $field => $args ) {
+            if ( 'billing_company' !== $field ) {
+                $billing[ $field ] = $args;
+                continue;
+            }
+
+            $billing['billing_type'] = array(
+                'label'   => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
+                'options' => \Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types(),
+                'type'    => 'select',
+            );
+
+            $billing[ $field ] = $args;
+
+            $billing['billing_mb'] = array(
+                'label' => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
+                'type'  => 'text',
+            );
+
+            $billing['billing_pib'] = array(
+                'label' => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
+                'type'  => 'text',
+            );
+        }
+
+        $fields['billing']['fields'] = $billing;
+
+        return $fields;
     }
 }
