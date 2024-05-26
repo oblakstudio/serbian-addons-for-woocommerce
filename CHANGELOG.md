@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.6.0...v3.6.1) (2024-05-26)
+
+
+### Bug Fixes
+
+* Composer dependencies ([8296da1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/8296da11fd8daced86b075b59bbecc8293a39150))
+
 # [3.6.0](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.5.10...v3.6.0) (2024-05-25)
 
 
