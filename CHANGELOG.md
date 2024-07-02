@@ -1,3 +1,10 @@
+## [3.6.2](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.6.1...v3.6.2) (2024-07-02)
+
+
+### Bug Fixes
+
+* Template customizer reimplemented ([b6f1b56](https://github.com/oblakstudio/serbian-addons-for-woocommerce/commit/b6f1b568e2340f535f80534a4a861de3aa8af985))
+
 ## [3.6.1](https://github.com/oblakstudio/serbian-addons-for-woocommerce/compare/v3.6.0...v3.6.1) (2024-05-26)
 
 
