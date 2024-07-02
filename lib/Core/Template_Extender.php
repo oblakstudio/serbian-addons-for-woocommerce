@@ -1,4 +1,4 @@
-<?php // phpcs:disable Squiz.Commenting.VariableComment.MissingVar
+<?php // phpcs:disable Squiz.Commenting
 /**
  * Template_Exteneder class file.
  *
@@ -9,6 +9,7 @@ namespace Oblak\WooCommerce\Serbian_Addons\Core;
 
 use Oblak\WooCommerce\Core\Base_Template_Extender;
 use Oblak\WP\Decorators\Hookable;
+use XWC\Template\Customizer_Base;
 
 /**
  * Adds custom templates to WooCommerce.
@@ -16,24 +17,22 @@ use Oblak\WP\Decorators\Hookable;
  * @since 2.3.0
  */
 #[Hookable( 'before_woocommerce_init', 99 )]
-class Template_Extender extends Base_Template_Extender {
-    /**
-     * {@inheritDoc}
-     */
-    protected $base_path = WCRS_PLUGIN_PATH . 'woocommerce';
+class Template_Extender extends Customizer_Base {
+    public function custom_path_tokens( array $tokens ): array {
+        $tokens['wcsrb'] = array(
+            'dir' => WCRS_ABSPATH . 'woocommerce',
+            'key' => 'WCSRB',
+        );
 
-    /**
-     * {@inheritDoc}
-     */
-    protected $path_tokens = array(
-        'WCRS_ABSPATH' => WCRS_ABSPATH,
-    );
+        return $tokens;
+    }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected $templates = array(
-        'checkout/payment-slip-qr-code.php',
-        'checkout/payment-slip.php',
-    );
+    public function custom_template_files( array $files ): array {
+        $files['wcsrb'] = array(
+            'checkout/payment-slip-qr-code.php' => false,
+            'checkout/payment-slip.php'         => false,
+        );
+
+        return $files;
+    }
 }

@@ -1,4 +1,4 @@
-<?php //phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound, Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound
+<?php //phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound, Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound, SlevomatCodingStandard
 /**
  * Plugin_Settings_Page class file.
  *
@@ -47,9 +47,8 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
         return array_merge(
             array(
 				array(
-					'type'  => 'info',
-					'title' => 'Waka waka',
-					'text'  => sprintf(
+					'type' => 'info',
+					'text' => sprintf(
                         // Translators: %s is a link to the company settings page.
                         '<h2>' . __( 'Store settings have been moved %s', 'serbian-addons-for-woocommerce' ) . '</h2>',
                         sprintf(

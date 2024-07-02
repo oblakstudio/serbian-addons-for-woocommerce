@@ -8,7 +8,9 @@
     "oblak/woocommerce-utils": "^1.27",
     "oblak/wp-asset-loader": "^3.0",
     "oblak/wp-hook-di": "^1",
-    "oblak/wp-plugin-installer": "^2"
+    "oblak/wp-plugin-installer": "^2",
+    "x-wp/helper-functions": "^1.4",
+    "x-wp/wc-template-customizer": "^1.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.31",

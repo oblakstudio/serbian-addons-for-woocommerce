@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc7bf0b1fddbe054bb446e94e03274f3",
+    "content-hash": "b9850b9051c3b938ad8cbf33b327ef8c",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "2a3ab8c22cefdb7a48f1c704696c821d1e9a5ebb"
+                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/2a3ab8c22cefdb7a48f1c704696c821d1e9a5ebb",
-                "reference": "2a3ab8c22cefdb7a48f1c704696c821d1e9a5ebb",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
+                "reference": "1e1e4a6d2757f3ecbb9d98dcdd817a6c7c02a67d",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.3",
+                "automattic/jetpack-changelogger": "^4.2.4",
                 "composer/composer": "^1.1 || ^2.0",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
@@ -66,29 +66,29 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.7"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.0.8"
             },
-            "time": "2024-05-06T17:33:09+00:00"
+            "time": "2024-05-29T09:45:26+00:00"
         },
         {
             "name": "automattic/jetpack-constants",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "6f7991f9e4475d4e2c3fd843111abfadb8a8c187"
+                "reference": "f5da87d3b7f80411b77aa58a7355733ea72295aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/6f7991f9e4475d4e2c3fd843111abfadb8a8c187",
-                "reference": "6f7991f9e4475d4e2c3fd843111abfadb8a8c187",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/f5da87d3b7f80411b77aa58a7355733ea72295aa",
+                "reference": "f5da87d3b7f80411b77aa58a7355733ea72295aa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.2",
+                "automattic/jetpack-changelogger": "^4.2.4",
                 "brain/monkey": "2.6.1",
                 "yoast/phpunit-polyfills": "1.1.0"
             },
@@ -117,9 +117,9 @@
             ],
             "description": "A wrapper for defining constants in a more testable way.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-constants/tree/v2.0.2"
+                "source": "https://github.com/Automattic/jetpack-constants/tree/v2.0.3"
             },
-            "time": "2024-04-30T19:01:57+00:00"
+            "time": "2024-05-29T09:44:58+00:00"
         },
         {
             "name": "chillerlan/php-qrcode",
@@ -632,16 +632,16 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.8.0",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "99cd7981f51c98883082534d4852491858d72834"
+                "reference": "e331b534d7de10402d7545a0de50177b874c0779"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/99cd7981f51c98883082534d4852491858d72834",
-                "reference": "99cd7981f51c98883082534d4852491858d72834",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/e331b534d7de10402d7545a0de50177b874c0779",
+                "reference": "e331b534d7de10402d7545a0de50177b874c0779",
                 "shasum": ""
             },
             "require": {
@@ -669,9 +669,117 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.8.0"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.8.1"
             },
-            "time": "2024-05-22T13:50:29+00:00"
+            "time": "2024-06-20T19:53:06+00:00"
+        },
+        {
+            "name": "x-wp/helper-functions",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/helper-functions.git",
+                "reference": "92731d8a7e3db5c8f34c6b71b887f27e8f0a0a55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/92731d8a7e3db5c8f34c6b71b887f27e8f0a0a55",
+                "reference": "92731d8a7e3db5c8f34c6b71b887f27e8f0a0a55",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "xwp-helper-fns.php"
+                ],
+                "psr-4": {
+                    "XWP\\Helper\\Functions\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Various traits related to xWP packages",
+            "keywords": [
+                "contracts",
+                "decoupling",
+                "extended-wp",
+                "interfaces",
+                "interoperability",
+                "standards",
+                "traits"
+            ],
+            "support": {
+                "issues": "https://github.com/x-wp/helper-functions/issues",
+                "source": "https://github.com/x-wp/helper-functions/tree/v1.4.0"
+            },
+            "time": "2024-06-06T21:25:23+00:00"
+        },
+        {
+            "name": "x-wp/wc-template-customizer",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/wc-template-customizer.git",
+                "reference": "cb4ce03bfd900908b4dd06a3bd47b960e2bc4706"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/wc-template-customizer/zipball/cb4ce03bfd900908b4dd06a3bd47b960e2bc4706",
+                "reference": "cb4ce03bfd900908b4dd06a3bd47b960e2bc4706",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0",
+                "x-wp/helper-functions": "^1.4"
+            },
+            "require-dev": {
+                "oblak/wordpress-coding-standard": "^1",
+                "php-stubs/woocommerce-stubs": "^9.0",
+                "php-stubs/wordpress-stubs": "^6.5",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "swissspidy/phpstan-no-private": "^0.2.0",
+                "szepeviktor/phpstan-wordpress": "^1.3"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XWC\\Template\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/x-wp/wc-template-customizer/issues",
+                "source": "https://github.com/x-wp/wc-template-customizer/tree/v1.0.0"
+            },
+            "time": "2024-07-02T19:27:36+00:00"
         }
     ],
     "packages-dev": [
@@ -755,16 +863,16 @@
         },
         {
             "name": "ergebnis/composer-normalize",
-            "version": "2.42.0",
+            "version": "2.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ergebnis/composer-normalize.git",
-                "reference": "02cf2b69ad2a74c6f11a8c3f5f054b8f949df910"
+                "reference": "4b46330c84bb8f43fac79f5c5a05162fc7c80d75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/02cf2b69ad2a74c6f11a8c3f5f054b8f949df910",
-                "reference": "02cf2b69ad2a74c6f11a8c3f5f054b8f949df910",
+                "url": "https://api.github.com/repos/ergebnis/composer-normalize/zipball/4b46330c84bb8f43fac79f5c5a05162fc7c80d75",
+                "reference": "4b46330c84bb8f43fac79f5c5a05162fc7c80d75",
                 "shasum": ""
             },
             "require": {
@@ -778,17 +886,17 @@
                 "php": "~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0"
             },
             "require-dev": {
-                "composer/composer": "^2.6.6",
+                "composer/composer": "^2.7.7",
                 "ergebnis/license": "^2.4.0",
-                "ergebnis/php-cs-fixer-config": "^6.20.0",
-                "ergebnis/phpunit-slow-test-detector": "^2.9.0",
+                "ergebnis/php-cs-fixer-config": "^6.30.1",
+                "ergebnis/phpunit-slow-test-detector": "^2.14.0",
                 "fakerphp/faker": "^1.23.1",
                 "infection/infection": "~0.26.6",
-                "phpunit/phpunit": "^9.6.16",
-                "psalm/plugin-phpunit": "~0.18.4",
-                "rector/rector": "~0.19.2",
-                "symfony/filesystem": "^5.4.25",
-                "vimeo/psalm": "^5.20.0"
+                "phpunit/phpunit": "^9.6.19",
+                "psalm/plugin-phpunit": "~0.19.0",
+                "rector/rector": "^1.1.0",
+                "symfony/filesystem": "^5.4.40",
+                "vimeo/psalm": "^5.24.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -828,7 +936,7 @@
                 "security": "https://github.com/ergebnis/composer-normalize/blob/main/.github/SECURITY.md",
                 "source": "https://github.com/ergebnis/composer-normalize"
             },
-            "time": "2024-01-30T11:54:02+00:00"
+            "time": "2024-06-16T13:22:18+00:00"
         },
         {
             "name": "ergebnis/json",
@@ -1673,16 +1781,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.29.0",
+            "version": "1.29.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "536889f2b340489d328f5ffb7b02bb6b183ddedc"
+                "reference": "fcaefacf2d5c417e928405b71b400d4ce10daaf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/536889f2b340489d328f5ffb7b02bb6b183ddedc",
-                "reference": "536889f2b340489d328f5ffb7b02bb6b183ddedc",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/fcaefacf2d5c417e928405b71b400d4ce10daaf4",
+                "reference": "fcaefacf2d5c417e928405b71b400d4ce10daaf4",
                 "shasum": ""
             },
             "require": {
@@ -1714,9 +1822,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.29.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.29.1"
             },
-            "time": "2024-05-06T12:04:23+00:00"
+            "time": "2024-05-31T08:52:43+00:00"
         },
         {
             "name": "slevomat/coding-standard",
