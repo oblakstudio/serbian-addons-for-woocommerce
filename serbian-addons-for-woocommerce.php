@@ -3,7 +3,7 @@
  * Plugin Name:          Serbian Addons for WooCommerce
  * Plugin URI:           https://oblak.studio/open-source/srpski-woocommerce
  * Description:          Various addons and tweaks that make WooCommerce compatible with Serbian bureaucracy.
- * Version:              3.6.2
+ * Version:              0.0.0
  * Requires PHP:         8.0
  * Author:               Oblak Studio
  * Author URI:           https://oblak.studio
@@ -24,7 +24,7 @@ defined( 'WCRS_PLUGIN_FILE' ) || define( 'WCRS_PLUGIN_FILE', __FILE__ );
 defined( 'WCRS_ABSPATH' )     || define( 'WCRS_ABSPATH', dirname( WCRS_PLUGIN_FILE ) . '/' );
 defined( 'WCRS_PLUGIN_BASE' ) || define( 'WCRS_PLUGIN_BASE', plugin_basename( WCRS_PLUGIN_FILE ) );
 defined( 'WCRS_PLUGIN_PATH' ) || define( 'WCRS_PLUGIN_PATH', plugin_dir_path( WCRS_PLUGIN_FILE ) );
-defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '3.6.1' );
+defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
 // phpcs:enable WordPress.WhiteSpace.OperatorSpacing.SpacingBefore
 
 require __DIR__ . '/vendor/autoload_packages.php';
