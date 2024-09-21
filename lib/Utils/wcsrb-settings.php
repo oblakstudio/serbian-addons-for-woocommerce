@@ -6,8 +6,6 @@
  * @subpackage Utils
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Utils;
-
 /**
  * Formats bank account select options.
  *
@@ -16,10 +14,10 @@ namespace Oblak\WooCommerce\Serbian_Addons\Utils;
  *
  * @since 2.3.0
  */
-function format_bank_account_select( $opt_accounts = null ) {
-	$opt_accounts = $opt_accounts ?? WCSRB()->get_settings( 'company', 'accounts' );
-	$banks        = get_serbian_banks();
-	$accounts     = array( '' => __( 'Select bank account', 'serbian-addons-for-woocommerce' ) . '...' );
+function wcsrb_format_bank_account_select( $opt_accounts = null ) {
+	$opt_accounts ??= WCSRB()->get_settings( 'company', 'accounts' );
+	$banks          = wcsrb_get_serbian_banks();
+	$accounts       = array( '' => __( 'Select bank account', 'serbian-addons-for-woocommerce' ) . '...' );
 
 	foreach ( $opt_accounts as $account ) {
 		$bank_name = $banks[ substr( $account, 0, 3 ) ];
@@ -41,20 +39,26 @@ function format_bank_account_select( $opt_accounts = null ) {
  *
  * @since 2.3.0
  */
-function format_payment_code_select() {
+function wcsrb_format_payment_code_select() {
     $options = array(
-        'auto'                                            => __( 'Automatic', 'serbian-addons-for-woocommerce' ),
-        __( 'Person', 'serbian-addons-for-woocommerce' )  => array(
-            // Translators: %d is the payment code.
-            '289' => sprintf( __( '%d - Transactions on behalf of a person', 'serbian-addons-for-woocommerce' ), 289 ),
-            // Translators: %d is the payment code.
-            '290' => sprintf( __( '%d - Other transactions', 'serbian-addons-for-woocommerce' ), 290 ),
+        'auto'                                            => __(
+            'Automatic',
+            'serbian-addons-for-woocommerce',
         ),
         __( 'Company', 'serbian-addons-for-woocommerce' ) => array(
             // Translators: %d is the payment code.
             '220' => sprintf( __( '%d - Interim expenses', 'serbian-addons-for-woocommerce' ), 220 ),
             // Translators: %d is the payment code.
             '221' => sprintf( __( '%d - Final expenses', 'serbian-addons-for-woocommerce' ), 221 ),
+        ),
+        __( 'Person', 'serbian-addons-for-woocommerce' )  => array(
+            '289' => sprintf(
+                // Translators: %d is the payment code.
+                __( '%d - Transactions on behalf of a person', 'serbian-addons-for-woocommerce' ),
+                289,
+            ),
+            // Translators: %d is the payment code.
+            '290' => sprintf( __( '%d - Other transactions', 'serbian-addons-for-woocommerce' ), 290 ),
         ),
     );
 

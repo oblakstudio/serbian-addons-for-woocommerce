@@ -6,17 +6,15 @@
  * @subpackage Utils
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Utils;
-
 /**
  * Get the entity types for the customer type field
  *
  * @return string[] Entity types
  */
-function get_entity_types() {
+function wcsrb_get_entity_types() {
     $entity_types = array(
-        'person'  => __( 'Person', 'serbian-addons-for-woocommerce' ),
         'company' => __( 'Company', 'serbian-addons-for-woocommerce' ),
+        'person'  => __( 'Person', 'serbian-addons-for-woocommerce' ),
     );
 
     /**
@@ -34,7 +32,7 @@ function get_entity_types() {
  *
  * @return string[] Bank numbers with bank names
  */
-function get_serbian_banks() {
+function wcsrb_get_serbian_banks() {
     // Translators: %s is the bank name.
     $bank_string = __( '%s Bank', 'serbian-addons-for-woocommerce' );
 

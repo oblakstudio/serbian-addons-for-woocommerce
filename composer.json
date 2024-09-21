@@ -6,15 +6,15 @@
     "chillerlan/php-qrcode": "^5",
     "oblak/serbian-validators": "^1",
     "oblak/woocommerce-utils": "^1.27",
-    "oblak/wp-asset-loader": "^3.0",
     "oblak/wp-hook-di": "^1",
     "oblak/wp-plugin-installer": "^2",
+    "x-wp/asset-loader": "^1.0",
     "x-wp/helper-functions": "^1.4",
     "x-wp/wc-template-customizer": "^1.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.31",
-    "oblak/wordpress-coding-standard": "^1.1.1"
+    "oblak/wordpress-coding-standard": "^1.1.1",
+    "symfony/var-dumper": "^5.4"
   },
   "autoload": {
     "psr-4": {

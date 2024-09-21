@@ -8,26 +8,38 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Checkout;
 
-use Oblak\WP\Abstracts\Hook_Runner;
+use Oblak\WP\Abstracts\Hook_Caller;
+use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
-
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
 
 /**
  * Changes the fields on the checkout page
  */
 #[Hookable( 'woocommerce_init', 99 )]
-class Field_Customizer extends Hook_Runner {
+class Field_Customizer extends Hook_Caller {
+    /**
+     * Modifies the default customer type to person in the edit address form.
+     *
+     * @param  mixed  $value Field value.
+     * @param  string $key   Field key.
+     * @return mixed
+     */
+    #[Filter( tag: 'woocommerce_my_account_edit_address_field_value', priority: 100 )]
+    public function modify_default_customer_type( mixed $value, string $key ): mixed {
+        if ( 'billing_type' === $key && ! $value ) {
+            $value = 'person';
+        }
+
+        return $value;
+    }
+
     /**
      * Modifies the billing fields to add the customer type and additional company fields
      *
      * @param  array $fields Billing fields.
      * @return array         Modified billing fields
-     *
-     * @hook     woocommerce_billing_fields
-     * @type     filter
-     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
+    #[Filter( tag: 'woocommerce_billing_fields', priority: 'woocommerce_serbian_checkout_fields_priority' )]
     public function modify_billing_fields( $fields ) {
         $enabled_type = \WCSRB()->get_settings( 'general', 'enabled_customer_types' );
 
@@ -56,11 +68,8 @@ class Field_Customizer extends Hook_Runner {
      *
      * @param  array $fields Shipping fields.
      * @return array         Modified shipping fields
-     *
-     * @hook     woocommerce_shipping_fields
-     * @type     filter
-     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
+    #[Filter( tag: 'woocommerce_shipping_fields', priority: 'woocommerce_serbian_checkout_fields_priority' )]
     public function modify_shipping_fields( $fields ) {
         $fields = $this->maybe_remove_fields( $fields, 'shipping' );
 
@@ -72,18 +81,14 @@ class Field_Customizer extends Hook_Runner {
      *
      * @param  array $fields Fields to modify.
      * @return array         Modified fields
-     *
-     * @hook     woocommerce_checkout_fields
-     * @type     filter
-     * @priority filter:woocommerce_serbian_checkout_fields_priority:100
      */
+    #[Filter( tag: 'woocommerce_shipping_fields', priority: 'woocommerce_serbian_checkout_fields_priority' )]
     public function modify_ajax_checkout_fields( $fields ) {
         if ( ! \wp_doing_ajax() ) {
             return $fields;
         }
 
-        //phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $checkout_customer_type = \wc_clean( \wp_unslash( $_POST['billing_type'] ?? 'person' ) );
+        $checkout_customer_type = \xwp_fetch_post_var( 'billing_type', 'person' );
 
         if ( 'person' === $checkout_customer_type ) {
             unset( $fields['billing']['billing_company'] );
@@ -142,7 +147,7 @@ class Field_Customizer extends Hook_Runner {
             'class'    => array( 'form-row-wide', 'entity-type-control', 'update_totals_on_change' ),
             'default'  => 'person',
             'label'    => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
-            'options'  => get_entity_types(),
+            'options'  => \wcsrb_get_entity_types(),
             'priority' => 21,
             'required' => true,
             'type'     => 'radio',
@@ -152,7 +157,7 @@ class Field_Customizer extends Hook_Runner {
 
             $billing_type['type']        = 'hidden';
             $billing_type['default']     = $enabled_type;
-            $billing_type['description'] = get_entity_types()[ $enabled_type ];
+            $billing_type['description'] = \wcsrb_get_entity_types()[ $enabled_type ];
 
             unset( $billing_type['options'] );
 

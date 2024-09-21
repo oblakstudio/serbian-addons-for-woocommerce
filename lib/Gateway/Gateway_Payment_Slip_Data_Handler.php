@@ -10,9 +10,6 @@ namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 use Oblak\WP\Abstracts\Hook_Runner;
 use WC_Order;
 
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_payment_models;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_payment_reference_replacement_pairs;
-
 /**
  * Adds payment slip metadata to the order
  */
@@ -28,9 +25,9 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
          *
          * @var array<string, mixed>
          */
-        protected array $options
+        protected array $options,
     ) {
-        $this->options['company_data'] = WCSRB()->get_settings( 'company' );
+        $this->options['company_data'] = \WCSRB()->get_settings( 'company' );
 
         parent::__construct();
     }
@@ -77,7 +74,10 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
             'reference',
         );
 
-        return apply_filters( 'woocommerce_serbian_payment_slip_data_keys', $slip_data_keys ); // phpcs:ignore WooCommerce.Commenting
+        return \apply_filters(
+            'woocommerce_serbian_payment_slip_data_keys',
+            $slip_data_keys,
+        ); // phpcs:ignore WooCommerce.Commenting
     }
 
     /**
@@ -87,7 +87,12 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return string          The customer.
      */
     protected function get_customer( WC_Order $order ): string {
-        add_filter( 'woocommerce_formatted_address_replacements', array( $this, 'remove_extra_address_replacements' ), PHP_INT_MAX, 1 );
+        \add_filter(
+            'woocommerce_formatted_address_replacements',
+            array( $this, 'remove_extra_address_replacements' ),
+            PHP_INT_MAX,
+            1,
+        );
 
         return $order->get_formatted_billing_address();
     }
@@ -110,7 +115,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
          *
          * @since 2.3.0
          */
-        return apply_filters( 'woocommerce_serbian_payment_slip_purpose', $purpose, $order );
+        return \apply_filters( 'woocommerce_serbian_payment_slip_purpose', $purpose, $order );
     }
 
     /**
@@ -120,14 +125,14 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return string          The formatted company data.
      */
     protected function get_company( $order ) {
-        return sprintf(
+        return \sprintf(
             '%s<br>%s %s<br>%s %s, %s',
             $this->options['company_data']['name'],
             $this->options['company_data']['address'],
             $this->options['company_data']['address_2'],
             $this->options['company_data']['postcode'],
             $this->options['company_data']['city'],
-            WC()->countries->countries[ $this->options['company_data']['country'] ]
+            \WC()->countries->countries[ $this->options['company_data']['country'] ],
         );
     }
 
@@ -142,7 +147,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
             return $this->options['payment_code'];
         }
 
-        if ( $order->get_meta( '_billing_type', true ) === 'company' ) {
+        if ( 'company' === $order->get_meta( '_billing_type', true ) ) {
             return '221';
         }
 
@@ -176,15 +181,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return string          The account.
      */
     protected function get_account( $order ) {
-        $parts = str_contains( $this->options['bank_account'], '-' )
-            ? explode( '-', $this->options['bank_account'] )
-            : array(
-                substr( $this->options['bank_account'], 0, 3 ),
-                ltrim( substr( $this->options['bank_account'], 3, -2 ), '0' ),
-                substr( $this->options['bank_account'], -2 ),
-            );
-
-        return implode( '-', $parts );
+        return \wcsrb_format_bank_acct( $this->options['bank_account'] );
     }
 
     /**
@@ -194,7 +191,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return string           The payment model.
      */
     protected function get_model( $order ) {
-        $model = get_payment_models()[ $this->options['payment_model'] ];
+        $model = \wcsrb_get_payment_models()[ $this->options['payment_model'] ];
 
         if ( empty( $model ) ) {
             $model = '00';
@@ -209,7 +206,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
          *
          * @since 2.3.0
          */
-        return apply_filters( 'woocommerce_serbian_payment_slip_model', $model, $order );
+        return \apply_filters( 'woocommerce_serbian_payment_slip_model', $model, $order );
     }
 
     /**
@@ -219,14 +216,10 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return string           Alphanumeric order reference number.
      */
     protected function get_reference( $order ) {
-        $replacements = get_payment_reference_replacement_pairs( $order );
+        $replacements = \wcsrb_get_payment_reference_replacement_pairs( $order );
 
-		return strtr(
-            $this->options['payment_reference'],
-            $replacements,
-		);
+		return \strtr( $this->options['payment_reference'], $replacements );
 	}
-
 
     /**
      * Removes the extra address replacements
@@ -235,13 +228,12 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
      * @return array               The modified address replacements.
      */
     public function remove_extra_address_replacements( $replacements ) {
-        remove_filter( 'woocommerce_formatted_address_replacements', array( $this, 'remove_extra_address_replacements' ), PHP_INT_MAX );
-        return array_merge(
-            $replacements,
-            array(
-                '{mb}'  => '',
-                '{pib}' => '',
-            )
+        \remove_filter(
+            'woocommerce_formatted_address_replacements',
+            array( $this, 'remove_extra_address_replacements' ),
+            PHP_INT_MAX,
         );
+        // phpcs:ignore WordPress.Arrays
+        return \array_merge( $replacements, array( '{mb}'  => '', '{pib}' => '' ) );
     }
 }
