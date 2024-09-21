@@ -1,7 +1,7 @@
 name: Deploy to WP.org svn
 on:
-  release:
-    types: [published]
+  workflow_call:
+
 jobs:
   tag:
     name: Tag deploy

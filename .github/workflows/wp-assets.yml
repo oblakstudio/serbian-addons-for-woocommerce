@@ -1,12 +1,7 @@
 name: Plugin asset/readme update
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - '.wordpress-org/**'
-      - '.github/workflows/wp-assets.yml'
-      - '.github/scripts/deploy.sh'
+  workflow_call:
+
 jobs:
   master:
     name: Push to trunk
