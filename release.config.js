@@ -18,6 +18,7 @@ config.plugins.push([
   {
     preset: 'angular',
     releaseRules: [
+      { type: 'compat', scope: 'deps', release: 'patch' },
       { type: 'refactor', release: 'patch' },
       { type: 'style', release: 'patch' },
     ],
