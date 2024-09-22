@@ -159,7 +159,8 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
      */
     #[Action( tag: 'woocommerce_admin_field_repeater_text', priority: 10 )]
     public function output_bank_accounts_field( $value ) {
-        $option_value      = \wc_string_to_array( $value['value'] ?? '' );
+        $option_value      = $value['value']['acct'] ?? $value['value'] ?? '';
+        $option_value      = \wc_string_to_array( $option_value );
         $field_name        = "{$value['field_name']}[]";
         $field_description = WC_Admin_Settings::get_field_description( $value );
         $description       = $field_description['description'];
@@ -259,7 +260,7 @@ class Plugin_Settings_Page extends Extended_Settings_Page {
     public static function add_acct_error( string $acct ) {
         static $added = array();
 
-        if ( ! \in_array( $acct, $added, true ) ) {
+        if ( ! \in_array( $acct, $added, true ) && '' !== $acct ) {
             \WC_Admin_Settings::add_error(
                 \sprintf(
                     // Translators: %s is the invalid bank account number.
