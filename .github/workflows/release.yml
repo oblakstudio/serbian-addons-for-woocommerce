@@ -4,9 +4,23 @@ on:
     branches:
       - master
       - beta
+    paths:
+      - '.github/workflows/release.yml'
+      - 'assets/**/*'
+      - 'config/**/*'
+      - 'languages/**/*'
+      - 'lib/**/*'
+      - 'woocommerce/**/*'
+      - 'composer.*'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'serbian-addons-for-woocommerce.php'
 
 jobs:
   ci:
     name: CI
     uses: ./.github/workflows/reusable_release.yml
     secrets: inherit
+    with:
+      plugin_slug: 'serbian-addons-for-woocommerce'
+      dry_run: ${{ github.ref != 'refs/heads/master' }}

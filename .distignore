@@ -16,7 +16,6 @@ node_modules
 .gitignore
 .phpcs.xml
 .prettierrc
-.releaserc
 .stylelintrc.js
 CHANGELOG.md
 DOCKER_ENV
@@ -28,4 +27,5 @@ composer.lock
 output.log
 package-lock.json
 package.json
+release.config.js
 tsconfig.json
