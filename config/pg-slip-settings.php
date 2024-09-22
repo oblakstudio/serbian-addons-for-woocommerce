@@ -1,15 +1,10 @@
-<?php
+<?php // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder, SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 /**
  * Payment_Slip_Gateway config file
  *
  * @package Serbian Addons for WooCommerce
  * @see Payment_Slip_Gateway
  */
-
-use function Oblak\WooCommerce\Serbian_Addons\Utils\format_bank_account_select;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_code_select;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_model_select;
-use function Oblak\WooCommerce\Serbian_Addons\Utils\format_payment_reference_description;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -55,47 +50,47 @@ return array(
     'bank_account'        => array(
         'title'       => __( 'Bank account', 'serbian-addons-for-woocommerce' ),
         'type'        => 'select',
-        'options'     => fn() => format_bank_account_select(),
+        'options'     => static fn() => wcsrb_format_bank_account_select(),
         'desc_tip'    => __( 'Bank account number', 'serbian-addons-for-woocommerce' ),
         'description' => sprintf(
             // translators: %1$s opening link tag, %2$s closing link tag.
             __( 'You can add your bank account details in the %1$sCompany settings%2$s .', 'serbian-addons-for-woocommerce' ),
             '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=wcsrb&section=company' ) . '">',
-            '</a>'
+            '</a>',
         ),
     ),
     'payment_code'        => array(
         'title'             => __( 'Payment code', 'serbian-addons-for-woocommerce' ),
         'type'              => 'select',
-        'options'           => fn() => format_payment_code_select(),
+        'options'           => static fn() => wcsrb_format_payment_code_select(),
         'default'           => 'auto',
         'description'       => __( 'You can choose a payment code only if you limit checkout to a single customer type.', 'serbian-addons-for-woocommerce' ),
         'desc_tip'          => __( 'Payment code on the payment slip', 'serbian-addons-for-woocommerce' ),
-        'custom_attributes' => fn() => array_merge(
+        'custom_attributes' => static fn() => array_merge(
             array(),
-            count( format_payment_code_select() ) === 1 ? array( 'readonly' => 'readonly' ) : array()
+            1 === count( wcsrb_format_payment_code_select() ) ? array( 'readonly' => 'readonly' ) : array(),
         ),
     ),
 
     'payment_model'       => array(
         'title'       => __( 'Payment model', 'serbian-addons-for-woocommerce' ),
         'type'        => 'select',
-        'options'     => fn() => format_payment_model_select(),
+        'options'     => static fn() => wcsrb_format_payment_model_select(),
         'default'     => 'auto',
         'desc_tip'    => __( 'Payment model for the payment reference', 'serbian-addons-for-woocommerce' ),
         'description' => sprintf(
             // translators: %1$s line break.
             __( 'Choosing the model 97 will automatically set the payment reference.%1$sWe recommend using model 97 because payment processor guarantees verbatim reference transfer only if it is done via model 97 ', 'serbian-addons-for-woocommerce' ),
-            '<br>'
+            '<br>',
         ),
     ),
 
     'payment_reference'   => array(
         'title'             => __( 'Payment reference', 'serbian-addons-for-woocommerce' ),
         'type'              => 'text',
-        'default'           => fn() => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
-        'description'       => fn() => format_payment_reference_description(),
-        'custom_attributes' => fn() => array(
+        'default'           => static fn() => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
+        'description'       => static fn() => wcsrb_format_payment_reference_description(),
+        'custom_attributes' => static fn() => array(
             'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
             'data-mod97' => has_filter( 'woocommerce_order_number' ) ? '%mod97%-%order_number%' : '%mod97%-%order_id%-%year%',
         ),
@@ -142,7 +137,7 @@ return array(
         'label'       => __( 'Show image on QR code', 'serbian-addons-for-woocommerce' ),
         'default'     => 'yes',
         'desc_tip'    => __( 'Image that will be shown on the QR code. ', 'serbian-addons-for-woocommerce' ),
-        'description' => fn() => sprintf(
+        'description' => static fn() => sprintf(
             // translators: %1$s opening link tag, %2$s Customizer title, %3$s closing link tag, %3$s current image HTML.
             __( 'You can set it in %1$s%2$s%3$s. Current image is: %4$s', 'serbian-addons-for-woocommerce' ),
             '<a target="_blank" href="' . admin_url( 'customize.php' ) . '">',
@@ -152,7 +147,7 @@ return array(
                 get_option( 'site_icon' ),
                 array( 16, 16 ),
                 false,
-            )
+            ),
         ),
     ),
 
@@ -167,14 +162,14 @@ return array(
         'type'        => 'checkbox',
         'label'       => __( 'Enable logging', 'serbian-addons-for-woocommerce' ),
         'default'     => 'no',
-        'description' => fn() => sprintf(
+        'description' => static fn() => sprintf(
             // translators: %1$s log file path, %2$s line break.
             __(
                 'Log Payment Slip events, inside %1$s %2$sNote: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.',
-                'serbian-addons-for-woocommerce'
+                'serbian-addons-for-woocommerce',
             ),
             '<code>' . WC_Log_Handler_File::get_log_file_path( 'payment-slip' ) . '</code>',
-            '<br>'
+            '<br>',
         ),
     ),
 

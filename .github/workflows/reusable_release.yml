@@ -2,6 +2,11 @@ name: Reusable Plugin Release and Publish
 on:
   workflow_call:
     inputs:
+      dry_run:
+        description: 'Whether to run a dry run'
+        required: false
+        default: false
+        type: boolean
       node_version:
         description: 'Node version to use for building assets'
         required: false
@@ -12,6 +17,10 @@ on:
         required: false
         default: true
         type: boolean
+      plugin_slug:
+        description: 'Plugin slug'
+        required: true
+        type: string
       composer_cmd_run:
         description: 'Composer command to run'
         required: false
@@ -64,9 +73,11 @@ jobs:
           path: |
             /tmp/composer-cache
             dist
-          key: cache-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('assets/**/*') }}
+          key: cache-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('assets/**/*') }}
           restore-keys: |
+            cache-${{ hashFiles('**/composer.lock') }}-${{ hashFiles('**/package-lock.json') }}-
             cache-${{ hashFiles('**/composer.lock') }}-
+
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
         env:
@@ -92,6 +103,7 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         with:
+          semantic_version: '22'
           extra_plugins: |
             @semantic-release/wordpress
         env:
@@ -122,6 +134,22 @@ jobs:
         shell: bash
         run: |
           echo "version=$(cat VERSION)" >> $GITHUB_OUTPUT
-      - name: Echo version
+      - name: Prepare files
         shell: bash
-        run: echo ${{ steps.pkg.outputs.version }}
+        run: |
+          echo ${{ steps.pkg.outputs.version }}
+          mkdir assets
+          unzip -q assets.zip -d assets
+          unzip -q package.zip
+      - name: WordPress Plugin Deploy
+        id: deploy
+        uses: 10up/action-wordpress-plugin-deploy@2.2.2
+        env:
+          ASSETS_DIR: 'assets'
+          BUILD_DIR: ${{ inputs.plugin_slug }}
+          SVN_USERNAME: ${{ secrets.WP_ORG_SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.WP_ORG_SVN_PASSWORD }}
+          VERSION: ${{ steps.pkg.outputs.version }}
+        with:
+          generate-zip: false
+          dry-run: ${{ inputs.dry_run }}

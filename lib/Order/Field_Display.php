@@ -8,6 +8,7 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Order;
 
+use Oblak\WP\Abstracts\Hook_Caller;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
 use WC_Customer;
@@ -17,17 +18,7 @@ use WC_Order;
  * Handles the address display customizations for orders and addresses
  */
 #[Hookable( 'woocommerce_init', 99 )]
-class Field_Display {
-    /**
-     *  Constructor
-     */
-    public function __construct() {
-        if ( \class_exists( '\XWP\Hook\Invoker' ) ) {
-            return;
-        }
-
-        \xwp_invoke_hooked_methods( $this );
-    }
+class Field_Display extends Hook_Caller {
     /**
      * Modifies the address format for Serbia to include necessary company information
      *
@@ -185,7 +176,7 @@ class Field_Display {
 
             $billing['billing_type'] = array(
                 'label'   => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
-                'options' => \Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types(),
+                'options' => \wcsrb_get_entity_types(),
                 'type'    => 'select',
             );
 

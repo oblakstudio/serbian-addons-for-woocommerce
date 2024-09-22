@@ -2,12 +2,12 @@
 Contributors: oblakstudio, seebeen
 Donate link: https://srbizasrbe.org
 Tags: serbia, woocommerce, woocommerce-serbia
-Requires at least: 6.0
-Tested up to: 6.4
+Requires at least: 6.5
+Tested up to: 6.6
 Requires PHP: 8.0
-WC requires at least: 8.0
-WC tested up to: 8.3
-Stable tag: 3.6.2
+WC requires at least: 8.5
+WC tested up to: 9.2
+Stable tag: 0.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

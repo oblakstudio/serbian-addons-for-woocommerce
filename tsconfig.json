@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es2019",
-    "baseUrl": "./"
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2019"
   },
-  // "include": ["assets/scripts/**/*", "node_modules/**/*"]
+  "include": [
+    "assets/scripts/**/*"
+  ]
 }

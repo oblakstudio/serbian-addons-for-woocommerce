@@ -1,35 +1,31 @@
 # Dirs
 .ddev
+.git
 .github
-.git/
-.wordpress-org/
-.yarn
+.wordpress-org
 assets
 docker_tag
 node_modules
 
-#fields
-.babelrc
+# Files
 .browserslistrc
 .codeclimate.yml
 .distignore
 .editorconfig
 .eslintrc.js
 .gitignore
-.php-cs-fixer.php
+.phpcs.xml
 .prettierrc
-.releaserc
 .stylelintrc.js
-.yarnrc.yml
 CHANGELOG.md
-composer.json
-composer.lock
 DOCKER_ENV
 LICENSE
-package.json
-.phpcs.xml
-output.log
 README.md
+SECURITY.md
+composer.json
+composer.lock
+output.log
+package-lock.json
+package.json
+release.config.js
 tsconfig.json
-wpwp.config.js
-yarn.lock

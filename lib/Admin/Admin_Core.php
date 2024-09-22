@@ -8,43 +8,34 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Admin;
 
+use Oblak\WP\Abstracts\Hook_Caller;
+use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
 
 /**
  * Handles WP-Admin stuff
  */
 #[Hookable( 'woocommerce_init', 99, 'is_admin' )]
-class Admin_Core {
-
-    /**
-     * Class constructor
-     */
-    public function __construct() {
-        add_action( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
-        add_filter( 'admin_body_class', array( $this, 'add_router_classes' ), 9999 );
-    }
-
+class Admin_Core extends Hook_Caller {
     /**
      * Add needed classes for WPRouter
      *
      * @param  string $classes Current classes.
      * @return string          Updated classes.
      */
+    #[Filter( tag: 'admin_body_class', priority: 9999 )]
     public function add_router_classes( $classes ) {
-        global $pagenow;
-
-        $tab     = wc_clean( wp_unslash( $_GET['tab'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-        $section = wc_clean( wp_unslash( $_GET['section'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        global $pagenow, $current_tab, $current_section;
 
         if ( 'admin.php' !== $pagenow ) {
             return $classes;
         }
 
-        if ( 'wcsrb' === $tab && 'company' === $section ) {
+        if ( 'wcsrb' === $current_tab && 'company' === $current_section ) {
             $classes .= ' wcsrb-company-settings';
         }
 
-        if ( 'checkout' === $tab ?? '' && 'wcsrb_payment_slip' === $section ) {
+        if ( 'checkout' === $current_tab ?? '' && 'wcsrb_payment_slip' === $current_section ) {
             $classes .= ' wcsrb-slip-settings ';
         }
 
@@ -54,9 +45,10 @@ class Admin_Core {
     /**
      * Adds the custom settings page
      *
-     * @param  \WC_Settings_Page[] $pages Settings pages.
-     * @return \WC_Settings_Page[]        Modified Settings pages
+     * @param  array<int,\WC_Settings_Page> $pages Settings pages.
+     * @return array<int,\WC_Settings_Page>
      */
+    #[Filter( tag: 'woocommerce_get_settings_pages', priority: 100 )]
     public function add_settings_page( $pages ) {
         $pages[] = new Plugin_Settings_Page();
 

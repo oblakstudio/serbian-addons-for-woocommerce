@@ -1,11 +1,10 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder, SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 /**
  * Plugin settings array
  *
  * @package Serbian Addons for WooCommerce
  */
 
-use function Oblak\WooCommerce\Serbian_Addons\Utils\get_entity_types;
 
 return array(
     ''        => array(
@@ -25,9 +24,9 @@ return array(
                 'id'       => 'enabled_customer_types',
                 'type'     => 'select',
                 'desc'     => __( 'Which customer types can shop on the store', 'serbian-addons-for-woocommerce' ),
-                'options'  => fn() => array_merge(
+                'options'  => static fn() => array_merge(
                     array( 'both' => __( 'Companies and persons', 'serbian-addons-for-woocommerce' ) ),
-                    get_entity_types()
+                    wcsrb_get_entity_types(),
                 ),
                 'desc_tip' => true,
                 'default'  => 'both',
@@ -67,7 +66,7 @@ return array(
                 'desc_tip'    => true,
                 'placeholder' => __( 'Enter bank account', 'serbian-addons-for-woocommerce' ),
                 'id'          => 'woocommerce_store_bank_accounts',
-                'field_name'  => 'woocommerce_store_bank_accounts[acct][]',
+                'field_name'  => 'woocommerce_store_bank_accounts',
                 'default'     => array(),
             ),
         ),

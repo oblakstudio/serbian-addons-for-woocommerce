@@ -20,8 +20,8 @@ use XWC\Template\Customizer_Base;
 class Template_Extender extends Customizer_Base {
     public function custom_path_tokens( array $tokens ): array {
         $tokens['wcsrb'] = array(
-            'dir' => WCRS_ABSPATH . 'woocommerce',
-            'key' => 'WCSRB',
+            'dir' => WCRS_PLUGIN_PATH . 'woocommerce',
+            'key' => 'WCRS_ABSPATH',
         );
 
         return $tokens;

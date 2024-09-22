@@ -247,7 +247,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
             return $css;
         }
 
-        $css .= file_get_contents( WCSRB()->asset_path( 'styles/main.css' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+        $css .= WCSRB()->asset_data( 'css/front/main.css' );
 
         return $css;
     }

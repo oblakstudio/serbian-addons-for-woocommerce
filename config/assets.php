@@ -9,19 +9,20 @@
 defined( 'ABSPATH' ) || exit;
 
 return array(
-    'assets'    => array(
+    'assets'   => array(
         'admin' => array(
-            'scripts' => array( 'scripts/admin.js' ),
-            'styles'  => array( 'styles/admin.css' ),
+            'css/admin/admin.css',
+            'js/admin/admin.js',
         ),
         'front' => array(
-            'scripts' => array( 'scripts/main.js' ),
-            'styles'  => array( 'styles/main.css' ),
+            'css/front/main.css',
+            'js/front/main.js',
         ),
     ),
-    'dist_path' => WCRS_PLUGIN_PATH . 'dist',
-    'dist_uri'  => plugins_url( 'dist', WCRS_BASENAME ),
-    'namespace' => 'wcrs',
-    'priority'  => 50,
-    'version'   => WCRS_VERSION,
+    'base_dir' => WCRS_PLUGIN_PATH . 'dist',
+    'base_uri' => plugins_url( 'dist', WCRS_PLUGIN_BASE ),
+    'id'       => 'wcrs',
+    'manifest' => 'assets.php',
+    'priority' => 50,
+    'version'  => WCRS_VERSION,
 );
