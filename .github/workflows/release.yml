@@ -15,6 +15,7 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'serbian-addons-for-woocommerce.php'
+      - 'release.config.js'
 
 jobs:
   ci:
