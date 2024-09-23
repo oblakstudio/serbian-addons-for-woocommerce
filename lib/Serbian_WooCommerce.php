@@ -11,17 +11,17 @@ use Oblak\WooCommerce\Core\Settings_Helper;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Traits\Hook_Processor_Trait;
-use Oblak\WP\Traits\Singleton;
+use XWP\Helper\Traits\Singleton;
 
 /**
  * Main plugin class
  */
 class Serbian_WooCommerce {
     use Hook_Processor_Trait;
-    use Singleton;
     use Settings_Helper {
         Settings_Helper::load_settings as load_settings_helper;
     }
+    use Singleton;
     use \XWP_Asset_Retriever;
 
     /**
