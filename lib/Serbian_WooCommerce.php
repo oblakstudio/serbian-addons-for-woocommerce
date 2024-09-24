@@ -7,10 +7,10 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons;
 
-use Oblak\WooCommerce\Core\Settings_Helper;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Traits\Hook_Processor_Trait;
+use XWC\Traits\Settings_API_Methods;
 use XWP\Helper\Traits\Singleton;
 
 /**
@@ -18,9 +18,7 @@ use XWP\Helper\Traits\Singleton;
  */
 class Serbian_WooCommerce {
     use Hook_Processor_Trait;
-    use Settings_Helper {
-        Settings_Helper::load_settings as load_settings_helper;
-    }
+    use Settings_API_Methods;
     use Singleton;
     use \XWP_Asset_Retriever;
 
@@ -61,34 +59,6 @@ class Serbian_WooCommerce {
     }
 
     /**
-     * Get the settings array from the database
-     *
-     * We use the helper settings loader to load the settings, and then we add the company info
-     * because it is a mix of our settings and WooCommerce settings.
-     *
-     * @param  string $prefix        The settings prefix.
-     * @param  array  $raw_settings  The settings fields.
-     * @param  mixed  $default_value The default value for the settings.
-     * @return array                 The settings array.
-     */
-    protected function load_settings( string $prefix, array $raw_settings, $default_value ): array {
-        $settings = $this->load_settings_helper( $prefix, $raw_settings, $default_value );
-
-        $settings['company'] = array(
-            'accounts'  => \wcsrb_get_bank_accounts(),
-            'address'   => \get_option( 'woocommerce_store_address', '' ),
-            'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
-            'city'      => \get_option( 'woocommerce_store_city', '' ),
-            'country'   => \wc_get_base_location()['country'],
-            'logo'      => \get_option( 'site_icon', 0 ),
-            'name'      => \get_option( 'woocommerce_store_name', '' ),
-            'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
-        );
-
-        return $settings;
-    }
-
-    /**
      * Initializes the installer
      */
     #[Action( tag: 'plugins_loaded', priority: 1000 )]
@@ -101,10 +71,20 @@ class Serbian_WooCommerce {
      */
     #[Action( tag: 'woocommerce_loaded', priority: 99 )]
     public function load_plugin_settings() {
-        $this->settings = $this->load_settings(
-            'wcsrb',
-            require WCRS_PLUGIN_PATH . 'config/settings.php',
-            false,
+        $this->load_options( 'wcsrb_settings' );
+
+        $this->settings['enabled_customer_types'] ??= 'both';
+        $this->settings['remove_unneeded_fields'] ??= false;
+        $this->settings['fix_currency_symbol']    ??= true;
+        $this->settings['company']                  = array(
+            'accounts'  => \wcsrb_get_bank_accounts(),
+            'address'   => \get_option( 'woocommerce_store_address', '' ),
+            'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
+            'city'      => \get_option( 'woocommerce_store_city', '' ),
+            'country'   => \wc_get_base_location()['country'],
+            'logo'      => \get_option( 'site_icon', 0 ),
+            'name'      => \get_option( 'woocommerce_store_name', '' ),
+            'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
         );
     }
 
@@ -145,7 +125,7 @@ class Serbian_WooCommerce {
      */
     #[Filter( tag: 'woocommerce_currency_symbol', priority: 99 )]
     public function change_currency_symbol( string $symbol, string $currency ): string {
-        if ( ! $this->get_settings( 'general', 'fix_currency_symbol' ) ) {
+        if ( ! $this->get_settings( 'core', 'fix_currency_symbol' ) ) {
             return $symbol;
         }
 

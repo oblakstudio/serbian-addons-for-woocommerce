@@ -31,7 +31,7 @@ class Field_Display extends Hook_Caller {
 
         $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}, {state} {country}";
 
-        if ( \WCSRB()->get_settings( 'general', 'remove_unneeded_fields' ) ) {
+        if ( \WCSRB()->get_settings( 'core', 'remove_unneeded_fields' ) ) {
             $formats['RS'] = \str_replace( array( '{state}', '{address_2}' ), '', $formats['RS'] );
         }
 

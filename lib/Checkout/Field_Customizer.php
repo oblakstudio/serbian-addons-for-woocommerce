@@ -41,7 +41,7 @@ class Field_Customizer extends Hook_Caller {
      */
     #[Filter( tag: 'woocommerce_billing_fields', priority: 'woocommerce_serbian_checkout_fields_priority' )]
     public function modify_billing_fields( $fields ) {
-        $enabled_type = \WCSRB()->get_settings( 'general', 'enabled_customer_types' );
+        $enabled_type = \WCSRB()->get_settings( 'core', 'enabled_customer_types' );
 
         $fields = $this->maybe_remove_fields( $fields );
 

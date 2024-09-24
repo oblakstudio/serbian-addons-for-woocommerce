@@ -62,7 +62,7 @@ function wcsrb_format_payment_code_select() {
         ),
     );
 
-    switch ( WCSRB()->get_settings( 'general', 'enabled_customer_types' ) ) {
+    switch ( WCSRB()->get_settings( 'core', 'enabled_customer_types' ) ) {
         case 'both':
             unset( $options[ __( 'Company', 'serbian-addons-for-woocommerce' ) ] );
             unset( $options[ __( 'Person', 'serbian-addons-for-woocommerce' ) ] );
