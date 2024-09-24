@@ -18,7 +18,7 @@ export default class AddressPageController {
     const isPerson = $toggle.attr('value') === 'person';
 
     $('.hide-if-person').toggleClass('shown', !isPerson).find('input').prop({
-      required: isPerson,
+      required: !isPerson,
       disabled: isPerson,
     });
   }

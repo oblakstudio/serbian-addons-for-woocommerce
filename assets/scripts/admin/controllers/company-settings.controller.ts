@@ -1,42 +1,41 @@
-import { TemplateExecutor } from 'lodash';
-
 export class CompanySettingsController {
-  private templates: Record<string, TemplateExecutor> = {};
+  private templates: Record<string, _.CompiledTemplate> = {};
 
   init(): void {
-    document
-      .querySelectorAll<HTMLElement>('.repeater-tmpl')
-      .forEach((tmpl) => this.registerTemplate(tmpl));
+    this.registerTemplates('woocommerce_store_bank_accounts');
   }
 
   finalize(): void {
     document
       .querySelectorAll<HTMLButtonElement>('.repeater-add-row')
-      .forEach((btn) => btn.addEventListener('click', (e) => this.addRow(e)));
+      .forEach((btn) =>
+        btn.addEventListener('click', ({ target }) =>
+          this.addRow(target as HTMLButtonElement),
+        ),
+      );
 
     document
       .querySelector('.bank-accounts')
-      .addEventListener('click', (e) => this.removeRow(e));
+      .addEventListener('click', ({ target }) =>
+        this.removeRow(target as HTMLButtonElement),
+      );
   }
 
-  private registerTemplate(tmpl: HTMLElement): void {
-    this.templates[tmpl.id] = _.template(tmpl.innerHTML);
+  private registerTemplates(...ids: string[]): void {
+    ids.forEach((id) => {
+      this.templates[id] = window.wp.template(id);
+    });
   }
 
-  private addRow(event: Event): void {
-    const btn = event.target as HTMLButtonElement;
-    const { tmpl, ...template } = btn.dataset;
-    const id = tmpl.replace('-tmpl', '');
+  private addRow(btn: HTMLButtonElement): void {
+    const { tmpl, ...data } = btn.dataset;
 
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = this.templates[tmpl]({ data: template });
-
-    document.querySelector(`#${id}`).appendChild(wrapper.querySelector('div'));
+    document
+      .querySelector(`#${tmpl}`)
+      .insertAdjacentHTML('beforeend', this.templates[tmpl](data));
   }
 
-  private removeRow(e: Event): void {
-    const btn = e.target as HTMLButtonElement;
-
+  private removeRow(btn: HTMLButtonElement): void {
     if (!btn.classList.contains('repeater-remove-row')) {
       return;
     }
