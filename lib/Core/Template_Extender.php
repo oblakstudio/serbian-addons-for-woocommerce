@@ -7,7 +7,6 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Core;
 
-use Oblak\WooCommerce\Core\Base_Template_Extender;
 use Oblak\WP\Decorators\Hookable;
 use XWC\Template\Customizer_Base;
 

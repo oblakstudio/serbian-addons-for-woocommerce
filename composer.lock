@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "818339a7921273dcd4c25b6a61e03072",
+    "content-hash": "7d0281c9114ea4847fa6d6e2c7d80f20",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -743,6 +743,56 @@
                 "source": "https://github.com/x-wp/helper-traits/tree/v1.9.2"
             },
             "time": "2024-09-18T12:43:44+00:00"
+        },
+        {
+            "name": "x-wp/helper-woocommerce",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/helper-woocommerce.git",
+                "reference": "9e66338360b215d1e5d2977b4d0df173f3282784"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/9e66338360b215d1e5d2977b4d0df173f3282784",
+                "reference": "9e66338360b215d1e5d2977b4d0df173f3282784",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XWC\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Utilities and helpers for WooCommerce",
+            "keywords": [
+                "abstractions",
+                "decoupling",
+                "extended-wp",
+                "interoperability",
+                "woocommerce"
+            ],
+            "support": {
+                "issues": "https://github.com/x-wp/helper-woocommerce/issues",
+                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.13.0"
+            },
+            "time": "2024-09-23T14:26:14+00:00"
         },
         {
             "name": "x-wp/wc-template-customizer",

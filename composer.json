@@ -10,6 +10,7 @@
     "oblak/wp-plugin-installer": "^2",
     "x-wp/asset-loader": "^1.0",
     "x-wp/helper-functions": "^1.4",
+    "x-wp/helper-woocommerce": "^1.13",
     "x-wp/wc-template-customizer": "^1.0"
   },
   "require-dev": {
