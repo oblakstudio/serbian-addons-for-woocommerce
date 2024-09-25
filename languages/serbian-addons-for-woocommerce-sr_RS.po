@@ -1,0 +1,627 @@
+# Translation of Plugins - Serbian Addons for WooCommerce - Stable (latest release) in Serbian
+# This file is distributed under the same license as the Plugins - Serbian Addons for WooCommerce - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-09-25 10:40+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % "
+"10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Language: sr_RS\n"
+"Project-Id-Version: Plugins - Serbian Addons for WooCommerce - Stable "
+"(latest release)\n"
+"Language-Team: Српски језик"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:40
+msgid ""
+" Security is guaranteed by the standards of the National Bank of Serbia."
+msgstr " Безбедност гарантују стандарди и прописи Народне Банке Србије"
+
+#. Translators: %d is the payment code.
+#: lib/Utils/wcsrb-settings.php:52
+msgid "%d - Final expenses"
+msgstr "%d - Финална потрошња"
+
+#. Translators: %d is the payment code.
+#: lib/Utils/wcsrb-settings.php:50
+msgid "%d - Interim expenses"
+msgstr "%d - Међуфазна потрошња"
+
+#. Translators: %d is the payment code.
+#: lib/Utils/wcsrb-settings.php:61
+msgid "%d - Other transactions"
+msgstr "%d - Остале трансакције"
+
+#. Translators: %d is the payment code.
+#: lib/Utils/wcsrb-settings.php:57
+msgid "%d - Transactions on behalf of a person"
+msgstr "%d - Трансакције по налогу грађана"
+
+#. Translators: %s is the bank name.
+#: lib/Utils/wcsrb-helpers.php:37
+msgid "%s Bank"
+msgstr "%s Банка"
+
+#: woocommerce/checkout/payment-slip.php:144
+msgid "Account payable"
+msgstr "Рачун примаоца"
+
+#: config/pg-slip-settings.php:40
+msgid "Add to e-mail"
+msgstr ""
+
+#: lib/Utils/wcsrb-helpers.php:46
+msgid "Addiko"
+msgstr "Адико"
+
+#: lib/Order/Field_Display.php:134
+msgctxt "Address display"
+msgid "Company Number"
+msgstr "МБ"
+
+#: lib/Order/Field_Display.php:140
+msgctxt "Address display"
+msgid "Tax Identification Number"
+msgstr "ПИБ"
+
+#: config/pg-slip-settings.php:169
+msgid "Advanced Settings"
+msgstr "Напредна подешавања"
+
+#: lib/Utils/wcsrb-helpers.php:40
+msgid "AIK"
+msgstr "АИК"
+
+#: lib/Utils/wcsrb-helpers.php:48
+msgid "Alta"
+msgstr "Алта"
+
+#: woocommerce/checkout/payment-slip.php:114
+msgid "Amount"
+msgstr "Износ"
+
+#: lib/Utils/wcsrb-helpers.php:63
+msgid "API"
+msgstr "АПИ"
+
+#: lib/Utils/wcsrb-payment-slip.php:40 lib/Utils/wcsrb-settings.php:44
+msgid "Automatic"
+msgstr "Аутоматски"
+
+#: lib/Utils/wcsrb-helpers.php:45
+msgid "Banca Intesa"
+msgstr "Банка Интеза"
+
+#: config/pg-slip-settings.php:57
+msgid "Bank account"
+msgstr "Жиро рачун"
+
+#: config/pg-slip-settings.php:60
+msgid "Bank account number"
+msgstr "Број рачуна"
+
+#: config/settings.php:63
+msgid "Bank accounts"
+msgstr "Жиро рачуни"
+
+#: config/settings.php:65
+msgid "Bank accounts of your business."
+msgstr "Жиро рачуни ваше фирме."
+
+#: lib/Utils/wcsrb-helpers.php:65
+msgid "Bank of China"
+msgstr "Кинеска банка"
+
+#: config/company-settings.php:17
+msgid "Business name"
+msgstr "Име фирме"
+
+#: config/settings.php:47
+msgid ""
+"By default, currency is displayed in cyrillic. This will transliterate it"
+msgstr ""
+"Динарска валута ће се подразумевано приказати на ћирилици. Активирање ове "
+"опције ће пресловити валуту"
+
+#. translators: %1$s line break.
+#: config/pg-slip-settings.php:89
+msgid ""
+"Choosing the model 97 will automatically set the payment reference.%1$sWe "
+"recommend using model 97 because payment processor guarantees verbatim "
+"reference transfer only if it is done via model 97 "
+msgstr ""
+"Уколико одаберете Модел 97, позив на број ће бити подешен аутоматски и не "
+"може бити промењен.%1$sПрепоручујемо коришћење модела 97 с обзиром на то да "
+"пружалац платних услуга у складу са прописима одговара за пренети садржај "
+"позива на број одобрења само ако је позив на број уписан у складу са моделом "
+"97 "
+
+#: config/pg-slip-settings.php:49
+msgid "Classic"
+msgstr "Класични"
+
+#: config/pg-slip-settings.php:143
+msgid "Color of the corner dots on the QR code"
+msgstr "Боја тачака у углу QR кôда"
+
+#: config/pg-slip-settings.php:135
+msgid "Color of the dots on the QR code"
+msgstr "Боја тачака QR кôда"
+
+#: config/settings.php:28
+msgid "Companies and persons"
+msgstr "Физичка и правна лица"
+
+#: lib/Utils/wcsrb-helpers.php:17 lib/Utils/wcsrb-settings.php:48
+#: lib/Utils/wcsrb-settings.php:67 lib/Utils/wcsrb-settings.php:71
+msgid "Company"
+msgstr "Правно лице"
+
+#: config/settings.php:58
+msgid "Company information"
+msgstr "Подаци о фирми"
+
+#: lib/Checkout/Field_Validator.php:117
+msgid "Company name is required"
+msgstr "Морате унети име фирме"
+
+#: lib/Checkout/Field_Customizer.php:183 lib/Order/Field_Display.php:186
+msgid "Company Number"
+msgstr "Матични број"
+
+#: lib/Checkout/Field_Validator.php:122
+msgid "Company number is invalid"
+msgstr "Матични број фирме није валидан"
+
+#: lib/Checkout/Field_Validator.php:127
+msgid "Company Tax Number is invalid"
+msgstr "ПИБ није валидан"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:53
+msgid "Confirm with your PIN or fingerprint"
+msgstr "Потврдите плаћање ПИН кодом или отиском прста"
+
+#: config/pg-slip-settings.php:140
+msgid "Corner dot color"
+msgstr "Боја тачака у угловима"
+
+#: lib/Utils/wcsrb-helpers.php:59
+msgid "Credit Agricole"
+msgstr "Кредит агриколе"
+
+#: lib/Utils/wcsrb-payment-slip.php:64
+msgid "Customer ID"
+msgstr "Идентификатор купца"
+
+#: lib/Checkout/Field_Customizer.php:149 lib/Order/Field_Display.php:178
+msgid "Customer type"
+msgstr "Купујем као"
+
+#: config/pg-slip-settings.php:174
+msgid "Debug log"
+msgstr "Лог за дебаговање"
+
+#: config/pg-slip-settings.php:53
+msgid "Defines the style of the payment slip"
+msgstr "Изглед опште уплатнице"
+
+#: config/pg-slip-settings.php:26
+msgid "Description"
+msgstr "Опис"
+
+#: lib/Utils/wcsrb-helpers.php:43
+msgid "Direct"
+msgstr "Директна"
+
+#: config/pg-slip-settings.php:132
+msgid "Dot color"
+msgstr "Боја тачака"
+
+#: config/pg-slip-settings.php:176
+msgid "Enable logging"
+msgstr "Омогући логовање"
+
+#: config/pg-slip-settings.php:14
+msgid "Enable Payment Slip"
+msgstr "Активирај плаћање општом уплатницом"
+
+#: config/pg-slip-settings.php:13
+msgid "Enable/Disable"
+msgstr "Активирај/Деактивирај"
+
+#: config/settings.php:23
+msgid "Enabled customer types"
+msgstr "Дозвољени типови купаца"
+
+#: config/settings.php:67
+msgid "Enter bank account"
+msgstr "Унесите жиро рачун"
+
+#: lib/Checkout/Field_Customizer.php:184
+msgid "Enter MB"
+msgstr ""
+
+#: lib/Checkout/Field_Customizer.php:193
+msgid "Enter PIB"
+msgstr ""
+
+#: lib/Utils/wcsrb-helpers.php:60
+msgid "Erste"
+msgstr "Ерсте"
+
+#: lib/Utils/wcsrb-helpers.php:52
+msgid "Eurobank Direct"
+msgstr "Еуробанк Директна"
+
+#: lib/Utils/wcsrb-helpers.php:42
+msgid "Expobank"
+msgstr "Експобанк"
+
+#: config/settings.php:35
+msgid "Field removal"
+msgstr "Сакривање поља"
+
+#: config/settings.php:16
+msgid "General settings"
+msgstr "Општа подешавања"
+
+#: config/settings.php:18
+msgid "General settings for Serbian Addons for WooCommerce"
+msgstr "Општа подешавања српских додатака за WooCommerce"
+
+#: lib/Utils/wcsrb-helpers.php:44
+msgid "Halkbank"
+msgstr "Халкбанк"
+
+#: lib/Gateway/Gateway_Payment_Slip.php:151
+msgid "Have your customers pay you by sending you money via wire transfer."
+msgstr ""
+"Плаћање општом уплатницом у поштама и банкама србије са опцијом генерисања "
+"НБС ИПС QR кôда"
+
+#: lib/Admin/Plugin_Settings_Page.php:63
+msgid "here"
+msgstr "овде"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:43
+msgid "How to pay"
+msgstr "Како извршити уплату"
+
+#. Author URI of the plugin
+#: serbian-addons-for-woocommerce.php
+msgid "https://oblak.studio"
+msgstr "https://oblak.studio"
+
+#. Plugin URI of the plugin
+#: serbian-addons-for-woocommerce.php
+msgid "https://oblak.studio/open-source/srpski-woocommerce"
+msgstr "https://oblak.studio/open-source/srpski-woocommerce"
+
+#: config/pg-slip-settings.php:152
+msgid "Image that will be shown on the QR code. "
+msgstr "Слика која ће бити приказана у средини QR кôда "
+
+#: woocommerce/checkout/payment-slip-qr-code.php:26
+msgid "Instant payment"
+msgstr "Инстант плаћање"
+
+#. Translators: %s is the invalid bank account number.
+#: lib/Admin/Plugin_Settings_Page.php:153
+msgid "Invalid bank account number: %s"
+msgstr ""
+
+#: lib/Gateway/Gateway_Payment_Slip_IPS_Handler.php:328
+msgid "IPS QR Code"
+msgstr "ИПС QR кôд"
+
+#. translators: %1$s log file path, %2$s line break.
+#: config/pg-slip-settings.php:180
+msgid ""
+"Log Payment Slip events, inside %1$s %2$sNote: this may log personal "
+"information. We recommend using this for debugging purposes only and "
+"deleting the logs when finished."
+msgstr ""
+"Логуј догађаје Опште Уплатнице унутар %1$s %2$s Напомена: Лог датотека може "
+"садржати личне информације. Препоручујемо Вам да користите ово само у сврху "
+"дебаговања, као и да обришете логове након завршетка."
+
+#: lib/Utils/wcsrb-helpers.php:64
+msgid "Mirabank"
+msgstr "Мирабанк"
+
+#: lib/Utils/wcsrb-helpers.php:41
+msgid "Mobi"
+msgstr "Моби"
+
+#: woocommerce/checkout/payment-slip.php:159
+msgid "Model"
+msgstr "Модел"
+
+#: lib/Utils/wcsrb-payment-slip.php:41
+msgid "Model 97"
+msgstr "Модел 97"
+
+#: config/pg-slip-settings.php:50
+msgid "Modern"
+msgstr "Модеран"
+
+#: lib/Utils/wcsrb-helpers.php:61
+msgid "MTS"
+msgstr "МТС"
+
+#: config/company-settings.php:18
+msgid "Name of your business"
+msgstr "Име ваше фирме"
+
+#: lib/Utils/wcsrb-helpers.php:57
+msgid "NLB"
+msgstr "НЛБ"
+
+#: lib/Utils/wcsrb-helpers.php:50
+msgid "NLB Commercial"
+msgstr "НЛБ Комерцијална"
+
+#. Author of the plugin
+#: serbian-addons-for-woocommerce.php
+msgid "Oblak Studio"
+msgstr "Облак Студио"
+
+#: lib/Utils/wcsrb-helpers.php:62
+msgid "Opportunity"
+msgstr "Опортунити"
+
+#: lib/Utils/wcsrb-payment-slip.php:67
+msgid "Order date"
+msgstr "Датум наруџбине"
+
+#: lib/Utils/wcsrb-payment-slip.php:68
+msgid "Order ID"
+msgstr "Идентификатор наруџбине"
+
+#: lib/Utils/wcsrb-payment-slip.php:69
+msgid "Order number"
+msgstr "Број наруџбине"
+
+#: config/pg-slip-settings.php:108
+msgid "Order payment"
+msgstr "Плаћање наруџбине"
+
+#: lib/Utils/wcsrb-helpers.php:54
+msgid "OTP"
+msgstr "ОТП"
+
+#: config/pg-slip-settings.php:29
+msgid "Pay by sending us money via wire transfer"
+msgstr "Платите наруџбину општом уплатницом"
+
+#: config/pg-slip-settings.php:69 woocommerce/checkout/payment-slip.php:98
+msgid "Payment code"
+msgstr "Шифра плаћања"
+
+#: config/pg-slip-settings.php:74
+msgid "Payment code on the payment slip"
+msgstr "Шифра плаћања која ће бити приказана на општој уплатници"
+
+#: woocommerce/checkout/payment-slip.php:28
+msgid "Payment instructions"
+msgstr "Инструкције за уплату"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:56
+msgid "Payment is complete"
+msgstr "Плаћање је извршено"
+
+#: config/pg-slip-settings.php:82
+msgid "Payment model"
+msgstr "Модел плаћања"
+
+#: config/pg-slip-settings.php:86
+msgid "Payment model for the payment reference"
+msgstr "Модел за позив на број"
+
+#: config/pg-slip-settings.php:106 woocommerce/checkout/payment-slip.php:58
+msgid "Payment purpose"
+msgstr "Сврха уплате"
+
+#: config/pg-slip-settings.php:95 woocommerce/checkout/payment-slip.php:167
+msgid "Payment reference"
+msgstr "Позив на број"
+
+#: lib/Gateway/Gateway_Payment_Slip.php:155
+msgid "Payment Slip"
+msgstr "Општа уплатница"
+
+#: lib/Utils/wcsrb-helpers.php:16 lib/Utils/wcsrb-settings.php:54
+#: lib/Utils/wcsrb-settings.php:68 lib/Utils/wcsrb-settings.php:74
+msgid "Person"
+msgstr "Физичко лице"
+
+#: lib/Utils/wcsrb-helpers.php:49
+msgid "Postal Savings"
+msgstr "Поштанска штедионица"
+
+#: lib/Utils/wcsrb-helpers.php:51
+msgid "ProCredit"
+msgstr "ПроКредит"
+
+#: config/pg-slip-settings.php:112
+msgid "QR Code"
+msgstr "QR кôд"
+
+#: lib/Utils/wcsrb-helpers.php:53
+msgid "Raiffeisen"
+msgstr "Рајфајзен"
+
+#: woocommerce/checkout/payment-slip.php:73
+msgid "Reciever"
+msgstr "Прималац"
+
+#: config/settings.php:38
+msgid "Remove unneeded fields from the checkout page"
+msgstr "Уклоните непотребна поља на страници за куповину"
+
+#: config/settings.php:39
+msgid "Removes Address 2 and State fields"
+msgstr "Активирање ове опције ће сакрити поља Адреса 2 и Округ"
+
+#: lib/Utils/wcsrb-helpers.php:55
+msgid "Sberbank"
+msgstr "Сбербанк"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:50
+msgid "Scan the QR code"
+msgstr "Скенирајте QR кôд"
+
+#: lib/Utils/wcsrb-settings.php:20
+msgid "Select bank account"
+msgstr "Одаберите жиро рачун"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:47
+msgid "Select IPS SCAN in the m-banking app"
+msgstr "Одаберите ИПС Скенирај у м-банкинг апликацији"
+
+#: woocommerce/checkout/payment-slip.php:42
+msgid "Sender"
+msgstr "Пошиљаоц"
+
+#: lib/Utils/wcsrb-helpers.php:56
+msgid "Serbian"
+msgstr "Српски"
+
+#: lib/Admin/Plugin_Settings_Page.php:24
+msgid "Serbian Addons"
+msgstr "Српски додаци"
+
+#. Plugin Name of the plugin
+#: serbian-addons-for-woocommerce.php lib/Core/Installer.php:28
+msgid "Serbian Addons for WooCommerce"
+msgstr "Српски додаци за WooCommerce"
+
+#: lib/Gateway/Gateway_Payment_Slip.php:184
+msgid "Serbian Payment Slip does not support your store currency."
+msgstr "Плаћање општом уплатницом није подржано за вашу валуту."
+
+#: lib/Gateway/Gateway_Payment_Slip.php:194
+msgid "Serbian Payment Slip requires at least one bank account."
+msgstr "Плаћање општом уплатницом захтева бар један унет жиро рачун"
+
+#: lib/Core/Installer.php:45 lib/Core/Installer.php:46
+msgid "Settings"
+msgstr "Подешавања"
+
+#: config/pg-slip-settings.php:114
+msgid "Settings for NBS IPS QR Code"
+msgstr "Подешавања за НБС ИПС QR кôд"
+
+#: config/pg-slip-settings.php:148
+msgid "Show image"
+msgstr "Прикажи слику"
+
+#: config/pg-slip-settings.php:150
+msgid "Show image on QR code"
+msgstr "Прикажи слику на QR кôду"
+
+#: config/pg-slip-settings.php:42
+msgid "Show payment slip in the order confirmation e-mail"
+msgstr ""
+
+#: config/pg-slip-settings.php:118
+msgid "Show QR code"
+msgstr "Прикажи QR кôд"
+
+#: config/pg-slip-settings.php:125
+msgid "Show QR code in emails"
+msgstr ""
+
+#: config/pg-slip-settings.php:127
+msgid "Show QR code in order confirmation emails"
+msgstr ""
+
+#: config/pg-slip-settings.php:120
+msgid "Show QR code on the payment slip"
+msgstr "Прикажи QR кôд на општој уплатници"
+
+#: config/pg-slip-settings.php:35
+msgid "Slip settings"
+msgstr "Подешавања уплатнице"
+
+#. Translators: %s is a link to the company settings page.
+#: lib/Admin/Plugin_Settings_Page.php:59
+msgid "Store settings have been moved %s"
+msgstr "Подешавања продавнице су премештена %s"
+
+#: config/pg-slip-settings.php:46
+msgid "Style"
+msgstr "Изглед"
+
+#: lib/Checkout/Field_Customizer.php:192 lib/Order/Field_Display.php:191
+msgid "Tax Number"
+msgstr "ПИБ"
+
+#: woocommerce/checkout/payment-slip-qr-code.php:37
+msgid ""
+"The NBS IPS QR code is an innovative way to perform instant payments using "
+"mobile devices."
+msgstr ""
+"НБС ИПС QR кôд је иновативни начин за инстант плаћање коришћењем мобилних "
+"уређаја"
+
+#: config/pg-slip-settings.php:28
+msgid "This controls the description which the user sees during checkout."
+msgstr "Опис који ће купац видети приликом куповине"
+
+#: config/pg-slip-settings.php:21
+msgid "This controls the title which the user sees during checkout."
+msgstr "Назив који ће купац видети приликом куповине"
+
+#: config/pg-slip-settings.php:19
+msgid "Title"
+msgstr "Назив"
+
+#: config/settings.php:43
+msgid "Transliterate currency symbol"
+msgstr "Преслови валуту"
+
+#: config/settings.php:46
+msgid "Transliterate currency symbol to latin script"
+msgstr "Пресловљава валуту у латиницу"
+
+#: lib/Utils/wcsrb-helpers.php:47
+msgid "UniCredit"
+msgstr "УниКредит"
+
+#. Description of the plugin
+#: serbian-addons-for-woocommerce.php
+msgid ""
+"Various addons and tweaks that make WooCommerce compatible with Serbian "
+"bureaucracy."
+msgstr ""
+"Raзни додаци и подешавања која ће ускладити вашу продавницу са српским "
+"књиговодстевним прописима."
+
+#: lib/Utils/wcsrb-helpers.php:58
+msgid "Vojvodjanska"
+msgstr "Војвођанска"
+
+#: config/settings.php:26
+msgid "Which customer types can shop on the store"
+msgstr "Дефинише који типови купаца могу да праве наруџбине"
+
+#. translators: %1$s opening link tag, %2$s closing link tag.
+#: config/pg-slip-settings.php:63
+msgid "You can add your bank account details in the %1$sCompany settings%2$s ."
+msgstr "Можете додати ваш банковни рачун у %1$sПодешвањима компаније%2$s"
+
+#: config/pg-slip-settings.php:73
+msgid ""
+"You can choose a payment code only if you limit checkout to a single "
+"customer type."
+msgstr ""
+"Можете одабрати шифру плаћања само ако ограничите куповину на одређени тип "
+"купца"
+
+#. translators: %1$s opening link tag, %2$s Customizer title, %3$s closing link tag, %3$s current image HTML.
+#: config/pg-slip-settings.php:155
+msgid "You can set it in %1$s%2$s%3$s. Current image is: %4$s"
+msgstr "Слику можете подесити овде: %1$s%2$s%3$s. Тренутна слика: %4$s"
