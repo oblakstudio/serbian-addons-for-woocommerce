@@ -10,6 +10,7 @@ namespace Oblak\WCSRB\Core;
 use Oblak\WP\Abstracts\Hook_Caller;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
+use WC_Order;
 
 /**
  * Changes the fields on the checkout page

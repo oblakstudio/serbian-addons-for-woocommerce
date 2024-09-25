@@ -10,7 +10,6 @@ export default class AddressPageController {
 
   public finalize(): void {
     $(document.body).on('change refresh', this.selector, (e) => {
-      console.log('change refresh');
       this.toggleEntityType($(e.target));
     });
 
@@ -19,22 +18,12 @@ export default class AddressPageController {
         () => this.toggleEntityType($(`${this.selector}:checked`)),
         100,
       );
-      console.log('country_to_state_changing');
     });
   }
 
-  private toggleEntityType($input: JQuery<HTMLInputElement>): void {
-    const isCompany = $input.val() === 'company';
+  private toggleEntityType($field: JQuery<HTMLInputElement>): void {
+    const required = $field.val() === 'company';
 
-    console.log($input.is(':checked'), $input.val());
-
-    this.isRequired($<HTMLParagraphElement>('.entity-type-toggle'), isCompany);
-  }
-
-  private isRequired(
-    $field: JQuery<HTMLParagraphElement>,
-    required: boolean,
-  ): void {
     $field.find('input').prop({
       'aria-required': required,
       disabled: !required,
@@ -67,11 +56,5 @@ export default class AddressPageController {
           `<abbr class="optional" title="${window.wc_address_i18n_params.i18n_optional_text}">${window.wc_address_i18n_params.i18n_optional_text}</abbr>`,
         );
     }
-  }
-
-  private toggleFields($toggle: JQuery<HTMLInputElement>): void {
-    const isPerson = $toggle.attr('value') === 'person';
-
-    $('.hide-if-person').toggleClass('shown', !isPerson);
   }
 }

@@ -7,13 +7,14 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 
-use Oblak\WP\Abstracts\Hook_Runner;
+use Oblak\WP\Abstracts\Hook_Caller;
+use Oblak\WP\Decorators\Action;
 use WC_Order;
 
 /**
  * Adds payment slip metadata to the order
  */
-class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
+class Gateway_Payment_Slip_Data_Handler extends Hook_Caller {
     /**
      * Constructor
      *
@@ -35,13 +36,11 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
     /**
      * Adds payment slip metadata to the order
      *
-     * @param  WC_Order|null $order Order object.
-     *
-     * @hook     woocommerce_checkout_order_created
-     * @type     action
-     * @priority 20
+     * @param  int      $order_id Order ID.
+     * @param  WC_Order $order    Order object.
      */
-    public function add_slip_metadata( WC_Order $order ) {
+    #[Action( tag: 'woocommerce_new_order', priority: 10 )]
+    public function add_slip_metadata( int $order_id, WC_Order $order ) {
         if ( ! $order ) {
             return;
         }

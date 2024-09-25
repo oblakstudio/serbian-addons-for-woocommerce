@@ -6,7 +6,7 @@
  * @subpackage WooCommerce\Admin
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Admin;
+namespace Oblak\WCSRB\Admin;
 
 use Oblak\WP\Abstracts\Hook_Caller;
 use Oblak\WP\Decorators\Filter;

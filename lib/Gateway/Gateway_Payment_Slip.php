@@ -9,6 +9,8 @@ namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 
 use Automattic\Jetpack\Constants;
 use Oblak\WooCommerce\Gateway\Extended_Payment_Gateway;
+use Oblak\WP\Decorators\Action;
+use Oblak\WP\Decorators\Filter;
 use WC_Email;
 use WC_Order;
 use WP_Error;
@@ -122,7 +124,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
             new Gateway_Payment_Slip_Data_Handler( $this->get_available_settings() );
             new Gateway_Payment_Slip_IPS_Handler( $this->get_available_settings() );
 
-            invoke_class_hooks( $this );
+            \xwp_invoke_hooked_methods( $this );
 
         }
     }
@@ -205,15 +207,13 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      * Displays the payment slip on the thank you page
      *
      * @param  int $order_id Order ID.
-     *
-     * @hook     woocommerce_thankyou_wcsrb_payment_slip, woocommerce_view_order
-     * @type     action
-     * @priority 100, 7
      */
+    #[Action( tag: 'woocommerce_thankyou_wcsrb_payment_slip', priority: 100 )]
+    #[Action( tag: 'woocommerce_view_order', priority: 7 )]
     public function show_payment_slip( $order_id ) {
         $order = wc_get_order( $order_id );
 
-        if ( 'wcsrb_payment_slip' !== $order->get_payment_method() ) {
+        if ( 'wcsrb_payment_slip' !== $order->get_payment_method() || $order->is_paid() ) {
             return;
         }
 
@@ -235,11 +235,8 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      * @param  string   $css   Email CSS.
      * @param  WC_Email $email Email object.
      * @return string          Modified email CSS.
-     *
-     * @hook     woocommerce_email_styles
-     * @type     filter
-     * @priority 9999
      */
+    #[Filter( tag: 'woocommerce_email_styles', priority: 9999 )]
     public function add_css_to_emails( $css, $email ) {
         if ( 'customer_on_hold_order' !== $email->id || 'wcsrb_payment_slip' !== $email->object?->get_payment_method() ) {
             return $css;
@@ -257,16 +254,14 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      * @param  bool     $sent_to_admin Whether or not the email is sent to the admin.
      * @param  bool     $plain_text    Whether or not the email is plain text.
      * @param  WC_Email $email         Email object.
-     *
-     * @hook     woocommerce_email_order_details
-     * @type     action
-     * @priority 50
      */
+    #[Action( tag: 'woocommerce_email_order_details', priority: 50 )]
     public function add_payment_slip_to_email( $order, $sent_to_admin, $plain_text, $email ) {
         if (
             'customer_on_hold_order' !== $email->id ||
             $sent_to_admin || $plain_text ||
-            'wcsrb_payment_slip' !== $email->object->get_payment_method()
+            'wcsrb_payment_slip' !== $email->object->get_payment_method() ||
+            $order->is_paid()
         ) {
             return;
         }

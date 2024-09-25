@@ -4,7 +4,8 @@
  *
  * @package Serbian Addons for WooCommerce
  */
-namespace Oblak\WooCommerce\Serbian_Addons\Admin;
+
+namespace Oblak\WCSRB\Admin;
 
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;

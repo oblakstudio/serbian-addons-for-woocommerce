@@ -94,24 +94,6 @@ class Address_Display_Controller extends Hook_Caller {
     }
 
     /**
-     * Modifies the buyer name in the admin order page to include necessary company information
-     *
-     * @param  string   $buyer Buyer name.
-     * @param  WC_Order $order Order object.
-     * @return string          Modified Buyer name
-     */
-    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
-    public function modify_order_buyer_name( string $buyer, WC_Order $order ): string {
-        $data = \wcsrb_get_company_data( $order );
-
-        if ( 'RS' === $order->get_billing_country() && 'company' === $data['type'] ) {
-            $buyer = $order->get_billing_company();
-        }
-
-        return $buyer;
-    }
-
-    /**
      * Billing address modifier function
      *
      * Depending on the customer(user) type we add the needed rows to the address.
