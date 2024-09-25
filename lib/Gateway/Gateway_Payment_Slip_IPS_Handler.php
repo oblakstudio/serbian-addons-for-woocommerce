@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag, SlevomatCodingStandard
 /**
  * Payment_Slip_IPS_Handler class file.
  *
@@ -36,9 +36,9 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
         parent::__construct();
     }
 
-    //phpcs:disable
+    //phpcs:disable Squiz.Commenting.InlineComment.WrongStyle
     #region IPS Data
-    //phpcs:enable
+    //phpcs:enable Squiz.Commenting.InlineComment.WrongStyle
 
     /**
      * Adds payment slip metadata to the order
@@ -140,13 +140,13 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
         return \str_replace( '-', '', $reference );
     }
 
-    //phpcs:disable
+    //phpcs:disable Squiz.Commenting.InlineComment.WrongStyle
     #endregion
-    //phpcs:enable
+    //phpcs:enable Squiz.Commenting.InlineComment.WrongStyle
 
-    //phpcs:disable
+    //phpcs:disable Squiz.Commenting.InlineComment.WrongStyle
     #region QR Creation
-    //phpcs:enable
+    //phpcs:enable Squiz.Commenting.InlineComment.WrongStyle
 
     /**
      * Triggers the QR code generation
@@ -244,9 +244,9 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
         QR_Code_Handler::instance()->init( $this->get_qr_code_options( $options ) )->create_file( $order );
     }
 
-    //phpcs:disable
+    //phpcs:disable Squiz.Commenting.InlineComment.WrongStyle
     #endregion
-    //phpcs:enable
+    //phpcs:enable Squiz.Commenting.InlineComment.WrongStyle
 
     /**
      * Show QR Code on the thank you page, and order details.

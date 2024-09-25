@@ -88,7 +88,7 @@ return array(
     'payment_reference'   => array(
         'title'             => __( 'Payment reference', 'serbian-addons-for-woocommerce' ),
         'type'              => 'text',
-        'default'           => static fn() => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
+        'default'           => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
         'description'       => static fn() => wcsrb_format_payment_reference_description(),
         'custom_attributes' => static fn() => array(
             'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',

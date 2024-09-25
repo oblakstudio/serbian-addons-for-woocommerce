@@ -1,4 +1,4 @@
-<?php //phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag
+<?php //phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag, SlevomatCodingStandard
 /**
  * Payment_Slip_Gateway class file.
  *
@@ -118,9 +118,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
 
         self::$log_enabled[ self::$log_id ] = $this->debug;
 
-        if ( is_wp_error( $this->is_valid_for_use() ) ) {
-            $this->enabled = 'no';
-        } else {
+        if ( ! is_wp_error( $this->is_valid_for_use() ) && wc_string_to_bool( $this->enabled ) ) {
             new Gateway_Payment_Slip_Data_Handler( $this->get_available_settings() );
             new Gateway_Payment_Slip_IPS_Handler( $this->get_available_settings() );
 

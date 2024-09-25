@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard
 /**
  * Payment_Slip_Data_Handler class file.
  *
@@ -74,10 +74,8 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Runner {
             'reference',
         );
 
-        return \apply_filters(
-            'woocommerce_serbian_payment_slip_data_keys',
-            $slip_data_keys,
-        ); // phpcs:ignore WooCommerce.Commenting
+        // phpcs:ignore WooCommerce.Commenting
+        return \apply_filters( 'woocommerce_serbian_payment_slip_data_keys', $slip_data_keys );
     }
 
     /**
