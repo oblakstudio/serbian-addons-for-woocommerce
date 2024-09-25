@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d0281c9114ea4847fa6d6e2c7d80f20",
+    "content-hash": "927f847326d94c6a3659abdbf13afecb",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -638,16 +638,16 @@
         },
         {
             "name": "x-wp/helper-functions",
-            "version": "v1.9.2",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-functions.git",
-                "reference": "4376fd98dea090e7ce03ef7dd16be9931e0c8f3f"
+                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/4376fd98dea090e7ce03ef7dd16be9931e0c8f3f",
-                "reference": "4376fd98dea090e7ce03ef7dd16be9931e0c8f3f",
+                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/93f6c928cd08192298e572a49873e3bd6b7aad49",
+                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49",
                 "shasum": ""
             },
             "require": {
@@ -688,13 +688,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-functions/issues",
-                "source": "https://github.com/x-wp/helper-functions/tree/v1.9.2"
+                "source": "https://github.com/x-wp/helper-functions/tree/v1.13.1"
             },
-            "time": "2024-09-18T14:43:14+00:00"
+            "time": "2024-09-23T14:26:03+00:00"
         },
         {
             "name": "x-wp/helper-traits",
-            "version": "v1.9.2",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-traits.git",
@@ -740,22 +740,22 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-traits/issues",
-                "source": "https://github.com/x-wp/helper-traits/tree/v1.9.2"
+                "source": "https://github.com/x-wp/helper-traits/tree/v1.13.1"
             },
             "time": "2024-09-18T12:43:44+00:00"
         },
         {
             "name": "x-wp/helper-woocommerce",
-            "version": "v1.13.0",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-woocommerce.git",
-                "reference": "9e66338360b215d1e5d2977b4d0df173f3282784"
+                "reference": "15d74e968ca875df0cdd5084337c7fed4a03c3cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/9e66338360b215d1e5d2977b4d0df173f3282784",
-                "reference": "9e66338360b215d1e5d2977b4d0df173f3282784",
+                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/15d74e968ca875df0cdd5084337c7fed4a03c3cb",
+                "reference": "15d74e968ca875df0cdd5084337c7fed4a03c3cb",
                 "shasum": ""
             },
             "require": {
@@ -790,9 +790,9 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-woocommerce/issues",
-                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.13.0"
+                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.13.1"
             },
-            "time": "2024-09-23T14:26:14+00:00"
+            "time": "2024-09-25T09:23:08+00:00"
         },
         {
             "name": "x-wp/wc-template-customizer",
@@ -1400,16 +1400,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.30.1",
+            "version": "1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "51b95ec8670af41009e2b2b56873bad96682413e"
+                "reference": "249f15fb843bf240cf058372dad29e100cee6c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/51b95ec8670af41009e2b2b56873bad96682413e",
-                "reference": "51b95ec8670af41009e2b2b56873bad96682413e",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/249f15fb843bf240cf058372dad29e100cee6c17",
+                "reference": "249f15fb843bf240cf058372dad29e100cee6c17",
                 "shasum": ""
             },
             "require": {
@@ -1441,9 +1441,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.30.1"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.31.0"
             },
-            "time": "2024-09-07T20:13:05+00:00"
+            "time": "2024-09-22T11:32:18+00:00"
         },
         {
             "name": "slevomat/coding-standard",

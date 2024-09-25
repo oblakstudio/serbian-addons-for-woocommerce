@@ -64,6 +64,11 @@ class Serbian_WooCommerce {
     #[Action( tag: 'plugins_loaded', priority: 1000 )]
     public function on_plugins_loaded() {
         Core\Installer::instance()->init();
+
+        $s = \load_plugin_textdomain(
+            domain: 'serbian-addons-for-woocommerce',
+            plugin_rel_path: \dirname( WCRS_PLUGIN_BASE ) . '/languages',
+        );
     }
 
     /**
@@ -74,6 +79,12 @@ class Serbian_WooCommerce {
         try {
             $this->load_options( 'wcsrb_settings' );
         } catch ( \Exception ) {
+            \wc_get_logger()->critical(
+                'Failed to load plugin settings',
+                array(
+					'source' => 'serbian-addons-for-woocommerce',
+				),
+            );
             $this->settings = array();
         }
 
