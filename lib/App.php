@@ -52,12 +52,12 @@ class App {
      */
     protected function get_dependencies(): array {
         return array(
-            Admin\Edit_User_Controller::class,
+            Admin\Admin_Core::class,
+            Core\Address_Admin_Controller::class,
             Core\Address_Display_Controller::class,
             Core\Address_Field_Controller::class,
             Core\Address_Validate_Controller::class,
             Utils\Template_Extender::class,
-            Legacy\Admin\Admin_Core::class,
         );
     }
 

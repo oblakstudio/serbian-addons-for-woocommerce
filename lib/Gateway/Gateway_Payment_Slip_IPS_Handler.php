@@ -8,18 +8,18 @@
 
 namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 
-use Automattic\Jetpack\Constants;
 use chillerlan\QRCode\Common\EccLevel;
 use chillerlan\QRCode\Data\QRMatrix;
 use Oblak\WooCommerce\Serbian_Addons\QR\QR_Code_Handler;
-use Oblak\WP\Abstracts\Hook_Runner;
+use Oblak\WP\Abstracts\Hook_Caller;
+use Oblak\WP\Decorators\Action;
 use PHPMailer\PHPMailer\PHPMailer;
 use WC_Order;
 
 /**
  * Adds the IPS QR data to the order, and generates the QR code
  */
-class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
+class Gateway_Payment_Slip_IPS_Handler extends Hook_Caller {
     /**
      * Constructor
      *
@@ -43,17 +43,78 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
     /**
      * Adds payment slip metadata to the order
      *
-     * @param  WC_Order|null $order Order object.
-     *
-     * @hook     woocommerce_checkout_order_created
-     * @type     action
-     * @priority 20
+     * @param  int      $order_id Order ID.
+     * @param  WC_Order $order    Order object.
      */
-    public function add_ips_metadata( WC_Order $order ) {
+    #[Action( tag: 'woocommerce_new_order', priority: 20 )]
+    public function add_ips_metadata( int $order_id, WC_Order $order ) {
+        $ips_fmtd_arr = array();
+
+        foreach ( $this->format_ips_data( $order ) as $key => $value ) {
+            $ips_fmtd_arr[] = \sprintf( '%s:%s', $key, $value );
+        }
+
+        if ( ! $ips_fmtd_arr ) {
+            return;
+        }
+
+        $order->update_meta_data( '_payment_slip_ips_data', \implode( '|', $ips_fmtd_arr ) );
+        $order->save();
+    }
+
+    /**
+     * Triggers the QR code generation
+     *
+     * @param  int      $order_id Order ID.
+     * @param  WC_Order $order    Order object.
+     */
+    #[Action( tag: 'woocommerce_new_order', priority: 30 )]
+    public function add_qr_code_action( int $order_id, WC_Order $order ) {
+        $qr_string = $order->get_meta( '_payment_slip_ips_data', true );
+
+        if ( empty( $qr_string ) ) {
+            return;
+        }
+
+        /**
+         * Generate the QR code for the IPS payment slip.
+         *
+         * @param WC_Order  $order     The order object.
+         * @param array     $options   The gateway options.
+         *
+         * @since 3.3.0
+         */
+        \do_action( 'woocommerce_serbian_generate_ips_qr_code', $order, $this->options );
+    }
+
+    /**
+     * Deletes the QR code file
+     *
+     * @param  int $order_id Order ID.
+     */
+    #[Action( tag: 'woocommerce_before_delete_order', priority: 20 )]
+    #[Action( tag: 'woocommerce_before_trash_order', priority: 20 )]
+    #[Action( tag: 'woocommerce_order_status_completed', priority: 20 )]
+    public function delete_order_qr_code( int $order_id ) {
+        $filename = QR_Code_Handler::instance()->get_filename( \wc_get_order( $order_id ) );
+
+        if ( ! $filename || ! \wp_load_filesystem()->exists( $filename ) ) {
+            return;
+        }
+
+        \wp_load_filesystem()->delete( $filename );
+    }
+
+    /**
+     * Adds payment slip metadata to the order
+     *
+     * @param  WC_Order|null $order Order object.
+     */
+    public function format_ips_data( $order ): array {
         $slip_data = $order->get_meta( '_payment_slip_data', true );
 
-        if ( empty( $slip_data ) ) {
-            return;
+        if ( ! $slip_data ) {
+            return array();
         }
 
         $qr_data = array();
@@ -70,11 +131,10 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
                 };
 			}
 
-            $qr_data[] = \sprintf( '%s:%s', $key, $value );
+            $qr_data[ $key ] = $value;
         }
 
-        $order->update_meta_data( '_payment_slip_ips_data', \implode( '|', $qr_data ) );
-        $order->save();
+        return $qr_data;
     }
 
     /**
@@ -84,16 +144,16 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      */
     protected function get_ips_data_keys(): array {
         return array(
-            'C'  => array( '1' ),
-            'I'  => array( 'currency', 'total' ),
             'K'  => array( 'PR' ),
-            'N'  => array( 'company' ),
-            'P'  => array( 'customer' ),
-            'R'  => array( 'account' ),
-            'RO' => array( 'model', 'reference' ),
-            'S'  => array( 'purpose' ),
-            'SF' => array( 'code' ),
             'V'  => array( '01' ),
+            'C'  => array( '1' ),
+            'R'  => array( 'account' ),
+            'N'  => array( 'company' ),
+            'I'  => array( 'currency', 'total' ),
+            'P'  => array( 'customer' ),
+            'SF' => array( 'code' ),
+            'S'  => array( 'purpose' ),
+            'RO' => array( 'model', 'reference' ),
 		);
     }
 
@@ -108,6 +168,49 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
         $parts[1] = \str_pad( $parts[1], 13, '0', STR_PAD_LEFT );
 
         return \implode( '', $parts );
+    }
+
+    /**
+     * Format the company data
+     *
+     * @param  string $company The company data.
+     * @return string
+     */
+    protected function format_company( string $company ): string {
+        return $this->shorten_tag( $company );
+    }
+
+    /**
+     * Format the customer data
+     *
+     * @param  string $customer The customer data.
+     * @return string
+     */
+    protected function format_customer( string $customer ): string {
+        return $this->shorten_tag( $customer );
+    }
+
+    /**
+     * Shortens the tag to 70 characters
+     *
+     * @param  string $tag The tag.
+     * @return string
+     */
+    protected function shorten_tag( string $tag ): string {
+        $tag    = preg_replace( '/<br\/?>/', "\n", $tag );
+        $count  = 1;
+        $length = strlen( $tag );
+
+        while ( 70 < $length && $count > 0 ) {
+            $tag    = preg_replace( "/\n.*$/", '', $tag, -1, $count );
+            $length = strlen( $tag );
+        }
+
+        if ( 70 < $length && 0 === $count ) {
+            $tag = substr( $tag, 0, 70 );
+        }
+
+        return $tag;
     }
 
     /**
@@ -147,33 +250,6 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
     //phpcs:disable Squiz.Commenting.InlineComment.WrongStyle
     #region QR Creation
     //phpcs:enable Squiz.Commenting.InlineComment.WrongStyle
-
-    /**
-     * Triggers the QR code generation
-     *
-     * @param  WC_Order|null $order Order object.
-     *
-     * @hook     woocommerce_checkout_order_created
-     * @type     action
-     * @priority 30
-     */
-    public function add_qr_code_action( WC_Order $order ) {
-        $qr_string = $order->get_meta( '_payment_slip_ips_data', true );
-
-        if ( empty( $qr_string ) ) {
-            return;
-        }
-
-        /**
-         * Generate the QR code for the IPS payment slip.
-         *
-         * @param WC_Order  $order     The order object.
-         * @param array     $options   The gateway options.
-         *
-         * @since 3.3.0
-         */
-        \do_action( 'woocommerce_serbian_generate_ips_qr_code', $order, $this->options );
-    }
 
     /**
      * Get the QR code options
@@ -236,10 +312,8 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      *
      * @param  WC_Order $order     The order object.
      * @param  array    $options   The gateway options.
-     *
-     * @hook woocommerce_serbian_generate_ips_qr_code
-     * @type action
      */
+    #[Action( tag: 'woocommerce_serbian_generate_ips_qr_code' )]
     public function generate_qr_code( WC_Order $order, array $options, ) {
         QR_Code_Handler::instance()->init( $this->get_qr_code_options( $options ) )->create_file( $order );
     }
@@ -252,15 +326,13 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      * Show QR Code on the thank you page, and order details.
      *
      * @param  int $order_id The order ID.
-     *
-     * @hook     woocommerce_thankyou_wcsrb_payment_slip, woocommerce_view_order
-     * @type     action
-     * @priority 101, 9
      */
+    #[Action( tag: 'woocommerce_thankyou_wcsrb_payment_slip', priority: 101 )]
+    #[Action( tag: 'woocommerce_view_order', priority: 9 )]
     public function show_qr_code( $order_id ) {
         $order = \wc_get_order( $order_id );
 
-        if ( 'wcsrb_payment_slip' !== $order->get_payment_method() || ! $this->options['qrcode_shown'] ) {
+        if ( 'wcsrb_payment_slip' !== $order->get_payment_method() || ! $this->options['qrcode_shown'] || $order->is_paid() ) {
             return;
         }
 
@@ -277,11 +349,8 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Runner {
      * @param  bool     $sent_to_admin Whether or not the email is sent to the admin.
      * @param  bool     $plain_text    Whether or not the email is plain text.
      * @param  WC_Email $email         Email object.
-     *
-     * @hook     woocommerce_email_order_details
-     * @type     action
-     * @priority 55
      */
+    #[Action( tag: 'woocommerce_email_order_details', priority: 55 )]
     public function add_qr_code_to_email( $order, $sent_to_admin, $plain_text, $email ) {
         if (
             'customer_on_hold_order' !== $email->id ||
