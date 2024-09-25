@@ -71,12 +71,17 @@ class Serbian_WooCommerce {
      */
     #[Action( tag: 'woocommerce_loaded', priority: 99 )]
     public function load_plugin_settings() {
-        $this->load_options( 'wcsrb_settings' );
+        try {
+            $this->load_options( 'wcsrb_settings' );
+        } catch ( \Exception ) {
+            $this->settings = array();
+        }
 
         $this->settings['enabled_customer_types'] ??= 'both';
         $this->settings['remove_unneeded_fields'] ??= false;
         $this->settings['fix_currency_symbol']    ??= true;
-        $this->settings['company']                  = array(
+
+        $this->settings['company'] = array(
             'accounts'  => \wcsrb_get_bank_accounts(),
             'address'   => \get_option( 'woocommerce_store_address', '' ),
             'address_2' => \get_option( 'woocommerce_store_address_2', '' ),

@@ -34,8 +34,7 @@ class Field_Validator {
      */
     #[Action( 'woocommerce_after_save_address_validation', 99 )]
     public function validate_saved_address( int $user_id, string $type ) {
-        // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $posted = \wc_clean( \wp_unslash( $_POST ) );
+        $posted = \xwp_post_arr();
 
         // If we're not validating billing, we don't need to do anything.
         if ( ! $this->can_validate( $posted, $type ) ) {
@@ -56,6 +55,9 @@ class Field_Validator {
                 ),
                 'notice' => $args['message'],
             );
+
+            $_POST[ $field ] = '';
+
         }
         \WC()->session->set( 'wc_notices', $notices );
     }
