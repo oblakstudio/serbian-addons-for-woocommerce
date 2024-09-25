@@ -77,9 +77,14 @@ class Serbian_WooCommerce {
             $this->settings = array();
         }
 
-        $this->settings['enabled_customer_types'] ??= 'both';
-        $this->settings['remove_unneeded_fields'] ??= false;
-        $this->settings['fix_currency_symbol']    ??= true;
+        $this->settings['core'] = \wp_parse_args(
+            \array_filter( $this->settings['core'] ?? array() ),
+            array(
+                'enabled_customer_types' => 'both',
+                'fix_currency_symbol'    => true,
+                'remove_unneeded_fields' => false,
+            ),
+        );
 
         $this->settings['company'] = array(
             'accounts'  => \wcsrb_get_bank_accounts(),
