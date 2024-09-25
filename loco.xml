@@ -16,6 +16,5 @@
   <exclude>
     <directory>node_modules</directory>
     <directory>vendor</directory>
-    <directory>languages</directory>
   </exclude>
 </bundle>

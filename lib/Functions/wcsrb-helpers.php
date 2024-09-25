@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 /**
  * Helper functions
  *
@@ -13,8 +13,8 @@
  */
 function wcsrb_get_entity_types() {
     $entity_types = array(
-        'company' => __( 'Company', 'serbian-addons-for-woocommerce' ),
         'person'  => __( 'Person', 'serbian-addons-for-woocommerce' ),
+        'company' => __( 'Company', 'serbian-addons-for-woocommerce' ),
     );
 
     /**

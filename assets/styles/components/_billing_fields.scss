@@ -15,11 +15,11 @@
       }
     }
 
-    .hide-if-person {
-      display: none;
+    .entity-type-toggle {
+      display: none !important;
 
       &.shown {
-        display: block;
+        display: block !important;
       }
     }
   }

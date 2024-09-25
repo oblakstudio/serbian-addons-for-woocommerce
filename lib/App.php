@@ -5,23 +5,23 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons;
+namespace Oblak\WCSRB;
 
-use Oblak\WooCommerce\Core\Settings_Helper;
+use Oblak\WCSRB\Services\Field_Validator;
+use Oblak\WooCommerce\Serbian_Addons as Legacy;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Traits\Hook_Processor_Trait;
-use Oblak\WP\Traits\Singleton;
+use XWC\Traits\Settings_API_Methods;
+use XWP\Helper\Traits\Singleton;
 
 /**
  * Main plugin class
  */
-class Serbian_WooCommerce {
+class App {
     use Hook_Processor_Trait;
+    use Settings_API_Methods;
     use Singleton;
-    use Settings_Helper {
-        Settings_Helper::load_settings as load_settings_helper;
-    }
     use \XWP_Asset_Retriever;
 
     /**
@@ -30,6 +30,13 @@ class Serbian_WooCommerce {
      * @var string
      */
     public string $version = WCRS_VERSION;
+
+    /**
+     * Field validator instance.
+     *
+     * @var Field_Validator
+     */
+    protected Field_Validator $validator;
 
     /**
      * Private constructor
@@ -45,11 +52,12 @@ class Serbian_WooCommerce {
      */
     protected function get_dependencies(): array {
         return array(
-            Admin\Admin_Core::class,
-			Core\Template_Extender::class,
-            Checkout\Field_Customizer::class,
-            Checkout\Field_Validator::class,
-            Order\Field_Display::class,
+            Admin\Edit_User_Controller::class,
+            Core\Address_Display_Controller::class,
+            Core\Address_Field_Controller::class,
+            Core\Address_Validate_Controller::class,
+            Utils\Template_Extender::class,
+            Legacy\Admin\Admin_Core::class,
         );
     }
 
@@ -61,20 +69,45 @@ class Serbian_WooCommerce {
     }
 
     /**
-     * Get the settings array from the database
-     *
-     * We use the helper settings loader to load the settings, and then we add the company info
-     * because it is a mix of our settings and WooCommerce settings.
-     *
-     * @param  string $prefix        The settings prefix.
-     * @param  array  $raw_settings  The settings fields.
-     * @param  mixed  $default_value The default value for the settings.
-     * @return array                 The settings array.
+     * Initializes the installer
      */
-    protected function load_settings( string $prefix, array $raw_settings, $default_value ): array {
-        $settings = $this->load_settings_helper( $prefix, $raw_settings, $default_value );
+    #[Action( tag: 'plugins_loaded', priority: 1000 )]
+    public function on_plugins_loaded() {
+        Utils\Installer::instance()->init();
 
-        $settings['company'] = array(
+        \load_plugin_textdomain(
+            domain: 'serbian-addons-for-woocommerce',
+            plugin_rel_path: \dirname( WCRS_PLUGIN_BASE ) . '/languages',
+        );
+    }
+
+    /**
+     * Loads the plugin settings
+     */
+    #[Action( tag: 'woocommerce_loaded', priority: 99 )]
+    public function load_plugin_settings() {
+        try {
+            $this->load_options( 'wcsrb_settings' );
+        } catch ( \Exception | \Error ) {
+            \wc_get_logger()->critical(
+                'Failed to load plugin settings',
+                array(
+					'source' => 'serbian-addons-for-woocommerce',
+				),
+            );
+            $this->settings = array();
+        }
+
+        $this->settings['core'] = \wp_parse_args(
+            \array_filter( $this->settings['core'] ?? array() ),
+            array(
+                'enabled_customer_types' => 'both',
+                'fix_currency_symbol'    => true,
+                'remove_unneeded_fields' => false,
+            ),
+        );
+
+        $this->settings['company'] = array(
             'accounts'  => \wcsrb_get_bank_accounts(),
             'address'   => \get_option( 'woocommerce_store_address', '' ),
             'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
@@ -83,28 +116,6 @@ class Serbian_WooCommerce {
             'logo'      => \get_option( 'site_icon', 0 ),
             'name'      => \get_option( 'woocommerce_store_name', '' ),
             'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
-        );
-
-        return $settings;
-    }
-
-    /**
-     * Initializes the installer
-     */
-    #[Action( tag: 'plugins_loaded', priority: 1000 )]
-    public function on_plugins_loaded() {
-        Core\Installer::instance()->init();
-    }
-
-    /**
-     * Loads the plugin settings
-     */
-    #[Action( tag: 'woocommerce_loaded', priority: 99 )]
-    public function load_plugin_settings() {
-        $this->settings = $this->load_settings(
-            'wcsrb',
-            require WCRS_PLUGIN_PATH . 'config/settings.php',
-            false,
         );
     }
 
@@ -132,7 +143,7 @@ class Serbian_WooCommerce {
      */
     #[Filter( tag: 'woocommerce_payment_gateways', priority: 50 )]
     public function add_payment_gateways( $gateways ) {
-        $gateways[] = Gateway\Gateway_Payment_Slip::class;
+        $gateways[] = Legacy\Gateway\Gateway_Payment_Slip::class;
         return $gateways;
     }
 
@@ -145,7 +156,7 @@ class Serbian_WooCommerce {
      */
     #[Filter( tag: 'woocommerce_currency_symbol', priority: 99 )]
     public function change_currency_symbol( string $symbol, string $currency ): string {
-        if ( ! $this->get_settings( 'general', 'fix_currency_symbol' ) ) {
+        if ( ! $this->get_settings( 'core', 'fix_currency_symbol' ) ) {
             return $symbol;
         }
 
@@ -171,5 +182,14 @@ class Serbian_WooCommerce {
             'main'  => ( \is_checkout() && ! \is_wc_endpoint_url() ) || \is_account_page(),
             default => $load,
         };
+    }
+
+    /**
+     * Gets the field validator instance.
+     *
+     * @return Field_Validator
+     */
+    public function validator(): Field_Validator {
+        return $this->validator ??= new Field_Validator();
     }
 }

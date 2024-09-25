@@ -13,6 +13,8 @@
  * License:              GPLv2 or later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          serbian-addons-for-woocommerce
+ * Domain Path:          /languages
+ * Requires Plugins:     woocommerce
  *
  * @package Serbian Addons for WooCommerce
  */

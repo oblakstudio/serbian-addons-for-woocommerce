@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "818339a7921273dcd4c25b6a61e03072",
+    "content-hash": "927f847326d94c6a3659abdbf13afecb",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -371,21 +371,22 @@
         },
         {
             "name": "oblak/woocommerce-utils",
-            "version": "v1.31.2",
+            "version": "v1.31.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/woocommerce-utils.git",
-                "reference": "6c6043c43e3eb276da599f160aba7570831b8f88"
+                "reference": "5e8315c951455495f3e21a24a41958eb0a41d92b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/6c6043c43e3eb276da599f160aba7570831b8f88",
-                "reference": "6c6043c43e3eb276da599f160aba7570831b8f88",
+                "url": "https://api.github.com/repos/oblakstudio/woocommerce-utils/zipball/5e8315c951455495f3e21a24a41958eb0a41d92b",
+                "reference": "5e8315c951455495f3e21a24a41958eb0a41d92b",
                 "shasum": ""
             },
             "require": {
-                "oblak/wp-polyfills": "^1.1",
-                "php": ">= 8.0"
+                "php": ">= 8.0",
+                "x-wp/helper-functions": "^1.9",
+                "x-wp/helper-traits": "^1.9"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.31",
@@ -418,9 +419,9 @@
             "description": "This module contains various utilities for WooCommerce.",
             "support": {
                 "issues": "https://github.com/oblakstudio/woocommerce-utils/issues",
-                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.31.2"
+                "source": "https://github.com/oblakstudio/woocommerce-utils/tree/v1.31.3"
             },
-            "time": "2024-02-09T22:27:39+00:00"
+            "time": "2024-09-22T03:30:34+00:00"
         },
         {
             "name": "oblak/wp-hook-di",
@@ -527,69 +528,6 @@
                 "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.3"
             },
             "time": "2024-02-09T21:39:23+00:00"
-        },
-        {
-            "name": "oblak/wp-polyfills",
-            "version": "v1.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oblakstudio/wp-polyfills.git",
-                "reference": "b5d433d81c97339abb6153bc8e1c3fe797815ae0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-polyfills/zipball/b5d433d81c97339abb6153bc8e1c3fe797815ae0",
-                "reference": "b5d433d81c97339abb6153bc8e1c3fe797815ae0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 8.0 < 8.2"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.31",
-                "oblak/wordpress-coding-standard": "^1"
-            },
-            "suggest": {
-                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/oblak-polyfill-array.php",
-                    "src/oblak-polyfill-block.php",
-                    "src/oblak-polyfill-conditionals.php",
-                    "src/oblak-polyfill-filter.php",
-                    "src/oblak-polyfill-terms.php",
-                    "src/oblak-polyfill-wpfs.php"
-                ],
-                "psr-4": {
-                    "Oblak\\WP\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Sibin Grasic",
-                    "email": "sibin.grasic@oblak.studio"
-                }
-            ],
-            "description": "Various polyfills for WordPress.",
-            "keywords": [
-                "compat",
-                "compatibility",
-                "polyfill",
-                "shim",
-                "shims",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/oblakstudio/wp-polyfills/issues",
-                "source": "https://github.com/oblakstudio/wp-polyfills/tree/v1.4.2"
-            },
-            "time": "2024-01-24T06:00:19+00:00"
         },
         {
             "name": "woocommerce/action-scheduler",
@@ -700,16 +638,16 @@
         },
         {
             "name": "x-wp/helper-functions",
-            "version": "v1.9.1",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-functions.git",
-                "reference": "2f9ed127f62f37e1c87ccfd3153d551a5bcd3839"
+                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/2f9ed127f62f37e1c87ccfd3153d551a5bcd3839",
-                "reference": "2f9ed127f62f37e1c87ccfd3153d551a5bcd3839",
+                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/93f6c928cd08192298e572a49873e3bd6b7aad49",
+                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49",
                 "shasum": ""
             },
             "require": {
@@ -750,13 +688,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-functions/issues",
-                "source": "https://github.com/x-wp/helper-functions/tree/v1.9.1"
+                "source": "https://github.com/x-wp/helper-functions/tree/v1.13.1"
             },
-            "time": "2024-09-18T12:43:44+00:00"
+            "time": "2024-09-23T14:26:03+00:00"
         },
         {
             "name": "x-wp/helper-traits",
-            "version": "v1.9.1",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-traits.git",
@@ -802,9 +740,59 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-traits/issues",
-                "source": "https://github.com/x-wp/helper-traits/tree/v1.9.1"
+                "source": "https://github.com/x-wp/helper-traits/tree/v1.13.1"
             },
             "time": "2024-09-18T12:43:44+00:00"
+        },
+        {
+            "name": "x-wp/helper-woocommerce",
+            "version": "v1.13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/helper-woocommerce.git",
+                "reference": "15d74e968ca875df0cdd5084337c7fed4a03c3cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/15d74e968ca875df0cdd5084337c7fed4a03c3cb",
+                "reference": "15d74e968ca875df0cdd5084337c7fed4a03c3cb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "XWC\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "sibin.grasic@oblak.studio"
+                }
+            ],
+            "description": "Utilities and helpers for WooCommerce",
+            "keywords": [
+                "abstractions",
+                "decoupling",
+                "extended-wp",
+                "interoperability",
+                "woocommerce"
+            ],
+            "support": {
+                "issues": "https://github.com/x-wp/helper-woocommerce/issues",
+                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.13.1"
+            },
+            "time": "2024-09-25T09:23:08+00:00"
         },
         {
             "name": "x-wp/wc-template-customizer",
@@ -1412,16 +1400,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.30.1",
+            "version": "1.31.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "51b95ec8670af41009e2b2b56873bad96682413e"
+                "reference": "249f15fb843bf240cf058372dad29e100cee6c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/51b95ec8670af41009e2b2b56873bad96682413e",
-                "reference": "51b95ec8670af41009e2b2b56873bad96682413e",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/249f15fb843bf240cf058372dad29e100cee6c17",
+                "reference": "249f15fb843bf240cf058372dad29e100cee6c17",
                 "shasum": ""
             },
             "require": {
@@ -1453,9 +1441,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.30.1"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.31.0"
             },
-            "time": "2024-09-07T20:13:05+00:00"
+            "time": "2024-09-22T11:32:18+00:00"
         },
         {
             "name": "slevomat/coding-standard",

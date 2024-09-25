@@ -10,8 +10,8 @@ namespace Oblak\WooCommerce\Serbian_Addons\QR;
 use chillerlan\QRCode\Data\QRMatrix;
 use chillerlan\QRCode\Output\QROutputInterface;
 use chillerlan\QRCode\QRCode;
-use Oblak\WP\Traits\Singleton;
 use WC_Order;
+use XWP\Helper\Traits\Singleton;
 
 /**
  * Handles the creation and rendering of QR Codes.

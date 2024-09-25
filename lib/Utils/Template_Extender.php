@@ -5,9 +5,8 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Core;
+namespace Oblak\WCSRB\Utils;
 
-use Oblak\WooCommerce\Core\Base_Template_Extender;
 use Oblak\WP\Decorators\Hookable;
 use XWC\Template\Customizer_Base;
 
@@ -15,6 +14,7 @@ use XWC\Template\Customizer_Base;
  * Adds custom templates to WooCommerce.
  *
  * @since 2.3.0
+ * @since 3.8.0 Moved from the `Core` namespace.
  */
 #[Hookable( 'before_woocommerce_init', 99 )]
 class Template_Extender extends Customizer_Base {

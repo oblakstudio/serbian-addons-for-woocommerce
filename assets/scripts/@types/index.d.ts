@@ -1,6 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import _ from 'lodash';
-
 declare global {
-  const _: typeof _;
+  const Backbone: typeof Backbone;
+  const _: _.UnderscoreStatic;
+
+  interface Window {
+    wc_address_i18n_params: any;
+    wp: {
+      template: (id: string) => _.CompiledTemplate;
+    };
+  }
 }
+
+export {};

@@ -3,9 +3,14 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "target": "ES2019"
+    "target": "ES2021",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./assets/scripts/@types"
+    ]
   },
-  "include": [
-    "assets/scripts/**/*"
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
