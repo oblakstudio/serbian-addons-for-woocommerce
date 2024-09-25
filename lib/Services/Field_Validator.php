@@ -23,11 +23,11 @@ class Field_Validator {
     /**
      * Validation errors.
      *
-     * @var array<int, array{
+     * @var array<int,array{
      *   cb_id: int,
      *   code: string,
      *   id: string,
-     *   message: string,
+     *   message: string
      * }>
      */
     private array $errors = array();
@@ -83,11 +83,11 @@ class Field_Validator {
      * @param  'billing'|'shipping' $type    Address type being validated.
      * @param  bool                 $force   Whether to force validation.
      * @param  array<string,array>  $address Address fields.
-     * @return null|array<int, array{
+     * @return array<int, array{
      *   cb_id: int,
      *   code: string,
      *   id: string,
-     *   message: string,
+     *   message: string
      * }>
      */
     public function validate( array $fields, string $type, bool $force = false, ?array $address = null ): array {
@@ -185,7 +185,7 @@ class Field_Validator {
     /**
      * Checks if the current address can be validated.
      *
-     * @param  array<string,array>  $fields  Address fields.
+     * @param  array<string,mixed>  $fields  Address fields.
      * @param  'billing'|'shipping' $address Address type being validated.
      * @param  bool                 $force   Whether to force validation.
      * @return bool

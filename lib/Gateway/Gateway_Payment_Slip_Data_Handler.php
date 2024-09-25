@@ -41,10 +41,6 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Caller {
      */
     #[Action( tag: 'woocommerce_new_order', priority: 10 )]
     public function add_slip_metadata( int $order_id, WC_Order $order ) {
-        if ( ! $order ) {
-            return;
-        }
-
         $slip_data = array();
 
         foreach ( $this->get_slip_data_keys() as $key ) {
@@ -129,6 +125,7 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Caller {
             $this->options['company_data']['address_2'],
             $this->options['company_data']['postcode'],
             $this->options['company_data']['city'],
+            // @phpstan-ignore property.notFound
             \WC()->countries->countries[ $this->options['company_data']['country'] ],
         );
     }
@@ -165,10 +162,10 @@ class Gateway_Payment_Slip_Data_Handler extends Hook_Caller {
      * Get the total for the order
      *
      * @param  WC_Order $order Order object.
-     * @return string          The total.
+     * @return float
      */
     protected function get_total( $order ) {
-        return (float) $order->get_total( 'edit' );
+        return floatval( $order->get_total( 'edit' ) );
     }
 
     /**

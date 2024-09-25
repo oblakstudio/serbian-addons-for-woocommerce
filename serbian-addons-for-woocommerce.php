@@ -31,4 +31,10 @@ defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-add_action( 'woocommerce_loaded', 'WCSRB', 0 );
+add_action(
+    'woocommerce_loaded',
+    static function () {
+		WCSRB();
+	},
+    0,
+);

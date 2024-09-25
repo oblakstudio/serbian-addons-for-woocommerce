@@ -73,7 +73,7 @@ function wcsrb_format_payment_reference_description(): string {
     /**
      * Filters the replacement pairs for the payment reference description.
      *
-     * @param  =array $replacement_pairs
+     * @param  array $replacement_pairs The replacement pairs.
      * @return array
      *
      * @since 2.3.0
@@ -104,7 +104,7 @@ function wcsrb_format_payment_reference_description(): string {
  */
 function wcsrb_get_payment_reference_replacement_pairs( $order ): array {
     $pairs = array(
-        '%customer_id%'  => $order->get_customer_id() ?? 0,
+        '%customer_id%'  => $order->get_customer_id(),
         '%day%'          => $order->get_date_created()->date( 'd' ),
         '%mod97%'        => wcsrb_calculate_check_digit(
             (string) $order->get_order_number(),
@@ -141,7 +141,7 @@ function wcsrb_calculate_check_digit( $order_number, $order_year ): string {
 
     $remainder = $number % 97;
 
-    return str_pad( 98 - $remainder, 2, '0', STR_PAD_LEFT );
+    return str_pad( strval( 98 - $remainder ), 2, '0', STR_PAD_LEFT );
 }
 
 /**

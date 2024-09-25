@@ -75,9 +75,9 @@ function wcsrb_get_customer_type( WC_Order|WC_Customer $target ): string {
  * Get the company data for the given customer.
  *
  * @param  WC_Order|WC_Customer $target Customer ID or object.
- * @return false|array{mb: string, pib: string, type: 'company'|'person'}
+ * @return array{mb: string, pib: string, type: 'company'|'person'}
  */
-function wcsrb_get_company_data( WC_Order|WC_Customer $target ): bool|array {
+function wcsrb_get_company_data( WC_Order|WC_Customer $target ): array {
     if ( 'company' !== wcsrb_get_customer_type( $target ) ) {
         return array(
             'mb'   => '',

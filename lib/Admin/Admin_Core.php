@@ -31,11 +31,11 @@ class Admin_Core extends Hook_Caller {
             return $classes;
         }
 
-        if ( 'wcsrb' === $current_tab && 'company' === $current_section ) {
+        if ( 'wcsrb' === ( $current_tab ?? '' ) && 'company' === ( $current_section ?? '' ) ) {
             $classes .= ' wcsrb-company-settings';
         }
 
-        if ( 'checkout' === $current_tab ?? '' && 'wcsrb_payment_slip' === $current_section ) {
+        if ( 'checkout' === ( $current_tab ?? '' ) && 'wcsrb_payment_slip' === ( $current_section ?? '' ) ) {
             $classes .= ' wcsrb-slip-settings ';
         }
 

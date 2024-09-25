@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 /**
  * Payment Slip template
  *
@@ -15,8 +15,8 @@
  * @subpackage Templates
  * @version 2.3.0
  *
- * @var array  $qr_code_html QR Code HTML.
- * @var string $qr_code_img  QR Code image.
+ * @var string $alt QR Code image alt.
+ * @var string $src QR Code image.
  */
 
 defined( 'ABSPATH' ) || exit;

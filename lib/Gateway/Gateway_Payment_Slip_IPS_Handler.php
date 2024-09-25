@@ -98,11 +98,11 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Caller {
     public function delete_order_qr_code( int $order_id ) {
         $filename = QR_Code_Handler::instance()->get_filename( \wc_get_order( $order_id ) );
 
-        if ( ! $filename || ! \wp_load_filesystem()->exists( $filename ) ) {
+        if ( ! $filename || ! \xwp_wpfs()->exists( $filename ) ) {
             return;
         }
 
-        \wp_load_filesystem()->delete( $filename );
+        \xwp_wpfs()->delete( $filename );
     }
 
     /**
@@ -345,10 +345,10 @@ class Gateway_Payment_Slip_IPS_Handler extends Hook_Caller {
     /**
      * Adds the actual payment slip to the emails
      *
-     * @param  WC_Order $order         Order object.
-     * @param  bool     $sent_to_admin Whether or not the email is sent to the admin.
-     * @param  bool     $plain_text    Whether or not the email is plain text.
-     * @param  WC_Email $email         Email object.
+     * @param  WC_Order  $order         Order object.
+     * @param  bool      $sent_to_admin Whether or not the email is sent to the admin.
+     * @param  bool      $plain_text    Whether or not the email is plain text.
+     * @param  \WC_Email $email         Email object.
      */
     #[Action( tag: 'woocommerce_email_order_details', priority: 55 )]
     public function add_qr_code_to_email( $order, $sent_to_admin, $plain_text, $email ) {

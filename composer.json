@@ -15,8 +15,14 @@
   },
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1.1.1",
-    "php-stubs/woocommerce-stubs": "^9.3",
-    "symfony/var-dumper": "^5.4"
+    "php-stubs/woocommerce-stubs": "^9.0",
+    "php-stubs/wordpress-stubs": "^6.5",
+    "phpstan/extension-installer": "^1.3",
+    "phpstan/phpstan": "^1.10",
+    "phpstan/phpstan-deprecation-rules": "^1.1",
+    "swissspidy/phpstan-no-private": "^0.2.0",
+    "symfony/var-dumper": "^5.4",
+    "szepeviktor/phpstan-wordpress": "^1.3"
   },
   "autoload": {
     "psr-4": {
@@ -36,16 +42,17 @@
   },
   "config": {
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true,
       "automattic/jetpack-autoloader": true,
-      "ergebnis/composer-normalize": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true
     },
     "classmap-authoritative": true,
     "optimize-autoloader": true,
-    "sort-packages": true,
     "platform": {
       "php": "8.0"
-    }
+    },
+    "sort-packages": true
   },
   "scripts": {
     "generate-pot": [

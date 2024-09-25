@@ -1,0 +1,22 @@
+parameters:
+  level: 5
+  paths:
+    - config
+    - lib
+    - woocommerce
+    - serbian-addons-for-woocommerce.php
+  excludePaths:
+    analyse:
+      - lib/QR/*
+  bootstrapFiles:
+    - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+  ignoreErrors:
+    -
+      identifier: constant.notFound
+      paths:
+        - config/*
+        - lib/Admin/Plugin_Settings_Page.php
+        - lib/Gateway/Gateway_Payment_Slip.php
+        - lib/Utils/Installer.php
+        - lib/Utils/Template_Extender.php
+        - lib/App.php

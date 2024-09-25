@@ -7,6 +7,7 @@
  *
  * @var array<string> $value      Field value.
  * @var string        $field_name Field name.
+ * @var array<string> $custom_attributes Custom attributes.
  */
 
 defined( 'ABSPATH' ) || exit;

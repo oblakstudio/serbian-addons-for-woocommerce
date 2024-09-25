@@ -238,6 +238,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      */
     #[Filter( tag: 'woocommerce_email_styles', priority: 9999 )]
     public function add_css_to_emails( $css, $email ) {
+        // @phpstan-ignore method.nonObject, nullsafe.neverNull
         if ( 'customer_on_hold_order' !== $email->id || 'wcsrb_payment_slip' !== $email->object?->get_payment_method() ) {
             return $css;
         }
@@ -260,6 +261,7 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
         if (
             'customer_on_hold_order' !== $email->id ||
             $sent_to_admin || $plain_text ||
+            // @phpstan-ignore method.nonObject
             'wcsrb_payment_slip' !== $email->object->get_payment_method() ||
             $order->is_paid()
         ) {

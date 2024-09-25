@@ -18,7 +18,7 @@ class Installer extends Base_Plugin_Installer {
      * Constructor override
      */
     protected function __construct() {
-        \add_action( 'plugin_action_links_' . WCRS_PLUGIN_BASE, array( $this, 'plugin_action_links' ) );
+        \add_filter( 'plugin_action_links_' . WCRS_PLUGIN_BASE, array( $this, 'plugin_action_links' ) );
 
         parent::__construct();
     }
