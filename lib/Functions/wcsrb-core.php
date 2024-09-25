@@ -6,15 +6,13 @@
  * @subpackage Utils
  */
 
-use Oblak\WooCommerce\Serbian_Addons\Serbian_WooCommerce;
-
 /**
  * Main Plugin Instance
  *
- * @return Serbian_WooCommerce
+ * @return Oblak\WCSRB\App
  */
 function WCSRB() {
-    return Serbian_WooCommerce::instance();
+    return Oblak\WCSRB\App::instance();
 }
 
 /**

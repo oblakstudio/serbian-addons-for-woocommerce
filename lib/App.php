@@ -5,8 +5,10 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons;
+namespace Oblak\WCSRB;
 
+use Oblak\WCSRB\Services\Field_Validator;
+use Oblak\WooCommerce\Serbian_Addons as Legacy;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Traits\Hook_Processor_Trait;
@@ -16,7 +18,7 @@ use XWP\Helper\Traits\Singleton;
 /**
  * Main plugin class
  */
-class Serbian_WooCommerce {
+class App {
     use Hook_Processor_Trait;
     use Settings_API_Methods;
     use Singleton;
@@ -28,6 +30,13 @@ class Serbian_WooCommerce {
      * @var string
      */
     public string $version = WCRS_VERSION;
+
+    /**
+     * Field validator instance.
+     *
+     * @var Field_Validator
+     */
+    protected Field_Validator $validator;
 
     /**
      * Private constructor
@@ -43,11 +52,12 @@ class Serbian_WooCommerce {
      */
     protected function get_dependencies(): array {
         return array(
-            Admin\Admin_Core::class,
-			Core\Template_Extender::class,
-            Checkout\Field_Customizer::class,
-            Checkout\Field_Validator::class,
-            Order\Field_Display::class,
+            Admin\Edit_User_Controller::class,
+            Core\Address_Display_Controller::class,
+            Core\Address_Field_Controller::class,
+            Core\Address_Validate_Controller::class,
+            Utils\Template_Extender::class,
+            Legacy\Admin\Admin_Core::class,
         );
     }
 
@@ -63,9 +73,9 @@ class Serbian_WooCommerce {
      */
     #[Action( tag: 'plugins_loaded', priority: 1000 )]
     public function on_plugins_loaded() {
-        Core\Installer::instance()->init();
+        Utils\Installer::instance()->init();
 
-        $s = \load_plugin_textdomain(
+        \load_plugin_textdomain(
             domain: 'serbian-addons-for-woocommerce',
             plugin_rel_path: \dirname( WCRS_PLUGIN_BASE ) . '/languages',
         );
@@ -78,7 +88,7 @@ class Serbian_WooCommerce {
     public function load_plugin_settings() {
         try {
             $this->load_options( 'wcsrb_settings' );
-        } catch ( \Exception ) {
+        } catch ( \Exception | \Error ) {
             \wc_get_logger()->critical(
                 'Failed to load plugin settings',
                 array(
@@ -133,7 +143,7 @@ class Serbian_WooCommerce {
      */
     #[Filter( tag: 'woocommerce_payment_gateways', priority: 50 )]
     public function add_payment_gateways( $gateways ) {
-        $gateways[] = Gateway\Gateway_Payment_Slip::class;
+        $gateways[] = Legacy\Gateway\Gateway_Payment_Slip::class;
         return $gateways;
     }
 
@@ -172,5 +182,14 @@ class Serbian_WooCommerce {
             'main'  => ( \is_checkout() && ! \is_wc_endpoint_url() ) || \is_account_page(),
             default => $load,
         };
+    }
+
+    /**
+     * Gets the field validator instance.
+     *
+     * @return Field_Validator
+     */
+    public function validator(): Field_Validator {
+        return $this->validator ??= new Field_Validator();
     }
 }

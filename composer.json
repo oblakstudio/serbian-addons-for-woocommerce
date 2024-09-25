@@ -20,13 +20,19 @@
   },
   "autoload": {
     "psr-4": {
-      "Oblak\\WooCommerce\\Serbian_Addons\\": "lib"
+      "Oblak\\WCSRB\\": "lib/"
     },
+    "classmap": [
+      "lib/Admin/",
+      "lib/Gateway/",
+      "lib/QR/"
+    ],
     "files": [
-      "lib/Utils/wcsrb-core.php",
-      "lib/Utils/wcsrb-helpers.php",
-      "lib/Utils/wcsrb-payment-slip.php",
-      "lib/Utils/wcsrb-settings.php"
+      "lib/Functions/wcsrb-address-field-fns.php",
+      "lib/Functions/wcsrb-core.php",
+      "lib/Functions/wcsrb-helpers.php",
+      "lib/Functions/wcsrb-payment-slip.php",
+      "lib/Functions/wcsrb-settings.php"
     ]
   },
   "config": {

@@ -6,7 +6,7 @@
  * @subpackage Core
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Core;
+namespace Oblak\WCSRB\Utils;
 
 use Oblak\WP\Base_Plugin_Installer;
 
