@@ -112,7 +112,7 @@ class Field_Customizer extends Hook_Caller {
         $fields[ "{$type}_country" ]['priority']  = 91;
 
         $to_remove = \WCSRB()->get_settings(
-            'general',
+            'core',
             'remove_unneeded_fields',
         ) ? array( 'address_2', 'state' ) : array();
 
