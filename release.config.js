@@ -34,17 +34,17 @@ config.plugins[1] = [
     presetConfig: {
       types: [
         {
-          tag: 'compat',
+          type: 'compat',
           section: 'Compatibility',
           hidden: false,
         },
         {
-          tag: 'refactor',
+          type: 'refactor',
           section: 'Refactor',
           hidden: false,
         },
         {
-          tag: 'style',
+          type: 'style',
           section: 'Code style',
           hidden: false,
         },
