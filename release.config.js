@@ -30,7 +30,7 @@ config.plugins[0] = [
 config.plugins[1] = [
   '@semantic-release/release-notes-generator',
   {
-    preset: 'angular',
+    preset: 'conventionalcommits',
     presetConfig: {
       types: [
         {
