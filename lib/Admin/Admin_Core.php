@@ -8,6 +8,7 @@
 
 namespace Oblak\WCSRB\Admin;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
 use Oblak\WP\Abstracts\Hook_Caller;
 use Oblak\WP\Decorators\Filter;
 use Oblak\WP\Decorators\Hookable;
@@ -37,6 +38,10 @@ class Admin_Core extends Hook_Caller {
 
         if ( 'checkout' === ( $current_tab ?? '' ) && 'wcsrb_payment_slip' === ( $current_section ?? '' ) ) {
             $classes .= ' wcsrb-slip-settings ';
+        }
+
+        if ( OrderUtil::is_new_order_screen() || OrderUtil::is_order_edit_screen() ) {
+            $classes .= ' wcsrb-order-edit ';
         }
 
         return $classes;

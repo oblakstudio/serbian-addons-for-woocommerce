@@ -8,6 +8,7 @@
 namespace Oblak\WCSRB;
 
 use Oblak\WCSRB\Services\Field_Validator;
+use Oblak\WCSRB\Utils\Payments;
 use Oblak\WooCommerce\Serbian_Addons as Legacy;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
@@ -39,6 +40,13 @@ class App {
     protected Field_Validator $validator;
 
     /**
+     * Payments utility instance.
+     *
+     * @var Payments
+     */
+    protected Payments $payments;
+
+    /**
      * Private constructor
      */
     protected function __construct() {
@@ -53,6 +61,7 @@ class App {
     protected function get_dependencies(): array {
         return array(
             Admin\Admin_Core::class,
+            Admin\Order_Edit_Page_Controller::class,
             Core\Address_Admin_Controller::class,
             Core\Address_Display_Controller::class,
             Core\Address_Field_Controller::class,
@@ -109,7 +118,7 @@ class App {
 
         $this->settings['company'] = array(
             'accounts'  => \wcsrb_get_bank_accounts(),
-            'address'   => \get_option( 'woocommerce_store_address', '' ),
+            'address_1' => \get_option( 'woocommerce_store_address', '' ),
             'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
             'city'      => \get_option( 'woocommerce_store_city', '' ),
             'country'   => \wc_get_base_location()['country'],
@@ -191,5 +200,14 @@ class App {
      */
     public function validator(): Field_Validator {
         return $this->validator ??= new Field_Validator();
+    }
+
+    /**
+     * Gets the payments utility instance.
+     *
+     * @return Payments
+     */
+    public function payments(): Payments {
+        return $this->payments ??= new Payments();
     }
 }

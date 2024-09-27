@@ -1,0 +1,11 @@
+#outer_wrapper > tr:first-child > td:nth-child(2) {
+  width: 800px !important;
+}
+
+#template_body,
+#template_container,
+#template_footer,
+#wrapper {
+  width: 100% !important;
+  max-width: 800px !important;
+}

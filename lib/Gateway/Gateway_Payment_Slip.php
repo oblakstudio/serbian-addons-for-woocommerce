@@ -1,4 +1,4 @@
-<?php //phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag, SlevomatCodingStandard
+<?php //phpcs:disable Squiz.Commenting.FunctionComment.MissingParamTag, SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder, SlevomatCodingStandard.Functions.RequireMultiLineCall, SlevomatCodingStandard.Commenting.UselessInheritDocComment
 /**
  * Payment_Slip_Gateway class file.
  *
@@ -8,136 +8,47 @@
 namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
 
 use Automattic\Jetpack\Constants;
-use Oblak\WooCommerce\Gateway\Extended_Payment_Gateway;
 use Oblak\WP\Decorators\Action;
 use Oblak\WP\Decorators\Filter;
 use WC_Email;
 use WC_Order;
 use WP_Error;
+use XWC\Gateway\Gateway_Base;
 
 use function Oblak\validateBankAccount;
-use function Oblak\WP\Utils\invoke_class_hooks;
 
 /**
  * Payment Slip Gateway.
  *
  * @since 2.3.0
+ *
+ * @property-read bool   $debug Debug mode.
+ *
+ * @property-read array  $display           Display location.
+ * @property-read string $bank_account      Bank account.
+ * @property-read string $payment_purpose   Payment purpose.
+ * @property-read string $payment_code      Payment code.
+ * @property-read string $payment_model     Payment model.
+ * @property-read string $payment_reference Payment reference.
+ * @property-read string $style             Payment slip style.
+ *
+ * @property-read array  $qrcode_shown        QR code shown.
+ * @property-read string $qrcode_color        QR code color.
+ * @property-read string $qrcode_corner_color QR code corner color.
+ * @property-read bool   $qrcode_image        QR code image.
+ *
+ * @property-read array $company Company data.
  */
-class Gateway_Payment_Slip extends Extended_Payment_Gateway {
-
-
-    /**
-     * Bank account.
-     *
-     * @var string
-     */
-    protected $bank_account;
-
-    /**
-     * Payment purpose.
-     *
-     * @var string
-     */
-    protected $payment_purpose;
-
-    /**
-     * Payment code.
-     *
-     * @var string
-     */
-    protected $payment_code;
-
-    /**
-     * Payment model.
-     *
-     * @var string
-     */
-    protected $payment_model;
-
-    /**
-     * Payment reference.
-     *
-     * @var string
-     */
-    protected $payment_reference;
-
-    /**
-     * Payment slip style
-     *
-     * @var string
-     */
-    protected $style;
-
-    /**
-     * QR code shown.
-     *
-     * @var bool
-     */
-    protected $qrcode_shown;
-
-    /**
-     * QR code color.
-     *
-     * @var string
-     */
-    protected $qrcode_color;
-
-    /**
-     * QR code corner color.
-     *
-     * @var string
-     */
-    protected $qrcode_corner_color;
-
-    /**
-     * QR code image.
-     *
-     * @var bool
-     */
-    protected $qrcode_image;
-
-    /**
-     * Debug mode.
-     *
-     * @var bool
-     */
-    protected $debug;
-
-    /**
-     * Company data.
-     *
-     * @var array
-     */
-    protected $company_data;
-
-    /**
-     * Class constructor.
-     */
-    public function __construct() {
-		parent::__construct();
-
-        $this->company_data = WCSRB()->get_settings( 'company' );
-
-        self::$log_enabled[ self::$log_id ] = $this->debug;
-
-        if ( ! is_wp_error( $this->is_valid_for_use() ) && wc_string_to_bool( $this->enabled ) ) {
-            new Gateway_Payment_Slip_Data_Handler( $this->get_available_settings() );
-            new Gateway_Payment_Slip_IPS_Handler( $this->get_available_settings() );
-
-            \xwp_invoke_hooked_methods( $this );
-
-        }
-    }
-
+class Gateway_Payment_Slip extends Gateway_Base {
     /**
      * {@inheritDoc}
      */
     protected function get_base_props(): array {
         return array(
 			'id'                 => 'wcsrb_payment_slip',
-			'method_title'       => __( 'Payment Slip', 'serbian-addons-for-woocommerce' ),
-			'method_description' => __( 'Have your customers pay you by sending you money via wire transfer.', 'serbian-addons-for-woocommerce' ),
-			'has_fields'         => false,
+			'method_title'       => \__( 'Payment Slip', 'serbian-addons-for-woocommerce' ),
+			'method_description' => \__( 'Have your customers pay you by sending you money via wire transfer.', 'serbian-addons-for-woocommerce' ),
+            'has_fields'         => false,
         );
     }
 
@@ -149,10 +60,54 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
     }
 
     /**
+     * Loads settings from the database.
+     */
+    public function init_settings() {
+        parent::init_settings();
+
+        if ( ! \is_array( $this->settings['qrcode_shown'] ) ) {
+            $this->settings['qrcode_shown'] = 'yes' === $this->settings['qrcode_shown']
+            ? 'order,email'
+            : '';
+        }
+        $this->settings['qrcode_shown'] = \wc_string_to_array( $this->settings['qrcode_shown'] );
+        $this->settings['qrcode_image'] = \wc_bool_to_string( 0 < \intval( \get_option( 'site_icon', 0 ) ) && \wc_string_to_bool( $this->settings['qrcode_image'] ) );
+        $this->settings['display']      = \wc_string_to_array( $this->settings['display'] );
+        $this->settings['company']      = \WCSRB()->get_settings( 'company' );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function init_gateway(): void {
+        if ( \is_wp_error( $this->is_valid_for_use() ) || ! \wc_string_to_bool( $this->enabled ) ) {
+            return;
+        }
+
+        new Gateway_Payment_Slip_IPS_Handler( $this->get_options() );
+
+        \xwp_invoke_hooked_methods( $this );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function get_post_data() {
+        $data = \xwp_post_arr();
+
+        $data[ $this->get_option_key() . '_display' ]      ??= array();
+        $data[ $this->get_option_key() . '_qrcode_shown' ] ??= array();
+
+        return $data;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function needs_setup() {
-        return empty( $this->bank_account ) || ! validateBankAccount( $this->bank_account ) || is_wp_error( $this->is_valid_for_use() );
+        return ! $this->bank_account ||
+            ! validateBankAccount( $this->bank_account ) ||
+            \is_wp_error( $this->is_valid_for_use() );
     }
 
     /**
@@ -160,21 +115,23 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
 	 *
 	 * @return bool|WP_Error
 	 */
-    public function is_valid_for_use(): bool|WP_Error {
-        if ( ! in_array( get_woocommerce_currency(), array( 'RSD', 'РСД', 'din', 'din.' ), true ) ) {
-            return new WP_Error( 'invalid_currency', __( 'Serbian Payment Slip does not support your store currency.', 'serbian-addons-for-woocommerce' ) );
-        } elseif ( empty( WCSRB()->get_settings( 'company', 'accounts' ) ) ) {
-            return new WP_Error( 'invalid_bank_account', __( 'Serbian Payment Slip requires at least one bank account.', 'serbian-addons-for-woocommerce' ) );
-        } else {
-            return true;
+    public function is_valid_for_use(): bool|\WP_Error {
+        if ( ! \in_array( \get_woocommerce_currency(), array( 'RSD', 'РСД', 'din', 'din.' ), true ) ) {
+            return new \WP_Error( 'invalid_currency', \__( 'Serbian Payment Slip does not support your store currency.', 'serbian-addons-for-woocommerce' ) );
         }
+
+        if ( ! \WCSRB()->get_settings( 'company', 'accounts' ) ) {
+            return new \WP_Error( 'invalid_bank_account', \__( 'Serbian Payment Slip requires at least one bank account.', 'serbian-addons-for-woocommerce' ) );
+        }
+
+        return true;
     }
 
     /**
      * {@inheritDoc}
      */
     public function process_payment( $order_id ) {
-        $order = wc_get_order( $order_id );
+        $order = \wc_get_order( $order_id );
 
         $default_order_status = 'on-hold';
 
@@ -187,20 +144,44 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
          *
          * @since 2.3.0
          */
-        $order_status = apply_filters( 'wcsrb_payment_slip_payment_order_status', $default_order_status, $order );
+        $order_status = \apply_filters( 'wcsrb_payment_slip_payment_order_status', $default_order_status, $order );
 
         if ( $order->get_total() > 0 ) {
-            $order->update_status( $order_status, __( 'Awaiting payment', 'woocommerce' ) );
+            $order->update_status( $order_status, \__( 'Awaiting payment', 'woocommerce' ) );
         } else {
             $order->payment_complete();
         }
 
-        WC()->cart->empty_cart();
+        \WC()->cart->empty_cart();
 
         return array(
             'result'   => 'success',
             'redirect' => $this->get_return_url( $order ),
         );
+    }
+
+    /**
+     * Adds payment slip metadata to the order
+     *
+     * @param  int|WC_Order $order Order ID or object.
+     */
+    #[Action( tag: 'woocommerce_new_order', priority: 10 )]
+    #[Action( tag: 'woocommerce_order_action_wcsrb_gen_ips', priority: 10 )]
+    public function add_payment_data( int|WC_Order $order ) {
+        $order = \wc_get_order( $order );
+
+        $data = array(
+            'model'     => $this->payment_model,
+            'reference' => $this->payment_reference,
+            'purpose'   => $this->payment_purpose,
+            'code'      => $this->payment_code,
+            'account'   => $this->bank_account,
+        );
+
+        $order->delete_meta_data( '_payment_slip_data' );
+        $order->delete_meta_data( '_payment_slip_ips_data' );
+        $order->update_meta_data( '_wcsrb_payment_data', $data );
+        $order->save();
     }
 
     /**
@@ -211,20 +192,20 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
     #[Action( tag: 'woocommerce_thankyou_wcsrb_payment_slip', priority: 100 )]
     #[Action( tag: 'woocommerce_view_order', priority: 7 )]
     public function show_payment_slip( $order_id ) {
-        $order = wc_get_order( $order_id );
+        $order = \wc_get_order( $order_id );
 
-        if ( 'wcsrb_payment_slip' !== $order->get_payment_method() || $order->is_paid() ) {
+        if ( ! \wcsrb_can_display_slip( $order, 'order' ) ) {
             return;
         }
 
-        wc_get_template(
+        \wc_get_template(
             'checkout/payment-slip.php',
-            array_merge(
-                $order->get_meta( '_payment_slip_data', true ),
+            \array_merge(
+                \WCSRB()->payments()->get_data( $order ),
                 array(
                     'style'    => $this->style,
                     'order_id' => $order_id,
-                )
+                ),
             ),
         );
     }
@@ -234,16 +215,14 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      *
      * @param  string   $css   Email CSS.
      * @param  WC_Email $email Email object.
-     * @return string          Modified email CSS.
+     * @return string           Modified email CSS.
      */
     #[Filter( tag: 'woocommerce_email_styles', priority: 9999 )]
-    public function add_css_to_emails( $css, $email ) {
-        // @phpstan-ignore method.nonObject, nullsafe.neverNull
-        if ( 'customer_on_hold_order' !== $email->id || 'wcsrb_payment_slip' !== $email->object?->get_payment_method() ) {
-            return $css;
+    public function add_css_to_emails( string $css, WC_Email $email ) {
+        if ( 'customer_on_hold_order' === $email->id && \wcsrb_order_has_slip( $email->object, true ) ) {
+            $css .= \WCSRB()->asset_data( 'css/email/template.css' ) . "\n";
+            $css .= \WCSRB()->asset_data( 'css/front/main.css' ) . "\n";
         }
-
-        $css .= WCSRB()->asset_data( 'css/front/main.css' );
 
         return $css;
     }
@@ -257,13 +236,12 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
      * @param  WC_Email $email         Email object.
      */
     #[Action( tag: 'woocommerce_email_order_details', priority: 50 )]
-    public function add_payment_slip_to_email( $order, $sent_to_admin, $plain_text, $email ) {
+    public function add_payment_slip_to_email( $order, $sent_to_admin, $plain_text, WC_Email $email ) {
         if (
+            $plain_text ||
+            $sent_to_admin ||
             'customer_on_hold_order' !== $email->id ||
-            $sent_to_admin || $plain_text ||
-            // @phpstan-ignore method.nonObject
-            'wcsrb_payment_slip' !== $email->object->get_payment_method() ||
-            $order->is_paid()
+            ! \wcsrb_can_display_slip( $email->object, 'email' )
         ) {
             return;
         }
@@ -272,14 +250,14 @@ class Gateway_Payment_Slip extends Extended_Payment_Gateway {
 
         echo '<div class="woocommerce-email">';
 
-        wc_get_template(
+        \wc_get_template(
             'checkout/payment-slip.php',
-            array_merge(
-                $order->get_meta( '_payment_slip_data', true ),
+            \array_merge(
+                \WCSRB()->payments()->get_data( $order ),
                 array(
                     'style'    => $this->style,
                     'order_id' => $order->get_id(),
-                )
+                ),
             ),
         );
 

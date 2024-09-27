@@ -15,20 +15,18 @@
 function wcsrb_get_company_fields(): array {
     $fields = array(
         'mb'  => array(
-            'class'       => array( 'form-row-first', 'address-field', 'entity-type-toggle', 'shown' ),
-            'label'       => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
-            'placeholder' => \__( 'Enter MB', 'serbian-addons-for-woocommerce' ),
-            'priority'    => 31,
-            'type'        => 'text',
-            'validate'    => array( 'mb' ),
+            'class'    => array( 'form-row-first', 'address-field', 'entity-type-toggle', 'shown' ),
+            'label'    => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
+            'priority' => 31,
+            'type'     => 'text',
+            'validate' => array( 'mb' ),
         ),
         'pib' => array(
-            'class'       => array( 'form-row-last', 'address-field', 'entity-type-toggle', 'shown' ),
-            'label'       => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
-            'placeholder' => \__( 'Enter PIB', 'serbian-addons-for-woocommerce' ),
-            'priority'    => 32,
-            'type'        => 'text',
-            'validate'    => array( 'pib' ),
+            'class'    => array( 'form-row-last', 'address-field', 'entity-type-toggle', 'shown' ),
+            'label'    => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
+            'priority' => 32,
+            'type'     => 'text',
+            'validate' => array( 'pib' ),
         ),
     );
 

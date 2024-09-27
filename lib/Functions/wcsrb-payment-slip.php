@@ -6,6 +6,60 @@
  * @subpackage Utils
  */
 
+use Oblak\WooCommerce\Serbian_Addons\QR\QR_Code_Handler;
+
+/**
+ * Get the Payment Slip gateway.
+ *
+ * @return Oblak\WooCommerce\Serbian_Addons\Gateway\Gateway_Payment_Slip The Payment Slip gateway.
+ */
+function wcsrb_slip_gw(): Oblak\WooCommerce\Serbian_Addons\Gateway\Gateway_Payment_Slip {
+    return WC()->payment_gateways()->payment_gateways()['wcsrb_payment_slip'];
+}
+
+/**
+ * Check if the order has a payment slip.
+ *
+ * @param  null|int|WC_Order $order       The order.
+ * @param  bool              $unpaid_only Whether to check only for unpaid orders.
+ * @return bool                           Whether the order has a payment slip.
+ */
+function wcsrb_order_has_slip( null|int|WC_Order $order, bool $unpaid_only = false ): bool {
+    if ( ! ( $order instanceof WC_Order ) ) {
+        $order = wc_get_order( $order ?? false );
+    }
+
+    return $order &&
+        'wcsrb_payment_slip' === $order->get_payment_method() &&
+        ( ! $unpaid_only || ! $order->is_paid() );
+}
+
+/**
+ * Check if we can display the payment slip.
+ *
+ * @param  null|int|WC_Order $order  The order.
+ * @param  'order'|'email'   $where  Where to display the payment slip.
+ * @param  bool              $unpaid Whether to display only unpaid orders.
+ * @return bool
+ */
+function wcsrb_can_display_slip( null|int|WC_Order $order, string $where, bool $unpaid = true ): bool {
+    return wcsrb_order_has_slip( $order, $unpaid ) &&
+        in_array( $where, wcsrb_slip_gw()->display, true );
+}
+
+/**
+ * Check if we can display the QR Code.
+ *
+ * @param  null|int|WC_Order $order  The order.
+ * @param  'order'|'email'   $where  Where to display the payment slip.
+ * @param  bool              $unpaid Whether to display only unpaid orders.
+ * @return bool
+ */
+function wcsrb_can_display_qr( null|int|WC_Order $order, string $where, bool $unpaid = true ): bool {
+    return wcsrb_order_has_slip( $order, $unpaid ) &&
+        in_array( $where, wcsrb_slip_gw()->qrcode_shown, true );
+}
+
 /**
  * Get the available payment models.
  *
@@ -163,14 +217,13 @@ function wcsrb_string_to_reference( $letter ): int {
 function wcsrb_calculate_number_for_reference( $order_number ): int {
     $length = strlen( $order_number );
     $result = '';
-    for ( $i = 0; $i < $length; $i++ ) {
-		if ( ctype_alpha( $order_number[ $i ] ) ) {
-			$result .= wcsrb_string_to_reference( $order_number[ $i ] );
-			continue;
-		}
 
-        $result .= $order_number[ $i ];
+    for ( $i = 0; $i < $length; $i++ ) {
+        $result .= ctype_alpha( $order_number[ $i ] )
+            ? wcsrb_string_to_reference( $order_number[ $i ] )
+            : $order_number[ $i ];
     }
+
     return (int) $result * 100;
 }
 
@@ -181,4 +234,14 @@ function wcsrb_calculate_number_for_reference( $order_number ): int {
  */
 function wcsrb_get_ips_basedir(): string {
     return wp_upload_dir()['basedir'] . '/wcrs-ips';
+}
+
+/**
+ * Check if the order has a QR Code.
+ *
+ * @param  null|int|WC_Order $order The order.
+ * @return bool
+ */
+function wcsrb_order_has_qrcode( null|int|WC_Order $order ): bool {
+    return wcsrb_order_has_slip( $order ) && xwp_wpfs()->exists( QR_Code_Handler::get_filename( $order ) );
 }

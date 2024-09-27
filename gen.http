@@ -1,0 +1,17 @@
+POST https://www.nbs.rs/QRcode/api/qr/v1/generate?lang=en_US
+Accept: application/json
+Content-Type: text/plain
+Host: www.nbs.rs
+Origin: https://ips.nbs.rs
+
+K:PR|V:01|C:1|R:160000000042863406|N:SGI
+Pozeska
+11000 Beograd, Srbija|I:RSD45,00|P:Miroslavski Astalovski Šćekić|SF:289|S:Plaćanje narudžbine|RO:97481472024
+
+###
+
+POST https://www.nbs.rs/QRcode/api/qr/v1/generate?lang=sr_RS_latn
+
+K:PR|V:01|C:1|R:160000000042863406|N:SGI
+Pozeska
+11000 Beograd, Srbija|I:RSD45,01|P:Miroslavski Astalovski Šćekić|SF:289|S:Plaćanje narudžbine|RO:974814720241

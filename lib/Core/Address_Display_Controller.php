@@ -25,10 +25,10 @@ class Address_Display_Controller extends Hook_Caller {
     public function modify_address_format( $formats ) {
         \add_filter( 'woocommerce_formatted_address_force_country_display', '__return_true' );
 
-        $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1}\n{address_2}\n{postcode} {city}, {state} {country}";
+        $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1} {address_2}\n{postcode} {city}, {state} {country}";
 
         if ( \WCSRB()->get_settings( 'core', 'remove_unneeded_fields' ) ) {
-            $formats['RS'] = \str_replace( array( '{state}', '{address_2}' ), '', $formats['RS'] );
+            $formats['RS'] = \str_replace( array( '{state}', ' {address_2}' ), '', $formats['RS'] );
         }
 
         return $formats;
@@ -105,7 +105,7 @@ class Address_Display_Controller extends Hook_Caller {
     protected function get_replacement_values( WC_Customer|WC_Order $target ): array {
         $data = \wcsrb_get_company_data( $target );
         if ( 'company' !== $data['type'] ) {
-            return array();
+            return array( 'company' => "\n" );
         }
 
         return array(

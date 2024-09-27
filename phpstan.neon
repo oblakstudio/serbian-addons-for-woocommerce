@@ -12,6 +12,10 @@ parameters:
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
   ignoreErrors:
     -
+      identifier: argument.type
+      paths:
+        - lib/Utils/Payments.php
+    -
       identifier: constant.notFound
       paths:
         - config/*
