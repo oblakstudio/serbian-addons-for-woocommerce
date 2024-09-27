@@ -13,7 +13,7 @@ const config = generateConfig({
   },
 });
 
-config.plugins.push([
+config.plugins[0] = [
   '@semantic-release/commit-analyzer',
   {
     preset: 'angular',
@@ -26,6 +26,31 @@ config.plugins.push([
       noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
     },
   },
-]);
+];
+config.plugins[1] = [
+  '@semantic-release/release-notes-generator',
+  {
+    preset: 'angular',
+    presetConfig: {
+      types: [
+        {
+          tag: 'compat',
+          section: 'Compatibility',
+          hidden: false,
+        },
+        {
+          tag: 'refactor',
+          section: 'Refactor',
+          hidden: false,
+        },
+        {
+          tag: 'style',
+          section: 'Code style',
+          hidden: false,
+        },
+      ],
+    },
+  },
+];
 
 module.exports = config;

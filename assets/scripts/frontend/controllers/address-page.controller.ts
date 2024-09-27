@@ -1,7 +1,6 @@
 const $ = jQuery;
 
 export default class AddressPageController {
-  private field = '';
   private labels: Record<string, string>;
 
   public init(): void {
