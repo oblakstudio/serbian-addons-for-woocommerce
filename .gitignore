@@ -1,5 +1,6 @@
 .vscode
 dist
 languages/*backup*
+languages/*.php
 node_modules
 vendor

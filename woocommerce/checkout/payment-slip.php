@@ -1,4 +1,4 @@
-<?php
+<?php //phpcs:disable SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 /**
  * Payment Slip template
  *
@@ -15,9 +15,16 @@
  * @subpackage Templates
  * @version 2.0.0
  *
- * @var array  $company   Company data.
+ * @var string $company   Company data.
+ * @var string $style     Payment slip style.
  * @var string $model     Payment model.
  * @var string $reference Payment reference.
+ * @var string $code      Payment code.
+ * @var string $currency  Currency.
+ * @var string $account   Account.
+ * @var string $customer  Customer data.
+ * @var string $purpose   Payment purpose.
+ * @var float  $total     Total amount.
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -27,25 +27,11 @@ class QR_Code_Handler {
     protected ?QRCode $qr_gen = null;
 
     /**
-     * QR Code base directory.
-     *
-     * @var string
-     */
-    protected string $basedir;
-
-    /**
      * Is the QR Code handler initialized?
      *
      * @var bool
      */
     protected static bool $initialized = false;
-
-    /**
-     * Constructor.
-     */
-    protected function __construct() {
-        $this->basedir = WCRS_IPS_DIR;
-    }
 
     /**
      * Choose the best QR Code implementation.
@@ -178,13 +164,13 @@ class QR_Code_Handler {
      */
     public function create_file( WC_Order $order, string $format = 'jpg', ?array $args = null ): bool {
         $qr_code = $this->create_qr_code(
-            $order->get_meta( '_payment_slip_ips_data', true ),
+            \WCSRB()->payments()->get_qr_string( $order ),
             $args,
         );
 
         return $this->save_file(
             $qr_code,
-            $this->get_filename( $order, $format ),
+            static::get_filename( $order, $format ),
         );
     }
 
@@ -197,7 +183,7 @@ class QR_Code_Handler {
      * @return string|false         File data, or false if the file does not exist.
      */
     public function get_file( WC_Order $order, string $format = 'jpg', bool $force = false ): string|false {
-        $filepath = $this->get_filename( $order, $format );
+        $filepath = static::get_filename( $order, $format );
 
         if ( ! $force && \file_exists( $filepath ) ) {
             return \wp_load_filesystem()->get_contents( $filepath );
@@ -219,7 +205,7 @@ class QR_Code_Handler {
      * @return string|false         File data, or false if the file does not exist.
      */
     public function get_file_base64( WC_Order $order, string $format = 'jpg', bool $force = false ): string|false {
-        $filepath = $this->get_filename( $order, $format );
+        $filepath = self::get_filename( $order, $format );
         $file     = null;
 
         if ( ! $force && \file_exists( $filepath ) ) {
@@ -240,18 +226,24 @@ class QR_Code_Handler {
     /**
      * Gets the QR Code file name.
      *
-     * @param  WC_Order $order        Order object.
-     * @param  string   $format       File format.
-     * @param  bool     $with_basedir Whether to include the base directory.
+     * @param  null|false|WC_Order $order        Order object.
+     * @param  string              $format       File format.
+     * @param  bool                $with_basedir Whether to include the base directory.
      * @return string                 The file name.
      */
-    public function get_filename( WC_Order $order, string $format = 'jpg', bool $with_basedir = true ): string {
+    public static function get_filename( null|bool|WC_Order $order, string $format = 'jpg', bool $with_basedir = true ): string {
+        $order = ! ( $order instanceof WC_Order ) && $order ? \wc_get_order( $order ) : $order;
+
+        if ( ! $order ) {
+            return '';
+        }
+
         return \sprintf(
             '%4$s%1$s-%2$s.%3$s',
             $order->get_id(),
             $order->get_order_key(),
             $format,
-            $with_basedir ? \trailingslashit( $this->basedir ) : '',
+            $with_basedir ? \trailingslashit( WCRS_IPS_DIR ) : '',
         );
     }
 }

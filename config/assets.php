@@ -23,6 +23,6 @@ return array(
     'base_uri' => plugins_url( 'dist', WCRS_PLUGIN_BASE ),
     'id'       => 'wcrs',
     'manifest' => 'assets.php',
-    'priority' => 50,
+    'priority' => 500,
     'version'  => WCRS_VERSION,
 );

@@ -10,6 +10,10 @@ const config: Partial<WordPackConfig> = {
       name: 'front',
       files: ['./scripts/frontend/main.ts', './styles/main.scss'],
     },
+    {
+      name: 'email',
+      files: ['./styles/email/template.scss'],
+    },
   ],
   paths: {
     scripts: { src: 'scripts', dist: 'js' },

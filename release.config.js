@@ -13,11 +13,13 @@ const config = generateConfig({
   },
 });
 
-config.plugins.push([
+config.plugins[0] = [
   '@semantic-release/commit-analyzer',
   {
-    preset: 'angular',
+    preset: 'conventionalcommits',
     releaseRules: [
+      { type: 'chore', release: false },
+      { type: 'perf', release: 'patch' },
       { type: 'compat', release: 'patch' },
       { type: 'refactor', release: 'patch' },
       { type: 'style', release: 'patch' },
@@ -26,6 +28,51 @@ config.plugins.push([
       noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES'],
     },
   },
-]);
+];
+config.plugins[1] = [
+  '@semantic-release/release-notes-generator',
+  {
+    preset: 'conventionalcommits',
+    presetConfig: {
+      types: [
+        {
+          type: 'feat',
+          section: ':sparkles: Features',
+          hidden: false,
+        },
+        {
+          type: 'fix',
+          section: ':bug: Bug Fixes',
+          hidden: false,
+        },
+        {
+          type: 'compat',
+          section: ':gear: Compatibility',
+          hidden: false,
+        },
+        {
+          type: 'refactor',
+          section: ':recycle: Refactor',
+          hidden: false,
+        },
+        {
+          type: 'style',
+          section: ':art: Code style',
+          hidden: false,
+        },
+        {
+          type: 'perf',
+          section: ':rocket: Performance',
+          hidden: false,
+        },
+        {
+          type: 'chore',
+          section: ':wrench: Maintenance',
+          hidden: false,
+        },
+      ],
+    },
+  },
+];
 
 module.exports = config;

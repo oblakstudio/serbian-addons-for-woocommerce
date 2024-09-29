@@ -6,26 +6,75 @@
  * @see Payment_Slip_Gateway
  */
 
+use Automattic\WooCommerce\Utilities\LoggingUtil;
+
 defined( 'ABSPATH' ) || exit;
+
+$display_opts = static fn( $desc ) => array(
+    'title'             => __( 'Visibility', 'serbian-addons-for-woocommerce' ),
+    'type'              => 'multiselect',
+    'options'           => array(
+        'order' => __( 'Store pages', 'serbian-addons-for-woocommerce' ),
+        'email' => __( 'Customer e-mails', 'serbian-addons-for-woocommerce' ),
+    ),
+    'default'           => array(),
+    'description'       => $desc,
+    'desc_tip'          => true,
+    'custom_attributes' => array(
+        'data-placeholder' => __( 'Select locations for display', 'serbian-addons-for-woocommerce' ),
+        'data-allow_clear' => 'true',
+    ),
+    'class'             => 'wc-enhanced-select',
+);
+
+$qr_img_desc = static function ( int $icon ) {
+    $desc = array();
+
+    $desc[] = sprintf(
+        // translators: %1$s customizer link html.
+        __( 'You can set the image via %1$s', 'serbian-addons-for-woocommerce' ),
+        sprintf(
+            '<a target="_blank" href="%1$s">%2$s</a> (%3$s)',
+            esc_url( admin_url( 'customize.php' ) ),
+            esc_html__( 'Customizer', 'default' ),
+            esc_html__( 'Site Identity', 'default' ),
+        ),
+    );
+
+    if ( 0 < $icon ) {
+        $desc[] = sprintf(
+            // translators: %s current image HTML.
+            __( 'Current image: %s', 'serbian-addons-for-woocommerce' ),
+            wp_get_attachment_image(
+                get_option( 'site_icon' ),
+                array( 16, 16 ),
+                false,
+            ),
+        );
+    }
+
+    return implode( '<br>', $desc );
+};
+
 
 return array(
     'enabled'             => array(
-        'title'   => __( 'Enable/Disable', 'serbian-addons-for-woocommerce' ),
+        'title'   => __( 'Enabled', 'woocommerce' ),
         'label'   => __( 'Enable Payment Slip', 'serbian-addons-for-woocommerce' ),
         'type'    => 'checkbox',
         'default' => 'no',
     ),
     'title'               => array(
-        'title'       => __( 'Title', 'serbian-addons-for-woocommerce' ),
-        'type'        => 'text',
-        'description' => __( 'This controls the title which the user sees during checkout.', 'serbian-addons-for-woocommerce' ),
-        'default'     => 'Payment Slip',
+        'title'       => __( 'Title', 'woocommerce' ),
+        'type'        => 'safe_text',
+        'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
+        'default'     => __( 'Payment Slip', 'serbian-addons-for-woocommerce' ),
         'desc_tip'    => true,
     ),
     'description'         => array(
-        'title'       => __( 'Description', 'serbian-addons-for-woocommerce' ),
+        'title'       => __( 'Description', 'woocommerce' ),
         'type'        => 'text',
-        'description' => __( 'This controls the description which the user sees during checkout.', 'serbian-addons-for-woocommerce' ),
+        'description' => __( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
         'default'     => __( 'Pay by sending us money via wire transfer', 'serbian-addons-for-woocommerce' ),
         'desc_tip'    => true,
     ),
@@ -36,6 +85,8 @@ return array(
         'type'        => 'title',
         'description' => '',
     ),
+    'display'             => $display_opts( __( 'Where to display the QR Code', 'serbian-addons-for-woocommerce' ) ),
+
     'style'               => array(
         'title'       => __( 'Style', 'serbian-addons-for-woocommerce' ),
         'type'        => 'select',
@@ -58,6 +109,7 @@ return array(
             '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=wcsrb&section=company' ) . '">',
             '</a>',
         ),
+        'default'     => '',
     ),
     'payment_code'        => array(
         'title'             => __( 'Payment code', 'serbian-addons-for-woocommerce' ),
@@ -88,7 +140,7 @@ return array(
     'payment_reference'   => array(
         'title'             => __( 'Payment reference', 'serbian-addons-for-woocommerce' ),
         'type'              => 'text',
-        'default'           => static fn() => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
+        'default'           => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
         'description'       => static fn() => wcsrb_format_payment_reference_description(),
         'custom_attributes' => static fn() => array(
             'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
@@ -108,12 +160,7 @@ return array(
         'description' => __( 'Settings for NBS IPS QR Code', 'serbian-addons-for-woocommerce' ),
     ),
 
-    'qrcode_shown'        => array(
-        'title'   => __( 'Show QR code', 'serbian-addons-for-woocommerce' ),
-        'type'    => 'checkbox',
-        'label'   => __( 'Show QR code on the payment slip', 'serbian-addons-for-woocommerce' ),
-        'default' => 'yes',
-    ),
+    'qrcode_shown'        => $display_opts( __( 'Where to display the payment slip', 'serbian-addons-for-woocommerce' ) ),
 
     'qrcode_color'        => array(
         'title'       => __( 'Dot color', 'serbian-addons-for-woocommerce' ),
@@ -132,23 +179,15 @@ return array(
     ),
 
     'qrcode_image'        => array(
-        'title'       => __( 'Show image', 'serbian-addons-for-woocommerce' ),
-        'type'        => 'checkbox',
-        'label'       => __( 'Show image on QR code', 'serbian-addons-for-woocommerce' ),
-        'default'     => 'yes',
-        'desc_tip'    => __( 'Image that will be shown on the QR code. ', 'serbian-addons-for-woocommerce' ),
-        'description' => static fn() => sprintf(
-            // translators: %1$s opening link tag, %2$s Customizer title, %3$s closing link tag, %3$s current image HTML.
-            __( 'You can set it in %1$s%2$s%3$s. Current image is: %4$s', 'serbian-addons-for-woocommerce' ),
-            '<a target="_blank" href="' . admin_url( 'customize.php' ) . '">',
-            __( 'Customizer', 'default' ),
-            '</a>',
-            wp_get_attachment_image(
-                get_option( 'site_icon' ),
-                array( 16, 16 ),
-                false,
-            ),
-        ),
+        'title'             => __( 'Show image', 'serbian-addons-for-woocommerce' ),
+        'type'              => 'checkbox',
+        'label'             => __( 'Show image on QR code', 'serbian-addons-for-woocommerce' ),
+        'default'           => 'yes',
+        'desc_tip'          => __( 'Image that will be shown on the QR code. ', 'serbian-addons-for-woocommerce' ),
+        'description'       => static fn() => $qr_img_desc( intval( get_option( 'site_icon', 0 ) ) ),
+        'custom_attributes' => static fn() => 0 === intval( get_option( 'site_icon', 0 ) )
+            ? array( 'disabled' => 'disabled' )
+            : array(),
     ),
 
     // Advanced Settings.
@@ -158,18 +197,14 @@ return array(
         'description' => '',
     ),
     'debug'               => array(
-        'title'       => __( 'Debug log', 'serbian-addons-for-woocommerce' ),
+		'title'       => __( 'Debug log', 'woocommerce' ),
         'type'        => 'checkbox',
-        'label'       => __( 'Enable logging', 'serbian-addons-for-woocommerce' ),
+        'label'       => __( 'Enable logging', 'woocommerce' ),
         'default'     => 'no',
         'description' => static fn() => sprintf(
-            // translators: %1$s log file path, %2$s line break.
-            __(
-                'Log Payment Slip events, inside %1$s %2$sNote: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.',
-                'serbian-addons-for-woocommerce',
-            ),
-            '<code>' . WC_Log_Handler_File::get_log_file_path( 'payment-slip' ) . '</code>',
-            '<br>',
+			// translators: %s is a placeholder for a URL.
+            __( 'Log Payment Slip events and review them on the <a href="%s">Logs screen</a>.<br>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.', 'serbian-addons-for-woocommerce' ),
+            esc_url( LoggingUtil::get_logs_tab_url() ),
         ),
     ),
 

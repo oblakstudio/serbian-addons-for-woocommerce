@@ -14,3 +14,13 @@
     user-select: none;
   }
 }
+
+#wcsrb-ips-qr-code {
+  .ips-qr-copy-success {
+    display: inline-block;
+    line-height: 30px;
+    min-height: 30px;
+    margin-left: 10px;
+    color: rgb(134, 212, 76);
+  }
+}

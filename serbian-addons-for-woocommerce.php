@@ -13,6 +13,8 @@
  * License:              GPLv2 or later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          serbian-addons-for-woocommerce
+ * Domain Path:          /languages
+ * Requires Plugins:     woocommerce
  *
  * @package Serbian Addons for WooCommerce
  */
@@ -29,4 +31,10 @@ defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-add_action( 'woocommerce_loaded', 'WCSRB', 0 );
+add_action(
+    'woocommerce_loaded',
+    static function () {
+		WCSRB();
+	},
+    0,
+);
