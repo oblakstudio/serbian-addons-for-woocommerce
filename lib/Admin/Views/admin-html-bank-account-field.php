@@ -36,7 +36,7 @@ $field_desc = WC_Admin_Settings::get_field_description( $value );
                     placeholder="<?php echo \esc_attr( $value['placeholder'] ); ?>"
                     <?php echo implode( ' ', $custom_attributes ); // phpcs:ignore ?>
                 />
-                <?php echo esc_html( $value['suffix'] ); ?> <?php echo $$field_desc['description']; //phpcs:ignore ?>
+                <?php echo esc_html( $value['suffix'] ); ?> <?php echo $field_desc['description']; //phpcs:ignore ?>
                 <button type="button" class="button minus repeater-remove-row">
                     <?php \esc_html_e( 'Remove', 'woocommerce' ); ?>
                 </button>

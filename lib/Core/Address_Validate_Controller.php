@@ -7,18 +7,25 @@
 
 namespace Oblak\WCSRB\Core;
 
-use Oblak\WP\Abstracts\Hook_Caller;
-use Oblak\WP\Decorators\Action;
-use Oblak\WP\Decorators\Filter;
-use Oblak\WP\Decorators\Hookable;
+use Oblak\WCSRB\Services\Field_Validator;
+use XWP\DI\Decorators\Action;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Changes the fields on the checkout page
  *
  * @since 3.8.0
  */
-#[Hookable( 'woocommerce_init', 99 )]
-class Address_Validate_Controller extends Hook_Caller {
+#[Handler( tag: 'woocommerce_init', priority: 99, container: 'wcsrb' )]
+class Address_Validate_Controller {
+    /**
+     * Constructor
+     *
+     * @param Field_Validator $validator Field validator instance.
+     */
+    public function __construct( protected Field_Validator $validator ) {
+    }
+
     /**
      * Validates the saved order field.
      *
@@ -34,7 +41,7 @@ class Address_Validate_Controller extends Hook_Caller {
             \ltrim( $field, '_' ) => $value,
         );
 
-        if ( \WCSRB()->validator()->validate( $validate, 'billing' ) ) {
+        if ( $this->validator->validate( $validate, 'billing' ) ) {
 
             return;
         }
@@ -52,7 +59,7 @@ class Address_Validate_Controller extends Hook_Caller {
      */
     #[Action( tag: 'woocommerce_after_save_address_validation', priority: 99 )]
     public function validate_save_address( int $user_id, string $type ) {
-        foreach ( \WCSRB()->validator()->validate( \xwp_post_arr(), $type ) as $error ) {
+        foreach ( $this->validator->validate( \xwp_post_arr(), $type ) as $error ) {
             \wc_add_notice( $error['message'], 'error', array( 'id' => $error['id'] ) );
         }
     }
@@ -66,7 +73,7 @@ class Address_Validate_Controller extends Hook_Caller {
      */
     #[Action( 'woocommerce_after_checkout_validation', 0 )]
     public function validate_checkout( array $fields, \WP_Error $error ) {
-        foreach ( \WCSRB()->validator()->validate( $fields, 'billing' ) as $err ) {
+        foreach ( $this->validator->validate( $fields, 'billing' ) as $err ) {
             $error->add( $err['code'], $err['message'], array( 'id' => $err['id'] ) );
         }
     }

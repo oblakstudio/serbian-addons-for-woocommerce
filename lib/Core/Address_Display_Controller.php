@@ -2,19 +2,27 @@
 
 namespace Oblak\WCSRB\Core;
 
-use Oblak\WP\Abstracts\Hook_Caller;
-use Oblak\WP\Decorators\Filter;
-use Oblak\WP\Decorators\Hookable;
+use Oblak\WCSRB\Services\Payments;
 use WC_Customer;
 use WC_Order;
+use XWP\DI\Decorators\Filter;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Changes the fields on the checkout page
  *
  * @since 3.8.0
  */
-#[Hookable( 'woocommerce_init', 99 )]
-class Address_Display_Controller extends Hook_Caller {
+#[Handler( tag: 'woocommerce_init', priority: 99, container: 'wcsrb' )]
+class Address_Display_Controller {
+    /**
+     * Constructor
+     *
+     * @param  Payments $payments Payments Service.
+     */
+    public function __construct( private Payments $payments ) {
+    }
+
     /**
      * Modifies the address format for Serbia to include necessary company information
      *
@@ -46,10 +54,12 @@ class Address_Display_Controller extends Hook_Caller {
      * @param  array    $args          Address data.
      * @return string[]                Modified replacements array
      */
-    #[Filter( 'woocommerce_formatted_address_replacements', 99 )]
+    #[Filter( tag: 'woocommerce_formatted_address_replacements', priority: 99 )]
     public function modify_address_replacements( $replacements, $args ) {
-        $replacements['{mb}']  = $args['mb'] ?? "\n";
-        $replacements['{pib}'] = $args['pib'] ?? "\n";
+        $default = $this->payments->is_formatting() ? "\n" : null;
+
+        $replacements['{mb}']  = $default ?? $args['mb'] ?? "\n";
+        $replacements['{pib}'] = $default ?? $args['pib'] ?? "\n";
 
         return $replacements;
     }

@@ -9,7 +9,7 @@
  * Author URI:           https://oblak.studio
  * Tested up to:         6.6
  * WC requires at least: 8.5
- * WC tested up to:      9.2
+ * WC tested up to:      9.3
  * License:              GPLv2 or later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          serbian-addons-for-woocommerce
@@ -31,10 +31,4 @@ defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-add_action(
-    'woocommerce_loaded',
-    static function () {
-		WCSRB();
-	},
-    0,
-);
+wcsrb_init();

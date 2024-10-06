@@ -4,5 +4,5 @@ services:
       - '$HOME/projects/plugins:/home/venom/projects/plugins'
       - '$HOME/projects/composer:/home/venom/projects/composer'
       - '$HOME/projects/plugins/serbian-addons-for-woocommerce:/var/www/html/public_html/wp-content/plugins/serbian-addons-for-woocommerce'
-      #- '$HOME/projects/plugins/wc-serbian-nestpay:/var/www/html/public_html/wp-content/plugins/wc-serbian-nestpay'
+      - '$HOME/projects/plugins/woocommerce-nestpay:/var/www/html/public_html/wp-content/plugins/wc-serbian-nestpay:ro'
       - '$HOME/projects/plugins/woocommerce-efis:/var/www/html/public_html/wp-content/plugins/woocommerce-efis'

@@ -7,8 +7,8 @@
 
 namespace Oblak\WCSRB\Admin;
 
-use Oblak\WP\Decorators\Action;
-use Oblak\WP\Decorators\Filter;
+use XWP\DI\Decorators\Action;
+use XWP\DI\Decorators\Filter;
 
 /**
  * Adds the settings for the plugin to the WooCommerce settings page
@@ -25,7 +25,7 @@ class Plugin_Settings_Page extends \XWC\Admin\Settings_Page_Base {
             \__( 'Serbian Addons', 'serbian-addons-for-woocommerce' ),
         );
 
-        \xwp_invoke_hooked_methods( $this );
+        \xwp_load_hook_handler( $this, 'wcsrb' );
     }
 
     /**
