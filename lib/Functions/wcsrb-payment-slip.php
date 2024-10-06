@@ -6,15 +6,28 @@
  * @subpackage Utils
  */
 
-use Oblak\WooCommerce\Serbian_Addons\QR\QR_Code_Handler;
+use chillerlan\QRCode\Common\EccLevel;
+use chillerlan\QRCode\Data\QRMatrix;
+
+/**
+ * Check if the currency is RSD.
+ *
+ * @param  string $currency The currency.
+ * @return bool
+ */
+function wcsrb_is_rsd( string $currency ): bool {
+    $currency = trim( trim( $currency ), '.' );
+
+    return preg_match( '/^(rsd|рсд|din|din|dinar)$/i', $currency );
+}
 
 /**
  * Get the Payment Slip gateway.
  *
- * @return Oblak\WooCommerce\Serbian_Addons\Gateway\Gateway_Payment_Slip The Payment Slip gateway.
+ * @return \Oblak\WCSRB\Gateway\Gateway_Payment_Slip The Payment Slip gateway.
  */
-function wcsrb_slip_gw(): Oblak\WooCommerce\Serbian_Addons\Gateway\Gateway_Payment_Slip {
-    return WC()->payment_gateways()->payment_gateways()['wcsrb_payment_slip'];
+function wcsrb_slip_gw(): \Oblak\WCSRB\Gateway\Gateway_Payment_Slip {
+    return xwp_app( 'wcsrb' )->get( \Oblak\WCSRB\Gateway\Gateway_Payment_Slip::class );
 }
 
 /**
@@ -234,14 +247,4 @@ function wcsrb_calculate_number_for_reference( $order_number ): int {
  */
 function wcsrb_get_ips_basedir(): string {
     return wp_upload_dir()['basedir'] . '/wcrs-ips';
-}
-
-/**
- * Check if the order has a QR Code.
- *
- * @param  null|int|WC_Order $order The order.
- * @return bool
- */
-function wcsrb_order_has_qrcode( null|int|WC_Order $order ): bool {
-    return wcsrb_order_has_slip( $order ) && xwp_wpfs()->exists( QR_Code_Handler::get_filename( $order ) );
 }
