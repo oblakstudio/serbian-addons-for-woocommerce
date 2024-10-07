@@ -773,16 +773,16 @@
         },
         {
             "name": "x-wp/di",
-            "version": "v1.0.0-beta.1",
+            "version": "v1.0.0-beta.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/di.git",
-                "reference": "1f629dcaaab6131af5619c7017847f45b6558fd8"
+                "reference": "02259d709eea3cc3e25c15fcb25083bb390e1902"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/di/zipball/1f629dcaaab6131af5619c7017847f45b6558fd8",
-                "reference": "1f629dcaaab6131af5619c7017847f45b6558fd8",
+                "url": "https://api.github.com/repos/x-wp/di/zipball/02259d709eea3cc3e25c15fcb25083bb390e1902",
+                "reference": "02259d709eea3cc3e25c15fcb25083bb390e1902",
                 "shasum": ""
             },
             "require": {
@@ -838,9 +838,9 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/hook-manager/issues",
-                "source": "https://github.com/x-wp/di/tree/v1.0.0-beta.1"
+                "source": "https://github.com/x-wp/di/tree/v1.0.0-beta.2"
             },
-            "time": "2024-10-02T23:54:19+00:00"
+            "time": "2024-10-06T21:03:51+00:00"
         },
         {
             "name": "x-wp/helper-classes",
@@ -1829,16 +1829,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.5",
+            "version": "1.12.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17"
+                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17",
-                "reference": "7e6c6cb7cecb0a6254009a1a8a7d54ec99812b17",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc4d2f145a88ea7141ae698effd64d9df46527ae",
+                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1883,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-26T12:45:22+00:00"
+            "time": "2024-10-06T15:03:59+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",

@@ -2,6 +2,7 @@
 
 namespace Oblak\WCSRB\Core;
 
+use Oblak\WCSRB\Services\Config;
 use Oblak\WCSRB\Services\Payments;
 use WC_Customer;
 use WC_Order;
@@ -18,9 +19,10 @@ class Address_Display_Controller {
     /**
      * Constructor
      *
+     * @param  Config   $config   Config Service.
      * @param  Payments $payments Payments Service.
      */
-    public function __construct( private Payments $payments ) {
+    public function __construct( private Config $config, private Payments $payments ) {
     }
 
     /**
@@ -35,7 +37,7 @@ class Address_Display_Controller {
 
         $formats['RS'] = "{name}\n{company}\n{mb}\n{pib}\n{address_1} {address_2}\n{postcode} {city}, {state} {country}";
 
-        if ( \WCSRB()->get_settings( 'core', 'remove_unneeded_fields' ) ) {
+        if ( $this->config->get( 'core', 'remove_unneeded_fields' ) ) {
             $formats['RS'] = \str_replace( array( '{state}', ' {address_2}' ), '', $formats['RS'] );
         }
 

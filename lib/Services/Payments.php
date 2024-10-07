@@ -24,6 +24,14 @@ class Payments {
     private bool $formatting = false;
 
     /**
+     * Constructor
+     *
+     * @param Config $config Config instance.
+     */
+    public function __construct( private Config $config ) {
+    }
+
+    /**
      * Are we formatting the address?
      *
      * @return bool
@@ -259,7 +267,7 @@ class Payments {
      * @return array Company data.
      */
     protected function get_company_data(): array {
-        $data = \WCSRB()->get_settings( 'company' );
+        $data = $this->config->get( 'company' );
 
         $data['company']  = $data['name'];
         $data['accounts'] = '';

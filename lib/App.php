@@ -8,7 +8,7 @@
 namespace Oblak\WCSRB;
 
 use chillerlan\QRCode\QRCode;
-use XWC\Traits\Settings_API_Methods;
+use Oblak\WCSRB\Services\Config;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
@@ -34,7 +34,6 @@ use XWP_Asset_Retriever;
     ),
 )]
 class App implements On_Initialize {
-    use Settings_API_Methods;
     use XWP_Asset_Retriever;
 
     /**
@@ -63,48 +62,17 @@ class App implements On_Initialize {
 
     /**
      * Constructor
+     *
+     * @param Config $config Config instance.
      */
-    public function on_initialize(): void {
-        $this->load_bundle_config( WCRS_PLUGIN_PATH . 'config/assets.php' );
+    public function __construct( private Config $config ) {
     }
 
     /**
-     * Loads the plugin settings
+     * Constructor
      */
-    #[Action( tag: 'woocommerce_loaded', priority: 99 )]
-    public function load_plugin_settings() {
-        try {
-            $this->load_options( 'wcsrb_settings' );
-        } catch ( \Exception | \Error ) {
-            \wc_get_logger()->critical(
-                'Failed to load plugin settings',
-                array(
-					'source' => 'serbian-addons-for-woocommerce',
-				),
-            );
-            $this->settings = array();
-        }
-
-        $this->settings['core'] = \wp_parse_args(
-            $this->settings['core'] ?? array(),
-            array(
-                'enabled_customer_types' => 'both',
-                'field_ordering'         => true,
-                'fix_currency_symbol'    => true,
-                'remove_unneeded_fields' => false,
-            ),
-        );
-
-        $this->settings['company'] = array(
-            'accounts'  => \wcsrb_get_bank_accounts(),
-            'address_1' => \get_option( 'woocommerce_store_address', '' ),
-            'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
-            'city'      => \get_option( 'woocommerce_store_city', '' ),
-            'country'   => \wc_get_base_location()['country'],
-            'logo'      => \get_option( 'site_icon', 0 ),
-            'name'      => \get_option( 'woocommerce_store_name', '' ),
-            'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
-        );
+    public function on_initialize(): void {
+        $this->load_bundle_config( WCRS_PLUGIN_PATH . 'config/assets.php' );
     }
 
     /**
@@ -154,7 +122,7 @@ class App implements On_Initialize {
      */
     #[Filter( tag: 'woocommerce_currency_symbol', priority: 99 )]
     public function change_currency_symbol( string $symbol, string $currency ): string {
-        if ( ! $this->get_settings( 'core', 'fix_currency_symbol' ) ) {
+        if ( ! $this->config->get( 'core', 'fix_currency_symbol' ) ) {
             return $symbol;
         }
 

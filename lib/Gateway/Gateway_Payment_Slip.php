@@ -7,6 +7,7 @@
 
 namespace Oblak\WCSRB\Gateway;
 
+use Oblak\WCSRB\Services\Config;
 use Oblak\WCSRB\Services\Payments;
 use WC_Email;
 use WC_Order;
@@ -48,9 +49,11 @@ class Gateway_Payment_Slip extends Gateway_Base {
     /**
      * Constructor
      *
+     * @param  Config   $config   Config instance.
      * @param  Payments $payments Payments utility instance.
      */
     public function __construct(
+        private Config $config,
         private Payments $payments,
     ) {
         parent::__construct();
@@ -89,7 +92,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
         $this->settings['qrcode_shown'] = \wc_string_to_array( $this->settings['qrcode_shown'] );
         $this->settings['qrcode_image'] = \wc_bool_to_string( 0 < \intval( \get_option( 'site_icon', 0 ) ) && \wc_string_to_bool( $this->settings['qrcode_image'] ) );
         $this->settings['display']      = \wc_string_to_array( $this->settings['display'] );
-        $this->settings['company']      = \WCSRB()->get_settings( 'company' );
+        $this->settings['company']      = $this->config->get( 'company' );
     }
 
     /**
@@ -134,7 +137,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
                 'invalid_currency',
                 \__( 'Serbian Payment Slip does not support your store currency.', 'serbian-addons-for-woocommerce' ),
             ),
-            ! \WCSRB()->get_settings( 'company', 'accounts' ) => array(
+            ! $this->config->get( 'company', 'accounts' ) => array(
                 'invalid_bank_account',
                 \__( 'Serbian Payment Slip requires at least one bank account.', 'serbian-addons-for-woocommerce' ),
             ),
