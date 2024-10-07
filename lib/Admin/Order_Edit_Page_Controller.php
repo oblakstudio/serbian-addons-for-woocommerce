@@ -88,14 +88,17 @@ class Order_Edit_Page_Controller {
      */
     #[Action( tag: 'add_meta_boxes' )]
     public function add_ips_qr_metabox() {
-		$screen_id = \get_current_screen()?->id ?? '';
+        $types = \array_merge(
+            \wc_get_order_types( 'order-meta-boxes' ),
+            array( 'woocommerce_page_wc-orders' ),
+        );
 
-        foreach ( \wc_get_order_types( 'order-meta-boxes' ) as $type ) {
+        foreach ( $types as $type ) {
             \add_meta_box(
                 'wcsrb-ips-qr-code',
                 \__( 'IPS QR Code', 'serbian-addons-for-woocommerce' ),
                 array( $this, 'qrcode_metabox' ),
-                $screen_id,
+                $type,
                 'side',
             );
         }
