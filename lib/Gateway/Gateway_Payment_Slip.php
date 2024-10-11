@@ -5,17 +5,17 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WooCommerce\Serbian_Addons\Gateway;
+namespace Oblak\WCSRB\Gateway;
 
-use Automattic\Jetpack\Constants;
-use Oblak\WP\Decorators\Action;
-use Oblak\WP\Decorators\Filter;
+use Oblak\WCSRB\Services\Config;
+use Oblak\WCSRB\Services\Payments;
 use WC_Email;
 use WC_Order;
 use WP_Error;
 use XWC\Gateway\Gateway_Base;
-
-use function Oblak\validateBankAccount;
+use XWP\DI\Decorators\Action;
+use XWP\DI\Decorators\Filter;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Payment Slip Gateway.
@@ -39,7 +39,26 @@ use function Oblak\validateBankAccount;
  *
  * @property-read array $company Company data.
  */
+#[Handler(
+    tag: 'wc_payment_gateways_initialized',
+    priority: 101,
+    strategy: Handler::INIT_DYNAMICALY,
+    container: 'wcsrb',
+)]
 class Gateway_Payment_Slip extends Gateway_Base {
+    /**
+     * Constructor
+     *
+     * @param  Config   $config   Config instance.
+     * @param  Payments $payments Payments utility instance.
+     */
+    public function __construct(
+        private Config $config,
+        private Payments $payments,
+    ) {
+        parent::__construct();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -73,7 +92,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
         $this->settings['qrcode_shown'] = \wc_string_to_array( $this->settings['qrcode_shown'] );
         $this->settings['qrcode_image'] = \wc_bool_to_string( 0 < \intval( \get_option( 'site_icon', 0 ) ) && \wc_string_to_bool( $this->settings['qrcode_image'] ) );
         $this->settings['display']      = \wc_string_to_array( $this->settings['display'] );
-        $this->settings['company']      = \WCSRB()->get_settings( 'company' );
+        $this->settings['company']      = $this->config->get( 'company' );
     }
 
     /**
@@ -84,9 +103,8 @@ class Gateway_Payment_Slip extends Gateway_Base {
             return;
         }
 
-        new Gateway_Payment_Slip_IPS_Handler( $this->get_options() );
-
-        \xwp_invoke_hooked_methods( $this );
+        \xwp_register_hook_handler( Gateway_Payment_Slip_IPS_Handler::class );
+        \xwp_load_hook_handler( $this );
     }
 
     /**
@@ -105,9 +123,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
      * {@inheritDoc}
      */
     public function needs_setup() {
-        return ! $this->bank_account ||
-            ! validateBankAccount( $this->bank_account ) ||
-            \is_wp_error( $this->is_valid_for_use() );
+        return ! $this->bank_account || \is_wp_error( $this->is_valid_for_use() );
     }
 
     /**
@@ -116,15 +132,19 @@ class Gateway_Payment_Slip extends Gateway_Base {
 	 * @return bool|WP_Error
 	 */
     public function is_valid_for_use(): bool|\WP_Error {
-        if ( ! \in_array( \get_woocommerce_currency(), array( 'RSD', 'РСД', 'din', 'din.' ), true ) ) {
-            return new \WP_Error( 'invalid_currency', \__( 'Serbian Payment Slip does not support your store currency.', 'serbian-addons-for-woocommerce' ) );
-        }
+        [ $code, $msg ] = match ( true ) {
+            ! \wcsrb_is_rsd( \get_woocommerce_currency() )   => array(
+                'invalid_currency',
+                \__( 'Serbian Payment Slip does not support your store currency.', 'serbian-addons-for-woocommerce' ),
+            ),
+            ! $this->config->get( 'company', 'accounts' ) => array(
+                'invalid_bank_account',
+                \__( 'Serbian Payment Slip requires at least one bank account.', 'serbian-addons-for-woocommerce' ),
+            ),
+            default                                           => array( '', '' ),
+        };
 
-        if ( ! \WCSRB()->get_settings( 'company', 'accounts' ) ) {
-            return new \WP_Error( 'invalid_bank_account', \__( 'Serbian Payment Slip requires at least one bank account.', 'serbian-addons-for-woocommerce' ) );
-        }
-
-        return true;
+        return $code && $msg ? new \WP_Error( $code, $msg ) : true;
     }
 
     /**
@@ -201,7 +221,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
         \wc_get_template(
             'checkout/payment-slip.php',
             \array_merge(
-                \WCSRB()->payments()->get_data( $order ),
+                $this->payments->get_data( $order ),
                 array(
                     'style'    => $this->style,
                     'order_id' => $order_id,
@@ -246,14 +266,12 @@ class Gateway_Payment_Slip extends Gateway_Base {
             return;
         }
 
-        Constants::set_constant( 'WCSRB_EMAIL', true );
-
         echo '<div class="woocommerce-email">';
 
         \wc_get_template(
             'checkout/payment-slip.php',
             \array_merge(
-                \WCSRB()->payments()->get_data( $order ),
+                $this->payments->get_data( $order ),
                 array(
                     'style'    => $this->style,
                     'order_id' => $order->get_id(),

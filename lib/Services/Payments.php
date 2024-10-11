@@ -5,10 +5,8 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WCSRB\Utils;
+namespace Oblak\WCSRB\Services;
 
-use Oblak\WP\Abstracts\Hook_Caller;
-use Oblak\WP\Decorators\Filter;
 use WC_Customer;
 use WC_Order;
 
@@ -17,7 +15,7 @@ use WC_Order;
  *
  * @since 3.8.0
  */
-class Payments extends Hook_Caller {
+class Payments {
     /**
      * Flag to determine if the address is being formatted
      *
@@ -26,20 +24,21 @@ class Payments extends Hook_Caller {
     private bool $formatting = false;
 
     /**
-     * Remove the custom replacements from the address format
+     * Constructor
      *
-     * @param  array<string,string> $replacements Address replacements.
-     * @return array<string,string>
+     * @param Config $config Config instance.
      */
-    #[Filter( tag: 'woocommerce_formatted_address_replacements', priority: 9999 )]
-	public function remove_replacements( array $replacements ): array {
-		if ( $this->formatting ) {
-			$replacements['{mb}']  = '';
-			$replacements['{pib}'] = '';
-		}
+    public function __construct( private Config $config ) {
+    }
 
-		return $replacements;
-	}
+    /**
+     * Are we formatting the address?
+     *
+     * @return bool
+     */
+    public function is_formatting(): bool {
+        return $this->formatting;
+    }
 
     /**
      * Formats the order data for the payment slip or the IPS QR code
@@ -56,7 +55,7 @@ class Payments extends Hook_Caller {
             'account'   => $this->format_account( $data['account'], $context ),
             'code'      => $this->format_code( $data['code'], $order ),
             'company'   => $this->format_address( $this->get_company_data(), $context ),
-            'currency'  => $order->get_currency(),
+            'currency'  => $this->format_currency( $order->get_currency() ),
             'customer'  => $this->format_address( $order, $context ),
             'model'     => $this->format_model( $data['model'], $context ),
             'purpose'   => $this->format_purpose( $data['purpose'], $context ),
@@ -120,6 +119,16 @@ class Payments extends Hook_Caller {
         }
 
         return \implode( '|', $parts );
+    }
+
+    /**
+     * Formats the currency
+     *
+     * @param  string $currency Currency code.
+     * @return string          Formatted currency.
+     */
+    private function format_currency( string $currency ): string {
+        return \wcsrb_is_rsd( $currency ) ? 'RSD' : $currency;
     }
 
     /**
@@ -220,7 +229,7 @@ class Payments extends Hook_Caller {
 
         $address = match ( true ) {
             $target instanceof WC_Order    => $target->get_formatted_billing_address(),
-            $target instanceof WC_Customer => \wc_get_account_formatted_address( 'billing', $target ),
+            $target instanceof WC_Customer => \wc_get_account_formatted_address( 'billing', $target->get_id() ),
             default                        => \WC()->countries->get_formatted_address( $target ),
         };
 
@@ -258,7 +267,7 @@ class Payments extends Hook_Caller {
      * @return array Company data.
      */
     protected function get_company_data(): array {
-        $data = \WCSRB()->get_settings( 'company' );
+        $data = $this->config->get( 'company' );
 
         $data['company']  = $data['name'];
         $data['accounts'] = '';

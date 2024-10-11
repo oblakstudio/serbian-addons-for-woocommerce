@@ -2,18 +2,26 @@
 
 namespace Oblak\WCSRB\Core;
 
-use Oblak\WP\Abstracts\Hook_Caller;
-use Oblak\WP\Decorators\Filter;
-use Oblak\WP\Decorators\Hookable;
+use Oblak\WCSRB\Services\Field_Validator;
 use WC_Order;
+use XWP\DI\Decorators\Filter;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Changes the fields on the checkout page
  *
  * @since 3.8.0
  */
-#[Hookable( 'woocommerce_init', 99 )]
-class Address_Admin_Controller extends Hook_Caller {
+#[Handler( tag: 'woocommerce_init', priority: 99, context: Handler::CTX_ADMIN, container: 'wcsrb' )]
+class Address_Admin_Controller {
+    /**
+     * Constructor
+     *
+     * @param Field_Validator $validator Field validator instance.
+     */
+    public function __construct( protected Field_Validator $validator ) {
+    }
+
     /**
      * Adds the invalid field messages to the order update messages.
      *
@@ -37,8 +45,8 @@ class Address_Admin_Controller extends Hook_Caller {
      */
     #[Filter( tag: 'woocommerce_redirect_order_location', priority: 99 )]
     public function modify_order_update_redirect_url( string $r ): string {
-        if ( \WCSRB()->validator()->has_errors() ) {
-            $r = \add_query_arg( 'message', \WCSRB()->validator()->last_error()['cb_id'], $r );
+        if ( $this->validator->has_errors() ) {
+            $r = \add_query_arg( 'message', $this->validator->last_error()['cb_id'], $r );
         }
 
         return $r;
@@ -105,12 +113,11 @@ class Address_Admin_Controller extends Hook_Caller {
     /**
      * Adds fields to the order billing fields.
      *
-     * @param  array    $fields Order billing fields.
-     * @param  WC_Order $order  Order object.
+     * @param  array $fields Order billing fields.
      * @return array
      */
     #[Filter( tag: 'woocommerce_admin_billing_fields', priority: 99 )]
-    public function add_order_billing_fields( array $fields, WC_Order $order ): array {
+    public function add_order_billing_fields( array $fields ): array {
         $index = \array_search( 'company', \array_keys( $fields ), true );
 
         /**

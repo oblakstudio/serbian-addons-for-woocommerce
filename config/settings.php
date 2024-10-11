@@ -40,6 +40,15 @@ return array(
             ),
 
             array(
+                'title'   => __( 'Field ordering', 'serbian-addons-for-woocommerce' ),
+                'id'      => 'field_ordering',
+                'type'    => 'checkbox',
+                'desc'    => __( 'Move postcode field before city field', 'serbian-addons-for-woocommerce' ),
+                'tooltip' => __( 'Default is to have postcode field after city field', 'serbian-addons-for-woocommerce' ),
+                'default' => 'yes',
+            ),
+
+            array(
                 'title'   => __( 'Transliterate currency symbol', 'serbian-addons-for-woocommerce' ),
                 'id'      => 'fix_currency_symbol',
                 'type'    => 'checkbox',

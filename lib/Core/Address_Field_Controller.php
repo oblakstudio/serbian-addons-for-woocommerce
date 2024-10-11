@@ -7,18 +7,25 @@
 
 namespace Oblak\WCSRB\Core;
 
-use Oblak\WP\Abstracts\Hook_Caller;
-use Oblak\WP\Decorators\Filter;
-use Oblak\WP\Decorators\Hookable;
+use Oblak\WCSRB\Services\Config;
 use WC_Order;
+use XWP\DI\Decorators\Filter;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Changes the fields on the checkout page
  *
  * @since 3.8.0
  */
-#[Hookable( 'woocommerce_init', 99 )]
-class Address_Field_Controller extends Hook_Caller {
+#[Handler( tag: 'woocommerce_init', priority: 99, container: 'wcsrb' )]
+class Address_Field_Controller {
+    /**
+     * Constructor
+     *
+     * @param  Config $config Config Service.
+     */
+    public function __construct( private Config $config ) {
+    }
     /**
      * Adds the customer type field to the default address fields.
      *
@@ -27,7 +34,7 @@ class Address_Field_Controller extends Hook_Caller {
      */
     #[Filter( tag: 'woocommerce_default_address_fields', priority: 999999 )]
     public function add_customer_type_field( array $fields ): array {
-        $enabled_type = \WCSRB()->get_settings( 'core', 'enabled_customer_types' );
+        $enabled_type = $this->config->get( 'core', 'enabled_customer_types' );
         $type_field   = array(
             'class'    => array( 'form-row-wide', 'entity-type-control', 'update_totals_on_change', 'address-field' ),
             'default'  => 'person',
@@ -66,7 +73,7 @@ class Address_Field_Controller extends Hook_Caller {
      */
     #[Filter( tag: 'woocommerce_default_address_fields', priority: 'wcsrb_address_fields_priority' )]
     public function add_company_fields( array $fields ): array {
-        if ( \WCSRB()->get_settings( 'core', 'remove_unneeded_fields' ) ) {
+        if ( $this->config->get( 'core', 'remove_unneeded_fields' ) ) {
             unset( $fields['address_2'], $fields['state'] );
         }
 
@@ -130,6 +137,9 @@ class Address_Field_Controller extends Hook_Caller {
     public function add_custom_locale_field_data( array $locale ): array {
         $company_active = \wcsrb_can_checkout_as( 'company' );
         $company_props  = array( 'hidden' => ! $company_active );
+        [ $pfp, $cfp ]  = $this->config->get( 'core', 'field_ordering' )
+            ? array( 81, 82 )
+            : array( 82, 81 );
 
         // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
         $locale['RS'] = array(
@@ -144,10 +154,10 @@ class Address_Field_Controller extends Hook_Caller {
             'mb'       => $company_props,
             'pib'      => $company_props,
             'postcode' => array(
-                'priority' => 81,
+                'priority' => $pfp,
             ),
             'city'     => array(
-                'priority' => 82,
+                'priority' => $cfp,
             ),
             'country'  => array(
                 'priority' => 91,

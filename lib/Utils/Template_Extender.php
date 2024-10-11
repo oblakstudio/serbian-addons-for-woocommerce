@@ -7,8 +7,8 @@
 
 namespace Oblak\WCSRB\Utils;
 
-use Oblak\WP\Decorators\Hookable;
 use XWC\Template\Customizer_Base;
+use XWP\DI\Decorators\Handler;
 
 /**
  * Adds custom templates to WooCommerce.
@@ -16,7 +16,7 @@ use XWC\Template\Customizer_Base;
  * @since 2.3.0
  * @since 3.8.0 Moved from the `Core` namespace.
  */
-#[Hookable( 'before_woocommerce_init', 99 )]
+#[Handler( tag: 'before_woocommerce_init', priority: 99, container: 'wcsrb' )]
 class Template_Extender extends Customizer_Base {
     public function custom_path_tokens( array $tokens ): array {
         $tokens['wcsrb'] = array(

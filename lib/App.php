@@ -7,125 +7,72 @@
 
 namespace Oblak\WCSRB;
 
-use Oblak\WCSRB\Services\Field_Validator;
-use Oblak\WCSRB\Utils\Payments;
-use Oblak\WooCommerce\Serbian_Addons as Legacy;
-use Oblak\WP\Decorators\Action;
-use Oblak\WP\Decorators\Filter;
-use Oblak\WP\Traits\Hook_Processor_Trait;
-use XWC\Traits\Settings_API_Methods;
-use XWP\Helper\Traits\Singleton;
+use chillerlan\QRCode\QRCode;
+use Oblak\WCSRB\Services\Config;
+use XWP\DI\Decorators\Action;
+use XWP\DI\Decorators\Filter;
+use XWP\DI\Decorators\Module;
+use XWP\DI\Interfaces\On_Initialize;
+use XWP_Asset_Retriever;
 
 /**
  * Main plugin class
  */
-class App {
-    use Hook_Processor_Trait;
-    use Settings_API_Methods;
-    use Singleton;
-    use \XWP_Asset_Retriever;
+#[Module(
+    container: 'wcsrb',
+    hook: 'woocommerce_loaded',
+    priority: 0,
+    handlers: array(
+		Admin\Admin_Core::class,
+		Admin\Order_Edit_Page_Controller::class,
+		Core\Address_Admin_Controller::class,
+		Core\Address_Display_Controller::class,
+		Core\Address_Field_Controller::class,
+		Core\Address_Validate_Controller::class,
+		Utils\Installer::class,
+		Utils\Template_Extender::class,
+    ),
+)]
+class App implements On_Initialize {
+    use XWP_Asset_Retriever;
 
     /**
-     * Serbian WooCommerce version.
+     * DI Definitions
      *
-     * @var string
+     * @return array<string,mixed>
      */
-    public string $version = WCRS_VERSION;
-
-    /**
-     * Field validator instance.
-     *
-     * @var Field_Validator
-     */
-    protected Field_Validator $validator;
-
-    /**
-     * Payments utility instance.
-     *
-     * @var Payments
-     */
-    protected Payments $payments;
-
-    /**
-     * Private constructor
-     */
-    protected function __construct() {
-        \defined( 'WCRS_IPS_DIR' ) || \define( 'WCRS_IPS_DIR', \wcsrb_get_ips_basedir() );
-        $this->init( 'woocommerce_loaded', 1 );
-        $this->load_bundle_config( WCRS_PLUGIN_PATH . 'config/assets.php' );
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function get_dependencies(): array {
+    public static function configure(): array {
         return array(
-            Admin\Admin_Core::class,
-            Admin\Order_Edit_Page_Controller::class,
-            Core\Address_Admin_Controller::class,
-            Core\Address_Display_Controller::class,
-            Core\Address_Field_Controller::class,
-            Core\Address_Validate_Controller::class,
-            Utils\Template_Extender::class,
-        );
-    }
-
-    /**
-     * Runs the registered hooks for the plugin.
-     */
-    public function run_hooks() {
-        \xwp_invoke_hooked_methods( $this );
-    }
-
-    /**
-     * Initializes the installer
-     */
-    #[Action( tag: 'plugins_loaded', priority: 1000 )]
-    public function on_plugins_loaded() {
-        Utils\Installer::instance()->init();
-
-        \load_plugin_textdomain(
-            domain: 'serbian-addons-for-woocommerce',
-            plugin_rel_path: \dirname( WCRS_PLUGIN_BASE ) . '/languages',
-        );
-    }
-
-    /**
-     * Loads the plugin settings
-     */
-    #[Action( tag: 'woocommerce_loaded', priority: 99 )]
-    public function load_plugin_settings() {
-        try {
-            $this->load_options( 'wcsrb_settings' );
-        } catch ( \Exception | \Error ) {
-            \wc_get_logger()->critical(
-                'Failed to load plugin settings',
-                array(
-					'source' => 'serbian-addons-for-woocommerce',
-				),
-            );
-            $this->settings = array();
-        }
-
-        $this->settings['core'] = \wp_parse_args(
-            \array_filter( $this->settings['core'] ?? array() ),
-            array(
-                'enabled_customer_types' => 'both',
-                'fix_currency_symbol'    => true,
-                'remove_unneeded_fields' => false,
+            'ips.basedir'          => \DI\factory(
+                static fn() => \defined( 'WCRS_IPS_DIR' )
+                    ? WCRS_IPS_DIR
+                    : \wp_upload_dir()['basedir'] . '/wcrs-ips',
             ),
+            'ips.generator'        => \DI\factory(
+                static fn() => \class_exists( \Imagick::class )
+                    ? QR\QR_Generator_ImageMagick::class
+                    : QR\QR_Generator_GD::class
+            ),
+            QRCode::class          => \DI\factory(
+                static fn( QR\QR_Code_Options $opts ) => new QRCode( $opts )
+            ),
+            Utils\Installer::class => \DI\factory( array( Utils\Installer::class, 'instance' ) ),
         );
+    }
 
-        $this->settings['company'] = array(
-            'accounts'  => \wcsrb_get_bank_accounts(),
-            'address_1' => \get_option( 'woocommerce_store_address', '' ),
-            'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
-            'city'      => \get_option( 'woocommerce_store_city', '' ),
-            'country'   => \wc_get_base_location()['country'],
-            'logo'      => \get_option( 'site_icon', 0 ),
-            'name'      => \get_option( 'woocommerce_store_name', '' ),
-            'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
-        );
+    /**
+     * Constructor
+     *
+     * @param Config $config Config instance.
+     */
+    public function __construct( private Config $config ) {
+    }
+
+    /**
+     * Constructor
+     */
+    public function on_initialize(): void {
+        $this->load_bundle_config( WCRS_PLUGIN_PATH . 'config/assets.php' );
     }
 
     /**
@@ -147,12 +94,22 @@ class App {
     /**
      * Adds our Payment Gateway to list of WooCommerce Gateways
      *
-     * @param  string[] $gateways List of gateways.
-     * @return string[]           Modified list of gateways.
+     * @param  array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway> $gateways List of gateways.
+     * @param  Gateway\Gateway_Payment_Slip                                     $gw       Payment Slip Gateway.
+     * @return array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway>           Modified list of gateways.
      */
-    #[Filter( tag: 'woocommerce_payment_gateways', priority: 50 )]
-    public function add_payment_gateways( $gateways ) {
-        $gateways[] = Legacy\Gateway\Gateway_Payment_Slip::class;
+    #[Filter(
+        tag: 'woocommerce_payment_gateways',
+        priority: 50,
+        invoke: Filter::INV_PROXIED,
+        args: 1,
+        params: array(
+			Gateway\Gateway_Payment_Slip::class,
+        ),
+    )]
+    public function add_payment_gateways( array $gateways, Gateway\Gateway_Payment_Slip $gw ) {
+        $gateways[] = $gw;
+
         return $gateways;
     }
 
@@ -165,7 +122,7 @@ class App {
      */
     #[Filter( tag: 'woocommerce_currency_symbol', priority: 99 )]
     public function change_currency_symbol( string $symbol, string $currency ): string {
-        if ( ! $this->get_settings( 'core', 'fix_currency_symbol' ) ) {
+        if ( ! $this->config->get( 'core', 'fix_currency_symbol' ) ) {
             return $symbol;
         }
 
@@ -191,23 +148,5 @@ class App {
             'main'  => ( \is_checkout() && ! \is_wc_endpoint_url() ) || \is_account_page(),
             default => $load,
         };
-    }
-
-    /**
-     * Gets the field validator instance.
-     *
-     * @return Field_Validator
-     */
-    public function validator(): Field_Validator {
-        return $this->validator ??= new Field_Validator();
-    }
-
-    /**
-     * Gets the payments utility instance.
-     *
-     * @return Payments
-     */
-    public function payments(): Payments {
-        return $this->payments ??= new Payments();
     }
 }
