@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "0e36d60ad64e35b5dab7fa4757fadb2235d58f73"
+                "reference": "a2d4d07c577354d1dcf5166c3db9a0d85aa58055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/0e36d60ad64e35b5dab7fa4757fadb2235d58f73",
-                "reference": "0e36d60ad64e35b5dab7fa4757fadb2235d58f73",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/a2d4d07c577354d1dcf5166c3db9a0d85aa58055",
+                "reference": "a2d4d07c577354d1dcf5166c3db9a0d85aa58055",
                 "shasum": ""
             },
             "require": {
@@ -66,9 +66,9 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.1.0"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.1.1"
             },
-            "time": "2024-09-06T15:32:10+00:00"
+            "time": "2024-10-10T13:43:39+00:00"
         },
         {
             "name": "automattic/jetpack-constants",
@@ -773,16 +773,16 @@
         },
         {
             "name": "x-wp/di",
-            "version": "v1.0.0-beta.2",
+            "version": "v1.0.0-beta.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/di.git",
-                "reference": "02259d709eea3cc3e25c15fcb25083bb390e1902"
+                "reference": "bdba0c7cb4d7e84113583ce6be31b5f381c25e7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/di/zipball/02259d709eea3cc3e25c15fcb25083bb390e1902",
-                "reference": "02259d709eea3cc3e25c15fcb25083bb390e1902",
+                "url": "https://api.github.com/repos/x-wp/di/zipball/bdba0c7cb4d7e84113583ce6be31b5f381c25e7a",
+                "reference": "bdba0c7cb4d7e84113583ce6be31b5f381c25e7a",
                 "shasum": ""
             },
             "require": {
@@ -793,7 +793,7 @@
                 "x-wp/helper-functions": "^1.13"
             },
             "provide": {
-                "x-wp/di-implementation": "self.version"
+                "x-wp/di-implementation": "^1.0"
             },
             "require-dev": {
                 "oblak/wordpress-coding-standard": "^1.1",
@@ -838,13 +838,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/hook-manager/issues",
-                "source": "https://github.com/x-wp/di/tree/v1.0.0-beta.2"
+                "source": "https://github.com/x-wp/di/tree/v1.0.0-beta.6"
             },
-            "time": "2024-10-06T21:03:51+00:00"
+            "time": "2024-10-09T12:09:49+00:00"
         },
         {
             "name": "x-wp/helper-classes",
-            "version": "v1.13.4",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-classes.git",
@@ -894,22 +894,22 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-classes/issues",
-                "source": "https://github.com/x-wp/helper-classes/tree/v1.13.4"
+                "source": "https://github.com/x-wp/helper-classes/tree/v1.14.1"
             },
             "time": "2024-09-23T14:31:15+00:00"
         },
         {
             "name": "x-wp/helper-functions",
-            "version": "v1.13.4",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-functions.git",
-                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49"
+                "reference": "0b3eaf98232063a7cad788b2c38b047079d2ecd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/93f6c928cd08192298e572a49873e3bd6b7aad49",
-                "reference": "93f6c928cd08192298e572a49873e3bd6b7aad49",
+                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/0b3eaf98232063a7cad788b2c38b047079d2ecd3",
+                "reference": "0b3eaf98232063a7cad788b2c38b047079d2ecd3",
                 "shasum": ""
             },
             "require": {
@@ -950,13 +950,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-functions/issues",
-                "source": "https://github.com/x-wp/helper-functions/tree/v1.13.4"
+                "source": "https://github.com/x-wp/helper-functions/tree/v1.14.1"
             },
-            "time": "2024-09-23T14:26:03+00:00"
+            "time": "2024-10-09T14:10:43+00:00"
         },
         {
             "name": "x-wp/helper-traits",
-            "version": "v1.13.4",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-traits.git",
@@ -1002,13 +1002,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-traits/issues",
-                "source": "https://github.com/x-wp/helper-traits/tree/v1.13.4"
+                "source": "https://github.com/x-wp/helper-traits/tree/v1.14.1"
             },
             "time": "2024-09-18T12:43:44+00:00"
         },
         {
             "name": "x-wp/helper-woocommerce",
-            "version": "v1.13.4",
+            "version": "v1.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-woocommerce.git",
@@ -1053,7 +1053,7 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-woocommerce/issues",
-                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.13.4"
+                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.14.1"
             },
             "time": "2024-09-27T15:59:21+00:00"
         },
