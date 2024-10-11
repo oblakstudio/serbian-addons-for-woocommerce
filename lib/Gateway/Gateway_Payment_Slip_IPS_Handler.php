@@ -38,8 +38,6 @@ class Gateway_Payment_Slip_IPS_Handler {
      * @param QR_Code_Manager $qrc The QR code manager.
      */
     public function __construct( private QR_Code_Manager $qrc ) {
-        dump( current_action() );
-        die;
     }
 
     /**
