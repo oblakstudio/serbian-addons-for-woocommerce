@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Serbian Addons for WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-09-27 21:56+0000\n"
+"PO-Revision-Date: 2024-10-11 10:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,22 +24,22 @@ msgid ""
 msgstr " Безбедност гарантују стандарди и прописи Народне Банке Србије"
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:52
+#: lib/Functions/wcsrb-settings.php:54
 msgid "%d - Final expenses"
 msgstr "%d - Финална потрошња"
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:50
+#: lib/Functions/wcsrb-settings.php:52
 msgid "%d - Interim expenses"
 msgstr "%d - Међуфазна потрошња"
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:61
+#: lib/Functions/wcsrb-settings.php:63
 msgid "%d - Other transactions"
 msgstr "%d - Остале трансакције"
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:57
+#: lib/Functions/wcsrb-settings.php:59
 msgid "%d - Transactions on behalf of a person"
 msgstr "%d - Трансакције по налогу грађана"
 
@@ -56,12 +56,12 @@ msgstr "Рачун примаоца"
 msgid "Addiko"
 msgstr "Адико"
 
-#: lib/Core/Address_Display_Controller.php:116
+#: lib/Core/Address_Display_Controller.php:128
 msgctxt "Address display"
 msgid "Company Number"
 msgstr "МБ"
 
-#: lib/Core/Address_Display_Controller.php:121
+#: lib/Core/Address_Display_Controller.php:133
 msgctxt "Address display"
 msgid "Tax Identification Number"
 msgstr "ПИБ"
@@ -86,7 +86,7 @@ msgstr "Износ"
 msgid "API"
 msgstr "АПИ"
 
-#: lib/Functions/wcsrb-payment-slip.php:94 lib/Functions/wcsrb-settings.php:44
+#: lib/Functions/wcsrb-payment-slip.php:107 lib/Functions/wcsrb-settings.php:46
 msgid "Automatic"
 msgstr "Аутоматски"
 
@@ -102,11 +102,11 @@ msgstr "Жиро рачун"
 msgid "Bank account number"
 msgstr "Број рачуна"
 
-#: config/settings.php:63
+#: config/settings.php:72
 msgid "Bank accounts"
 msgstr "Жиро рачуни"
 
-#: config/settings.php:65
+#: config/settings.php:74
 msgid "Bank accounts of your business."
 msgstr "Жиро рачуни ваше фирме."
 
@@ -118,7 +118,7 @@ msgstr "Кинеска банка"
 msgid "Business name"
 msgstr "Име фирме"
 
-#: config/settings.php:47
+#: config/settings.php:56
 msgid ""
 "By default, currency is displayed in cyrillic. This will transliterate it"
 msgstr ""
@@ -154,12 +154,12 @@ msgstr "Боја тачака QR кôда"
 msgid "Companies and persons"
 msgstr "Физичка и правна лица"
 
-#: lib/Functions/wcsrb-helpers.php:17 lib/Functions/wcsrb-settings.php:48
-#: lib/Functions/wcsrb-settings.php:67 lib/Functions/wcsrb-settings.php:71
+#: lib/Functions/wcsrb-helpers.php:17 lib/Functions/wcsrb-settings.php:50
+#: lib/Functions/wcsrb-settings.php:69 lib/Functions/wcsrb-settings.php:73
 msgid "Company"
 msgstr "Правно лице"
 
-#: config/settings.php:58
+#: config/settings.php:67
 msgid "Company information"
 msgstr "Подаци о фирми"
 
@@ -167,13 +167,13 @@ msgstr "Подаци о фирми"
 msgid "Company name is required"
 msgstr "Морате унети име фирме"
 
-#: lib/Core/Address_Admin_Controller.php:70
-#: lib/Core/Address_Admin_Controller.php:140
-#: lib/Functions/wcsrb-address-field-fns.php:19
+#: lib/Core/Address_Admin_Controller.php:78
+#: lib/Core/Address_Admin_Controller.php:147
+#: lib/Functions/wcsrb-address-field-fns.php:21
 msgid "Company Number"
 msgstr "Матични број"
 
-#: lib/Core/Address_Admin_Controller.php:27
+#: lib/Core/Address_Admin_Controller.php:35
 msgid "Company Number is invalid"
 msgstr "Матични број компаније није исправан"
 
@@ -181,7 +181,7 @@ msgstr "Матични број компаније није исправан"
 msgid "Company number is invalid"
 msgstr "Матични број фирме није валидан"
 
-#: lib/Core/Address_Admin_Controller.php:26
+#: lib/Core/Address_Admin_Controller.php:34
 #: lib/Services/Field_Validator.php:168
 msgid "Company Tax Number is invalid"
 msgstr "ПИБ није валидан"
@@ -190,11 +190,11 @@ msgstr "ПИБ није валидан"
 msgid "Confirm with your PIN or fingerprint"
 msgstr "Потврдите плаћање ПИН кодом или отиском прста"
 
-#: lib/Admin/Order_Edit_Page_Controller.php:128
+#: lib/Admin/Order_Edit_Page_Controller.php:150
 msgid "Copied!"
 msgstr "Копирано!"
 
-#: lib/Admin/Order_Edit_Page_Controller.php:127
+#: lib/Admin/Order_Edit_Page_Controller.php:149
 msgid "Copy IPS QR string"
 msgstr "Копирај ИПС QR запис"
 
@@ -215,15 +215,19 @@ msgstr "Тренутна слика: %s"
 msgid "Customer e-mails"
 msgstr "Е-пошта послата купцу"
 
-#: lib/Functions/wcsrb-payment-slip.php:118
+#: lib/Functions/wcsrb-payment-slip.php:131
 msgid "Customer ID"
 msgstr "Идентификатор купца"
 
-#: lib/Core/Address_Admin_Controller.php:63
-#: lib/Core/Address_Admin_Controller.php:132
-#: lib/Core/Address_Field_Controller.php:34
+#: lib/Core/Address_Admin_Controller.php:71
+#: lib/Core/Address_Admin_Controller.php:139
+#: lib/Core/Address_Field_Controller.php:41
 msgid "Customer type"
 msgstr "Купујем као"
+
+#: config/settings.php:47
+msgid "Default is to have postcode field after city field"
+msgstr "Подразумеван начин приказује поље за поштански број након града"
 
 #: config/pg-slip-settings.php:98
 msgid "Defines the style of the payment slip"
@@ -245,7 +249,7 @@ msgstr "Активирај плаћање општом уплатницом"
 msgid "Enabled customer types"
 msgstr "Дозвољени типови купаца"
 
-#: config/settings.php:67
+#: config/settings.php:76
 msgid "Enter bank account"
 msgstr "Унесите жиро рачун"
 
@@ -261,9 +265,13 @@ msgstr "Еуробанк Директна"
 msgid "Expobank"
 msgstr "Експобанк"
 
-#: lib/Core/Address_Admin_Controller.php:25
+#: lib/Core/Address_Admin_Controller.php:33
 msgid "Field is required"
 msgstr "Поље не сме бити празно"
+
+#: config/settings.php:43
+msgid "Field ordering"
+msgstr "Редослед поља"
 
 #: config/settings.php:35
 msgid "Field removal"
@@ -281,7 +289,7 @@ msgstr "Општа подешавања српских додатака за Woo
 msgid "Halkbank"
 msgstr "Халкбанк"
 
-#: lib/Gateway/Gateway_Payment_Slip.php:50
+#: lib/Gateway/Gateway_Payment_Slip.php:69
 msgid "Have your customers pay you by sending you money via wire transfer."
 msgstr ""
 "Плаћање општом уплатницом у поштама и банкама србије са опцијом генерисања "
@@ -318,8 +326,8 @@ msgstr "Инстант плаћање"
 msgid "Invalid bank account number: %s"
 msgstr "Неисправан број рачуна: %s"
 
-#: lib/Admin/Order_Edit_Page_Controller.php:77
-#: lib/Gateway/Gateway_Payment_Slip_IPS_Handler.php:192
+#: lib/Admin/Order_Edit_Page_Controller.php:99
+#: lib/Services/QR_Code_Manager.php:100
 msgid "IPS QR Code"
 msgstr "ИПС QR кôд"
 
@@ -351,13 +359,17 @@ msgstr "Моби"
 msgid "Model"
 msgstr "Модел"
 
-#: lib/Functions/wcsrb-payment-slip.php:95
+#: lib/Functions/wcsrb-payment-slip.php:108
 msgid "Model 97"
 msgstr "Модел 97"
 
 #: config/pg-slip-settings.php:95
 msgid "Modern"
 msgstr "Модеран"
+
+#: config/settings.php:46
+msgid "Move postcode field before city field"
+msgstr "Премести поље за поштански број пре поља за град"
 
 #: lib/Functions/wcsrb-helpers.php:61
 msgid "MTS"
@@ -375,7 +387,7 @@ msgstr "НЛБ"
 msgid "NLB Commercial"
 msgstr "НЛБ Комерцијална"
 
-#: lib/Admin/Order_Edit_Page_Controller.php:99
+#: lib/Admin/Order_Edit_Page_Controller.php:121
 msgid "No IPS QR code available for this order."
 msgstr "ИПС QR кôд није доступан за ову наруџбину"
 
@@ -388,15 +400,15 @@ msgstr "Облак Студио"
 msgid "Opportunity"
 msgstr "Опортунити"
 
-#: lib/Functions/wcsrb-payment-slip.php:121
+#: lib/Functions/wcsrb-payment-slip.php:134
 msgid "Order date"
 msgstr "Датум наруџбине"
 
-#: lib/Functions/wcsrb-payment-slip.php:122
+#: lib/Functions/wcsrb-payment-slip.php:135
 msgid "Order ID"
 msgstr "Идентификатор наруџбине"
 
-#: lib/Functions/wcsrb-payment-slip.php:123
+#: lib/Functions/wcsrb-payment-slip.php:136
 msgid "Order number"
 msgstr "Број наруџбине"
 
@@ -444,12 +456,12 @@ msgstr "Сврха уплате"
 msgid "Payment reference"
 msgstr "Позив на број"
 
-#: config/pg-slip-settings.php:71 lib/Gateway/Gateway_Payment_Slip.php:49
+#: config/pg-slip-settings.php:71 lib/Gateway/Gateway_Payment_Slip.php:68
 msgid "Payment Slip"
 msgstr "Општа уплатница"
 
-#: lib/Functions/wcsrb-helpers.php:16 lib/Functions/wcsrb-settings.php:54
-#: lib/Functions/wcsrb-settings.php:68 lib/Functions/wcsrb-settings.php:74
+#: lib/Functions/wcsrb-helpers.php:16 lib/Functions/wcsrb-settings.php:56
+#: lib/Functions/wcsrb-settings.php:70 lib/Functions/wcsrb-settings.php:76
 msgid "Person"
 msgstr "Физичко лице"
 
@@ -473,7 +485,7 @@ msgstr "Рајфајзен"
 msgid "Reciever"
 msgstr "Прималац"
 
-#: lib/Admin/Order_Edit_Page_Controller.php:61
+#: lib/Admin/Order_Edit_Page_Controller.php:80
 msgid "Regenerate IPS QR code"
 msgstr "Поново изради ИПС QR кôд"
 
@@ -493,7 +505,7 @@ msgstr "Сбербанк"
 msgid "Scan the QR code"
 msgstr "Скенирајте QR кôд"
 
-#: lib/Functions/wcsrb-settings.php:20
+#: lib/Functions/wcsrb-settings.php:22
 msgid "Select bank account"
 msgstr "Одаберите жиро рачун"
 
@@ -518,19 +530,19 @@ msgid "Serbian Addons"
 msgstr "Српски додаци"
 
 #. Plugin Name of the plugin
-#: serbian-addons-for-woocommerce.php lib/Utils/Installer.php:28
+#: serbian-addons-for-woocommerce.php lib/Utils/Installer.php:32
 msgid "Serbian Addons for WooCommerce"
 msgstr "Српски додаци за WooCommerce"
 
-#: lib/Gateway/Gateway_Payment_Slip.php:120
+#: lib/Gateway/Gateway_Payment_Slip.php:138
 msgid "Serbian Payment Slip does not support your store currency."
 msgstr "Плаћање општом уплатницом није подржано за вашу валуту."
 
-#: lib/Gateway/Gateway_Payment_Slip.php:124
+#: lib/Gateway/Gateway_Payment_Slip.php:142
 msgid "Serbian Payment Slip requires at least one bank account."
 msgstr "Плаћање општом уплатницом захтева бар један унет жиро рачун"
 
-#: lib/Utils/Installer.php:45 lib/Utils/Installer.php:46
+#: lib/Utils/Installer.php:63 lib/Utils/Installer.php:64
 msgid "Settings"
 msgstr "Подешавања"
 
@@ -563,9 +575,9 @@ msgstr "Подешавања продавнице су премештена %s"
 msgid "Style"
 msgstr "Изглед"
 
-#: lib/Core/Address_Admin_Controller.php:75
-#: lib/Core/Address_Admin_Controller.php:145
-#: lib/Functions/wcsrb-address-field-fns.php:26
+#: lib/Core/Address_Admin_Controller.php:83
+#: lib/Core/Address_Admin_Controller.php:152
+#: lib/Functions/wcsrb-address-field-fns.php:28
 msgid "Tax Number"
 msgstr "ПИБ"
 
@@ -577,11 +589,11 @@ msgstr ""
 "НБС ИПС QR кôд је иновативни начин за инстант плаћање коришћењем мобилних "
 "уређаја"
 
-#: config/settings.php:43
+#: config/settings.php:52
 msgid "Transliterate currency symbol"
 msgstr "Преслови валуту"
 
-#: config/settings.php:46
+#: config/settings.php:55
 msgid "Transliterate currency symbol to latin script"
 msgstr "Пресловљава валуту у латиницу"
 
