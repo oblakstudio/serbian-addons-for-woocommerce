@@ -1,4 +1,4 @@
-<?php //phpcs:disable Squiz.Commenting.FunctionComment
+<?php //phpcs:disable Squiz.Commenting.FunctionComment, WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 /**
  * QR_Generator_ImageMagick class file.
  *
@@ -29,7 +29,7 @@ class QR_Generator_ImageMagick extends QRImagick {
         }
 
         $size = ( $this->options->logoSpaceWidth - 2 ) * $this->options->scale;
-        $pos  = ( $this->moduleCount * $this->options->scale - $size ) / 2; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+        $pos  = \floor( ( $this->moduleCount * $this->options->scale - $size ) / 2 );
 
         $logo = new Imagick( $this->options->logo );
 		$logo->resizeImage( $size, $size, Imagick::FILTER_LANCZOS, 0.85, true );

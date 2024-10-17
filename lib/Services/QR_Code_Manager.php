@@ -61,6 +61,10 @@ class QR_Code_Manager {
      * @return string
      */
     public function read( WC_Order $order, string $format = 'base64' ): string {
+        if ( ! $this->has_qrcode( $order ) ) {
+            return '';
+        }
+
         $data = \xwp_wpfs()->get_contents( $this->get_filename( $order ) );
 
         if ( ! $data ) {

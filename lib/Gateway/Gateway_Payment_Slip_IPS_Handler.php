@@ -22,7 +22,6 @@ use WC_Order;
     priority: 101,
     strategy: Handler::INIT_JUST_IN_TIME,
     container: 'wcsrb',
-    context: Handler::CTX_CLI
 )]
 class Gateway_Payment_Slip_IPS_Handler {
     /**

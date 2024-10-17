@@ -23,6 +23,7 @@ defined( 'ABSPATH' ) || exit;
 ?>
 
 <section class="woocommerce-order-ips-qr-code">
+<?php if ( '' !== $src ) : ?>
     <h2><?php esc_html_e( 'Instant payment', 'serbian-addons-for-woocommerce' ); ?></h2>
     <table class="qr-code">
         <tbody>
@@ -60,4 +61,5 @@ defined( 'ABSPATH' ) || exit;
             </tr>
         </tbody>
     </table>
+<?php endif; ?>
 </section>

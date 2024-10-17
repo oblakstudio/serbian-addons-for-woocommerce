@@ -111,6 +111,11 @@ class Gateway_Payment_Slip extends Gateway_Base {
      * {@inheritDoc}
      */
     public function get_post_data() {
+        /**
+         * Var overload.
+         *
+         * @var array $data
+         */
         $data = \xwp_post_arr();
 
         $data[ $this->get_option_key() . '_display' ]      ??= array();
