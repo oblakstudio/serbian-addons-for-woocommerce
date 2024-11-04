@@ -65,3 +65,22 @@ function wcsrb_get_serbian_banks() {
 		'385' => __( 'Bank of China', 'serbian-addons-for-woocommerce' ),
     );
 }
+
+/**
+ * Format a bank account number
+ *
+ * @param  string $acct   The account number.
+ * @param  string $format The format to use. Short or long.
+ * @param  string $sep    The separator to use.
+ * @return string
+ */
+function wcsrb_format_bank_acct( string $acct, string $format = 'short', string $sep = '-' ): string {
+    $acct   = str_replace( '-', '', $acct );
+    $middle = ltrim( substr( $acct, 3, -2 ), '0' );
+
+    if ( 'short' !== $format ) {
+        $middle = str_pad( $middle, 13, '0', STR_PAD_LEFT );
+    }
+
+    return sprintf( '%1$s%4$s%2$s%4$s%3$s', substr( $acct, 0, 3 ), $middle, substr( $acct, -2 ), $sep );
+}

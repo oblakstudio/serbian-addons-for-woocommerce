@@ -50,10 +50,12 @@ class Address_Field_Controller {
             $type_field = \array_merge(
                 $type_field,
                 array(
-                    'default'     => $enabled_type,
-                    'description' => \wcsrb_get_entity_types()[ $enabled_type ],
-                    'type'        => 'hidden',
-                    'value'       => $enabled_type,
+                    'custom_attributes' => array(
+                        'data-default' => $enabled_type,
+                    ),
+                    'default'           => $enabled_type,
+                    'description'       => \wcsrb_get_entity_types()[ $enabled_type ],
+                    'type'              => 'hidden',
                 ),
             );
 

@@ -51,7 +51,6 @@ defined( 'ABSPATH' ) || exit;
                                 </td>
                             </tr>
                             <tr>
-
                                 <td class="block-content large">
                                     <?php echo wp_kses_post( $customer ); ?>
                                 </td>
