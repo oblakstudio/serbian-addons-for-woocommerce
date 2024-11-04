@@ -8,6 +8,12 @@ export default class AddressPageController {
       reqText: window.wc_address_i18n_params.i18n_required_text,
       optText: window.wc_address_i18n_params.i18n_optional_text,
     };
+
+    const $ctrl = $('.entity-type-control input');
+
+    if ($ctrl.data('default')) {
+      $ctrl.val($ctrl.data('default'));
+    }
   }
 
   public finalize(): void {
@@ -16,7 +22,11 @@ export default class AddressPageController {
     });
 
     $(document.body).on('country_to_state_changing', () => {
-      window.setTimeout(() => this.toggleFields($('.entity-type-control input:checked')), 100);
+      const selector = $('.entity-type-control input:checked').length
+        ? '.entity-type-control input:checked'
+        : '.entity-type-control input';
+
+      window.setTimeout(() => this.toggleFields($(selector)), 100);
     });
   }
 
