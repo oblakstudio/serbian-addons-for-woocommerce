@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f15f7664b060de4a95ba0e02111b557f",
+    "content-hash": "70816f8d2f2f8cd20b8d4badcf146258",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
-            "version": "v3.1.2",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-autoloader.git",
-                "reference": "c111020cac7c6a830af6f6827c175e3c76a60f75"
+                "reference": "e7e49a4e2f16cb2dfd3e58c478499a60d7d51839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/c111020cac7c6a830af6f6827c175e3c76a60f75",
-                "reference": "c111020cac7c6a830af6f6827c175e3c76a60f75",
+                "url": "https://api.github.com/repos/Automattic/jetpack-autoloader/zipball/e7e49a4e2f16cb2dfd3e58c478499a60d7d51839",
+                "reference": "e7e49a4e2f16cb2dfd3e58c478499a60d7d51839",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.6",
+                "automattic/jetpack-changelogger": "^4.2.8",
                 "composer/composer": "^1.1 || ^2.0",
                 "yoast/phpunit-polyfills": "^1.1.1"
             },
@@ -66,29 +66,29 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.1.2"
+                "source": "https://github.com/Automattic/jetpack-autoloader/tree/v3.1.3"
             },
-            "time": "2024-10-15T22:10:35+00:00"
+            "time": "2024-11-04T09:23:56+00:00"
         },
         {
             "name": "automattic/jetpack-constants",
-            "version": "v2.0.4",
+            "version": "v2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Automattic/jetpack-constants.git",
-                "reference": "f6958c313a34c5e92171c45a57d9dc978e5975ed"
+                "reference": "0c2644d642b06ae2a31c561f5bfc6f74a4abc8f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/f6958c313a34c5e92171c45a57d9dc978e5975ed",
-                "reference": "f6958c313a34c5e92171c45a57d9dc978e5975ed",
+                "url": "https://api.github.com/repos/Automattic/jetpack-constants/zipball/0c2644d642b06ae2a31c561f5bfc6f74a4abc8f1",
+                "reference": "0c2644d642b06ae2a31c561f5bfc6f74a4abc8f1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0"
             },
             "require-dev": {
-                "automattic/jetpack-changelogger": "^4.2.6",
+                "automattic/jetpack-changelogger": "^4.2.8",
                 "brain/monkey": "2.6.1",
                 "yoast/phpunit-polyfills": "^1.1.1"
             },
@@ -117,9 +117,9 @@
             ],
             "description": "A wrapper for defining constants in a more testable way.",
             "support": {
-                "source": "https://github.com/Automattic/jetpack-constants/tree/v2.0.4"
+                "source": "https://github.com/Automattic/jetpack-constants/tree/v2.0.5"
             },
-            "time": "2024-08-23T14:28:14+00:00"
+            "time": "2024-11-04T09:23:35+00:00"
         },
         {
             "name": "chillerlan/php-qrcode",
@@ -344,46 +344,6 @@
             "time": "2024-09-23T13:33:08+00:00"
         },
         {
-            "name": "oblak/admin-notice-manager",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oblakstudio/admin-notice-manager.git",
-                "reference": "53a32b62d9799fd486adf0bb09aeb5d80a7a214d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/admin-notice-manager/zipball/53a32b62d9799fd486adf0bb09aeb5d80a7a214d",
-                "reference": "53a32b62d9799fd486adf0bb09aeb5d80a7a214d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.3"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "squizlabs/php_codesniffer": "3.*",
-                "wp-coding-standards/wpcs": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Oblak\\WP\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "description": "Admin Notice manager for WordPress Admin",
-            "support": {
-                "issues": "https://github.com/oblakstudio/admin-notice-manager/issues",
-                "source": "https://github.com/oblakstudio/admin-notice-manager/tree/v2.0.0"
-            },
-            "time": "2022-10-23T15:30:02+00:00"
-        },
-        {
             "name": "oblak/serbian-validators",
             "version": "1.1.1",
             "source": {
@@ -432,27 +392,28 @@
         },
         {
             "name": "oblak/wp-plugin-installer",
-            "version": "v2.1.3",
+            "version": "v2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
-                "reference": "9a8726f5e659dd81e84ff8408b267829f8fa695a"
+                "reference": "e34702944c37cf834fb4ee303039cb66b00b979b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/9a8726f5e659dd81e84ff8408b267829f8fa695a",
-                "reference": "9a8726f5e659dd81e84ff8408b267829f8fa695a",
+                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/e34702944c37cf834fb4ee303039cb66b00b979b",
+                "reference": "e34702944c37cf834fb4ee303039cb66b00b979b",
                 "shasum": ""
             },
             "require": {
                 "automattic/jetpack-constants": "^2",
-                "oblak/admin-notice-manager": "^2",
                 "php": ">= 8.0",
-                "woocommerce/action-scheduler": "^3.7"
+                "woocommerce/action-scheduler": "^3.7",
+                "x-wp/admin-notice-manager": "^1.0"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.42",
-                "oblak/wordpress-coding-standard": "^1"
+                "oblak/wordpress-coding-standard": "^1",
+                "wp-cli/wp-cli": "^2.11"
             },
             "suggest": {
                 "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
@@ -479,9 +440,9 @@
             "description": "Simplifies the installation and activation of WordPress plugins",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-plugin-installer/issues",
-                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.3"
+                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.4"
             },
-            "time": "2024-02-09T21:39:23+00:00"
+            "time": "2024-11-01T12:02:40+00:00"
         },
         {
             "name": "php-di/invoker",
@@ -665,6 +626,82 @@
             "time": "2021-11-05T16:47:00+00:00"
         },
         {
+            "name": "symfony/polyfill-php81",
+            "version": "v1.31.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php81.git",
+                "reference": "4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php81/zipball/4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c",
+                "reference": "4a4cfc2d253c21a5ad0e53071df248ed48c6ce5c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php81\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.1+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.31.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-09-09T11:45:10+00:00"
+        },
+        {
             "name": "woocommerce/action-scheduler",
             "version": "3.8.2",
             "source": {
@@ -708,23 +745,94 @@
             "time": "2024-09-12T23:12:58+00:00"
         },
         {
-            "name": "x-wp/asset-loader",
-            "version": "v1.0.0",
+            "name": "x-wp/admin-notice-manager",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/x-wp/asset-loader.git",
-                "reference": "8198e2337bee579fc96a6f09e2c74fd745c98b6f"
+                "url": "https://github.com/x-wp/admin-notice-manager.git",
+                "reference": "61bfbf90f90117d24af5130bbc80911b1c10f3cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/asset-loader/zipball/8198e2337bee579fc96a6f09e2c74fd745c98b6f",
-                "reference": "8198e2337bee579fc96a6f09e2c74fd745c98b6f",
+                "url": "https://api.github.com/repos/x-wp/admin-notice-manager/zipball/61bfbf90f90117d24af5130bbc80911b1c10f3cc",
+                "reference": "61bfbf90f90117d24af5130bbc80911b1c10f3cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0",
+                "x-wp/helper-functions": "^1.16",
+                "x-wp/helper-traits": "^1.16"
+            },
+            "replace": {
+                "oblak/admin-notice-manager": "*"
+            },
+            "require-dev": {
+                "oblak/wordpress-coding-standard": "^1",
+                "php-stubs/wordpress-stubs": "^6.5",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-deprecation-rules": "^1.1",
+                "swissspidy/phpstan-no-private": "^0.2.0",
+                "szepeviktor/phpstan-wordpress": "^1.3"
+            },
+            "suggest": {
+                "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Functions/xwp-anm-fns.php",
+                    "src/Functions/xwp-anm-init.php"
+                ],
+                "psr-4": {
+                    "XWP\\ANM\\": "src/"
+                },
+                "classmap": [
+                    "src/Core/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Sibin Grasic",
+                    "email": "i.am@sib.ing"
+                }
+            ],
+            "description": "Simplifies the process of working with admin notices in WordPress.",
+            "homepage": "https://extended.wp.rs/docs/packages/admin-notice-manager",
+            "keywords": [
+                "admin",
+                "admin notices",
+                "notices",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/x-wp/admin-notice-manager/issues",
+                "source": "https://github.com/x-wp/admin-notice-manager/tree/v1.0.1"
+            },
+            "time": "2024-11-01T13:09:35+00:00"
+        },
+        {
+            "name": "x-wp/asset-loader",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/asset-loader.git",
+                "reference": "f4a445e27fc913c20ab42ac7467b83514b750794"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/asset-loader/zipball/f4a445e27fc913c20ab42ac7467b83514b750794",
+                "reference": "f4a445e27fc913c20ab42ac7467b83514b750794",
                 "shasum": ""
             },
             "require": {
                 "automattic/jetpack-constants": "^2.0",
                 "php": ">=8.0",
-                "x-wp/helper-functions": "^1.9",
+                "x-wp/helper-functions": "^1.18",
                 "x-wp/helper-traits": "^1.9"
             },
             "provide": {
@@ -767,33 +875,41 @@
             "description": "Simple Asset Loader for WordPress",
             "support": {
                 "issues": "https://github.com/x-wp/asset-loader/issues",
-                "source": "https://github.com/x-wp/asset-loader/tree/v1.0.0"
+                "source": "https://github.com/x-wp/asset-loader/tree/v1.1.1"
             },
-            "time": "2024-09-17T12:29:39+00:00"
+            "time": "2024-11-04T19:51:33+00:00"
         },
         {
             "name": "x-wp/di",
-            "version": "v1.0.0-beta.8",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/di.git",
-                "reference": "5c6928fcc9181e3221c87a46f01234f59971a67a"
+                "reference": "3cea33921ef8cf1cab14a1da88ffe43d168bcce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/di/zipball/5c6928fcc9181e3221c87a46f01234f59971a67a",
-                "reference": "5c6928fcc9181e3221c87a46f01234f59971a67a",
+                "url": "https://api.github.com/repos/x-wp/di/zipball/3cea33921ef8cf1cab14a1da88ffe43d168bcce1",
+                "reference": "3cea33921ef8cf1cab14a1da88ffe43d168bcce1",
                 "shasum": ""
             },
             "require": {
                 "automattic/jetpack-constants": "^2",
                 "php": ">=8.0",
                 "php-di/php-di": "^7",
+                "symfony/polyfill-php81": "^1.31",
                 "x-wp/helper-classes": "^1.13",
                 "x-wp/helper-functions": "^1.13"
             },
+            "conflict": {
+                "oblak/wp-hook-di": "*"
+            },
             "provide": {
+                "psr/container-implementation": "^1.0",
                 "x-wp/di-implementation": "^1.0"
+            },
+            "replace": {
+                "x-wp/hook-invoker": "*"
             },
             "require-dev": {
                 "oblak/wordpress-coding-standard": "^1.1",
@@ -838,13 +954,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/hook-manager/issues",
-                "source": "https://github.com/x-wp/di/tree/v1.0.0-beta.8"
+                "source": "https://github.com/x-wp/di/tree/v1.0.0"
             },
-            "time": "2024-10-14T06:17:14+00:00"
+            "time": "2024-11-03T17:43:29+00:00"
         },
         {
             "name": "x-wp/helper-classes",
-            "version": "v1.15.1",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-classes.git",
@@ -894,22 +1010,22 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-classes/issues",
-                "source": "https://github.com/x-wp/helper-classes/tree/v1.15.1"
+                "source": "https://github.com/x-wp/helper-classes/tree/v1.18.1"
             },
             "time": "2024-09-23T14:31:15+00:00"
         },
         {
             "name": "x-wp/helper-functions",
-            "version": "v1.15.1",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-functions.git",
-                "reference": "4a22f9db18cfe7a93a3cddaff5b7f83a9e3abef1"
+                "reference": "edd258d0b2ad90a78893ffcabf6626cebf56a281"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/4a22f9db18cfe7a93a3cddaff5b7f83a9e3abef1",
-                "reference": "4a22f9db18cfe7a93a3cddaff5b7f83a9e3abef1",
+                "url": "https://api.github.com/repos/x-wp/helper-functions/zipball/edd258d0b2ad90a78893ffcabf6626cebf56a281",
+                "reference": "edd258d0b2ad90a78893ffcabf6626cebf56a281",
                 "shasum": ""
             },
             "require": {
@@ -921,9 +1037,10 @@
             "type": "library",
             "autoload": {
                 "files": [
-                    "xwp-helper-fns.php",
+                    "xwp-helper-fns-arr.php",
                     "xwp-helper-fns-num.php",
-                    "xwp-helper-fns-req.php"
+                    "xwp-helper-fns-req.php",
+                    "xwp-helper-fns.php"
                 ],
                 "psr-4": {
                     "XWP\\Helper\\Functions\\": "."
@@ -951,13 +1068,13 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-functions/issues",
-                "source": "https://github.com/x-wp/helper-functions/tree/v1.15.1"
+                "source": "https://github.com/x-wp/helper-functions/tree/v1.18.1"
             },
-            "time": "2024-10-11T21:23:12+00:00"
+            "time": "2024-11-04T00:58:34+00:00"
         },
         {
             "name": "x-wp/helper-traits",
-            "version": "v1.15.1",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-traits.git",
@@ -1003,22 +1120,22 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-traits/issues",
-                "source": "https://github.com/x-wp/helper-traits/tree/v1.15.1"
+                "source": "https://github.com/x-wp/helper-traits/tree/v1.18.1"
             },
             "time": "2024-09-18T12:43:44+00:00"
         },
         {
             "name": "x-wp/helper-woocommerce",
-            "version": "v1.15.1",
+            "version": "v1.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/helper-woocommerce.git",
-                "reference": "b8c373d14fba2757f094ed56ae8649acef85f7ae"
+                "reference": "8429f9ed7612fe2e09862548aba8d09b1324177f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/b8c373d14fba2757f094ed56ae8649acef85f7ae",
-                "reference": "b8c373d14fba2757f094ed56ae8649acef85f7ae",
+                "url": "https://api.github.com/repos/x-wp/helper-woocommerce/zipball/8429f9ed7612fe2e09862548aba8d09b1324177f",
+                "reference": "8429f9ed7612fe2e09862548aba8d09b1324177f",
                 "shasum": ""
             },
             "require": {
@@ -1054,22 +1171,22 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/helper-woocommerce/issues",
-                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.15.1"
+                "source": "https://github.com/x-wp/helper-woocommerce/tree/v1.18.1"
             },
-            "time": "2024-10-11T21:23:12+00:00"
+            "time": "2024-10-17T20:47:30+00:00"
         },
         {
             "name": "x-wp/wc-template-customizer",
-            "version": "v1.0.0",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/wc-template-customizer.git",
-                "reference": "cb4ce03bfd900908b4dd06a3bd47b960e2bc4706"
+                "reference": "b38df4993b8fbefe0af0f27f44be4bb853418465"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/wc-template-customizer/zipball/cb4ce03bfd900908b4dd06a3bd47b960e2bc4706",
-                "reference": "cb4ce03bfd900908b4dd06a3bd47b960e2bc4706",
+                "url": "https://api.github.com/repos/x-wp/wc-template-customizer/zipball/b38df4993b8fbefe0af0f27f44be4bb853418465",
+                "reference": "b38df4993b8fbefe0af0f27f44be4bb853418465",
                 "shasum": ""
             },
             "require": {
@@ -1107,9 +1224,9 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/wc-template-customizer/issues",
-                "source": "https://github.com/x-wp/wc-template-customizer/tree/v1.0.0"
+                "source": "https://github.com/x-wp/wc-template-customizer/tree/v1.0.2"
             },
-            "time": "2024-07-02T19:27:36+00:00"
+            "time": "2024-10-20T17:39:43+00:00"
         }
     ],
     "packages-dev": [
@@ -1830,16 +1947,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.6",
+            "version": "1.12.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae"
+                "reference": "dc2b9976bd8b0f84ec9b0e50cc35378551de7af0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc4d2f145a88ea7141ae698effd64d9df46527ae",
-                "reference": "dc4d2f145a88ea7141ae698effd64d9df46527ae",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc2b9976bd8b0f84ec9b0e50cc35378551de7af0",
+                "reference": "dc2b9976bd8b0f84ec9b0e50cc35378551de7af0",
                 "shasum": ""
             },
             "require": {
@@ -1884,7 +2001,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-06T15:03:59+00:00"
+            "time": "2024-10-18T11:12:07+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -2417,16 +2534,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.4.43",
+            "version": "v5.4.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "6be6a6a8af4818564e3726fc65cf936f34743cef"
+                "reference": "c4a5a08fe8d836a1aeec59eeee9697457fd28723"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6be6a6a8af4818564e3726fc65cf936f34743cef",
-                "reference": "6be6a6a8af4818564e3726fc65cf936f34743cef",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c4a5a08fe8d836a1aeec59eeee9697457fd28723",
+                "reference": "c4a5a08fe8d836a1aeec59eeee9697457fd28723",
                 "shasum": ""
             },
             "require": {
@@ -2486,7 +2603,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.4.43"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.4.45"
             },
             "funding": [
                 {
@@ -2502,7 +2619,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-08-30T16:01:46+00:00"
+            "time": "2024-09-25T14:11:13+00:00"
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
@@ -2635,16 +2752,16 @@
         },
         {
             "name": "x-wp/whoops",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/whoops.git",
-                "reference": "2b6ebf0f25058043a1dc5246ce8a969faff4a3d6"
+                "reference": "5cb8fbe4def67fd2f1a8f956a3b5288072639c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/whoops/zipball/2b6ebf0f25058043a1dc5246ce8a969faff4a3d6",
-                "reference": "2b6ebf0f25058043a1dc5246ce8a969faff4a3d6",
+                "url": "https://api.github.com/repos/x-wp/whoops/zipball/5cb8fbe4def67fd2f1a8f956a3b5288072639c24",
+                "reference": "5cb8fbe4def67fd2f1a8f956a3b5288072639c24",
                 "shasum": ""
             },
             "require": {
@@ -2672,9 +2789,15 @@
             },
             "type": "library",
             "autoload": {
+                "files": [
+                    "src/Functions/xwp-whoops-init.php"
+                ],
                 "psr-4": {
-                    "XWP\\Error\\": "src/"
-                }
+                    "XWP\\Whoops\\": "src/"
+                },
+                "classmap": [
+                    "src/Core/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2696,16 +2819,14 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/whoops/issues",
-                "source": "https://github.com/x-wp/whoops/tree/v1.0.0"
+                "source": "https://github.com/x-wp/whoops/tree/v1.1.0"
             },
-            "time": "2024-10-06T14:47:03+00:00"
+            "time": "2024-11-01T18:20:36+00:00"
         }
     ],
     "aliases": [],
-    "minimum-stability": "beta",
-    "stability-flags": {
-        "x-wp/di": 10
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

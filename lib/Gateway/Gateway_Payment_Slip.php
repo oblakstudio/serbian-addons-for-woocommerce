@@ -16,6 +16,7 @@ use XWC\Gateway\Gateway_Base;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Handler;
+use XWP_Asset_Bundle;
 
 /**
  * Payment Slip Gateway.
@@ -242,11 +243,11 @@ class Gateway_Payment_Slip extends Gateway_Base {
      * @param  WC_Email $email Email object.
      * @return string           Modified email CSS.
      */
-    #[Filter( tag: 'woocommerce_email_styles', priority: 9999 )]
-    public function add_css_to_emails( string $css, WC_Email $email ) {
+    #[Filter( tag: 'woocommerce_email_styles', priority: 9999, invoke: Filter::INV_PROXIED, args: 2 )]
+    public function add_css_to_emails( string $css, WC_Email $email, XWP_Asset_Bundle $bundle ) {
         if ( 'customer_on_hold_order' === $email->id && \wcsrb_order_has_slip( $email->object, true ) ) {
-            $css .= \WCSRB()->asset_data( 'css/email/template.css' ) . "\n";
-            $css .= \WCSRB()->asset_data( 'css/front/main.css' ) . "\n";
+            $css .= $bundle['css/email/template.css']->data() . "\n";
+            $css .= $bundle['css/front/main.css']->data() . "\n";
         }
 
         return $css;

@@ -45,7 +45,7 @@ class Config {
         );
 
         $this->settings['company'] = array(
-            'accounts'  => \wcsrb_get_bank_accounts(),
+            'accounts'  => $this->get_bank_accounts(),
             'address_1' => \get_option( 'woocommerce_store_address', '' ),
             'address_2' => \get_option( 'woocommerce_store_address_2', '' ),
             'city'      => \get_option( 'woocommerce_store_city', '' ),
@@ -54,6 +54,17 @@ class Config {
             'name'      => \get_option( 'woocommerce_store_name', '' ),
             'postcode'  => \get_option( 'woocommerce_store_postcode', '' ),
         );
+    }
+
+    /**
+     * Get the saved bank accounts.
+     *
+     * @return array<int,string>
+     */
+    private function get_bank_accounts(): array {
+        $accounts = \get_option( 'woocommerce_store_bank_accounts', array() );
+
+        return \xwp_str_to_arr( $accounts['acct'] ?? $accounts );
     }
 
     /**

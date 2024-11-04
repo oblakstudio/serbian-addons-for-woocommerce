@@ -31,4 +31,12 @@ defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-wcsrb_init();
+xwp_load_app(
+    app: array(
+        'compile'     => false,
+        'compile_dir' => __DIR__ . '/cache',
+        'id'          => 'wcsrb',
+        'module'      => \Oblak\WCSRB\App::class,
+    ),
+    priority: -2,
+);

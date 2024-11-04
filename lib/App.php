@@ -13,7 +13,6 @@ use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
 use XWP\DI\Interfaces\On_Initialize;
-use XWP_Asset_Retriever;
 
 /**
  * Main plugin class
@@ -34,8 +33,6 @@ use XWP_Asset_Retriever;
     ),
 )]
 class App implements On_Initialize {
-    use XWP_Asset_Retriever;
-
     /**
      * DI Definitions
      *
@@ -43,36 +40,29 @@ class App implements On_Initialize {
      */
     public static function configure(): array {
         return array(
-            'ips.basedir'          => \DI\factory(
+            'ips.basedir'            => \DI\factory(
                 static fn() => \defined( 'WCRS_IPS_DIR' )
                     ? WCRS_IPS_DIR
                     : \wp_upload_dir()['basedir'] . '/wcrs-ips',
             ),
-            'ips.generator'        => \DI\factory(
+            'ips.generator'          => \DI\factory(
                 static fn() => \class_exists( \Imagick::class )
                     ? QR\QR_Generator_ImageMagick::class
                     : QR\QR_Generator_GD::class
             ),
-            QRCode::class          => \DI\factory(
+            QRCode::class            => \DI\factory(
                 static fn( QR\QR_Code_Options $opts ) => new QRCode( $opts )
             ),
-            Utils\Installer::class => \DI\factory( array( Utils\Installer::class, 'instance' ) ),
+            Utils\Installer::class   => \DI\factory( array( Utils\Installer::class, 'instance' ) ),
+            \XWP_Asset_Bundle::class => \DI\factory( static fn() => \XWP_Asset_Loader::get_bundle( 'wcrs' ) ),
         );
-    }
-
-    /**
-     * Constructor
-     *
-     * @param Config $config Config instance.
-     */
-    public function __construct( private Config $config ) {
     }
 
     /**
      * Constructor
      */
     public function on_initialize(): void {
-        $this->load_bundle_config( WCRS_PLUGIN_PATH . 'config/assets.php' );
+        \XWP_Asset_Loader::load_bundle( include WCRS_PLUGIN_PATH . 'config/assets.php' );
     }
 
     /**
@@ -118,11 +108,12 @@ class App implements On_Initialize {
      *
      * @param  string $symbol   Currency symbol to change.
      * @param  string $currency Currency we're changing.
+     * @param  Config $config   Configuration service.
      * @return string           Transliterated currency symbol
      */
-    #[Filter( tag: 'woocommerce_currency_symbol', priority: 99 )]
-    public function change_currency_symbol( string $symbol, string $currency ): string {
-        if ( ! $this->config->get( 'core', 'fix_currency_symbol' ) ) {
+    #[Filter( tag: 'woocommerce_currency_symbol', priority: 99, invoke: Filter::INV_PROXIED, args: 2 )]
+    public function change_currency_symbol( string $symbol, string $currency, Config $config ): string {
+        if ( ! $config->get( 'core', 'fix_currency_symbol' ) ) {
             return $symbol;
         }
 

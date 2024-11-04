@@ -6,9 +6,6 @@
  * @subpackage Utils
  */
 
-use chillerlan\QRCode\Common\EccLevel;
-use chillerlan\QRCode\Data\QRMatrix;
-
 /**
  * Check if the currency is RSD.
  *
