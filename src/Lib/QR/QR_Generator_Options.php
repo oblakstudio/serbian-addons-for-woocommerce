@@ -5,7 +5,7 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WCSRB\Gateway\Services;
+namespace Oblak\Lib\QR;
 
 use chillerlan\QRCode\Common\EccLevel;
 use chillerlan\QRCode\Data\QRMatrix;
@@ -16,7 +16,7 @@ use DI\Attribute\Inject;
 /**
  * QR Code options with logo support.
  */
-class QR_Code_Options extends QROptions {
+class QR_Generator_Options extends QROptions {
     /**
      * Logo file path
      *
@@ -34,16 +34,14 @@ class QR_Code_Options extends QROptions {
     /**
      * Constructor
      *
-     * @param class-string         $generator QR code generator.
-     * @param Gateway_Payment_Slip $gateway   Payment slip gateway.
+     * @param class-string        $gen QR code generator.
+     * @param array<string,mixed> $opts      Options.
      */
     public function __construct(
-        #[Inject( 'ips.generator' )] string $generator,
-        Gateway_Payment_Slip $gateway,
+        #[Inject( 'ips.gen' )] string $gen,
+        #[Inject( 'ips.opts' )] array $opts,
     ) {
-        parent::__construct(
-            $this->parse_opts( $gateway->get_options(), $generator ),
-        );
+        parent::__construct( $this->parse_opts( $opts, $gen ) );
     }
 
     /**

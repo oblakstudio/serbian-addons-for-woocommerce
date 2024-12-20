@@ -9,7 +9,7 @@ namespace Oblak\WCSRB\Gateway\Handlers;
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
 use DI\Container;
-use Oblak\WCSRB\Gateway\Services\Gateway_Payment_Slip;
+use Oblak\WCSRB\Gateway\Gateway_Payment_Slip;
 use Oblak\WCSRB\Gateway\Services\QR_Code_Metabox;
 use WC_Order;
 use XWP\DI\Decorators\Action;

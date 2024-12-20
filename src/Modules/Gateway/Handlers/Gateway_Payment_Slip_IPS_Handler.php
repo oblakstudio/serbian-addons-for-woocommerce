@@ -8,7 +8,7 @@
 
 namespace Oblak\WCSRB\Gateway\Handlers;
 
-use Oblak\WCSRB\Gateway\Services\Gateway_Payment_Slip;
+use Oblak\WCSRB\Gateway\Gateway_Payment_Slip;
 use Oblak\WCSRB\Gateway\Services\QR_Code_Manager;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Handler;

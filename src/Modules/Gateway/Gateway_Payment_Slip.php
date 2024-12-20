@@ -5,8 +5,9 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WCSRB\Gateway\Services;
+namespace Oblak\WCSRB\Gateway;
 
+use WC_Cache_Helper;
 use WC_Email;
 use WC_Order;
 use XWC\Interfaces\Config_Repository;
@@ -55,11 +56,11 @@ class Gateway_Payment_Slip extends \XWC_Payment_Gateway {
      * Constructor
      *
      * @param  Config_Repository $config   Config instance.
-     * @param  Payments          $payments Payments utility instance.
+     * @param  Services\Payments $payments Payments utility instance.
      */
     public function __construct(
         private Config_Repository $config,
-        private Payments $payments,
+        private Services\Payments $payments,
     ) {
         parent::__construct();
     }
@@ -155,6 +156,12 @@ class Gateway_Payment_Slip extends \XWC_Payment_Gateway {
 
         $data[ $this->get_option_key() . '_display' ]      ??= array();
         $data[ $this->get_option_key() . '_qrcode_shown' ] ??= array();
+
+        if ( 'mod97' === $data[ $this->get_field_key( 'payment_model' ) ] ) {
+            $data[ $this->get_field_key( 'payment_reference' ) ] = \has_filter( 'woocommerce_order_number' )
+                ? '%mod97%-%order_number%'
+                : '%mod97%-%order_id%-%year%';
+        }
 
         return $data;
     }
@@ -375,5 +382,25 @@ class Gateway_Payment_Slip extends \XWC_Payment_Gateway {
         );
 
         echo '</div>';
+    }
+
+    /**
+     * Process the payment slip settings.
+     *
+     * Invalidate the cache if the QR code colors have changed.
+     *
+     * @return bool
+     */
+    public function process_admin_options() {
+        $qrdc = $this->settings['qrcode_color'];
+        $qrcc = $this->settings['qrcode_corner_color'];
+
+        $res = parent::process_admin_options();
+
+        if ( $qrdc !== $this->settings['qrcode_color'] || $qrcc !== $this->settings['qrcode_corner_color'] ) {
+            WC_Cache_Helper::invalidate_cache_group( 'wcsrb-ips-qr' );
+        }
+
+        return $res;
     }
 }

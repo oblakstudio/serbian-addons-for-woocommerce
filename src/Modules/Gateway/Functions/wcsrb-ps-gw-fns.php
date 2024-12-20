@@ -6,7 +6,7 @@
  * @subpackage Utils
  */
 
-use Oblak\WCSRB\Gateway\Services\Gateway_Payment_Slip;
+use Oblak\WCSRB\Gateway\Gateway_Payment_Slip;
 
 /**
  * Check if the order has a payment slip.

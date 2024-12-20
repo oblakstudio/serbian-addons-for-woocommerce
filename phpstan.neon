@@ -7,7 +7,7 @@ parameters:
     - serbian-addons-for-woocommerce.php
   excludePaths:
     analyse:
-      - src/Modules/Gateway/Services/QR_*.php
+      - src/Lib/QR/QR_*.php
   bootstrapFiles:
     - constants.php
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php

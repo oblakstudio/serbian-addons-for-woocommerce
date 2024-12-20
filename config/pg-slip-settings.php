@@ -10,53 +10,6 @@ use Automattic\WooCommerce\Utilities\LoggingUtil;
 
 defined( 'ABSPATH' ) || exit;
 
-$display_opts = static fn( $desc ) => array(
-    'title'             => __( 'Visibility', 'serbian-addons-for-woocommerce' ),
-    'type'              => 'multiselect',
-    'options'           => array(
-        'order' => __( 'Store pages', 'serbian-addons-for-woocommerce' ),
-        'email' => __( 'Customer e-mails', 'serbian-addons-for-woocommerce' ),
-    ),
-    'default'           => array(),
-    'description'       => $desc,
-    'desc_tip'          => true,
-    'custom_attributes' => array(
-        'data-placeholder' => __( 'Select locations for display', 'serbian-addons-for-woocommerce' ),
-        'data-allow_clear' => 'true',
-    ),
-    'class'             => 'wc-enhanced-select',
-);
-
-$qr_img_desc = static function ( int $icon ) {
-    $desc = array();
-
-    $desc[] = sprintf(
-        // translators: %1$s customizer link html.
-        __( 'You can set the image via %1$s', 'serbian-addons-for-woocommerce' ),
-        sprintf(
-            '<a target="_blank" href="%1$s">%2$s</a> (%3$s)',
-            esc_url( admin_url( 'customize.php' ) ),
-            esc_html__( 'Customizer', 'default' ),
-            esc_html__( 'Site Identity', 'default' ),
-        ),
-    );
-
-    if ( 0 < $icon ) {
-        $desc[] = sprintf(
-            // translators: %s current image HTML.
-            __( 'Current image: %s', 'serbian-addons-for-woocommerce' ),
-            wp_get_attachment_image(
-                get_option( 'site_icon' ),
-                array( 16, 16 ),
-                false,
-            ),
-        );
-    }
-
-    return implode( '<br>', $desc );
-};
-
-
 return array(
     // Basic Settings.
     'basic'               => array(
@@ -64,7 +17,7 @@ return array(
         'type'        => 'title',
         'description' => '',
     ),
-    'display'             => $display_opts( __( 'Where to display the QR Code', 'serbian-addons-for-woocommerce' ) ),
+    'display'             => wcsrb_format_gw_display_option( __( 'Where to display the QR Code', 'serbian-addons-for-woocommerce' ) ),
 
     'style'               => array(
         'title'       => __( 'Style', 'serbian-addons-for-woocommerce' ),
@@ -96,7 +49,7 @@ return array(
         'options'           => static fn() => wcsrb_format_payment_code_select(),
         'default'           => 'auto',
         'description'       => __( 'You can choose a payment code only if you limit checkout to a single customer type.', 'serbian-addons-for-woocommerce' ),
-        'desc_tip'          => __( 'Payment code on the payment slip', 'serbian-addons-for-woocommerce' ),
+        'desc_tip'          => __( 'Payment code is a three digit number used to properly route transactions.', 'serbian-addons-for-woocommerce' ),
         'custom_attributes' => static fn() => array_merge(
             array(),
             1 === count( wcsrb_format_payment_code_select() ) ? array( 'readonly' => 'readonly' ) : array(),
@@ -125,12 +78,14 @@ return array(
             'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
             'data-mod97' => has_filter( 'woocommerce_order_number' ) ? '%mod97%-%order_number%' : '%mod97%-%order_id%-%year%',
         ),
+        'desc_tip'          => __( 'Payment reference is a unique code that identifies the payment. It is used to match the payment with the order.', 'serbian-addons-for-woocommerce' ),
     ),
 
     'payment_purpose'     => array(
-        'title'   => __( 'Payment purpose', 'serbian-addons-for-woocommerce' ),
-        'type'    => 'text',
-        'default' => __( 'Order payment', 'serbian-addons-for-woocommerce' ),
+        'title'    => __( 'Payment purpose', 'serbian-addons-for-woocommerce' ),
+        'type'     => 'text',
+        'default'  => __( 'Order payment', 'serbian-addons-for-woocommerce' ),
+        'desc_tip' => __( 'Payment purpose is a short description of the payment. It is used to inform the recipient about the payment.', 'serbian-addons-for-woocommerce' ),
     ),
 
     'qrcode'              => array(
@@ -139,7 +94,7 @@ return array(
         'description' => __( 'Settings for NBS IPS QR Code', 'serbian-addons-for-woocommerce' ),
     ),
 
-    'qrcode_shown'        => $display_opts( __( 'Where to display the payment slip', 'serbian-addons-for-woocommerce' ) ),
+    'qrcode_shown'        => wcsrb_format_gw_display_option( __( 'Where to display the payment slip', 'serbian-addons-for-woocommerce' ) ),
 
     'qrcode_color'        => array(
         'title'       => __( 'Dot color', 'serbian-addons-for-woocommerce' ),
@@ -163,7 +118,7 @@ return array(
         'label'             => __( 'Show image on QR code', 'serbian-addons-for-woocommerce' ),
         'default'           => 'yes',
         'desc_tip'          => __( 'Image that will be shown on the QR code. ', 'serbian-addons-for-woocommerce' ),
-        'description'       => static fn() => $qr_img_desc( intval( get_option( 'site_icon', 0 ) ) ),
+        'description'       => static fn() => wcsrb_format_gw_qr_img_desc( intval( get_option( 'site_icon', 0 ) ) ),
         'custom_attributes' => static fn() => 0 === intval( get_option( 'site_icon', 0 ) )
             ? array( 'disabled' => 'disabled' )
             : array(),

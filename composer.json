@@ -38,17 +38,17 @@
   },
   "autoload": {
     "psr-4": {
+      "Oblak\\Lib\\": "src/Lib/",
       "Oblak\\WCSRB\\": "src/Modules/"
     },
     "classmap": [
       "src/"
     ],
     "files": [
-      "src/Modules/Gateway/Functions/wcsrb-ps-gw-fns.php",
-      "src/Functions/wcsrb-address-field-fns.php",
-      "src/Functions/wcsrb-core.php",
-      "src/Functions/wcsrb-helpers.php",
-      "src/Functions/wcsrb-settings.php"
+      "src/Modules/Admin/Functions/wcsrb-admin-fns.php",
+      "src/Modules/Core/Functions/wcsrb-bank-fns.php",
+      "src/Modules/Checkout/Functions/wcsrb-entity-fns.php",
+      "src/Modules/Gateway/Functions/wcsrb-ps-gw-fns.php"
     ]
   },
   "prefer-stable": true,

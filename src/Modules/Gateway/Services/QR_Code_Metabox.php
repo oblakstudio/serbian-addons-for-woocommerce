@@ -32,7 +32,7 @@ class QR_Code_Metabox {
      * @param WC_Order $order The order.
      */
     public function render( WC_Order $order ): void {
-        if ( ! $this->qrc->has_qrcode( $order ) ) {
+        if ( ! \wcsrb_order_has_slip( $order ) ) {
             \printf(
                 '<p>%s</p>',
                 \esc_html__( 'No IPS QR code available for this order.', 'serbian-addons-for-woocommerce' ),

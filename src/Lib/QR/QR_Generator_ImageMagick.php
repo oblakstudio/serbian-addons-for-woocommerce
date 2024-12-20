@@ -5,7 +5,7 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WCSRB\Gateway\Services;
+namespace Oblak\Lib\QR;
 
 use chillerlan\QRCode\Output\QRImagick;
 use Imagick;

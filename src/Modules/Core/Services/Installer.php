@@ -103,12 +103,12 @@ class Installer extends Base_Plugin_Installer {
         // Install files and folders for uploading files and prevent hotlinking.
         $files = array(
             array(
-                'base'    => \xwp_app( 'wcsrb' )->get( 'ips.basedir' ),
+                'base'    => \xwp_app( 'wcsrb' )->get( 'ips.dir' ),
                 'content' => '',
                 'file'    => 'index.html',
             ),
             array(
-                'base'    => \xwp_app( 'wcsrb' )->get( 'ips.basedir' ),
+                'base'    => \xwp_app( 'wcsrb' )->get( 'ips.dir' ),
                 'content' => 'deny from all',
                 'file'    => '.htaccess',
             ),

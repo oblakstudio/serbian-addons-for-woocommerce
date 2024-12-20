@@ -1,36 +1,15 @@
-<?php //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+<?php
 /**
- * Helper functions
+ * Bank functions and helpers.
  *
  * @package Serbian Addons for WooCommerce
- * @subpackage Utils
+ * @subpackage Core
  */
-
-/**
- * Get the entity types for the customer type field
- *
- * @return string[] Entity types
- */
-function wcsrb_get_entity_types() {
-    $entity_types = array(
-        'person'  => __( 'Person', 'serbian-addons-for-woocommerce' ),
-        'company' => __( 'Company', 'serbian-addons-for-woocommerce' ),
-    );
-
-    /**
-     * Filters the available entity types
-     *
-     * @param  string[] $entity_types
-     * @return string[]
-     * @since 1.3.0
-     */
-    return apply_filters( 'woocommerce_serbian_get_entity_types', $entity_types );
-}
 
 /**
  * Get the list of leading bank numbers with bank names
  *
- * @return string[] Bank numbers with bank names
+ * @return array<string>
  */
 function wcsrb_get_serbian_banks() {
     // Translators: %s is the bank name.
@@ -64,4 +43,34 @@ function wcsrb_get_serbian_banks() {
         '380' => __( 'Mirabank', 'serbian-addons-for-woocommerce' ),
         '385' => __( 'Bank of China', 'serbian-addons-for-woocommerce' ),
     );
+}
+
+/**
+ * Get the saved bank accounts.
+ *
+ * @return array<int, string>
+ */
+function wcsrb_get_bank_accounts(): array {
+    $accounts = \get_option( 'woocommerce_store_bank_accounts', array() );
+
+    return wc_string_to_array( $accounts['acct'] ?? $accounts );
+}
+
+/**
+ * Format a bank account number
+ *
+ * @param  string $acct   The account number.
+ * @param  string $format The format to use. Short or long.
+ * @param  string $sep    The separator to use.
+ * @return string
+ */
+function wcsrb_format_bank_acct( string $acct, string $format = 'short', string $sep = '-' ): string {
+    $acct   = str_replace( '-', '', $acct );
+    $middle = ltrim( substr( $acct, 3, -2 ), '0' );
+
+    if ( 'short' !== $format ) {
+        $middle = str_pad( $middle, 13, '0', STR_PAD_LEFT );
+    }
+
+    return sprintf( '%1$s%4$s%2$s%4$s%3$s', substr( $acct, 0, 3 ), $middle, substr( $acct, -2 ), $sep );
 }

@@ -33,7 +33,7 @@ require __DIR__ . '/vendor/autoload_packages.php';
 
 xwp_load_app(
     app: array(
-        'compile'     => true,
+        'compile'     => false,
         'compile_dir' => __DIR__ . '/cache',
         'id'          => 'wcsrb',
         'module'      => \Oblak\WCSRB\App::class,

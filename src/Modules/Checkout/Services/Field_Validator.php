@@ -39,6 +39,16 @@ class Field_Validator {
      */
     private array $address = array();
 
+    /**
+     * Field validators.
+     *
+     * @var array<string,array{
+     *   cb_id: int,
+     *   code: string,
+     *   message: string,
+     *   callback: callable,
+     * }>
+     */
     private array $validators;
 
     /**
@@ -48,6 +58,13 @@ class Field_Validator {
         $this->company_active = \wcsrb_can_checkout_as( 'company' );
     }
 
+    /**
+     * Get the address fields for the given country and type.
+     *
+     * @param  string $country Country code.
+     * @param  string $type    Customer type.
+     * @return array<string,array<string,mixed>>
+     */
     private function get_address( string $country, string $type ): array {
         $this->address[ $country ] ??= array();
 
@@ -170,7 +187,19 @@ class Field_Validator {
             ( ! $field || null !== $this->get_validator( $field ) );
     }
 
-    public function validate_field( string $field, mixed $value ): ?array {
+    /**
+     * Validates the given field.
+     *
+     * @param  string $field Field name.
+     * @param  mixed  $value Field value.
+     * @return array{}|array{
+     *   cb_id: int,
+     *   code: string,
+     *   id: string,
+     *   message: string
+     * }
+     */
+    public function validate_field( string $field, mixed $value ): array {
         $args = $this->get_validator( $field );
 
         if ( ! $args ) {
@@ -282,26 +311,5 @@ class Field_Validator {
         $args = \apply_filters( 'wcrs_field_validators', $args, $fields );
 
         return \xwp_array_slice_assoc( $args, ...$fields );
-    }
-
-    /**
-     * Checks if the current address can be validated.
-     *
-     * @param  array<string,mixed>  $fields  Address fields.
-     * @param  'billing'|'shipping' $address Address type being validated.
-     * @param  bool                 $force   Whether to force validation.
-     * @return bool
-     */
-    protected function needs_validation( array $fields, string $address = 'billing', bool $force = false, ): bool {
-        $this->errors = array();
-
-        if ( $force ) {
-            return true;
-        }
-
-        return $this->company_active &&
-        'billing' === $address &&
-        'company' === ( $fields['billing_type'] ?? '' ) &&
-        'RS' === ( $fields['billing_country'] ?? '' );
     }
 }

@@ -1,4 +1,4 @@
-<?php //phpcs:disable WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+<?php //phpcs:disable WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode, Universal.Operators.DisallowShortTernary.Found
 /**
  * Field_Validator class file.
  *
@@ -22,7 +22,7 @@ class QR_Code_Manager {
      * @param Payments $payments The payments service.
      */
     public function __construct(
-        #[Inject( 'ips.basedir' )]
+        #[Inject( 'ips.dir' )]
         private string $basedir,
         private Payments $payments,
     ) {
@@ -63,6 +63,16 @@ class QR_Code_Manager {
     }
 
     /**
+     * Gets the QR Code image for the order.
+     *
+     * @param  WC_Order $order The order object.
+     * @return string
+     */
+    public function get( WC_Order $order ): string {
+        return $this->read( $order, 'raw' ) ?: $this->make( $this->payments->get_qr_string( $order ) );
+    }
+
+    /**
      * Reads the QR Code image for the order.
      *
      * @param  WC_Order $order  The order object.
@@ -83,6 +93,18 @@ class QR_Code_Manager {
         return 'base64' === $format
             ? 'data:image/jpg;base64, ' . \base64_encode( $data )
             : $data;
+    }
+
+    /**
+     * Gets the modified time of the QR Code image for the order.
+     *
+     * @param  WC_Order $order The order object.
+     * @return int
+     */
+    public function mtime( WC_Order $order ): int {
+        return \xwp_wpfs()->mtime( $this->get_filename( $order ) )
+            ?:
+            $order->get_date_created()->getTimestamp();
     }
 
     /**

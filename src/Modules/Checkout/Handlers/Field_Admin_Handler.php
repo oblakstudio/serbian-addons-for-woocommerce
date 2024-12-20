@@ -1,4 +1,10 @@
 <?php
+/**
+ * Field_Admin_Handler class file.
+ *
+ * @package Serbian Addons for WooCommerce
+ * @subpackage Checkout
+ */
 
 namespace Oblak\WCSRB\Checkout\Handlers;
 
@@ -7,6 +13,11 @@ use WC_Order;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Handler;
 
+/**
+ * Handles administration of the checkout fields.
+ *
+ * @since 4.0.0
+ */
 #[Handler( tag: 'woocommerce_init', priority: 98, context: Handler::CTX_ADMIN, container: 'wcsrb' )]
 class Field_Admin_Handler {
     /**
@@ -124,12 +135,7 @@ class Field_Admin_Handler {
          *
          * @since 3.8.0
          */
-        $cb = static fn( $id, $v, $o ) => \do_action(
-            'wcsrb_update_order_billing_field',
-            \ltrim( $id, '_' ),
-            $v,
-            $o,
-        );
+        $cb = static fn( $id, $v, $o ) => \do_action( 'wcsrb_update_order_billing_field', \ltrim( $id, '_' ), $v, $o ); //phpcs:ignore SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
 
         //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
         return \array_merge(

@@ -9,6 +9,7 @@
 namespace Oblak\WCSRB\Gateway;
 
 use chillerlan\QRCode\QRCode;
+use Oblak\Lib\QR;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
 
@@ -35,18 +36,21 @@ class Gateway_Module {
      */
     public static function configure(): array {
         return array(
-            'ips.basedir'   => \DI\factory(
+            'ips.dir'     => \DI\factory(
                 static fn() => \defined( 'WCRS_IPS_DIR' )
                     ? WCRS_IPS_DIR
                     : \wp_upload_dir()['basedir'] . '/wcrs-ips',
             ),
-            'ips.generator' => \DI\factory(
+            'ips.gen'     => \DI\factory(
                 static fn() => \class_exists( \Imagick::class )
-                    ? Services\QR_Generator_ImageMagick::class
-                    : Services\QR_Generator_GD::class,
+                    ? QR\QR_Generator_ImageMagick::class
+                    : QR\QR_Generator_GD::class,
             ),
-            QRCode::class   => \DI\factory(
-                static fn( Services\QR_Code_Options $opts ) => new QRCode( $opts ),
+            'ips.opts'    => \DI\factory(
+                static fn( Gateway_Payment_Slip $gw ) => $gw->get_options(),
+            ),
+            QRCode::class => \DI\factory(
+                static fn( QR\QR_Generator_Options $opts ) => new QRCode( $opts ),
             ),
         );
     }
@@ -54,7 +58,7 @@ class Gateway_Module {
      * Adds our Payment Gateway to list of WooCommerce Gateways
      *
      * @param  array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway> $gateways List of gateways.
-     * @param  Services\Gateway_Payment_Slip                                    $gw       Payment Slip Gateway.
+     * @param  Gateway_Payment_Slip                                             $gw       Payment Slip Gateway.
      * @return array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway>           Modified list of gateways.
      */
     #[Filter(
@@ -62,11 +66,9 @@ class Gateway_Module {
         priority: 50,
         invoke: Filter::INV_PROXIED,
         args: 1,
-        params: array(
-            Services\Gateway_Payment_Slip::class,
-        ),
+        params: array( Gateway_Payment_Slip::class ),
     )]
-    public function add_payment_gateways( array $gateways, Services\Gateway_Payment_Slip $gw ) {
+    public function add_payment_gateways( array $gateways, Gateway_Payment_Slip $gw ) {
         $gateways[] = $gw;
 
         return $gateways;
