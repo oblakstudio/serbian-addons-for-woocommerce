@@ -7,8 +7,9 @@ parameters:
     - serbian-addons-for-woocommerce.php
   excludePaths:
     analyse:
-      - lib/QR/*
+      - lib/Modules/Gateway/Services/QR_*.php
   bootstrapFiles:
+    - constants.php
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
   ignoreErrors:
     -
@@ -19,8 +20,8 @@ parameters:
       identifier: constant.notFound
       paths:
         - config/*
-        - lib/Admin/Plugin_Settings_Page.php
-        - lib/Gateway/Gateway_Payment_Slip.php
+        - lib/Modules/Admin/Services/Settings_Page.php
+        - lib/Modules/Gateway/Services/Gateway_Payment_Slip.php
         - lib/Utils/Installer.php
         - lib/Utils/Template_Extender.php
         - lib/App.php

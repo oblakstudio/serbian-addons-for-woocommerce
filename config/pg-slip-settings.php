@@ -58,27 +58,6 @@ $qr_img_desc = static function ( int $icon ) {
 
 
 return array(
-    'enabled'             => array(
-        'title'   => __( 'Enabled', 'woocommerce' ),
-        'label'   => __( 'Enable Payment Slip', 'serbian-addons-for-woocommerce' ),
-        'type'    => 'checkbox',
-        'default' => 'no',
-    ),
-    'title'               => array(
-        'title'       => __( 'Title', 'woocommerce' ),
-        'type'        => 'safe_text',
-        'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce' ),
-        'default'     => __( 'Payment Slip', 'serbian-addons-for-woocommerce' ),
-        'desc_tip'    => true,
-    ),
-    'description'         => array(
-        'title'       => __( 'Description', 'woocommerce' ),
-        'type'        => 'text',
-        'description' => __( 'Payment method description that the customer will see on your checkout.', 'woocommerce' ),
-        'default'     => __( 'Pay by sending us money via wire transfer', 'serbian-addons-for-woocommerce' ),
-        'desc_tip'    => true,
-    ),
-
     // Basic Settings.
     'basic'               => array(
         'title'       => __( 'Slip settings', 'serbian-addons-for-woocommerce' ),
@@ -95,8 +74,8 @@ return array(
             'modern'  => __( 'Modern', 'serbian-addons-for-woocommerce' ),
         ),
         'default'     => 'modern',
-		'description' => __( 'Defines the style of the payment slip', 'serbian-addons-for-woocommerce' ),
-		'desc_tip'    => true,
+        'description' => __( 'Defines the style of the payment slip', 'serbian-addons-for-woocommerce' ),
+        'desc_tip'    => true,
     ),
     'bank_account'        => array(
         'title'       => __( 'Bank account', 'serbian-addons-for-woocommerce' ),
@@ -197,12 +176,12 @@ return array(
         'description' => '',
     ),
     'debug'               => array(
-		'title'       => __( 'Debug log', 'woocommerce' ),
+        'title'       => __( 'Debug log', 'woocommerce' ),
         'type'        => 'checkbox',
         'label'       => __( 'Enable logging', 'woocommerce' ),
         'default'     => 'no',
         'description' => static fn() => sprintf(
-			// translators: %s is a placeholder for a URL.
+            // translators: %s is a placeholder for a URL.
             __( 'Log Payment Slip events and review them on the <a href="%s">Logs screen</a>.<br>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.', 'serbian-addons-for-woocommerce' ),
             esc_url( LoggingUtil::get_logs_tab_url() ),
         ),

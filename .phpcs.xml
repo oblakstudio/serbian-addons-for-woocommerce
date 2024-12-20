@@ -11,7 +11,6 @@
 		<properties>
 			<property name="text_domain" type="array" extend="true">
 				<element value="serbian-addons-for-woocommerce"/>
-				<element value="woocommerce"/>
 			</property>
 		</properties>
 	</rule>

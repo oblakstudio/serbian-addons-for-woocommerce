@@ -6,8 +6,6 @@
  * @subpackage Utils
  */
 
-use Oblak\WCSRB\Services\Config;
-
 /**
  * Formats bank account select options.
  *
@@ -17,19 +15,19 @@ use Oblak\WCSRB\Services\Config;
  * @since 2.3.0
  */
 function wcsrb_format_bank_account_select( $opt_accounts = null ) {
-	$opt_accounts ??= xwp_app( 'wcsrb' )->get( Config::class )->get( 'company', 'accounts' );
-	$banks          = wcsrb_get_serbian_banks();
-	$accounts       = array( '' => __( 'Select bank account', 'serbian-addons-for-woocommerce' ) . '...' );
+    $opt_accounts ??= xwp_app( 'wcsrb' )->get( XWC_Config::class )->get( 'company.accounts' );
+    $banks          = wcsrb_get_serbian_banks();
+    $accounts       = array( '' => __( 'Select bank account', 'serbian-addons-for-woocommerce' ) . '...' );
 
-	foreach ( $opt_accounts as $account ) {
-		$bank_name = $banks[ substr( $account, 0, 3 ) ];
+    foreach ( $opt_accounts as $account ) {
+        $bank_name = $banks[ substr( $account, 0, 3 ) ];
 
-		if ( ! isset( $accounts[ $bank_name ] ) ) {
-			$accounts[ $bank_name ] = array();
-		}
+        if ( ! isset( $accounts[ $bank_name ] ) ) {
+            $accounts[ $bank_name ] = array();
+        }
 
-		$accounts[ $bank_name ][ $account ] = $account;
-	}
+        $accounts[ $bank_name ][ $account ] = $account;
+    }
 
     return $accounts;
 }
@@ -64,7 +62,7 @@ function wcsrb_format_payment_code_select() {
         ),
     );
 
-    switch ( xwp_app( 'wcsrb' )->get( Config::class )->get( 'core', 'enabled_customer_types' ) ) {
+    switch ( xwp_app( 'wcsrb' )->get( XWC_Config::class )->get( 'core.enabled_customer_types' ) ) {
         case 'both':
             unset( $options[ __( 'Company', 'serbian-addons-for-woocommerce' ) ] );
             unset( $options[ __( 'Person', 'serbian-addons-for-woocommerce' ) ] );

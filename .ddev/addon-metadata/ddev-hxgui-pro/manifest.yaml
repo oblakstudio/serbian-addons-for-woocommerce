@@ -1,0 +1,12 @@
+name: ddev-hxgui-pro
+repository: oblakstudio/ddev-xhgui-pro
+version: v1.1.0
+install_date: "2024-12-20T14:03:08+01:00"
+project_files:
+    - xhgui/collector/xhprof_prepend.php
+    - xhgui/config/app.php
+    - xhgui/config/nginx.conf
+    - config.xhgui-pro.yaml
+    - docker-compose.xhgui-pro.yaml
+global_files: []
+removal_actions: []

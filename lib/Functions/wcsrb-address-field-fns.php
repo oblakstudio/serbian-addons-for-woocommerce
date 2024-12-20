@@ -5,7 +5,7 @@
  * @package Serbian Addons for WooCommerce
  */
 
-use Oblak\WCSRB\Services\Config;
+use XWC\Interfaces\Config_Repository;
 
 /**
  * Gets the company address fields.
@@ -52,7 +52,9 @@ function wcsrb_get_company_fields(): array {
 function wcsrb_can_checkout_as( string $type ): bool {
     static $types;
 
-    $types ??= xwp_app( 'wcsrb' )->get( Config::class )->get( 'core', 'enabled_customer_types' );
+    $types ??= xwp_app( 'wcsrb' )
+        ->get( Config_Repository::class )
+        ->get( 'core.enabled_customer_types' );
 
     return 'both' === $types || $type === $types;
 }

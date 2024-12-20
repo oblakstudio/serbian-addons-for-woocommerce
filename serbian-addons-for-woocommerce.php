@@ -22,13 +22,22 @@
 defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable WordPress.WhiteSpace.OperatorSpacing.SpacingBefore
-defined( 'WCRS_PLUGIN_FILE' ) || define( 'WCRS_PLUGIN_FILE', __FILE__ );
-defined( 'WCRS_ABSPATH' )     || define( 'WCRS_ABSPATH', dirname( WCRS_PLUGIN_FILE ) . '/' );
-defined( 'WCRS_PLUGIN_BASE' ) || define( 'WCRS_PLUGIN_BASE', plugin_basename( WCRS_PLUGIN_FILE ) );
-defined( 'WCRS_PLUGIN_PATH' ) || define( 'WCRS_PLUGIN_PATH', plugin_dir_path( WCRS_PLUGIN_FILE ) );
-defined( 'WCRS_VERSION' )     || define( 'WCRS_VERSION', '0.0.0' );
+defined( 'WCSRB_FILE' ) || define( 'WCSRB_FILE', __FILE__ );
+defined( 'WCSRB_ABS' )  || define( 'WCSRB_ABS', dirname( WCSRB_FILE ) . '/' );
+defined( 'WCSRB_BASE' ) || define( 'WCSRB_BASE', plugin_basename( WCSRB_FILE ) );
+defined( 'WCSRB_PATH' ) || define( 'WCSRB_PATH', plugin_dir_path( WCSRB_FILE ) );
+defined( 'WCSRB_VER' )  || define( 'WCSRB_VER', '0.0.0' );
 // phpcs:enable WordPress.WhiteSpace.OperatorSpacing.SpacingBefore
 
 require __DIR__ . '/vendor/autoload_packages.php';
 
-wcsrb_init();
+xwp_load_app(
+    app: array(
+        'compile'     => true,
+        'compile_dir' => __DIR__ . '/cache',
+        'id'          => 'wcsrb',
+        'module'      => \Oblak\WCSRB\App::class,
+    ),
+    hook: 'woocommerce_loaded',
+    priority: -1,
+);

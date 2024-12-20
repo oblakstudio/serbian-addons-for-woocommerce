@@ -7,35 +7,6 @@
  */
 
 /**
- * Initializes the plugin
- *
- * @return void
- */
-function wcsrb_init(): void {
-    if ( class_exists( '\XWP\Error\Error_Handler' ) && 'production' !== wp_get_environment_type() ) {
-        ( new \XWP\Error\Error_Handler() )->register();
-    }
-
-    \XWP\DI\App_Factory::create(
-        array(
-            'compile'     => false,
-            'compile_dir' => __DIR__ . '/cache',
-            'id'          => 'wcsrb',
-            'module'      => \Oblak\WCSRB\App::class,
-        ),
-    );
-}
-
-/**
- * Main Plugin Instance
- *
- * @return Oblak\WCSRB\App
- */
-function WCSRB() {
-    return xwp_app( 'wcsrb' )->get( Oblak\WCSRB\App::class );
-}
-
-/**
  * Get the saved bank accounts.
  *
  * @return array<int, string>
