@@ -1,0 +1,688 @@
+
+> build
+> webpack --config assets/webpack/webpack.config.ts
+
+[
+  {
+    "devtool": "eval-cheap-source-map",
+    "context": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets",
+    "externalsType": "window",
+    "externals": [
+      {
+        "jquery": "jQuery",
+        "underscore": "_",
+        "backbone": "backbone",
+        "lodash": "_"
+      }
+    ],
+    "mode": "development",
+    "target": "web",
+    "stats": false,
+    "optimization": {
+      "removeEmptyChunks": true,
+      "moduleIds": "deterministic",
+      "splitChunks": {
+        "hidePathInfo": true,
+        "cacheGroups": {
+          "vendor": {
+            "priority": 10,
+            "reuseExistingChunk": true,
+            "chunks": "all",
+            "test": {},
+            "minChunks": 1,
+            "minSize": 5000
+          },
+          "default": false,
+          "defaultVendors": false
+        }
+      }
+    },
+    "plugins": [
+      {
+        "compilationSuccessInfo": {
+          "messages": [],
+          "notes": []
+        },
+        "shouldClearConsole": false,
+        "formatters": [
+          null,
+          null,
+          null
+        ],
+        "transformers": [
+          null,
+          null,
+          null
+        ],
+        "previousEndTimes": {}
+      },
+      {},
+      {
+        "profile": false,
+        "modulesCount": 5000,
+        "dependenciesCount": 10000,
+        "showEntries": true,
+        "showModules": true,
+        "showDependencies": true,
+        "showActiveModules": true,
+        "options": {
+          "name": "admin",
+          "color": "#6fa27d",
+          "reporters": [
+            "basic"
+          ],
+          "reporter": null,
+          "fancy": true,
+          "basic": false
+        },
+        "reporters": []
+      },
+      {
+        "_sortedModulesCache": {},
+        "options": {
+          "ignoreOrder": false,
+          "runtime": true,
+          "chunkFilename": "[id].css"
+        },
+        "runtimeOptions": {
+          "linkType": "text/css"
+        }
+      },
+      {
+        "options": {},
+        "plugin": {
+          "name": "CssUrlRelativePlugin"
+        }
+      },
+      {
+        "outputPath": "",
+        "trash": [],
+        "options": {
+          "enabled": true,
+          "verbose": false,
+          "extensions": {},
+          "ignore": [],
+          "remove": {},
+          "stage": 100
+        },
+        "enabled": true,
+        "verbose": false
+      }
+    ],
+    "name": "admin",
+    "entry": {
+      "admin": [
+        "./scripts/admin/admin.ts",
+        "./styles/admin.scss"
+      ]
+    },
+    "output": {
+      "path": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/dist",
+      "publicPath": "",
+      "filename": "js/admin/[name].js"
+    },
+    "module": {
+      "rules": [
+        {
+          "test": {},
+          "include": [
+            "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets/scripts"
+          ],
+          "exclude": [
+            {}
+          ],
+          "use": {
+            "loader": "babel-loader",
+            "options": {
+              "presets": [
+                [
+                  "@babel/preset-env",
+                  {
+                    "useBuiltIns": "entry",
+                    "corejs": "3.37"
+                  }
+                ],
+                [
+                  "@babel/preset-typescript",
+                  {
+                    "onlyRemoveTypeImports": true
+                  }
+                ]
+              ],
+              "plugins": [
+                "@babel/plugin-transform-class-properties"
+              ]
+            }
+          }
+        },
+        {
+          "test": {},
+          "include": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets/styles",
+          "use": [
+            {
+              "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+            },
+            {
+              "loader": "css-loader",
+              "options": {
+                "importLoaders": 1,
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "postcssOptions": {
+                  "plugins": [
+                    "postcss-preset-env"
+                  ]
+                },
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "resolve-url-loader",
+              "options": {
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "sass-loader",
+              "options": {
+                "api": "modern-compiler",
+                "sourceMap": true,
+                "sassOptions": {
+                  "outputStyle": "expanded",
+                  "quietDeps": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "images/[name][ext]"
+          }
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "fonts/[name][ext]"
+          }
+        }
+      ]
+    },
+    "resolve": {
+      "extensions": [
+        "jsx",
+        ".tsx",
+        ".ts",
+        ".js",
+        ".scss",
+        ".css"
+      ]
+    }
+  },
+  {
+    "devtool": "eval-cheap-source-map",
+    "context": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets",
+    "externalsType": "window",
+    "externals": [
+      {
+        "jquery": "jQuery",
+        "underscore": "_",
+        "backbone": "backbone",
+        "lodash": "_"
+      }
+    ],
+    "mode": "development",
+    "target": "web",
+    "stats": false,
+    "optimization": {
+      "removeEmptyChunks": true,
+      "moduleIds": "deterministic",
+      "splitChunks": {
+        "hidePathInfo": true,
+        "cacheGroups": {
+          "vendor": {
+            "priority": 10,
+            "reuseExistingChunk": true,
+            "chunks": "all",
+            "test": {},
+            "minChunks": 1,
+            "minSize": 5000
+          },
+          "default": false,
+          "defaultVendors": false
+        }
+      }
+    },
+    "plugins": [
+      {
+        "compilationSuccessInfo": {
+          "messages": [],
+          "notes": []
+        },
+        "shouldClearConsole": false,
+        "formatters": [
+          null,
+          null,
+          null
+        ],
+        "transformers": [
+          null,
+          null,
+          null
+        ],
+        "previousEndTimes": {}
+      },
+      {},
+      {
+        "profile": false,
+        "modulesCount": 5000,
+        "dependenciesCount": 10000,
+        "showEntries": true,
+        "showModules": true,
+        "showDependencies": true,
+        "showActiveModules": true,
+        "options": {
+          "name": "front",
+          "color": "#699cf2",
+          "reporters": [
+            "basic"
+          ],
+          "reporter": null,
+          "fancy": true,
+          "basic": false
+        },
+        "reporters": []
+      },
+      {
+        "_sortedModulesCache": {},
+        "options": {
+          "ignoreOrder": false,
+          "runtime": true,
+          "chunkFilename": "[id].css"
+        },
+        "runtimeOptions": {
+          "linkType": "text/css"
+        }
+      },
+      {
+        "options": {},
+        "plugin": {
+          "name": "CssUrlRelativePlugin"
+        }
+      },
+      {
+        "outputPath": "",
+        "trash": [],
+        "options": {
+          "enabled": true,
+          "verbose": false,
+          "extensions": {},
+          "ignore": [],
+          "remove": {},
+          "stage": 100
+        },
+        "enabled": true,
+        "verbose": false
+      }
+    ],
+    "name": "front",
+    "entry": {
+      "main": [
+        "./scripts/frontend/main.ts",
+        "./styles/main.scss"
+      ]
+    },
+    "output": {
+      "path": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/dist",
+      "publicPath": "",
+      "filename": "js/front/[name].js"
+    },
+    "module": {
+      "rules": [
+        {
+          "test": {},
+          "include": [
+            "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets/scripts"
+          ],
+          "exclude": [
+            {}
+          ],
+          "use": {
+            "loader": "babel-loader",
+            "options": {
+              "presets": [
+                [
+                  "@babel/preset-env",
+                  {
+                    "useBuiltIns": "entry",
+                    "corejs": "3.37"
+                  }
+                ],
+                [
+                  "@babel/preset-typescript",
+                  {
+                    "onlyRemoveTypeImports": true
+                  }
+                ]
+              ],
+              "plugins": [
+                "@babel/plugin-transform-class-properties"
+              ]
+            }
+          }
+        },
+        {
+          "test": {},
+          "include": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets/styles",
+          "use": [
+            {
+              "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+            },
+            {
+              "loader": "css-loader",
+              "options": {
+                "importLoaders": 1,
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "postcssOptions": {
+                  "plugins": [
+                    "postcss-preset-env"
+                  ]
+                },
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "resolve-url-loader",
+              "options": {
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "sass-loader",
+              "options": {
+                "api": "modern-compiler",
+                "sourceMap": true,
+                "sassOptions": {
+                  "outputStyle": "expanded",
+                  "quietDeps": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "images/[name][ext]"
+          }
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "fonts/[name][ext]"
+          }
+        }
+      ]
+    },
+    "resolve": {
+      "extensions": [
+        "jsx",
+        ".tsx",
+        ".ts",
+        ".js",
+        ".scss",
+        ".css"
+      ]
+    }
+  },
+  {
+    "devtool": "eval-cheap-source-map",
+    "context": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets",
+    "externalsType": "window",
+    "externals": [
+      {
+        "jquery": "jQuery",
+        "underscore": "_",
+        "backbone": "backbone",
+        "lodash": "_"
+      }
+    ],
+    "mode": "development",
+    "target": "web",
+    "stats": false,
+    "optimization": {
+      "removeEmptyChunks": true,
+      "moduleIds": "deterministic",
+      "splitChunks": {
+        "hidePathInfo": true,
+        "cacheGroups": {
+          "vendor": {
+            "priority": 10,
+            "reuseExistingChunk": true,
+            "chunks": "all",
+            "test": {},
+            "minChunks": 1,
+            "minSize": 5000
+          },
+          "default": false,
+          "defaultVendors": false
+        }
+      }
+    },
+    "plugins": [
+      {
+        "compilationSuccessInfo": {
+          "messages": [],
+          "notes": []
+        },
+        "shouldClearConsole": false,
+        "formatters": [
+          null,
+          null,
+          null
+        ],
+        "transformers": [
+          null,
+          null,
+          null
+        ],
+        "previousEndTimes": {}
+      },
+      {},
+      {
+        "profile": false,
+        "modulesCount": 5000,
+        "dependenciesCount": 10000,
+        "showEntries": true,
+        "showModules": true,
+        "showDependencies": true,
+        "showActiveModules": true,
+        "options": {
+          "name": "email",
+          "color": "#5cb4de",
+          "reporters": [
+            "basic"
+          ],
+          "reporter": null,
+          "fancy": true,
+          "basic": false
+        },
+        "reporters": []
+      },
+      {
+        "_sortedModulesCache": {},
+        "options": {
+          "ignoreOrder": false,
+          "runtime": true,
+          "chunkFilename": "[id].css"
+        },
+        "runtimeOptions": {
+          "linkType": "text/css"
+        }
+      },
+      {
+        "options": {},
+        "plugin": {
+          "name": "CssUrlRelativePlugin"
+        }
+      },
+      {
+        "outputPath": "",
+        "trash": [],
+        "options": {
+          "enabled": true,
+          "verbose": false,
+          "extensions": {},
+          "ignore": [],
+          "remove": {},
+          "stage": 100
+        },
+        "enabled": true,
+        "verbose": false
+      }
+    ],
+    "name": "email",
+    "entry": {
+      "template": [
+        "./styles/email/template.scss"
+      ]
+    },
+    "output": {
+      "path": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/dist",
+      "publicPath": "",
+      "filename": "js/email/[name].js"
+    },
+    "module": {
+      "rules": [
+        {
+          "test": {},
+          "include": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets/styles",
+          "use": [
+            {
+              "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+            },
+            {
+              "loader": "css-loader",
+              "options": {
+                "importLoaders": 1,
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "postcss-loader",
+              "options": {
+                "postcssOptions": {
+                  "plugins": [
+                    "postcss-preset-env"
+                  ]
+                },
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "resolve-url-loader",
+              "options": {
+                "sourceMap": true
+              }
+            },
+            {
+              "loader": "sass-loader",
+              "options": {
+                "api": "modern-compiler",
+                "sourceMap": true,
+                "sassOptions": {
+                  "outputStyle": "expanded",
+                  "quietDeps": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "images/[name][ext]"
+          }
+        },
+        {
+          "test": {},
+          "type": "asset/resource",
+          "generator": {
+            "filename": "fonts/[name][ext]"
+          }
+        }
+      ]
+    },
+    "resolve": {
+      "extensions": [
+        ".scss",
+        ".css"
+      ]
+    }
+  },
+  {
+    "name": "AssetCopy",
+    "context": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/assets",
+    "mode": "development",
+    "entry": {},
+    "output": {
+      "path": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/dist"
+    },
+    "stats": false,
+    "plugins": [
+      {
+        "patterns": [
+          {
+            "from": "images/",
+            "to": "images/[path][name][ext]",
+            "force": false,
+            "noErrorOnMissing": false,
+            "toType": "template"
+          }
+        ],
+        "options": {}
+      },
+      {
+        "profile": false,
+        "modulesCount": 5000,
+        "dependenciesCount": 10000,
+        "showEntries": true,
+        "showModules": true,
+        "showDependencies": true,
+        "showActiveModules": true,
+        "options": {
+          "name": "AssetCopy",
+          "color": "green",
+          "reporters": [
+            "basic"
+          ],
+          "reporter": null,
+          "fancy": true,
+          "basic": false
+        },
+        "reporters": []
+      },
+      {}
+    ],
+    "dependencies": [
+      "admin",
+      "front",
+      "email"
+    ]
+  }
+]
