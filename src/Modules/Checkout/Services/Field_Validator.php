@@ -87,7 +87,7 @@ class Field_Validator {
         if ( ! isset( $this->validators ) ) {
             $validators = array(
                 'billing_company' => array(
-                    'callback' => '__return_true',
+                    'callback' => static fn( $v ) => '' !== $v,
                     'code'     => 'billing_company_required',
                     'message'  => \__( 'Company name is required', 'serbian-addons-for-woocommerce' ),
                 ),

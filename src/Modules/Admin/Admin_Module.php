@@ -17,8 +17,24 @@ use XWP\DI\Decorators\Module;
  *
  * @since 4.0.0
  */
-#[Module( container: 'wcsrb', hook: 'woocommerce_loaded', priority: 1, handlers: array() )]
+#[Module(
+    container: 'wcsrb',
+    hook: 'woocommerce_loaded',
+    priority: 1,
+    handlers: array( Handlers\Settings_Data_Handler::class ),
+)]
 class Admin_Module {
+    /**
+     * Get the DI definitions for the module
+     *
+     * @return array<string,mixed>
+     */
+    public static function configure(): array {
+        return array(
+            Services\Settings_Page::class => \DI\autowire( Services\Settings_Page::class )
+                ->constructor( 'wcsrb', \__( 'Serbian Addons', 'serbian-addons-for-woocommerce' ) ),
+        );
+    }
     /**
      * Add needed classes for WPRouter
      *

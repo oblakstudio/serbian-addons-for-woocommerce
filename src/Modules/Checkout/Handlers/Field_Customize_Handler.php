@@ -16,8 +16,18 @@ use XWP\DI\Decorators\Handler;
  *
  * @since 3.8.0
  */
-#[Handler( tag: 'woocommerce_init', priority: 99, container: 'wcsrb' )]
+#[Handler( tag: 'woocommerce_loaded', priority: 9999, container: 'wcsrb' )]
 class Field_Customize_Handler {
+    /**
+     * Checks if the module can be initialized.
+     *
+     * @param  Config_Repository $cfg Config repository instance.
+     * @return bool
+     */
+    public static function can_initialize( Config_Repository $cfg ): bool {
+        return ! $cfg->get( 'core.block_checkout', false );
+    }
+
     /**
      * Constructor
      *
@@ -25,6 +35,7 @@ class Field_Customize_Handler {
      */
     public function __construct( private Config_Repository $config ) {
     }
+
     /**
      * Adds the customer type field to the default address fields.
      *
@@ -89,7 +100,10 @@ class Field_Customize_Handler {
      */
     #[Filter( tag: 'woocommerce_get_country_locale_default', priority: 999999 )]
     public function modify_default_locale_field_data( array $fields ): array {
-        unset( $fields['type']['label'] );
+        if ( ! $this->config->get( 'core.block_checkout', false ) ) {
+            unset( $fields['type']['label'] );
+
+        }
 
         return $fields;
     }
@@ -107,15 +121,17 @@ class Field_Customize_Handler {
     public function add_default_locale_field_data( array $locale ): array {
         foreach ( $locale as &$fields ) {
             $fields['company']['required'] = false;
+            $fields['company']['hidden']   = ! \wcsrb_can_checkout_as( 'company' );
             $fields['type']                = array(
                 'hidden'   => true,
                 'required' => false,
             );
-            $fields['mb']                  = array(
+
+            $fields['mb']  = array(
                 'hidden'   => true,
                 'required' => false,
             );
-            $fields['pib']                 = array(
+            $fields['pib'] = array(
                 'hidden'   => true,
                 'required' => false,
             );
@@ -132,37 +148,31 @@ class Field_Customize_Handler {
      * @param  array<string, array> $locale Default locale fields data.
      * @return array<string, array>
      */
-    #[Filter( tag: 'woocommerce_get_country_locale', priority: 1000 )]
+    #[Filter( tag: 'woocommerce_get_country_locale', priority: 1001 )]
     public function add_custom_locale_field_data( array $locale ): array {
-        $company_active = \wcsrb_can_checkout_as( 'company' );
-        $company_props  = array( 'hidden' => ! $company_active );
-        [ $pfp, $cfp ]  = $this->config->get( 'core.field_ordering' )
-            ? array( 81, 82 )
-            : array( 82, 81 );
+        $company_props = array( 'hidden' => ! \wcsrb_can_checkout_as( 'company' ) );
+        [ $pfp, $cfp ] = $this->config->get( 'core.field_ordering' )
+        ? array( 81, 82 )
+        : array( 82, 81 );
 
-        // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+		// phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
         $locale['RS'] = array(
             'type'     => array(
                 'required' => true,
                 'hidden'   => false,
+                'priority' => 21,
             ),
             'company'  => \array_merge(
                 array( 'class' => array( 'form-row-wide', 'entity-type-toggle', 'shown' ) ),
                 $company_props,
             ),
-            'mb'       => $company_props,
-            'pib'      => $company_props,
-            'postcode' => array(
-                'priority' => $pfp,
-            ),
-            'city'     => array(
-                'priority' => $cfp,
-            ),
-            'country'  => array(
-                'priority' => 91,
-            ),
+            'mb'       => \array_merge( array( 'priority' => 31 ), $company_props ),
+            'pib'      => \array_merge( array( 'priority' => 32 ), $company_props ),
+            'postcode' => array( 'priority' => $pfp ),
+            'city'     => array( 'priority' => $cfp ),
+            'country'  => array( 'priority' => 91 ),
         );
-        // phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+		// phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 
         return $locale;
     }

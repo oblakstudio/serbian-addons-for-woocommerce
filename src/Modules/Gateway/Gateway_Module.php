@@ -8,8 +8,10 @@
 
 namespace Oblak\WCSRB\Gateway;
 
+use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use chillerlan\QRCode\QRCode;
 use Oblak\Lib\QR;
+use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
 
@@ -57,9 +59,10 @@ class Gateway_Module {
     /**
      * Adds our Payment Gateway to list of WooCommerce Gateways
      *
-     * @param  array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway> $gateways List of gateways.
-     * @param  Gateway_Payment_Slip                                             $gw       Payment Slip Gateway.
-     * @return array<int,class-string<\WC_Payment_Gateway>|\WC_Payment_Gateway>           Modified list of gateways.
+     * @template TGw of \WC_Payment_Gateway
+     * @param  array<int,class-string<TGw>|TGw> $gateways List of gateways.
+     * @param  Gateway_Payment_Slip             $gw       Payment Slip Gateway.
+     * @return array<int,class-string<TGw>|TGw>           Modified list of gateways.
      */
     #[Filter(
         tag: 'woocommerce_payment_gateways',
@@ -72,5 +75,22 @@ class Gateway_Module {
         $gateways[] = $gw;
 
         return $gateways;
+    }
+
+    /**
+     * Registers our Payment Gateway Block
+     *
+     * @param  PaymentMethodRegistry      $reg Payment Method Registry.
+     * @param  Gateway_Payment_Slip_Block $gw  Payment Slip Gateway Block.
+     */
+    #[Action(
+        tag: 'woocommerce_blocks_payment_method_type_registration',
+        priority: 10,
+        invoke: Filter::INV_PROXIED,
+        args: 1,
+        params: array( Gateway_Payment_Slip_Block::class ),
+    )]
+    public function add_block_gateway( PaymentMethodRegistry $reg, Gateway_Payment_Slip_Block $gw ): void {
+        $reg->register( $gw );
     }
 }

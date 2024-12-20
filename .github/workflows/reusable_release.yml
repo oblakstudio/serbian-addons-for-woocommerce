@@ -98,7 +98,7 @@ jobs:
         run: npm install -D @x-wp/semantic-release-config
         if: ${{ !inputs.with_assets }}
       - name: Build
-        run: npm run build:production
+        run: npm run build:production && npm run build:blocks
         if: ${{ inputs.with_assets && steps.cache.outputs.cache-hit != 'true' }}
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
