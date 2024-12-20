@@ -1,5 +1,17 @@
 {
   "type": "project",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "/home/venom/projects/composer/xwc/settings-api",
+      "options": {
+        "symlink": true,
+        "versions": {
+          "x-wp/wc-settings-api": "1.3.0"
+        }
+      }
+    }
+  ],
   "require": {
     "php": "^8.0",
     "automattic/jetpack-autoloader": "^3.1",
@@ -7,14 +19,13 @@
     "oblak/serbian-validators": "^1",
     "oblak/wp-plugin-installer": "^2",
     "x-wp/asset-loader": "^1.0",
-    "x-wp/di": "^1.0@beta",
-    "x-wp/helper-functions": "^1.13",
+    "x-wp/di": "^1.0",
     "x-wp/helper-woocommerce": "^1.13",
+    "x-wp/wc-settings-api": "^1.3.0",
     "x-wp/wc-template-customizer": "^1.0"
   },
   "require-dev": {
-    "filp/whoops": "^2.16",
-    "oblak/wordpress-coding-standard": "^1.1.1",
+    "oblak/wordpress-coding-standard": "^1",
     "php-stubs/woocommerce-stubs": "^9.0",
     "php-stubs/wordpress-stubs": "^6.5",
     "phpstan/extension-installer": "^1.3",
@@ -27,21 +38,19 @@
   },
   "autoload": {
     "psr-4": {
-      "Oblak\\WCSRB\\": "lib/"
+      "Oblak\\Lib\\": "src/Lib/",
+      "Oblak\\WCSRB\\": "src/Modules/"
     },
     "classmap": [
-      "lib/Gateway/",
-      "lib/QR/"
+      "src/"
     ],
     "files": [
-      "lib/Functions/wcsrb-address-field-fns.php",
-      "lib/Functions/wcsrb-core.php",
-      "lib/Functions/wcsrb-helpers.php",
-      "lib/Functions/wcsrb-payment-slip.php",
-      "lib/Functions/wcsrb-settings.php"
+      "src/Modules/Admin/Functions/wcsrb-admin-fns.php",
+      "src/Modules/Core/Functions/wcsrb-bank-fns.php",
+      "src/Modules/Checkout/Functions/wcsrb-entity-fns.php",
+      "src/Modules/Gateway/Functions/wcsrb-ps-gw-fns.php"
     ]
   },
-  "minimum-stability": "beta",
   "prefer-stable": true,
   "config": {
     "allow-plugins": {

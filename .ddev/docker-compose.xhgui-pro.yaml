@@ -1,0 +1,88 @@
+#ddev-generated
+
+volumes:
+  hxgui-ui-nginx:
+    name: ddev-${DDEV_SITENAME}-xhgui-ui-nginx
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+  xhgui-mongo-config:
+    name: ddev-${DDEV_SITENAME}-xhgui-mongo-data
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+  xhgui-mongo-data:
+    name: ddev-${DDEV_SITENAME}-xhgui-mongo-data
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+  xhgui-mongo-journal:
+    name: ddev-${DDEV_SITENAME}-xhgui-mongo-journal
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+
+services:
+  xhgui-ui:
+    container_name: ddev-${DDEV_SITENAME}-xhgui-ui
+    image: xhgui/xhgui:latest
+    volumes:
+      - "hxgui-ui-nginx:/run/nginx"
+      - "./xhgui/config/nginx.conf:/etc/nginx/http.d/default.conf:ro"
+      - "./xhgui/config/app.php:/var/www/xhgui/config/config.php"
+    networks:
+      - default
+      - ddev_default
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    deploy:
+      resources:
+        limits:
+          cpus: "2.5"
+          memory: "1024M"
+        reservations:
+          cpus: "1.5"
+          memory: "512M"
+    restart: no
+    depends_on:
+      web:
+        condition: service_started
+      xhgui-mongo:
+        condition: service_healthy
+
+  xhgui-mongo:
+    container_name: ddev-${DDEV_SITENAME}-xhgui-mongo
+    image: mongo:7.0
+    environment:
+      MONGO_INITDB_DATABASE: xhprof
+    volumes:
+      - "xhgui-mongo-data:/data/db"
+      - "xhgui-mongo-config:/data/configdb"
+      - "xhgui-mongo-journal:/data/db/journal"
+    networks:
+      - default
+    expose:
+      - "27017"
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    deploy:
+      resources:
+        limits:
+          cpus: "2.5"
+          memory: "1024M"
+        reservations:
+          cpus: "1.5"
+          memory: "512M"
+    restart: no
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "127.0.0.1/test",
+          "--eval",
+          "'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s

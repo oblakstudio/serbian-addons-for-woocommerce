@@ -1,0 +1,5 @@
+#ddev-generated
+
+hooks:
+  post-start:
+    - exec: "cd /var/www/html/profiler > /dev/null || (mkdir -p /var/www/html/profiler && cd /var/www/html/profiler && COMPOSER_NO_DEV='1' COMPOSER_VENDOR_DIR='/var/www/html/profiler' composer require perftools/php-profiler -oa)"

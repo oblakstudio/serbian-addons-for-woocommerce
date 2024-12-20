@@ -11,14 +11,12 @@
 		<properties>
 			<property name="text_domain" type="array" extend="true">
 				<element value="serbian-addons-for-woocommerce"/>
-				<element value="woocommerce"/>
 			</property>
 		</properties>
 	</rule>
 
   <file>serbian-addons-for-woocommerce.php</file>
   <file>config/</file>
-  <file>lib/</file>
   <file>src/</file>
   <file>woocommerce/</file>
 </ruleset>

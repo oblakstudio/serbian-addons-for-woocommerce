@@ -1,0 +1,34 @@
+#ddev-generated
+http:
+  middlewares:
+    strip-hxgui-srw-prefix:
+      stripPrefix:
+        prefixes:
+          - "/xhgui"
+        forceSlash: false
+  routers:
+    srw-xhgui-ui-http:
+      rule: "Host(`srw.ddev.site`) && PathPrefix(`/xhgui`)"
+      service: "srw-xhgui-ui"
+      tls: false
+      entryPoints:
+        - "http-80"
+      middlewares:
+        - "strip-hxgui-srw-prefix@file"
+    srw-xhgui-ui-https:
+      rule: "Host(`srw.ddev.site`) && PathPrefix(`/xhgui`)"
+      service: "srw-xhgui-ui"
+      tls: true
+      entryPoints:
+        - "http-443"
+      middlewares:
+        - "strip-hxgui-srw-prefix@file"
+  services:
+    srw-xhgui-ui:
+      loadBalancer:
+        servers:
+          - url: "http://ddev-srw-xhgui-ui:80"
+tls:
+  certificates:
+  - certFile: /mnt/ddev-global-cache/traefik/certs/srw.crt
+    keyFile: /mnt/ddev-global-cache/traefik/certs/srw.key
