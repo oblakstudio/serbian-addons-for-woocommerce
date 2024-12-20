@@ -2,12 +2,12 @@ parameters:
   level: 5
   paths:
     - config
-    - lib
+    - src
     - woocommerce
     - serbian-addons-for-woocommerce.php
   excludePaths:
     analyse:
-      - lib/Modules/Gateway/Services/QR_*.php
+      - src/Modules/Gateway/Services/QR_*.php
   bootstrapFiles:
     - constants.php
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
@@ -15,13 +15,13 @@ parameters:
     -
       identifier: argument.type
       paths:
-        - lib/Utils/Payments.php
+        - src/Utils/Payments.php
     -
       identifier: constant.notFound
       paths:
         - config/*
-        - lib/Modules/Admin/Services/Settings_Page.php
-        - lib/Modules/Gateway/Services/Gateway_Payment_Slip.php
-        - lib/Utils/Installer.php
-        - lib/Utils/Template_Extender.php
-        - lib/App.php
+        - src/Modules/Admin/Services/Settings_Page.php
+        - src/Modules/Gateway/Services/Gateway_Payment_Slip.php
+        - src/Utils/Installer.php
+        - src/Utils/Template_Extender.php
+        - src/App.php
