@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "194694880bb9e144c223f77310417b4a",
+    "content-hash": "1a804784be54726299acf27d3f33e9d0",
     "packages": [
         {
             "name": "automattic/jetpack-autoloader",
@@ -1176,11 +1176,17 @@
         },
         {
             "name": "x-wp/wc-settings-api",
-            "version": "1.3.0",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/x-wp/wc-settings-api.git",
+                "reference": "f2f9e6586b4ff6ccdfe2a92bb518197e474991cd"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/venom/projects/composer/xwc/settings-api",
-                "reference": "66cfd0ab604279723ab35b5e445f937801ea3a08"
+                "type": "zip",
+                "url": "https://api.github.com/repos/x-wp/wc-settings-api/zipball/f2f9e6586b4ff6ccdfe2a92bb518197e474991cd",
+                "reference": "f2f9e6586b4ff6ccdfe2a92bb518197e474991cd",
+                "shasum": ""
             },
             "require": {
                 "php": ">=8.0",
@@ -1203,16 +1209,17 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "XWC\\": "src/"
-                },
                 "files": [
                     "src/Functions/xwc-settings-init.php"
                 ],
+                "psr-4": {
+                    "XWC\\": "src/"
+                },
                 "classmap": [
                     "src/Core"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0-only"
             ],
@@ -1224,7 +1231,6 @@
             ],
             "description": "Collection of various helper components used by xWP packages",
             "keywords": [
-                "Utilities",
                 "classes",
                 "config-service",
                 "decoupling",
@@ -1232,12 +1238,14 @@
                 "interfaces",
                 "interoperability",
                 "standards",
+                "utilities",
                 "woocommerce"
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": false
-            }
+            "support": {
+                "issues": "https://github.com/x-wp/wc-settings-api/issues",
+                "source": "https://github.com/x-wp/wc-settings-api/tree/v1.2.0"
+            },
+            "time": "2024-12-20T23:25:00+00:00"
         },
         {
             "name": "x-wp/wc-template-customizer",
