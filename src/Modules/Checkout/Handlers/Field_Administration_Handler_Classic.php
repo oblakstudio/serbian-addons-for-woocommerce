@@ -19,7 +19,7 @@ use XWP\DI\Decorators\Handler;
  * @since 4.0.0
  */
 #[Handler( tag: 'woocommerce_init', priority: 98, context: Handler::CTX_ADMIN, container: 'wcsrb' )]
-class Field_Admin_Handler {
+class Field_Administration_Handler_Classic {
     /**
      * Constructor
      *
@@ -34,7 +34,7 @@ class Field_Admin_Handler {
      * @param  array<string,array<string,mixed>> $fields Customer meta fields.
      * @return array<string,array<string,mixed>>
      */
-    #[Filter( tag: 'woocommerce_customer_meta_fields', priority: 10 )]
+    // #[Filter( tag: 'woocommerce_customer_meta_fields', priority: 10 )]
     public function modify_customer_meta_fields( array $fields ): array {
         $company = \array_search( 'billing_company', \array_keys( $fields['billing']['fields'] ), true );
 
@@ -119,11 +119,16 @@ class Field_Admin_Handler {
     /**
      * Adds fields to the order billing fields.
      *
-     * @param  array $fields Order billing fields.
+     * @param  array    $fields Order billing fields.
+     * @param  WC_Order $order Order object.
      * @return array
      */
     #[Filter( tag: 'woocommerce_admin_billing_fields', priority: 99 )]
-    public function add_order_billing_fields( array $fields ): array {
+    public function add_order_billing_fields( array $fields, WC_Order $order = null ): array {
+        if ( ! $order || 'store-api' === $order->get_created_via() ) {
+            return $fields;
+        }
+
         $index = \array_search( 'company', \array_keys( $fields ), true );
 
         /**

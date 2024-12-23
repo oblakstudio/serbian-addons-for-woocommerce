@@ -53,7 +53,7 @@ class Installer extends Base_Plugin_Installer {
     #[Action( tag: 'before_woocommerce_init', priority: 10 )]
     public function declare_hpos_compatibility() {
         FeaturesUtil::declare_compatibility( 'custom_order_tables', WCSRB_FILE, true );
-        FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WCSRB_FILE, false );
+        FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', WCSRB_FILE, true );
     }
 
 

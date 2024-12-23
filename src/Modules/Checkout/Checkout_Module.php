@@ -8,10 +8,9 @@
 
 namespace Oblak\WCSRB\Checkout;
 
-use DI\Attribute\Inject;
 use XWC\Interfaces\Config_Repository;
+use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
-use XWP\DI\Interfaces\On_Initialize;
 
 /**
  * Checkout module
@@ -23,24 +22,40 @@ use XWP\DI\Interfaces\On_Initialize;
 #[Module(
     container: 'wcsrb',
     hook: 'woocommerce_loaded',
-    priority: 1,
+    priority: 2,
     handlers: array(
-        Handlers\Field_Admin_Handler::class,
-        Handlers\Field_Customize_Handler::class,
-        Handlers\Field_Display_Handler::class,
+        // Handlers\Field_Appearance_Handler_Block::class,
+        // Handlers\Field_Customization_Handler_Block::class,
+        Handlers\Field_Administration_Handler_Classic::class,
+        // Handlers\Field_Customize_Handler::class,
+        // Handlers\Field_Display_Handler::class,
         Handlers\Field_Validation_Handler::class,
+        // Handlers\Field_Validation_Handler_Block::class,
     ),
 )]
-class Checkout_Module implements On_Initialize {
+class Checkout_Module {
     /**
-     * Function to run on plugin initialization.
+     * Checks if the module can be initialized.
      *
-    * @param Config_Repository|null $cfg Config repository instance.
+     * @param  Config_Repository $cfg Config repository instance.
+     * @return bool
      */
-    #[Inject( array( Config_Repository::class ) )]
-    public function on_initialize( ?Config_Repository $cfg = null ): void {
-        $cp_id = \wc_get_page_id( 'checkout' );
+    public static function can_initialize( Config_Repository $cfg ): bool {
+        return ! $cfg->get( 'core.block_checkout', true );
+    }
 
-        $cfg->set( 'core.block_checkout', $cp_id && \has_block( 'woocommerce/checkout', $cp_id ) );
+    /**
+     * Change the body class for the checkout page.
+     *
+     * @param  array<string> $classes Body classes.
+     * @return array<string>
+     */
+    #[Filter( tag: 'body_class', priority: 100, context: Filter::CTX_FRONTEND )]
+    public function change_checkout_body_class( array $classes ): array {
+        if ( \is_checkout() && ! \is_order_received_page() && ! \is_checkout_pay_page() ) {
+            $classes[] = 'wc-classic-checkout';
+        }
+
+        return $classes;
     }
 }

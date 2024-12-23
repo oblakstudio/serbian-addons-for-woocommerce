@@ -38,6 +38,11 @@ class Core_Module {
      */
     public function __construct( Config_Repository $config ) {
         $this->fix_currency = $config->get( 'core.fix_currency_symbol' );
+
+        $config->set(
+            'core.block_checkout',
+            \has_block( 'woocommerce/checkout', \wc_get_page_id( 'checkout' ) ),
+        );
     }
 
     /**

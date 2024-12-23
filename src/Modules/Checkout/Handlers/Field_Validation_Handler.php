@@ -76,26 +76,4 @@ class Field_Validation_Handler {
 
         $order->update_meta_data( '_' . $field, $value );
     }
-
-    /**
-     * Validates the block checkout fields.
-     *
-     * @param  \WP_Error           $err    Error object.
-     * @param  array<string,mixed> $fields Address fields.
-     * @param  string              $group  Address group.
-     */
-    #[Action( tag: 'woocommerce_blocks_validate_location_address_fieldsa', priority: 1000 )]
-    public function validate_block_checkout( \WP_Error $err, array $fields, string $group ): void {
-        $fields = array(
-            'billing_company' => $fields['company'],
-            'billing_country' => $fields['country'],
-            'billing_mb'      => $fields['wcsrb/mb'],
-            'billing_pib'     => $fields['wcsrb/pib'],
-            'billing_type'    => $fields['wcsrb/type'],
-        );
-
-        foreach ( $this->validator->validate_address( $fields, $group ) as $error ) {
-            $err->add( $error['code'], $error['message'], array( 'id' => $error['id'] ) );
-        }
-    }
 }

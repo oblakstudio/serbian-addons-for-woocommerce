@@ -6,6 +6,9 @@
  * @subpackage Checkout
  */
 
+use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\WooCommerce\Blocks\Package;
+
 /**
  * Get the entity types for the customer type field
  *
@@ -117,4 +120,8 @@ function wcsrb_get_company_fields(): array {
      * @since 3.8.0
      */
     return apply_filters( 'wcsrb_company_address_fields', $fields );
+}
+
+function wcsrb_get_cf(): CheckoutFields {
+    return Package::container()->get( CheckoutFields::class );
 }
