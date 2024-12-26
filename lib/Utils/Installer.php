@@ -18,7 +18,7 @@ use XWP\DI\Decorators\Handler;
  */
 #[Handler( tag: 'plugins_loaded', priority: 1000, container: 'wcsrb' )]
 class Installer extends Base_Plugin_Installer {
-	/**
+    /**
      * Constructor override
      */
     protected function __construct() {
@@ -38,7 +38,7 @@ class Installer extends Base_Plugin_Installer {
     /**
      * Load the plugin text domain for translation
      */
-    #[Action( tag: 'plugins_loaded', priority: 1001 )]
+    #[Action( tag: 'init', priority: 1001 )]
     public function load_plugin_textdomain() {
         \load_plugin_textdomain(
             domain: 'serbian-addons-for-woocommerce',
@@ -82,17 +82,17 @@ class Installer extends Base_Plugin_Installer {
      */
     protected function create_files() {
         /**
-		 * Bypass if filesystem is read-only and/or non-standard upload system is used.
-		 *
+         * Bypass if filesystem is read-only and/or non-standard upload system is used.
+         *
          * @param  bool $skip_create_files Whether to skip creating files. Default is false.
          * @return bool
-		 * @since 3.4.0
-		 */
-		if ( \apply_filters( 'woocommerce_serbian_install_skip_create_files', false ) ) {
-			return;
-		}
+         * @since 3.4.0
+         */
+        if ( \apply_filters( 'woocommerce_serbian_install_skip_create_files', false ) ) {
+            return;
+        }
 
-		// Install files and folders for uploading files and prevent hotlinking.
+        // Install files and folders for uploading files and prevent hotlinking.
         $files = array(
             array(
                 'base'    => \xwp_app( 'wcsrb' )->get( 'ips.basedir' ),
@@ -108,7 +108,7 @@ class Installer extends Base_Plugin_Installer {
 
         foreach ( $files as $file ) {
             $this->create_file( $file );
-		}
+        }
     }
 
     /**
@@ -117,15 +117,14 @@ class Installer extends Base_Plugin_Installer {
      * @param  array $file File data.
      */
     private function create_file( array $file ) {
-        if (
-            ! \wp_mkdir_p( $file['base'] ) ||
-            \file_exists( \trailingslashit( $file['base'] ) . $file['file'] )
-        ) {
+        $filename = \trailingslashit( $file['base'] ) . $file['file'];
+
+        if ( \file_exists( $filename ) || ! \wp_mkdir_p( $file['base'] ) ) {
             return;
         }
 
         // phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions
-        $file_handle = @\fopen( \trailingslashit( $file['base'] ) . $file['file'], 'wb' );
+        $file_handle = @\fopen( $filename, 'wb' );
 
         if ( ! $file_handle ) {
             return;
