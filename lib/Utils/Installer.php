@@ -27,9 +27,14 @@ class Installer extends Base_Plugin_Installer {
         parent::__construct();
     }
 
-     // phpcs:ignore
+    /**
+     * Set default values
+     *
+     * @return void
+     */
     protected function set_defaults() {
-        $this->name       = \__( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
+        //phpcs:ignore SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+        $this->tr_name    = static fn() => \__( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
         $this->slug       = 'serbian_woocommerce';
         $this->version    = WCRS_VERSION;
         $this->db_version = WCRS_VERSION;

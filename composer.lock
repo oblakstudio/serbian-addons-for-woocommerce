@@ -391,16 +391,16 @@
         },
         {
             "name": "oblak/wp-plugin-installer",
-            "version": "v2.1.4",
+            "version": "v2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/oblakstudio/wp-plugin-installer.git",
-                "reference": "e34702944c37cf834fb4ee303039cb66b00b979b"
+                "reference": "699d8f4788d1925d22b2f816f2b8285be09b6354"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/e34702944c37cf834fb4ee303039cb66b00b979b",
-                "reference": "e34702944c37cf834fb4ee303039cb66b00b979b",
+                "url": "https://api.github.com/repos/oblakstudio/wp-plugin-installer/zipball/699d8f4788d1925d22b2f816f2b8285be09b6354",
+                "reference": "699d8f4788d1925d22b2f816f2b8285be09b6354",
                 "shasum": ""
             },
             "require": {
@@ -439,9 +439,9 @@
             "description": "Simplifies the installation and activation of WordPress plugins",
             "support": {
                 "issues": "https://github.com/oblakstudio/wp-plugin-installer/issues",
-                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.4"
+                "source": "https://github.com/oblakstudio/wp-plugin-installer/tree/v2.1.5"
             },
-            "time": "2024-11-01T12:02:40+00:00"
+            "time": "2024-12-26T16:57:05+00:00"
         },
         {
             "name": "php-di/invoker",
