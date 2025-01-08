@@ -28,9 +28,14 @@ class Installer extends Base_Plugin_Installer {
         parent::__construct();
     }
 
-     // phpcs:ignore
+    /**
+     * Set default values
+     *
+     * @return void
+     */
     protected function set_defaults() {
-        $this->name       = \__( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
+        //phpcs:ignore SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+        $this->tr_name    = static fn() => \__( 'Serbian Addons for WooCommerce', 'serbian-addons-for-woocommerce' );
         $this->slug       = 'serbian_woocommerce';
         $this->version    = WCSRB_VER;
         $this->db_version = WCSRB_VER;
@@ -39,7 +44,7 @@ class Installer extends Base_Plugin_Installer {
     /**
      * Load the plugin text domain for translation
      */
-    #[Action( tag: 'plugins_loaded', priority: 1001 )]
+    #[Action( tag: 'init', priority: 1001 )]
     public function load_plugin_textdomain() {
         \load_plugin_textdomain(
             domain: 'serbian-addons-for-woocommerce',
@@ -131,7 +136,7 @@ class Installer extends Base_Plugin_Installer {
         }
 
         // phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged, WordPress.WP.AlternativeFunctions
-        $file_handle = @\fopen( \trailingslashit( $file['base'] ) . $file['file'], 'wb' );
+        $file_handle = @\fopen( $filename, 'wb' );
 
         if ( ! $file_handle ) {
             return;

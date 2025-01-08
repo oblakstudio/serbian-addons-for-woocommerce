@@ -5,9 +5,10 @@
     "automattic/jetpack-autoloader": "^3.1",
     "chillerlan/php-qrcode": "^5",
     "oblak/serbian-validators": "^1",
-    "oblak/wp-plugin-installer": "^2",
-    "x-wp/asset-loader": "^1.0",
+    "oblak/wp-plugin-installer": "^2.1",
+    "x-wp/asset-loader": "^1.1",
     "x-wp/di": "^1.0",
+    "x-wp/helper-functions": "^1.18",
     "x-wp/helper-woocommerce": "^1.13",
     "x-wp/wc-settings-api": "^1",
     "x-wp/wc-template-customizer": "^1.0"
