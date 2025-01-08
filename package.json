@@ -3,12 +3,12 @@
   "description": "A WPWebpack project A WPWebpack project",
   "license": "GPL-3.0",
   "scripts": {
+    "build:release": "npm run build:production && npm run build:blocks",
     "build:blocks": "wp-scripts build --config assets/webpack/webpack.config-block.js",
     "build": "webpack --config assets/webpack/webpack.config.ts",
     "build:production": "webpack --env production --config assets/webpack/webpack.config.ts",
     "watch": "webpack --watch --config assets/webpack/webpack.config.ts",
     "watch:production": "webpack --watch --env production --config assets/webpack/webpack.config.ts",
-    "build:release": "./assets/build/release.sh",
     "build:pot": "node assets/build/wp-pot.js",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
     "lint:scripts": "eslint assets/scripts",

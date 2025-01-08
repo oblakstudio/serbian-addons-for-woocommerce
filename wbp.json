@@ -1,0 +1,315 @@
+{
+  "mode": "development",
+  "target": "browserslist",
+  "output": {
+    "filename": "[name].js",
+    "path": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/build"
+  },
+  "resolve": {
+    "alias": {
+      "lodash-es": "lodash"
+    },
+    "extensions": [
+      ".jsx",
+      ".ts",
+      ".tsx",
+      "..."
+    ]
+  },
+  "optimization": {
+    "concatenateModules": false,
+    "splitChunks": {
+      "cacheGroups": {
+        "style": {
+          "type": "css/mini-extract",
+          "test": {},
+          "chunks": "all",
+          "enforce": true
+        },
+        "default": false
+      }
+    },
+    "minimizer": [
+      {
+        "options": {
+          "test": {},
+          "extractComments": false,
+          "parallel": true,
+          "minimizer": {
+            "options": {
+              "output": {
+                "comments": {}
+              },
+              "compress": {
+                "passes": 2
+              },
+              "mangle": {
+                "reserved": [
+                  "__",
+                  "_n",
+                  "_nx",
+                  "_x"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "module": {
+    "rules": [
+      {
+        "test": {},
+        "exclude": [
+          {}
+        ],
+        "use": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/source-map-loader/dist/cjs.js",
+        "enforce": "pre"
+      },
+      {
+        "test": {},
+        "exclude": {},
+        "use": [
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/babel-loader/lib/index.js",
+            "options": {
+              "cacheDirectory": true,
+              "babelrc": false,
+              "configFile": false,
+              "presets": [
+                "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/babel-preset-default/index.js"
+              ],
+              "plugins": []
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/css-loader/dist/cjs.js",
+            "options": {
+              "importLoaders": 1,
+              "sourceMap": true,
+              "modules": {
+                "auto": true
+              }
+            }
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {
+                "ident": "postcss",
+                "sourceMap": true,
+                "plugins": [
+                  {
+                    "options": {
+                      "grid": true
+                    },
+                    "postcssPlugin": "autoprefixer"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/css-loader/dist/cjs.js",
+            "options": {
+              "importLoaders": 1,
+              "sourceMap": true,
+              "modules": {
+                "auto": true
+              }
+            }
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {
+                "ident": "postcss",
+                "sourceMap": true,
+                "plugins": [
+                  {
+                    "options": {
+                      "grid": true
+                    },
+                    "postcssPlugin": "autoprefixer"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/css-loader/dist/cjs.js",
+            "options": {
+              "importLoaders": 1,
+              "sourceMap": true,
+              "modules": {
+                "auto": true
+              }
+            }
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/postcss-loader/dist/cjs.js",
+            "options": {
+              "postcssOptions": {
+                "ident": "postcss",
+                "sourceMap": true,
+                "plugins": [
+                  {
+                    "options": {
+                      "grid": true
+                    },
+                    "postcssPlugin": "autoprefixer"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "loader": "/home/venom/projects/plugins/serbian-addons-for-woocommerce/node_modules/@wordpress/scripts/node_modules/sass-loader/dist/cjs.js",
+            "options": {
+              "sourceMap": true
+            }
+          }
+        ]
+      },
+      {
+        "test": {},
+        "issuer": {},
+        "use": [
+          "@svgr/webpack",
+          "url-loader"
+        ],
+        "type": "javascript/auto"
+      },
+      {
+        "test": {},
+        "issuer": {},
+        "type": "asset/inline"
+      },
+      {
+        "test": {},
+        "type": "asset/resource",
+        "generator": {
+          "filename": "images/[name].[hash:8][ext]"
+        }
+      },
+      {
+        "test": {},
+        "type": "asset/resource",
+        "generator": {
+          "filename": "fonts/[name].[hash:8][ext]"
+        }
+      }
+    ]
+  },
+  "plugins": [
+    {
+      "definitions": {
+        "SCRIPT_DEBUG": true
+      }
+    },
+    {
+      "dangerouslyAllowCleanPatternsOutsideProject": false,
+      "dry": false,
+      "verbose": false,
+      "cleanStaleWebpackAssets": false,
+      "protectWebpackAssets": true,
+      "cleanAfterEveryBuildPatterns": [
+        "!fonts/**",
+        "!images/**"
+      ],
+      "cleanOnceBeforeBuildPatterns": [
+        "**/*"
+      ],
+      "currentAssets": [],
+      "initialClean": false,
+      "outputPath": ""
+    },
+    {},
+    {
+      "patterns": [
+        {
+          "from": "**/block.json",
+          "context": "src",
+          "noErrorOnMissing": true
+        },
+        {
+          "from": "**/*.php",
+          "context": "src",
+          "noErrorOnMissing": true
+        }
+      ],
+      "options": {}
+    },
+    {
+      "_sortedModulesCache": {},
+      "options": {
+        "filename": "[name].css",
+        "ignoreOrder": false,
+        "runtime": true,
+        "chunkFilename": "[name].css"
+      },
+      "runtimeOptions": {
+        "linkType": "text/css"
+      }
+    },
+    {
+      "options": {
+        "combineAssets": false,
+        "combinedOutputFile": null,
+        "externalizedReport": false,
+        "injectPolyfill": false,
+        "outputFormat": "php",
+        "outputFilename": null,
+        "useDefaults": true
+      },
+      "externalizedDeps": {},
+      "externalsPlugin": {
+        "type": "window"
+      }
+    }
+  ],
+  "stats": {
+    "children": false
+  },
+  "devtool": "source-map",
+  "devServer": {
+    "devMiddleware": {
+      "writeToDisk": true
+    },
+    "allowedHosts": "auto",
+    "host": "localhost",
+    "port": 8887,
+    "proxy": {
+      "/build": {
+        "pathRewrite": {
+          "^/build": ""
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,9 @@
  * @subpackage Checkout
  */
 
+use Automattic\WooCommerce\Blocks\Domain\Services\CheckoutFields;
+use Automattic\WooCommerce\Blocks\Package;
+
 /**
  * Get the entity types for the customer type field
  *
@@ -53,10 +56,10 @@ function wcsrb_can_checkout_as( string $type ): bool {
  * @return 'person'|'company'
  */
 function wcsrb_get_customer_type( WC_Order|WC_Customer $target ): string {
-    $key = $target instanceof WC_Order ? '_billing_type' : 'billing_type';
+    $type = wcsrb_get_cf()->get_field_from_object( 'wcsrb/type', $target, 'billing' );
 
-    // phpcs:ignore Universal
-    return $target->get_meta( $key, true ) ?: 'person';
+    //phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+    return $type ?? 'person' ?: 'person';
 }
 
 /**
@@ -66,20 +69,10 @@ function wcsrb_get_customer_type( WC_Order|WC_Customer $target ): string {
  * @return array{mb: string, pib: string, type: 'company'|'person'}
  */
 function wcsrb_get_company_data( WC_Order|WC_Customer $target ): array {
-    if ( 'company' !== wcsrb_get_customer_type( $target ) ) {
-        return array(
-            'mb'   => '',
-            'pib'  => '',
-            'type' => 'person',
-        );
-    }
-
-    $key = $target instanceof WC_Order ? '_billing' : 'billing';
-
     return array(
-        'mb'   => $target->get_meta( "{$key}_mb", true ),
-        'pib'  => $target->get_meta( "{$key}_pib", true ),
-        'type' => 'company',
+        'mb'   => wcsrb_get_cf()->get_field_from_object( 'wcsrb/mb', $target, 'billing' ),
+        'pib'  => wcsrb_get_cf()->get_field_from_object( 'wcsrb/pib', $target, 'billing' ),
+        'type' => wcsrb_get_customer_type( $target ),
     );
 }
 
@@ -117,4 +110,39 @@ function wcsrb_get_company_fields(): array {
      * @since 3.8.0
      */
     return apply_filters( 'wcsrb_company_address_fields', $fields );
+}
+
+/**
+ * Get the checkout fields instance.
+ *
+ * @return CheckoutFields
+ */
+function wcsrb_get_cf(): CheckoutFields {
+    /**
+     * Variable to hold the container instance.
+     *
+     * @var Automattic\WooCommerce\Blocks\Registry\Container $ctr
+     */
+    $ctr = Package::container();
+
+    return $ctr->get( CheckoutFields::class );
+}
+
+/**
+ * Get the update callback function for the order billing fields.
+ *
+ * @param 'block'|'classic' $type Field type.
+ * @return callable
+ */
+function wcsrb_get_update_cb( string $type ): callable {
+    /**
+     * Callback to validate and update the order billing field.
+     *
+     * @param  string    $id Field ID.
+     * @param  mixed     $v  Field value.
+     * @param  \WC_Order $o  Order object.
+     *
+     * @since 3.8.0
+     */
+    return static fn( $k, $v, $o ) => do_action( "wcsrb_update_{$type}_order_field", $k, $v, $o );
 }

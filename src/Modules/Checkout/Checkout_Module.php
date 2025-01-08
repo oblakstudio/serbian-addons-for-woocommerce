@@ -8,10 +8,9 @@
 
 namespace Oblak\WCSRB\Checkout;
 
-use DI\Attribute\Inject;
 use XWC\Interfaces\Config_Repository;
+use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Module;
-use XWP\DI\Interfaces\On_Initialize;
 
 /**
  * Checkout module
@@ -23,24 +22,53 @@ use XWP\DI\Interfaces\On_Initialize;
 #[Module(
     container: 'wcsrb',
     hook: 'woocommerce_loaded',
-    priority: 1,
+    priority: 2,
     handlers: array(
-        Handlers\Field_Admin_Handler::class,
-        Handlers\Field_Customize_Handler::class,
-        Handlers\Field_Display_Handler::class,
-        Handlers\Field_Validation_Handler::class,
+        // Block checkout.
+        Handlers\Block\Field_Admin_Handler::class,
+        Handlers\Block\Field_Customize_Handler::class,
+        Handlers\Block\Field_Validate_Handler::class,
+
+        // Classic checkout.
+        Handlers\Classic\Field_Admin_Handler::class,
+        Handlers\Classic\Field_Customize_Handler::class,
+        Handlers\Classic\Field_Validate_Handler::class,
+
+        // Block + Classic checkout.
+        Handlers\Shared\Field_Admin_Handler::class,
+        Handlers\Shared\Field_Customize_Handler::class,
+        Handlers\Shared\Field_Validate_Handler::class,
     ),
 )]
-class Checkout_Module implements On_Initialize {
+class Checkout_Module {
     /**
-     * Function to run on plugin initialization.
+     * Are we using block checkout?
      *
-    * @param Config_Repository|null $cfg Config repository instance.
+     * @var bool
      */
-    #[Inject( array( Config_Repository::class ) )]
-    public function on_initialize( ?Config_Repository $cfg = null ): void {
-        $cp_id = \wc_get_page_id( 'checkout' );
+    private bool $block;
 
-        $cfg->set( 'core.block_checkout', $cp_id && \has_block( 'woocommerce/checkout', $cp_id ) );
+    /**
+     * Constructor
+     *
+     * @param Config_Repository $cfg Config repository instance.
+     */
+    public function __construct( Config_Repository $cfg ) {
+        $this->block = $cfg->get( 'core.block_checkout', true );
+    }
+
+    /**
+     * Change the body class for the checkout page.
+     *
+     * @param  array<string> $classes Body classes.
+     * @return array<string>
+     */
+    #[Filter( tag: 'body_class', priority: 100, context: Filter::CTX_FRONTEND )]
+    public function change_checkout_body_class( array $classes ): array {
+        if ( \is_checkout() && ! \is_order_received_page() && ! \is_checkout_pay_page() ) {
+            $classes[] = $this->block ? 'wc-block-checkout' : 'wc-classic-checkout';
+        }
+
+        return $classes;
     }
 }

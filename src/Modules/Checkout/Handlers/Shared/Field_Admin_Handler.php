@@ -6,7 +6,7 @@
  * @subpackage Checkout
  */
 
-namespace Oblak\WCSRB\Checkout\Handlers;
+namespace Oblak\WCSRB\Checkout\Handlers\Shared;
 
 use Oblak\WCSRB\Checkout\Services\Field_Validator;
 use WC_Order;
@@ -14,7 +14,9 @@ use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Handler;
 
 /**
- * Handles administration of the checkout fields.
+ * Handles admin functionality for checkout fields.
+ *
+ * ! This handler is used for both Block and Classic checkout.
  *
  * @since 4.0.0
  */
@@ -26,6 +28,24 @@ class Field_Admin_Handler {
      * @param Field_Validator $validator Field validator instance.
      */
     public function __construct( protected Field_Validator $validator ) {
+    }
+
+    /**
+     * Modifies the buyer name in the admin order page to include necessary company information
+     *
+     * @param  string   $buyer Buyer name.
+     * @param  WC_Order $order Order object.
+     * @return string           Modified Buyer name
+     */
+    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
+    public function modify_order_buyer_name( string $buyer, WC_Order $order ): string {
+        $data = \wcsrb_get_company_data( $order );
+
+        if ( 'RS' === $order->get_billing_country() && 'company' === $data['type'] ) {
+            $buyer = $order->get_billing_company();
+        }
+
+        return $buyer;
     }
 
     /**
@@ -96,74 +116,5 @@ class Field_Admin_Handler {
         }
 
         return $r;
-    }
-
-    /**
-     * Modifies the buyer name in the admin order page to include necessary company information
-     *
-     * @param  string   $buyer Buyer name.
-     * @param  WC_Order $order Order object.
-     * @return string           Modified Buyer name
-     */
-    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
-    public function modify_order_buyer_name( string $buyer, WC_Order $order ): string {
-        $data = \wcsrb_get_company_data( $order );
-
-        if ( 'RS' === $order->get_billing_country() && 'company' === $data['type'] ) {
-            $buyer = $order->get_billing_company();
-        }
-
-        return $buyer;
-    }
-
-    /**
-     * Adds fields to the order billing fields.
-     *
-     * @param  array $fields Order billing fields.
-     * @return array
-     */
-    #[Filter( tag: 'woocommerce_admin_billing_fields', priority: 99 )]
-    public function add_order_billing_fields( array $fields ): array {
-        $index = \array_search( 'company', \array_keys( $fields ), true );
-
-        /**
-         * Callback to validate and update the order billing field.
-         *
-         * @param  string    $id Field ID.
-         * @param  mixed     $v  Field value.
-         * @param  \WC_Order $o  Order object.
-         *
-         * @since 3.8.0
-         */
-        $cb = static fn( $id, $v, $o ) => \do_action( 'wcsrb_update_order_billing_field', \ltrim( $id, '_' ), $v, $o ); //phpcs:ignore SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
-
-        //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
-        return \array_merge(
-            \array_slice( $fields, 0, $index ),
-            array(
-                'type'    => array(
-                    'label'   => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
-                    'show'    => false,
-                    'type'    => 'select',
-                    'options' => \wcsrb_get_entity_types(),
-                ),
-                'company' => $fields['company'],
-
-                'mb'      => array(
-                    'label'           => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
-                    'show'            => false,
-                    'update_callback' => $cb,
-                ),
-                'pib'     => array(
-                    'label'           => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
-                    'show'            => false,
-                    'update_callback' => $cb,
-                    'wrapper_class'   => '_billing_last_name_field ',
-                ),
-
-            ),
-            \array_slice( $fields, $index + 1 ),
-        );
-        //phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
     }
 }
