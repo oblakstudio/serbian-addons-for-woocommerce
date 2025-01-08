@@ -165,14 +165,13 @@ class Payments {
      * @return string          Formatted payment code.
      */
     private function format_code( string $code, WC_Order $order ): string {
-        $type = $order->get_meta( '_billing_type', true );
+        if ( 'auto' !== $code ) {
+            return $code;
+        }
 
-        return match ( true ) {
-            'auto' !== $code    => $code,
-            'company' === $type => '221',
-            'person' === $type  => '289',
-            default             => '289',
-        };
+        return 'company' === \wcsrb_get_company_data( $order )['type']
+            ? '221'
+            : '289';
     }
 
     /**

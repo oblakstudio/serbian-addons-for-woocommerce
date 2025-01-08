@@ -8,22 +8,22 @@ export class BlockCheckoutController {
   }
 
   finalize(): void {
-    console.log('BlockCheckoutController.finalize');
+    $(document.body).on('click', '.wc-block-components-address-card__edit', (e) => {
+      window.setTimeout(() => {
+        $('.wc-block-components-select-input-wcsrb-type select').trigger('change');
+      }, 100);
+    });
   }
 
   toggleFields(isCompany: boolean): void {
     const $fields = $('input[data-shown-type="company"], .wc-block-components-address-form__company input');
 
+    console.log('toggleFields', isCompany, $fields);
     if (isCompany) {
       $fields.parent('.wc-block-components-text-input').show().addClass('is-active');
 
       return;
     }
-
-    // $fields.each(function () {
-    //   $(this).val(''); //.parent('.wc-block-components-text-input').hide();
-    //   console.log('toggleFields', $(this).val());
-    // });
 
     $fields.val('').trigger('change').parent('.wc-block-components-text-input').hide().removeClass('is-active');
   }

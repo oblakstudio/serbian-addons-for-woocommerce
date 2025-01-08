@@ -74,6 +74,26 @@ class Field_Validator {
     }
 
     /**
+     * Remap the address field keys.
+     *
+     * @param  array<string,string> $fields Address fields.
+     * @param  array<string,string> $map Field map.
+     * @return array<string,string>
+     */
+    public function remap_fields( array $fields, array $map ): array {
+        $keys = \array_keys( $map );
+
+        return \array_combine(
+            $keys,
+            \array_map(
+                static fn( $k, $v ) => $fields[ $k ] ?? $fields[ $v ] ?? '',
+                $map,
+                $keys,
+            ),
+        );
+    }
+
+    /**
      * Get the validators for the address fields.
      *
      * @return array<string,array{
@@ -199,7 +219,7 @@ class Field_Validator {
      *   message: string
      * }
      */
-    public function validate_field( string $field, mixed $value ): array {
+    public function validate_field( string $field, mixed $value ): ?array {
         $args = $this->get_validator( $field );
 
         if ( ! $args ) {
@@ -212,7 +232,7 @@ class Field_Validator {
             $this->errors[] = $res;
         }
 
-        return $res;
+        return $res ?? array();
     }
 
     /**
@@ -251,13 +271,7 @@ class Field_Validator {
         $field ??= $this->get_address( 'RS', 'billing' )[ $key ] ?? array( 'label' => $key );
 
         return match ( true ) {
-            ! $value => array(
-                'cb_id'   => $args['cb_id'] ?? 665,
-                'code'    => "{$key}_required",
-                'id'      => $key,
-                // Translators: %s is the field label.
-                'message' => \sprintf( \__( '%s is a required field.', 'woocommerce' ), $field['label'] ),
-            ),
+
             ! $args['callback']( $value ) => array(
                 'cb_id'   => $args['cb_id'] ?? 0,
                 'code'    => $args['code'],

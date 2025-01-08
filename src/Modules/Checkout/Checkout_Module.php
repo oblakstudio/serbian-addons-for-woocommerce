@@ -24,24 +24,37 @@ use XWP\DI\Decorators\Module;
     hook: 'woocommerce_loaded',
     priority: 2,
     handlers: array(
-        // Handlers\Field_Appearance_Handler_Block::class,
-        // Handlers\Field_Customization_Handler_Block::class,
-        Handlers\Field_Administration_Handler_Classic::class,
-        // Handlers\Field_Customize_Handler::class,
-        // Handlers\Field_Display_Handler::class,
-        Handlers\Field_Validation_Handler::class,
-        // Handlers\Field_Validation_Handler_Block::class,
+        // Block checkout.
+        Handlers\Block\Field_Admin_Handler::class,
+        Handlers\Block\Field_Customize_Handler::class,
+        Handlers\Block\Field_Validate_Handler::class,
+
+        // Classic checkout.
+        Handlers\Classic\Field_Admin_Handler::class,
+        Handlers\Classic\Field_Customize_Handler::class,
+        Handlers\Classic\Field_Validate_Handler::class,
+
+        // Block + Classic checkout.
+        Handlers\Shared\Field_Admin_Handler::class,
+        Handlers\Shared\Field_Customize_Handler::class,
+        Handlers\Shared\Field_Validate_Handler::class,
     ),
 )]
 class Checkout_Module {
     /**
-     * Checks if the module can be initialized.
+     * Are we using block checkout?
      *
-     * @param  Config_Repository $cfg Config repository instance.
-     * @return bool
+     * @var bool
      */
-    public static function can_initialize( Config_Repository $cfg ): bool {
-        return ! $cfg->get( 'core.block_checkout', true );
+    private bool $block;
+
+    /**
+     * Constructor
+     *
+     * @param Config_Repository $cfg Config repository instance.
+     */
+    public function __construct( Config_Repository $cfg ) {
+        $this->block = $cfg->get( 'core.block_checkout', true );
     }
 
     /**
@@ -53,7 +66,7 @@ class Checkout_Module {
     #[Filter( tag: 'body_class', priority: 100, context: Filter::CTX_FRONTEND )]
     public function change_checkout_body_class( array $classes ): array {
         if ( \is_checkout() && ! \is_order_received_page() && ! \is_checkout_pay_page() ) {
-            $classes[] = 'wc-classic-checkout';
+            $classes[] = $this->block ? 'wc-block-checkout' : 'wc-classic-checkout';
         }
 
         return $classes;

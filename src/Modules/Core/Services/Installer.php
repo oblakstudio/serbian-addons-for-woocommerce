@@ -131,7 +131,9 @@ class Installer extends Base_Plugin_Installer {
      * @param  array $file File data.
      */
     private function create_file( array $file ) {
-        if ( ! \wp_mkdir_p( $file['base'] ) || \file_exists( \trailingslashit( $file['base'] ) . $file['file'] ) ) {
+        $filename = \trailingslashit( $file['base'] ) . $file['file'];
+
+        if ( ! \wp_mkdir_p( $file['base'] ) || \file_exists( $filename ) ) {
             return;
         }
 

@@ -6,7 +6,7 @@
  * @subpackage Checkout
  */
 
-namespace Oblak\WCSRB\Checkout\Handlers;
+namespace Oblak\WCSRB\Checkout\Handlers\Shared;
 
 use Oblak\WCSRB\Checkout\Services\Field_Validator;
 use WC_Order;
@@ -14,12 +14,14 @@ use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Handler;
 
 /**
- * Handles administration of the checkout fields.
+ * Handles admin functionality for checkout fields.
+ *
+ * ! This handler is used for both Block and Classic checkout.
  *
  * @since 4.0.0
  */
 #[Handler( tag: 'woocommerce_init', priority: 98, context: Handler::CTX_ADMIN, container: 'wcsrb' )]
-class Field_Administration_Handler_Classic {
+class Field_Admin_Handler {
     /**
      * Constructor
      *
@@ -29,12 +31,30 @@ class Field_Administration_Handler_Classic {
     }
 
     /**
+     * Modifies the buyer name in the admin order page to include necessary company information
+     *
+     * @param  string   $buyer Buyer name.
+     * @param  WC_Order $order Order object.
+     * @return string           Modified Buyer name
+     */
+    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
+    public function modify_order_buyer_name( string $buyer, WC_Order $order ): string {
+        $data = \wcsrb_get_company_data( $order );
+
+        if ( 'RS' === $order->get_billing_country() && 'company' === $data['type'] ) {
+            $buyer = $order->get_billing_company();
+        }
+
+        return $buyer;
+    }
+
+    /**
      * Adds the company information to the customer meta fields.
      *
      * @param  array<string,array<string,mixed>> $fields Customer meta fields.
      * @return array<string,array<string,mixed>>
      */
-    // #[Filter( tag: 'woocommerce_customer_meta_fields', priority: 10 )]
+    #[Filter( tag: 'woocommerce_customer_meta_fields', priority: 10 )]
     public function modify_customer_meta_fields( array $fields ): array {
         $company = \array_search( 'billing_company', \array_keys( $fields['billing']['fields'] ), true );
 
@@ -96,79 +116,5 @@ class Field_Administration_Handler_Classic {
         }
 
         return $r;
-    }
-
-    /**
-     * Modifies the buyer name in the admin order page to include necessary company information
-     *
-     * @param  string   $buyer Buyer name.
-     * @param  WC_Order $order Order object.
-     * @return string           Modified Buyer name
-     */
-    #[Filter( 'woocommerce_admin_order_buyer_name', 99 )]
-    public function modify_order_buyer_name( string $buyer, WC_Order $order ): string {
-        $data = \wcsrb_get_company_data( $order );
-
-        if ( 'RS' === $order->get_billing_country() && 'company' === $data['type'] ) {
-            $buyer = $order->get_billing_company();
-        }
-
-        return $buyer;
-    }
-
-    /**
-     * Adds fields to the order billing fields.
-     *
-     * @param  array    $fields Order billing fields.
-     * @param  WC_Order $order Order object.
-     * @return array
-     */
-    #[Filter( tag: 'woocommerce_admin_billing_fields', priority: 99 )]
-    public function add_order_billing_fields( array $fields, WC_Order $order = null ): array {
-        if ( ! $order || 'store-api' === $order->get_created_via() ) {
-            return $fields;
-        }
-
-        $index = \array_search( 'company', \array_keys( $fields ), true );
-
-        /**
-         * Callback to validate and update the order billing field.
-         *
-         * @param  string    $id Field ID.
-         * @param  mixed     $v  Field value.
-         * @param  \WC_Order $o  Order object.
-         *
-         * @since 3.8.0
-         */
-        $cb = static fn( $id, $v, $o ) => \do_action( 'wcsrb_update_order_billing_field', \ltrim( $id, '_' ), $v, $o ); //phpcs:ignore SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
-
-        //phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
-        return \array_merge(
-            \array_slice( $fields, 0, $index ),
-            array(
-                'type'    => array(
-                    'label'   => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
-                    'show'    => false,
-                    'type'    => 'select',
-                    'options' => \wcsrb_get_entity_types(),
-                ),
-                'company' => $fields['company'],
-
-                'mb'      => array(
-                    'label'           => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
-                    'show'            => false,
-                    'update_callback' => $cb,
-                ),
-                'pib'     => array(
-                    'label'           => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
-                    'show'            => false,
-                    'update_callback' => $cb,
-                    'wrapper_class'   => '_billing_last_name_field ',
-                ),
-
-            ),
-            \array_slice( $fields, $index + 1 ),
-        );
-        //phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
     }
 }

@@ -5,8 +5,11 @@
  * @package Serbian Addons for WooCommerce
  */
 
-namespace Oblak\WCSRB\Checkout\Handlers;
+namespace Oblak\WCSRB\Checkout\Handlers\Classic;
 
+use WC_Customer;
+use WC_Data;
+use WC_Order;
 use XWC\Interfaces\Config_Repository;
 use XWP\DI\Decorators\Filter;
 use XWP\DI\Decorators\Handler;
@@ -212,5 +215,92 @@ class Field_Customize_Handler {
             $fields,
             ...\array_map( static fn( $f ) => "shipping_{$f}", $to_remove ),
         );
+    }
+
+    /**
+     * Adds custom replacements to the replacements array.
+     *
+     * Custom fields added are:
+     *  - Type
+     *  - Company Number
+     *  - Tax Identification Number
+     *
+     * @param  string[] $replacements  Replacements array.
+     * @param  array    $args          Address data.
+     * @return string[]                Modified replacements array
+     */
+    #[Filter( tag: 'woocommerce_formatted_address_replacements', priority: 99 )]
+    public function modify_address_replacements( $replacements, $args ) {
+        $default = $this->config->get( 'address.formatting', false ) ? "\n" : null;
+
+        $replacements['{mb}']  = $default ?? $args['mb'] ?? "\n";
+        $replacements['{pib}'] = $default ?? $args['pib'] ?? "\n";
+
+        return $replacements;
+    }
+
+    /**
+     * Modifies the address data array to include neccecary company information.
+     *
+     * This is used in the My Account > Addresses page.
+     *
+     * @param  array<string, string> $fmtd Address data array.
+     * @param  int                   $uid     Customer ID.
+     * @param  'billing'|'shipping'  $type    Address type (billing or shipping).
+     * @return array
+     */
+    #[Filter( 'woocommerce_my_account_my_address_formatted_address', 99 )]
+    public function modify_account_formatted_address( array $fmtd, int $uid, $type ): array {
+        if ( 'billing' === $type ) {
+            $fmtd = $this->get_replacement_values( $fmtd, new WC_Customer( $uid ) );
+        }
+
+        return $fmtd;
+    }
+
+    /**
+     * Modifies the address data array to include neccecary company information.
+     *
+     * This is used for the order addresses.
+     *
+     * @param  array    $address Address data array.
+     * @param  WC_Order $order   Order object.
+     * @return array             Modified address data array
+     */
+    #[Filter( 'woocommerce_order_formatted_billing_address', 99 )]
+    public function modify_order_formatted_address( array $address, WC_Order $order ): array {
+        if ( 'store-api' !== $order->get_created_via() ) {
+            $address = $this->get_replacement_values( $address, $order );
+        }
+
+        return $address;
+    }
+
+    /**
+     * Billing address modifier function
+     *
+     * Depending on the customer(user) type we add the needed rows to the address.
+     * If the customer is a company we prepend the number type before the number itself
+     *
+     * @param  array<string,string> $address Address data array.
+     * @param  WC_Customer|WC_Order $target Customer or Order object.
+     * @return array<string,string>
+     */
+    private function get_replacement_values( array $address, WC_Data $target ): array {
+        $data = \wcsrb_get_company_data( $target );
+
+        //phpcs:disable Universal.Operators.DisallowShortTernary.Found, SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+        $prnt  = static fn( $l, $v ) => \sprintf( '%s: %s', $l, $v ?: "\n" );
+        $extra = 'company' === $data['type']
+            ? array(
+                'first_name' => "\n",
+                'last_name'  => "\n",
+                'mb'         => $prnt( \_x( 'Company Number', 'Address display', 'serbian-addons-for-woocommerce' ), $data['mb'] ),
+                'pib'        => $prnt( \_x( 'Tax Number', 'Address display', 'serbian-addons-for-woocommerce' ), $data['pib'] ),
+            )
+            : array( 'company' => "\n" );
+        //phpcs:enable Universal.Operators.DisallowShortTernary.Found, SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+
+        return \array_merge( $address, $extra );
     }
 }
