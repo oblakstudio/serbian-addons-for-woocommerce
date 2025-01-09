@@ -880,16 +880,16 @@
         },
         {
             "name": "x-wp/di",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/x-wp/di.git",
-                "reference": "ed5d8310b7612f60a9d98350786ff1e43b666cc0"
+                "reference": "772fbf5bac945b4ba48cf7a20d0af34afeeef307"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/x-wp/di/zipball/ed5d8310b7612f60a9d98350786ff1e43b666cc0",
-                "reference": "ed5d8310b7612f60a9d98350786ff1e43b666cc0",
+                "url": "https://api.github.com/repos/x-wp/di/zipball/772fbf5bac945b4ba48cf7a20d0af34afeeef307",
+                "reference": "772fbf5bac945b4ba48cf7a20d0af34afeeef307",
                 "shasum": ""
             },
             "require": {
@@ -953,9 +953,9 @@
             ],
             "support": {
                 "issues": "https://github.com/x-wp/hook-manager/issues",
-                "source": "https://github.com/x-wp/di/tree/v1.1.0"
+                "source": "https://github.com/x-wp/di/tree/v1.2.0"
             },
-            "time": "2024-12-13T13:38:57+00:00"
+            "time": "2025-01-09T13:42:14+00:00"
         },
         {
             "name": "x-wp/helper-classes",
