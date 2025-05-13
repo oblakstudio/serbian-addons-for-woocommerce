@@ -144,7 +144,7 @@ jobs:
           unzip -q package.zip
       - name: WordPress Plugin Deploy
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@2.2.2
+        uses: 10up/action-wordpress-plugin-deploy@2.3.0
         env:
           ASSETS_DIR: 'assets'
           BUILD_DIR: ${{ inputs.plugin_slug }}
