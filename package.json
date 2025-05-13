@@ -18,7 +18,7 @@
   "dependencies": {
     "@wordpress/scripts": "^30.7.0",
     "@wptoolset/router": "^1.0",
-    "sass-mq": "^5.0"
+    "sass-mq": "^5.0 || ^6.0.0"
   },
   "devDependencies": {
     "@types/backbone": "^1.4.19",
