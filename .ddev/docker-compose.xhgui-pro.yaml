@@ -49,7 +49,7 @@ services:
 
   xhgui-mongo:
     container_name: ddev-${DDEV_SITENAME}-xhgui-mongo
-    image: mongo:7.0
+    image: mongo:8.0
     environment:
       MONGO_INITDB_DATABASE: xhprof
     volumes:
