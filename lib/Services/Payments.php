@@ -89,7 +89,7 @@ class Payments {
             'SF' => array( 'code' ),
             'S'  => array( 'purpose' ),
             'RO' => array( 'model', 'reference' ),
-		);
+        );
         //phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
 
         foreach ( $args as $key => $keys ) {
@@ -122,6 +122,42 @@ class Payments {
     }
 
     /**
+     * Formats the address
+     *
+     * @param  WC_Order|WC_Customer|array $target  Customer or Order object.
+     * @param  string                     $context Context of the data.
+     * @return string                             Formatted address.
+     */
+    public function format_address( WC_Order|WC_Customer|array $target, string $context = 'display' ): string {
+        $this->formatting = true;
+
+        $address = match ( true ) {
+            $target instanceof WC_Order    => $target->get_formatted_billing_address(),
+            $target instanceof WC_Customer => \wc_get_account_formatted_address( 'billing', $target->get_id() ),
+            default                        => \WC()->countries->get_formatted_address( $target ),
+        };
+
+        $this->formatting = false;
+
+        return 'ips' === $context ? $this->shorten_address( $address ) : $address;
+    }
+
+    /**
+     * Gets the company data
+     *
+     * @return array Company data.
+     */
+    protected function get_company_data(): array {
+        $data = $this->config->get( 'company' );
+
+        $data['company']  = $data['name'];
+        $data['accounts'] = '';
+        $data['name']     = '';
+
+        return $data;
+    }
+
+    /**
      * Formats the currency
      *
      * @param  string $currency Currency code.
@@ -142,7 +178,7 @@ class Payments {
     private function format_reference( string $reference, WC_Order $order, string $context ): string {
         $replacements = \wcsrb_get_payment_reference_replacement_pairs( $order );
         $reference    = \strtr( $reference, $replacements );
-		return 'display' === $context ? $reference : \str_replace( '-', '', $reference );
+        return 'display' === $context ? $reference : \str_replace( '-', '', $reference );
     }
 
     /**
@@ -218,61 +254,25 @@ class Payments {
     }
 
     /**
-     * Formats the address
-     *
-     * @param  WC_Order|WC_Customer|array $target  Customer or Order object.
-     * @param  string                     $context Context of the data.
-     * @return string                             Formatted address.
-     */
-    public function format_address( WC_Order|WC_Customer|array $target, string $context = 'display' ): string {
-        $this->formatting = true;
-
-        $address = match ( true ) {
-            $target instanceof WC_Order    => $target->get_formatted_billing_address(),
-            $target instanceof WC_Customer => \wc_get_account_formatted_address( 'billing', $target->get_id() ),
-            default                        => \WC()->countries->get_formatted_address( $target ),
-        };
-
-        $this->formatting = false;
-
-        return 'ips' === $context ? $this->shorten_address( $address ) : $address;
-	}
-
-    /**
      * Shortens the address to fit the IPS QR code
      *
      * @param  string $address Address to shorten.
      * @return string          Shortened address.
      */
-	private function shorten_address( string $address ): string {
-		$address = \preg_replace( '/<br\/?>/', "\n", $address );
-		$count   = 1;
-		$length  = \strlen( $address );
+    private function shorten_address( string $address ): string {
+        $address = \preg_replace( '/<br\/?>/', "\n", $address );
+        $count   = 1;
+        $length  = \strlen( $address );
 
-		while ( 70 < $length && $count > 0 ) {
-			$address = \preg_replace( "/\n.*$/", '', $address, -1, $count );
-			$length  = \strlen( $address );
-		}
+        while ( 70 < $length && $count > 0 ) {
+            $address = \preg_replace( "/\n.*$/", '', $address, -1, $count );
+            $length  = \strlen( $address );
+        }
 
-		if ( 70 < $length && 0 === $count ) {
-			$address = \substr( $address, 0, 70 );
-		}
+        if ( 70 < $length && 0 === $count ) {
+            $address = \substr( $address, 0, 70 );
+        }
 
-		return \trim( $address );
-	}
-
-    /**
-     * Gets the company data
-     *
-     * @return array Company data.
-     */
-    protected function get_company_data(): array {
-        $data = $this->config->get( 'company' );
-
-        $data['company']  = $data['name'];
-        $data['accounts'] = '';
-        $data['name']     = '';
-
-        return $data;
+        return \trim( $address );
     }
 }

@@ -7,7 +7,6 @@
 
 namespace Oblak\WCSRB;
 
-use chillerlan\QRCode\QRCode;
 use Oblak\WCSRB\Services\Config;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
@@ -22,14 +21,14 @@ use XWP\DI\Interfaces\On_Initialize;
     hook: 'woocommerce_loaded',
     priority: 0,
     handlers: array(
-		Admin\Admin_Core::class,
-		Admin\Order_Edit_Page_Controller::class,
-		Core\Address_Admin_Controller::class,
-		Core\Address_Display_Controller::class,
-		Core\Address_Field_Controller::class,
-		Core\Address_Validate_Controller::class,
-		Utils\Installer::class,
-		Utils\Template_Extender::class,
+        Admin\Admin_Core::class,
+        Admin\Order_Edit_Page_Controller::class,
+        Core\Address_Admin_Controller::class,
+        Core\Address_Display_Controller::class,
+        Core\Address_Field_Controller::class,
+        Core\Address_Validate_Controller::class,
+        Utils\Installer::class,
+        Utils\Template_Extender::class,
     ),
 )]
 class App implements On_Initialize {
@@ -39,23 +38,7 @@ class App implements On_Initialize {
      * @return array<string,mixed>
      */
     public static function configure(): array {
-        return array(
-            'ips.basedir'            => \DI\factory(
-                static fn() => \defined( 'WCRS_IPS_DIR' )
-                    ? WCRS_IPS_DIR
-                    : \wp_upload_dir()['basedir'] . '/wcrs-ips',
-            ),
-            'ips.generator'          => \DI\factory(
-                static fn() => \class_exists( \Imagick::class )
-                    ? QR\QR_Generator_ImageMagick::class
-                    : QR\QR_Generator_GD::class
-            ),
-            QRCode::class            => \DI\factory(
-                static fn( QR\QR_Code_Options $opts ) => new QRCode( $opts )
-            ),
-            Utils\Installer::class   => \DI\factory( array( Utils\Installer::class, 'instance' ) ),
-            \XWP_Asset_Bundle::class => \DI\factory( static fn() => \XWP_Asset_Loader::get_bundle( 'wcrs' ) ),
-        );
+        return include \WCRS_PLUGIN_PATH . 'config/definition.php';
     }
 
     /**
@@ -94,7 +77,7 @@ class App implements On_Initialize {
         invoke: Filter::INV_PROXIED,
         args: 1,
         params: array(
-			Gateway\Gateway_Payment_Slip::class,
+            Gateway\Gateway_Payment_Slip::class,
         ),
     )]
     public function add_payment_gateways( array $gateways, Gateway\Gateway_Payment_Slip $gw ) {
