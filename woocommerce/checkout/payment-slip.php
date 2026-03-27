@@ -1,201 +1,124 @@
-<?php //phpcs:disable SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+<?php
 /**
- * Payment Slip template
+ * Responsive Payment Slip template (Thin Lines, Left Word Wrap)
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/payment.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://docs.woocommerce.com/document/template-structure/
  * @package Serbian Addons for WooCommerce
  * @subpackage Templates
- * @version 2.0.0
+ * @version 2.1.2
  *
- * @var string $company   Company data.
- * @var string $style     Payment slip style.
- * @var string $model     Payment model.
- * @var string $reference Payment reference.
- * @var string $code      Payment code.
- * @var string $currency  Currency.
- * @var string $account   Account.
- * @var string $customer  Customer data.
- * @var string $purpose   Payment purpose.
- * @var float  $total     Total amount.
+ * @var string $company
+ * @var string $style
+ * @var string $model
+ * @var string $reference
+ * @var string $code
+ * @var string $currency
+ * @var string $account
+ * @var string $customer
+ * @var string $purpose
+ * @var float  $total
  */
 
 defined( 'ABSPATH' ) || exit;
-
 ?>
-<section class="woocommerce-order-payment-slip <?php echo esc_attr( $style ); ?> ">
-    <h2 class="woocommerce-order-details__title">
-        <?php esc_html_e( 'Payment instructions', 'serbian-addons-for-woocommerce' ); ?>
+<section class="woocommerce-order-payment-slip <?php echo esc_attr( $style ); ?>" style="font-family: Arial, sans-serif; max-width:600px; margin:auto; padding:10px;">
+    <h2 style="text-align:center; font-size:18px; margin-bottom:20px;">
+        <?php esc_html_e( 'Uputstvo za plaćanje preko računa', 'serbian-addons-for-woocommerce' ); ?>
     </h2>
 
-    <table class="wcsrb-payment-slip <?php echo esc_attr( $style ); ?>">
-        <tbody>
-            <tr>
-                <!-- BEGIN: Sender/Reciever deets -->
-                <td class="slip-section">
-                    <table class="slip-section-inner">
-                        <tbody>
-                            <!-- BEGIN: Sender Deets -->
-                            <tr class="top">
-                                <td class="block-info">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Sender', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="block-content large">
-                                    <?php echo wp_kses_post( $customer ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Sender Deets -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; table-layout: fixed; width:100%; font-family: Arial, sans-serif;">
+        <!-- Sender -->
+        <tr style="border-bottom:1px solid #ccc;">
+            <td style="padding:10px; width:30%; font-weight:bold; word-wrap: break-word; text-align:left;">
+                <?php esc_html_e( 'Pošiljalac', 'serbian-addons-for-woocommerce' ); ?>
+            </td>
+            <td style="padding:10px;">
+                <?php echo wp_kses_post( $customer ); ?>
+            </td>
+        </tr>
 
-                            <!-- BEGIN: Payment Purpose -->
-                            <tr>
-                                <td class="block-info">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Payment purpose', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="block-content large">
-                                    <?php echo wp_kses_post( $purpose ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Payment Purpose -->
+        <!-- Payment Purpose -->
+        <tr style="border-bottom:1px solid #ccc;">
+            <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+                <?php esc_html_e( 'Svrha uplate', 'serbian-addons-for-woocommerce' ); ?>
+            </td>
+            <td style="padding:10px;">
+                <?php echo wp_kses_post( $purpose ); ?>
+            </td>
+        </tr>
 
-                            <!-- BEGIN: Reciever Deets -->
-                            <tr>
-                                <td class="block-info">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Reciever', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="block-content large">
-                                    <?php echo wp_kses_post( $company ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Reciever Deets -->
-                        </tbody>
-                    </table>
+        <!-- Receiver -->
+        <tr style="border-bottom:1px solid #ccc;">
+            <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+                <?php esc_html_e( 'Primalac', 'serbian-addons-for-woocommerce' ); ?>
+            </td>
+            <td style="padding:10px;">
+                <?php echo wp_kses_post( $company ); ?>
+            </td>
+        </tr>
 
-                </td>
-                <!-- END: Sender/Reciever deets -->
+     <!-- Payment Details -->
+<tr style="border-bottom:1px solid #ccc;">
+    <td style="padding:10px; width:30%; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Šifra uplate', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( $code ); ?>
+    </td>
+</tr>
+<tr style="border-bottom:1px solid #ccc;">
+    <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Valuta', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( $currency ); ?>
+    </td>
+</tr>
+<tr style="border-bottom:1px solid #ccc;">
+    <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Iznos', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( number_format( $total, 2, ',', '.' ) ); ?>
+    </td>
+</tr>
+<tr style="border-bottom:1px solid #ccc;">
+    <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Račun za uplatu', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( $account ); ?>
+    </td>
+</tr>
+<tr style="border-bottom:1px solid #ccc;">
+    <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Model', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( $model ); ?>
+    </td>
+</tr>
+<tr>
+    <td style="padding:10px; font-weight:bold; word-wrap: break-word; text-align:left;">
+        <?php esc_html_e( 'Poziv na broj', 'serbian-addons-for-woocommerce' ); ?>
+    </td>
+    <td style="padding:10px;">
+        <?php echo esc_html( $reference ); ?>
+    </td>
+</tr>
 
-                <!-- BEGIN: Payment deets -->
-                <td class="slip-section last">
-                    <table class="slip-section-inner">
-                        <tbody>
-
-                            <!-- BEGIN: Currency/Total Deets -->
-                            <tr class="top">
-                                <td class="block-info code">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Payment code', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-
-                                <td class="spacer"></td>
-
-                                <td class="block-info currency">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Currency', 'woocommerce' ); ?>
-                                    </span>
-                                </td>
-
-                                <td class="spacer"></td>
-
-                                <td class="block-info amount">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Amount', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td class="block-content small">
-                                    <?php echo esc_html( $code ); ?>
-                                </td>
-
-                                <td class="spacer"></td>
-
-
-                                <td class="block-content small">
-                                    <?php echo esc_html( $currency ); ?>
-                                </td>
-
-                                <td class="spacer"></td>
-
-
-                                <td class="block-content small">
-                                    <?php echo esc_html( number_format( $total, 2, ',', '.' ) ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Currency/Total Deets -->
-
-                            <!-- BEGIN: Account deets -->
-                            <tr>
-                                <td class="block-info" colspan="5">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Account payable', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="block-content small" colspan="5">
-                                    <?php echo esc_html( $account ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Account deets -->
-
-                            <!-- BEGIN: Model/Reference deets -->
-                            <tr>
-                                <td class="block-info" colspan="1">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Model', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-
-                                <td class="spacer"></td>
-
-                                <td class="block-info" colspan="3">
-                                    <span class="block-label">
-                                        <?php esc_html_e( 'Payment reference', 'serbian-addons-for-woocommerce' ); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="block-content small" colspan="1">
-                                    <?php echo esc_html( $model ); ?>
-                                </td>
-
-                                <td class="spacer"></td>
-
-                                <td class="block-content small" colspan="3">
-                                    <?php echo esc_html( $reference ); ?>
-                                </td>
-                            </tr>
-                            <!-- END: Model/Reference deets -->
-
-                        </tbody>
-                    </table>
-
-
-
-
-                </td>
-                <!-- END: Payment deets -->
-            </tr>
-        </tbody>
     </table>
+
+    <!-- Print-friendly style -->
+    <style>
+        @media print {
+            body * { visibility: hidden; }
+            .woocommerce-order-payment-slip, .woocommerce-order-payment-slip * { visibility: visible; }
+            .woocommerce-order-payment-slip { position: absolute; top: 0; left: 0; width: 100%; }
+        }
+
+        /* Mobile-friendly padding */
+        @media screen and (max-width:480px) {
+            .woocommerce-order-payment-slip td { padding:12px !important; }
+        }
+    </style>
 </section>

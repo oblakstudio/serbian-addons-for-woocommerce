@@ -22,6 +22,25 @@ return array(
         'desc_tip' => true,
     ),
 
+array(
+        'title'    => \__( 'Business Number', 'serbian-addons-for-woocommerce' ),
+        'desc'     => \__( 'Registration business number', 'serbian-addons-for-woocommerce' ),
+        'id'       => 'woocommerce_business_number',
+        'default'  => '',
+        'type'     => 'text',
+        'desc_tip' => true,
+    ),
+
+
+array(
+        'title'    => \__( 'PIB Number', 'serbian-addons-for-woocommerce' ),
+        'desc'     => \__( 'PIB business number', 'serbian-addons-for-woocommerce' ),
+        'id'       => 'woocommerce_pib_business_number',
+        'default'  => '',
+        'type'     => 'text',
+        'desc_tip' => true,
+    ),
+
     array(
         'title'    => \__( 'Address line 1', 'woocommerce' ),
         'desc'     => \__( 'The street address for your business location.', 'woocommerce' ),
