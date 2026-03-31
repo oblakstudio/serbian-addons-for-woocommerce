@@ -3,7 +3,7 @@
   "require": {
     "php": "^8.0",
     "automattic/jetpack-autoloader": "^3.1",
-    "chillerlan/php-qrcode": "^5",
+    "chillerlan/php-qrcode": "^5 || ^6",
     "oblak/serbian-validators": "^1",
     "oblak/wp-plugin-installer": "^2.1",
     "x-wp/asset-loader": "^1.1",
