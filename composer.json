@@ -16,7 +16,7 @@
   "require-dev": {
     "oblak/wordpress-coding-standard": "^1",
     "php-stubs/woocommerce-stubs": "^9.0",
-    "php-stubs/wordpress-stubs": "^6.5",
+    "php-stubs/wordpress-stubs": "^6.5 || ^7.0",
     "phpstan/extension-installer": "^1.3",
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-deprecation-rules": "^1.1",
