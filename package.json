@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/backbone": "^1.4.19",
-    "@types/jquery": "^3.5.5",
+    "@types/jquery": "^3.5.5 || ^4.0.0",
     "@types/wordpress__admin": "^5.8.4",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
