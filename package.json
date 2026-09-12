@@ -16,7 +16,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@wordpress/scripts": "^30.7.0",
+    "@wordpress/scripts": "^35.0.0",
     "@wptoolset/router": "^1.0",
     "sass-mq": "^5.0"
   },
