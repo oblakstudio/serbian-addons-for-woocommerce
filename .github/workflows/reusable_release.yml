@@ -52,7 +52,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.OBLAKBOT_PAT }}
       - name: Import GPG keys
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7
         id: gpg
         with:
           gpg_private_key: ${{ secrets.OBLAKBOT_GPG_KEY }}
