@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "serbian_addons_for_woocommerce",
+  "project_id": "07b50875-5d89-4542-b68a-c42bada73faf"
+}
