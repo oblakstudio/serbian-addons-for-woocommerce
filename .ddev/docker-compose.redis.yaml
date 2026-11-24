@@ -9,7 +9,7 @@ services:
   redis:
     container_name: ddev-${DDEV_SITENAME}-redis
     hostname: ddev-${DDEV_SITENAME}-minio
-    image: redis:7.2-alpine
+    image: redis:8.12-alpine@sha256:5af80107c1eeecb484a2269b80a26d12bfa6521787da4663bd9f19f60a163483
     command: /etc/redis/conf/redis.conf
     volumes:
       - ".:/mnt/ddev_config"
