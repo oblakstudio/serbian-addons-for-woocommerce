@@ -42,7 +42,7 @@ class AdminOrderQrTest extends TestCase {
     public function tear_down(): void {
         $_GET     = array();
         $_REQUEST = array();
-        unset( $GLOBALS['wp_meta_boxes'], $GLOBALS['theorder'] );
+        unset( $GLOBALS['wp_meta_boxes'], $GLOBALS['theorder'], $_SERVER['HTTP_IF_NONE_MATCH'] );
         \set_current_screen( 'front' );
 
         parent::tear_down();
@@ -91,14 +91,81 @@ class AdminOrderQrTest extends TestCase {
         $this->assertSame( 404, $status );
     }
 
-    public function test_ajax_view_handles_a_missing_qr_code(): void {
-        $order = $this->create_order();
+    public function test_ajax_view_renders_a_missing_qr_code_on_demand(): void {
+        $order = $this->create_order( array( 'status' => 'completed' ) );
         $this->qrc()->delete( $order );
 
         [ $output, $status ] = $this->view_qr( $order->get_id(), $this->admin() );
 
+        $this->assertSame( 200, $status );
+        $this->assertSame( \xwp_app( 'wcsrb' )->get( Payments::class )->get_qr_string( $order ), $this->decode_qr( $output ) );
+        $this->assertFalse( $this->qrc()->has_qrcode( $order ), 'Viewing must not store the image again' );
+    }
+
+    public function test_ajax_view_ignores_orders_without_a_payment_slip(): void {
+        [ $output, $status ] = $this->view_qr( $this->create_order( array( 'payment_method' => 'bacs' ) )->get_id(), $this->admin() );
+
         $this->assertSame( '', $output );
         $this->assertSame( 404, $status );
+    }
+
+    public function test_ajax_view_handles_a_qr_code_that_cannot_be_generated(): void {
+        // A reference longer than any QR code can hold.
+        \add_filter( 'woocommerce_order_number', static fn() => \str_repeat( 'X', 4000 ) );
+        $this->update_gateway_settings( array( 'payment_reference' => '%order_number%' ) );
+
+        [ $output, $status ] = $this->view_qr( $this->create_order()->get_id(), $this->admin() );
+
+        $this->assertSame( '', $output );
+        $this->assertSame( 404, $status );
+    }
+
+    public function test_ajax_view_answers_an_unchanged_qr_code_with_not_modified(): void {
+        $order = $this->create_order();
+        $etag  = '"' . \md5( (string) \file_get_contents( $this->qrc()->get_filename( $order ) ) ) . '"'; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+        [ $output, $status ] = $this->view_qr( $order->get_id(), $this->admin(), null, $etag );
+
+        $this->assertSame( '', $output );
+        $this->assertSame( 304, $status );
+    }
+
+    public function test_ajax_view_answers_an_unchanged_on_demand_qr_code_with_not_modified(): void {
+        $order = $this->create_order();
+        $this->qrc()->delete( $order );
+
+        [ $image ]           = $this->view_qr( $order->get_id(), $this->admin() );
+        [ $output, $status ] = $this->view_qr( $order->get_id(), $this->admin(), null, '"' . \md5( $image ) . '"' );
+
+        $this->assertSame( '', $output );
+        $this->assertSame( 304, $status );
+    }
+
+    public function test_ajax_view_lets_only_the_browser_keep_the_image(): void {
+        $this->view_qr( $this->create_order()->get_id(), $this->admin() );
+
+        // wp_die() and admin-ajax.php send their cache headers through nocache_headers().
+        $this->assertSame( 'private, no-cache', \wp_get_nocache_headers()['Cache-Control'] );
+    }
+
+    public function test_ajax_view_errors_are_never_cached(): void {
+        $this->view_qr( 999999, $this->admin() );
+
+        $this->assertStringContainsString( 'no-store', \wp_get_nocache_headers()['Cache-Control'] );
+    }
+
+    public function test_ajax_view_sends_a_regenerated_qr_code_again(): void {
+        $order = $this->create_order();
+        $old   = (string) \file_get_contents( $this->qrc()->get_filename( $order ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+
+        $this->update_gateway_settings( array( 'qrcode_color' => '#c0392b' ) );
+        \do_action( 'woocommerce_order_action_wcsrb_gen_ips', $order );
+
+        [ $output, $status ] = $this->view_qr( $order->get_id(), $this->admin(), null, '"' . \md5( $old ) . '"' );
+
+        $this->assertSame( 200, $status );
+        $this->assertNotSame( $old, $output );
+        $this->assertSame( $this->qrc()->read( $order, 'raw' ), $output );
     }
 
     public function test_regenerate_action_is_offered_for_unpaid_slip_orders_only(): void {
@@ -130,6 +197,16 @@ class AdminOrderQrTest extends TestCase {
         $this->assertStringContainsString( 'No IPS QR code available for this order.', $this->metabox( $order ) );
     }
 
+    public function test_metabox_shows_the_viewer_for_a_slip_order_without_a_saved_qr_code(): void {
+        $order = $this->create_order( array( 'status' => 'completed' ) );
+        $this->qrc()->delete( $order );
+
+        $html = $this->metabox( $order );
+
+        $this->assertStringNotContainsString( 'No IPS QR code available for this order.', $html );
+        $this->assertStringContainsString( 'action=wcsrb_view_ips_qr_code', \html_entity_decode( $html ) );
+    }
+
     public function test_metabox_with_qr_code(): void {
         $order = $this->create_order();
         $html  = $this->metabox( WCSRB_TESTS_HPOS ? $order : \get_post( $order->get_id() ) );
@@ -155,9 +232,16 @@ class AdminOrderQrTest extends TestCase {
      * @param  int    $order_id Order ID.
      * @param  int    $user_id  Current user.
      * @param  string $nonce    Nonce, generated for the user when omitted.
+     * @param  string $etag     ETag the browser revalidates (If-None-Match), none when omitted.
      * @return array{string,int} Output and response code.
      */
-    private function view_qr( int $order_id, int $user_id, ?string $nonce = null ): array {
+    private function view_qr( int $order_id, int $user_id, ?string $nonce = null, ?string $etag = null ): array {
+        unset( $_SERVER['HTTP_IF_NONE_MATCH'] );
+
+        if ( null !== $etag ) {
+            $_SERVER['HTTP_IF_NONE_MATCH'] = $etag;
+        }
+
         \wp_set_current_user( $user_id );
         \add_filter( 'wp_doing_ajax', '__return_true' );
         \add_filter( 'wp_die_ajax_handler', fn() => array( $this, 'die_handler' ) );

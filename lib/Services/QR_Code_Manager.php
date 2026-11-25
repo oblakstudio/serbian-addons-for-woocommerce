@@ -41,6 +41,25 @@ class QR_Code_Manager {
     }
 
     /**
+     * Checks if the saved QR code is older than the last change of the order.
+     *
+     * @param  WC_Order $order The order object.
+     * @return bool            False when there is no saved code.
+     *
+     * @since 3.10.0
+     */
+    public function is_outdated( WC_Order $order ): bool {
+        $file     = $this->get_filename( $order );
+        $modified = $order->get_date_modified();
+
+        if ( ! $modified || ! \xwp_wpfs()->exists( $file ) ) {
+            return false;
+        }
+
+        return \xwp_wpfs()->mtime( $file ) < $modified->getTimestamp();
+    }
+
+    /**
      * Creates a QR Code image for the order.
      *
      * @param  WC_Order $order  The order object.
@@ -48,23 +67,30 @@ class QR_Code_Manager {
      * @return bool
      */
     public function create( WC_Order $order, string $format = 'jpg' ): bool {
-        try {
-            $image = $this->make( $this->payments->get_qr_string( $order ) );
-        } catch ( \Throwable $e ) {
-            // Runs while the order is being created - a QR code problem must never fail the checkout.
-            \wc_get_logger()->error(
-                \sprintf(
-                    'Could not generate the IPS QR code for order #%d: %s',
-                    $order->get_id(),
-                    $e->getMessage(),
-                ),
-                array( 'source' => 'serbian-addons-for-woocommerce' ),
-            );
+        $image = $this->render( $order );
 
-            return false;
+        return $image && $this->save( $this->get_filename( $order, $format ), $image );
+    }
+
+    /**
+     * Gets the QR Code image for a payment slip order.
+     *
+     * Returns the saved image, or renders a fresh one (without saving it) when there is none - e.g.
+     * after the order was paid and its image deleted.
+     *
+     * @param  WC_Order $order The order object.
+     * @return string          Raw image data, empty when the order has no payment slip or the code cannot be rendered.
+     *
+     * @since 3.10.0
+     */
+    public function get( WC_Order $order ): string {
+        if ( ! \wcsrb_order_has_slip( $order ) ) {
+            return '';
         }
 
-        return $this->save( $this->get_filename( $order, $format ), $image );
+        $image = $this->read( $order, 'raw' );
+
+        return '' !== $image ? $image : $this->render( $order );
     }
 
     /**
@@ -122,6 +148,30 @@ class QR_Code_Manager {
                 : 'cid:ips-qr-code',
 
         );
+    }
+
+    /**
+     * Renders the QR Code image for the order.
+     *
+     * @param  WC_Order $order The order object.
+     * @return string          Raw image data, empty on failure.
+     */
+    protected function render( WC_Order $order ): string {
+        try {
+            return $this->make( $this->payments->get_qr_string( $order ) );
+        } catch ( \Throwable $e ) {
+            // Runs during checkout and in wp-admin - a QR code problem must never break either.
+            \wc_get_logger()->error(
+                \sprintf(
+                    'Could not generate the IPS QR code for order #%d: %s',
+                    $order->get_id(),
+                    $e->getMessage(),
+                ),
+                array( 'source' => 'serbian-addons-for-woocommerce' ),
+            );
+
+            return '';
+        }
     }
 
     /**

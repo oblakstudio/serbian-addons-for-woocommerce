@@ -52,23 +52,41 @@ class Order_Edit_Page_Controller {
         }
 
         $order = \wc_get_order( (int) \xwp_fetch_get_var( 'order_id', '0' ) );
-        $data  = $order ? $this->qrc->read( $order, 'raw' ) : '';
+        $image = $order ? $this->qrc->get( $order ) : '';
 
-        if ( ! $data ) {
+        if ( ! $image ) {
             \wp_die( '0', 404 );
         }
 
-        $file = $this->qrc->get_filename( $order );
+        $etag = '"' . \md5( $image ) . '"';
 
-        \wc_nocache_headers();
+        // The image holds customer payment data: only the browser may keep it, and it has to
+        // revalidate it. Filtered rather than overwritten, as wp_die() sends the no-cache headers again.
+        \add_filter( 'nocache_headers', array( $this, 'revalidate_headers' ) );
+        \nocache_headers();
+        \header( "ETag: {$etag}" );
+
+        if ( \xwp_fetch_server_var( 'HTTP_IF_NONE_MATCH', '' ) === $etag ) {
+            \wp_die( '', 304 );
+        }
+
         \header( "Content-Disposition: inline; filename=\"ips-qr-order-{$order->get_id()}.jpg\"" );
-        \header( 'Content-Length: ' . \xwp_wpfs()->size( $file ) );
+        \header( 'Content-Length: ' . \strlen( $image ) );
         \header( 'Content-Type: image/jpeg' );
-        \header( 'Date: ' . \gmdate( 'D, d M Y H:i:s T', \xwp_wpfs()->mtime( $file ) ) );
 
-        echo $data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
         \wp_die();
+    }
+
+    /**
+     * Lets the browser keep the IPS QR code image, as long as it revalidates it.
+     *
+     * @param  array<string,string> $headers No-cache headers.
+     * @return array<string,string>
+     */
+    public function revalidate_headers( array $headers ): array {
+        return array( 'Cache-Control' => 'private, no-cache' ) + $headers;
     }
 
     /**
@@ -119,7 +137,8 @@ class Order_Edit_Page_Controller {
         // @phpstan-ignore argument.type
         OrderUtil::init_theorder_object( $post );
 
-        if ( ! $this->qrc->has_qrcode( $theorder ) ) {
+        // The viewer renders the code when there is no saved image.
+        if ( ! \wcsrb_order_has_slip( $theorder ) ) {
             return \printf(
                 '<p>%s</p>',
                 \esc_html__( 'No IPS QR code available for this order.', 'serbian-addons-for-woocommerce' ),
