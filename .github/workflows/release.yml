@@ -6,6 +6,7 @@ on:
       - beta
     paths:
       - '.github/workflows/release.yml'
+      - '.github/workflows/reusable_release.yml'
       - 'assets/**/*'
       - 'config/**/*'
       - 'languages/**/*'

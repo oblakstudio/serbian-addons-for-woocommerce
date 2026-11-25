@@ -142,9 +142,17 @@ jobs:
           mkdir assets
           unzip -q assets.zip -d assets
           unzip -q package.zip
+      # Current GitHub runner images no longer ship Subversion, which the deploy needs.
+      - name: Install Subversion
+        run: |
+          if ! command -v svn > /dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq subversion
+          fi
+          svn --version --quiet
       - name: WordPress Plugin Deploy
         id: deploy
-        uses: 10up/action-wordpress-plugin-deploy@2.2.2
+        uses: 10up/action-wordpress-plugin-deploy@2.3.0
         env:
           ASSETS_DIR: 'assets'
           BUILD_DIR: ${{ inputs.plugin_slug }}
