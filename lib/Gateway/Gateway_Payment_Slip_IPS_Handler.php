@@ -57,6 +57,61 @@ class Gateway_Payment_Slip_IPS_Handler {
     }
 
     /**
+     * Regenerates the QR code of an unpaid order when the order changed after the code was made.
+     *
+     * E.g. the total or the billing address was edited in wp-admin - the slip is always rendered
+     * from the current order, the QR code has to follow it.
+     *
+     * @param  \WC_Abstract_Order $order Saved order (or refund).
+     */
+    #[Action( tag: 'woocommerce_after_order_object_save', priority: 20 )]
+    public function refresh_qr_code( \WC_Abstract_Order $order ) {
+        if ( ! $order instanceof WC_Order || ! \wcsrb_order_has_slip( $order, true ) || ! $this->qrc->is_outdated( $order ) ) {
+            return;
+        }
+
+        $this->qrc->create( $order );
+    }
+
+    /**
+     * Restores the QR code of an order restored from the trash (HPOS order storage).
+     *
+     * @param  int    $order_id   Order ID.
+     * @param  string $old_status Status before the change.
+     */
+    #[Action( tag: 'woocommerce_order_status_changed', priority: 20 )]
+    public function restore_untrashed_order_qr_code( int $order_id, string $old_status ) {
+        if ( 'trash' === $old_status ) {
+            $this->restore_qr_code( $order_id );
+        }
+    }
+
+    /**
+     * Restores the QR code of an order restored from the trash (legacy post order storage).
+     *
+     * @param  int $post_id Post ID.
+     */
+    #[Action( tag: 'untrashed_post', priority: 20 )]
+    public function restore_untrashed_post_qr_code( int $post_id ) {
+        $this->restore_qr_code( $post_id );
+    }
+
+    /**
+     * Recreates the QR code deleted when an unpaid order was trashed.
+     *
+     * @param  int $order_id Order ID.
+     */
+    private function restore_qr_code( int $order_id ): void {
+        $order = \wc_get_order( $order_id );
+
+        if ( ! $order || ! \wcsrb_order_has_slip( $order, true ) ) {
+            return;
+        }
+
+        $this->qrc->create( $order );
+    }
+
+    /**
      * Deletes the QR code file
      *
      * @param  int $order_id Order ID.

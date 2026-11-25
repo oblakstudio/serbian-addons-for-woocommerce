@@ -9,6 +9,7 @@
 namespace Oblak\WCSRB\Tests\Integration;
 
 use Oblak\WCSRB\Gateway\Gateway_Payment_Slip;
+use Oblak\WCSRB\Tests\Support\Fixtures;
 use Oblak\WCSRB\Tests\Support\TestCase;
 
 /**
@@ -47,6 +48,17 @@ class PaymentSlipHelpersTest extends TestCase {
     public function test_slip_gateway_accessor(): void {
         $this->assertInstanceOf( Gateway_Payment_Slip::class, \wcsrb_slip_gw() );
         $this->assertSame( \WC()->payment_gateways()->payment_gateways()['wcsrb_payment_slip'], \wcsrb_slip_gw() );
+    }
+
+    public function test_bank_accounts_are_read_from_the_store_settings(): void {
+        $this->assertSame( array( Fixtures::BANK_ACCOUNT_SHORT ), \wcsrb_get_bank_accounts() );
+
+        // The company settings repeater field stores the list under "acct".
+        \update_option( 'woocommerce_store_bank_accounts', array( 'acct' => array( '160-123456-54', '205-1001-62' ) ) );
+        $this->assertSame( array( '160-123456-54', '205-1001-62' ), \wcsrb_get_bank_accounts() );
+
+        \delete_option( 'woocommerce_store_bank_accounts' );
+        $this->assertSame( array(), \wcsrb_get_bank_accounts() );
     }
 
     public function test_order_has_slip(): void {

@@ -20,6 +20,13 @@ use WC_Order;
  */
 abstract class TestCase extends \WP_UnitTestCase {
     /**
+     * Plugin settings before set_core_setting() changed them.
+     *
+     * @var array<string,mixed>|null
+     */
+    private ?array $config_backup = null;
+
+    /**
      * Set up the test.
      */
     public function set_up(): void {
@@ -38,7 +45,44 @@ abstract class TestCase extends \WP_UnitTestCase {
     public function tear_down(): void {
         parent::tear_down();
 
+        if ( null !== $this->config_backup ) {
+            $this->config_settings()->setValue( \xwp_app( 'wcsrb' )->get( \Oblak\WCSRB\Services\Config::class ), $this->config_backup );
+            $this->config_backup = null;
+        }
+
         $this->clean_ips_dir();
+    }
+
+    /**
+     * Override a core plugin setting (Serbian Addons > General) for the current test.
+     *
+     * The Config service reads the settings once per request, like it does on a real site.
+     *
+     * @param  string $key   Setting key.
+     * @param  mixed  $value Setting value, as the Config service returns it.
+     */
+    protected function set_core_setting( string $key, mixed $value ): void {
+        $config = \xwp_app( 'wcsrb' )->get( \Oblak\WCSRB\Services\Config::class );
+        $prop   = $this->config_settings();
+
+        $this->config_backup ??= $prop->getValue( $config );
+
+        $settings                 = $prop->getValue( $config );
+        $settings['core'][ $key ] = $value;
+
+        $prop->setValue( $config, $settings );
+    }
+
+    /**
+     * Get the settings property of the Config service.
+     *
+     * @return \ReflectionProperty
+     */
+    private function config_settings(): \ReflectionProperty {
+        $prop = new \ReflectionProperty( \Oblak\WCSRB\Services\Config::class, 'settings' );
+        $prop->setAccessible( true );
+
+        return $prop;
     }
 
     /**
@@ -152,18 +196,32 @@ abstract class TestCase extends \WP_UnitTestCase {
      * @return T
      */
     protected function load_admin_handler( string $classname ): object {
-        $handler = \xwp_app( 'wcsrb' )->get( $classname );
+        return $this->register_hooks( \xwp_app( 'wcsrb' )->get( $classname ) );
+    }
 
-        foreach ( ( new \ReflectionClass( $classname ) )->getMethods( \ReflectionMethod::IS_PUBLIC ) as $method ) {
+    /**
+     * Register the #[Action]/#[Filter] methods of a handler instance.
+     *
+     * The DI container registers the hooks of a class only for its first instance, and
+     * WP_UnitTestCase removes them after that test. Hooks already registered for this instance are kept.
+     *
+     * @template T of object
+     * @param  T $handler Handler instance.
+     * @return T
+     */
+    protected function register_hooks( object $handler ): object {
+        foreach ( ( new \ReflectionClass( $handler ) )->getMethods( \ReflectionMethod::IS_PUBLIC ) as $method ) {
             foreach ( $method->getAttributes( \XWP\DI\Decorators\Filter::class, \ReflectionAttribute::IS_INSTANCEOF ) as $attribute ) {
-                $args = $attribute->getArguments();
+                $args     = $attribute->getArguments();
+                $tag      = $args['tag'] ?? $args[0];
+                $callback = array( $handler, $method->getName() );
 
-                \add_filter(
-                    $args['tag'] ?? $args[0],
-                    array( $handler, $method->getName() ),
-                    (int) ( $args['priority'] ?? $args[1] ?? 10 ),
-                    $method->getNumberOfParameters(),
-                );
+                // Proxied methods get extra arguments from the container - tests call those directly.
+                if ( \XWP\DI\Interfaces\Can_Invoke::INV_PROXIED === ( $args['invoke'] ?? null ) || false !== \has_filter( $tag, $callback ) ) {
+                    continue;
+                }
+
+                \add_filter( $tag, $callback, (int) ( $args['priority'] ?? $args[1] ?? 10 ), $method->getNumberOfParameters() );
             }
         }
 

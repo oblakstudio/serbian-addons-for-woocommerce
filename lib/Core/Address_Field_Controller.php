@@ -79,8 +79,7 @@ class Address_Field_Controller {
             unset( $fields['address_2'], $fields['state'] );
         }
 
-        $fields['company']['class'][] = 'entity-type-toggle';
-
+        // The company field depends on the customer type only in the RS locale - elsewhere it is a regular field.
         return \array_merge( $fields, \wcsrb_get_company_fields() );
     }
 
@@ -101,7 +100,7 @@ class Address_Field_Controller {
      * Set the JS locale fields data.
      *
      * Adds the hidden and required properties for all countries.
-     * All are set to be hidden and NOT required by default.
+     * All are set to be hidden and NOT required by default. The company field keeps the store setting.
      *
      * @param  array<string, array> $locale Default locale fields data.
      * @return array<string, array>
@@ -109,16 +108,15 @@ class Address_Field_Controller {
     #[Filter( tag: 'woocommerce_get_country_locale', priority: 1000 )]
     public function add_default_locale_field_data( array $locale ): array {
         foreach ( $locale as &$fields ) {
-            $fields['company']['required'] = false;
-            $fields['type']                = array(
+            $fields['type'] = array(
                 'hidden'   => true,
                 'required' => false,
             );
-            $fields['mb']                  = array(
+            $fields['mb']   = array(
                 'hidden'   => true,
                 'required' => false,
             );
-            $fields['pib']                 = array(
+            $fields['pib']  = array(
                 'hidden'   => true,
                 'required' => false,
             );
@@ -131,11 +129,12 @@ class Address_Field_Controller {
      * Adds the custom locale field data
      *
      * We unhide the fields and enable them only if the company type is active.
+     * Runs after add_default_locale_field_data(), which hides the fields for every country.
      *
      * @param  array<string, array> $locale Default locale fields data.
      * @return array<string, array>
      */
-    #[Filter( tag: 'woocommerce_get_country_locale', priority: 1000 )]
+    #[Filter( tag: 'woocommerce_get_country_locale', priority: 1001 )]
     public function add_custom_locale_field_data( array $locale ): array {
         $company_active = \wcsrb_can_checkout_as( 'company' );
         $company_props  = array( 'hidden' => ! $company_active );
@@ -143,26 +142,34 @@ class Address_Field_Controller {
             ? array( 81, 82 )
             : array( 82, 81 );
 
+        // Merged into WooCommerce's own RS locale (optional district, required postcode and city).
         // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
-        $locale['RS'] = array(
-            'type'     => array(
-                'required' => true,
-                'hidden'   => false,
-            ),
-            'company'  => \array_merge(
-                array( 'class' => array( 'form-row-wide', 'entity-type-toggle', 'shown' ) ),
-                $company_props,
-            ),
-            'mb'       => $company_props,
-            'pib'      => $company_props,
-            'postcode' => array(
-                'priority' => $pfp,
-            ),
-            'city'     => array(
-                'priority' => $cfp,
-            ),
-            'country'  => array(
-                'priority' => 91,
+        $locale['RS'] = \array_replace_recursive(
+            $locale['RS'] ?? array(),
+            array(
+                'type'     => array(
+                    'required' => true,
+                    'hidden'   => false,
+                ),
+                // Persons have no company - companies are validated by customer type (Field_Validator).
+                'company'  => \array_merge(
+                    array(
+                        'class'    => array( 'form-row-wide', 'entity-type-toggle', 'shown' ),
+                        'required' => false,
+                    ),
+                    $company_props,
+                ),
+                'mb'       => $company_props,
+                'pib'      => $company_props,
+                'postcode' => array(
+                    'priority' => $pfp,
+                ),
+                'city'     => array(
+                    'priority' => $cfp,
+                ),
+                'country'  => array(
+                    'priority' => 91,
+                ),
             ),
         );
         // phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder

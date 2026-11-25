@@ -27,8 +27,12 @@ jobs:
         php: ['8.0', '8.4']
         storage: ['hpos', 'legacy']
         include:
+          # Coverage of both storages - Codecov merges the flagged reports.
           - php: '8.4'
             storage: 'hpos'
+            coverage: true
+          - php: '8.4'
+            storage: 'legacy'
             coverage: true
     env:
       WCSRB_TESTS_HPOS: ${{ matrix.storage == 'hpos' && '1' || '0' }}
@@ -72,12 +76,23 @@ jobs:
         run: vendor/bin/phpunit --coverage-text --coverage-clover=.cache/coverage/clover.xml
 
       - name: Require 100% coverage of the payment gateway code
-        if: ${{ matrix.coverage }}
+        if: ${{ matrix.coverage && matrix.storage == 'hpos' }}
         run: php bin/check-coverage.php .cache/coverage/clover.xml
+
+      - name: Upload coverage to Codecov
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: .cache/coverage/clover.xml
+          disable_search: true
+          flags: ${{ matrix.storage }}
+          name: php-${{ matrix.php }}-${{ matrix.storage }}
+          fail_ci_if_error: true
 
       - name: Upload coverage report
         if: ${{ matrix.coverage }}
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-clover
+          name: coverage-clover-${{ matrix.storage }}
           path: .cache/coverage/clover.xml

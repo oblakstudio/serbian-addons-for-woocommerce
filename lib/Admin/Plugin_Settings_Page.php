@@ -130,7 +130,7 @@ class Plugin_Settings_Page extends \XWC\Admin\Settings_Page_Base {
         $value = array();
 
         foreach ( \wc_string_to_array( $raw_value ) as $acct ) {
-            $value[] = \Oblak\validateBankAccount( $acct )
+            $value[] = \wcsrb_validate_bank_account( $acct )
                 ? \wcsrb_format_bank_acct( $acct )
                 : $this::add_acct_error( $acct );
         }

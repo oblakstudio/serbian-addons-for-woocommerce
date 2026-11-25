@@ -134,7 +134,7 @@ msgid "You can choose a payment code only if you limit checkout to a single cust
 msgstr ""
 
 #: config/pg-slip-settings.php:120
-msgid "Payment code on the payment slip"
+msgid "Payment code is a three digit number used to properly route transactions."
 msgstr ""
 
 #: config/pg-slip-settings.php:128
@@ -155,9 +155,17 @@ msgstr ""
 msgid "Payment reference"
 msgstr ""
 
+#: config/pg-slip-settings.php:149
+msgid "Payment reference is a unique code that identifies the payment. It is used to match the payment with the order."
+msgstr ""
+
 #: config/pg-slip-settings.php:152
 #: woocommerce/checkout/payment-slip.php:65
 msgid "Payment purpose"
+msgstr ""
+
+#: config/pg-slip-settings.php:156
+msgid "Payment purpose is a short description of the payment. It is used to inform the recipient about the payment."
 msgstr ""
 
 #: config/pg-slip-settings.php:154

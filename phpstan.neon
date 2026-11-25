@@ -9,6 +9,7 @@ parameters:
     analyse:
       - lib/QR/*
   bootstrapFiles:
+    - constants.php
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
   ignoreErrors:
     # XWP_Asset_Bundle::offsetGet() is documented as non-null but returns null for unknown files.
@@ -20,12 +21,3 @@ parameters:
       identifier: nullCoalesce.expr
       paths:
         - lib/Gateway/Gateway_Payment_Slip.php
-    -
-      identifier: constant.notFound
-      paths:
-        - config/*
-        - lib/Admin/Plugin_Settings_Page.php
-        - lib/Gateway/Gateway_Payment_Slip.php
-        - lib/Utils/Installer.php
-        - lib/Utils/Template_Extender.php
-        - lib/App.php

@@ -22,7 +22,8 @@ function wcsrb_format_bank_account_select( $opt_accounts = null ) {
 	$accounts       = array( '' => __( 'Select bank account', 'serbian-addons-for-woocommerce' ) . '...' );
 
 	foreach ( $opt_accounts as $account ) {
-		$bank_name = $banks[ substr( $account, 0, 3 ) ];
+		// Accounts of banks no longer on the list (e.g. after a merger) are grouped by their prefix.
+		$bank_name = $banks[ substr( $account, 0, 3 ) ] ?? substr( $account, 0, 3 );
 
 		if ( ! isset( $accounts[ $bank_name ] ) ) {
 			$accounts[ $bank_name ] = array();

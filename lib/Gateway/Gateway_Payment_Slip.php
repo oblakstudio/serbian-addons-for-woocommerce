@@ -48,6 +48,15 @@ use XWP_Asset_Bundle;
 )]
 class Gateway_Payment_Slip extends Gateway_Base {
     /**
+     * Gateway ID.
+     *
+     * @var string
+     *
+     * @since 3.10.0
+     */
+    public const GW_ID = 'wcsrb_payment_slip';
+
+    /**
      * Constructor
      *
      * @param  Config   $config   Config instance.
@@ -65,7 +74,7 @@ class Gateway_Payment_Slip extends Gateway_Base {
      */
     protected function get_base_props(): array {
         return array(
-			'id'                 => 'wcsrb_payment_slip',
+			'id'                 => self::GW_ID,
 			'method_title'       => \__( 'Payment Slip', 'serbian-addons-for-woocommerce' ),
 			'method_description' => \__( 'Have your customers pay you by sending you money via wire transfer.', 'serbian-addons-for-woocommerce' ),
             'has_fields'         => false,
@@ -105,6 +114,16 @@ class Gateway_Payment_Slip extends Gateway_Base {
         }
 
         \xwp_register_hook_handler( Gateway_Payment_Slip_IPS_Handler::class );
+
+        /**
+         * Fires when the payment slip gateway is enabled and usable, before its hooks are loaded.
+         *
+         * @param Gateway_Payment_Slip $gw Payment slip gateway instance.
+         *
+         * @since 3.10.0
+         */
+        \do_action( 'wcsrb_payment_slip_init', $this );
+
         \xwp_load_hook_handler( $this );
     }
 
@@ -119,8 +138,12 @@ class Gateway_Payment_Slip extends Gateway_Base {
          */
         $data = \xwp_post_arr();
 
-        $data[ $this->get_option_key() . '_display' ]      ??= array();
-        $data[ $this->get_option_key() . '_qrcode_shown' ] ??= array();
+        // Model 97 needs the control number in the reference. The settings page enforces this in JS only.
+        if ( 'mod97' === ( $data[ $this->get_field_key( 'payment_model' ) ] ?? '' ) ) {
+            $data[ $this->get_field_key( 'payment_reference' ) ] = \has_filter( 'woocommerce_order_number' )
+                ? '%mod97%-%order_number%'
+                : '%mod97%-%order_id%-%year%';
+        }
 
         return $data;
     }

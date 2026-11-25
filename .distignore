@@ -10,6 +10,7 @@ node_modules
 # Files
 .browserslistrc
 .codeclimate.yml
+codecov.yml
 .distignore
 .editorconfig
 .eslintrc.js
@@ -24,6 +25,7 @@ README.md
 SECURITY.md
 composer.json
 composer.lock
+constants.php
 output.log
 package-lock.json
 package.json

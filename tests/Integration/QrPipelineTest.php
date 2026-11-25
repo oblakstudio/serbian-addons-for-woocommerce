@@ -14,6 +14,7 @@ use Oblak\WCSRB\Gateway\Gateway_Payment_Slip_IPS_Handler;
 use Oblak\WCSRB\QR\QR_Code_Options;
 use Oblak\WCSRB\QR\QR_Generator_GD;
 use Oblak\WCSRB\QR\QR_Generator_ImageMagick;
+use Oblak\WCSRB\Services\Payments;
 use Oblak\WCSRB\Services\QR_Code_Manager;
 use Oblak\WCSRB\Tests\Support\TestCase;
 
@@ -213,6 +214,64 @@ class QrPipelineTest extends TestCase {
         \do_action( 'woocommerce_order_action_wcsrb_gen_ips', $order );
 
         $this->assertTrue( $this->qrc()->has_qrcode( $order ) );
+    }
+
+    public function test_code_follows_edits_of_unpaid_orders(): void {
+        $order = $this->create_order( array( 'status' => 'on-hold' ) );
+        $file  = $this->qrc()->get_filename( $order );
+        \touch( $file, \time() - 60 ); // Generated before the edit below.
+
+        $order->set_total( 999 );
+        $order->save();
+
+        \clearstatcache();
+        $decoded = $this->decode_qr( $file );
+
+        $this->assertStringContainsString( 'I:RSD999,00', $decoded );
+        $this->assertSame( \xwp_app( 'wcsrb' )->get( Payments::class )->get_qr_string( \wc_get_order( $order->get_id() ) ), $decoded );
+    }
+
+    public function test_code_of_paid_orders_is_left_alone(): void {
+        $order = $this->create_order( array( 'status' => 'processing' ) );
+        $file  = $this->qrc()->get_filename( $order );
+        $mtime = \time() - 60;
+        \touch( $file, $mtime );
+
+        $order->set_total( 999 );
+        $order->save();
+
+        \clearstatcache();
+        $this->assertSame( $mtime, \filemtime( $file ) );
+    }
+
+    public function test_code_is_restored_when_the_order_is_untrashed(): void {
+        $order = $this->create_order( array( 'status' => 'on-hold' ) );
+        $file  = $this->qrc()->get_filename( $order );
+        $id    = $order->get_id(); // Trashing a post stored order resets the object ID.
+
+        $order->delete( false );
+        $this->assertFileDoesNotExist( $file, 'Trashing removes the code' );
+
+        // What "Restore" does in wp-admin for each order storage.
+        WCSRB_TESTS_HPOS ? \wc_get_order( $id )->untrash() : \wp_untrash_post( $id );
+
+        $this->assertFileExists( $file );
+    }
+
+    public function test_untrashing_a_paid_order_or_another_post_creates_no_code(): void {
+        $order = $this->create_order( array( 'status' => 'processing' ) );
+        $file  = $this->qrc()->get_filename( $order );
+        $id    = $order->get_id();
+
+        $order->delete( false );
+        WCSRB_TESTS_HPOS ? \wc_get_order( $id )->untrash() : \wp_untrash_post( $id );
+
+        $post = self::factory()->post->create();
+        \wp_trash_post( $post );
+        \wp_untrash_post( $post );
+
+        $this->assertFileDoesNotExist( $file );
+        $this->assertSame( array(), \glob( \WCRS_IPS_DIR . '/*.jpg' ) );
     }
 
     public function test_thank_you_page_shows_the_code_only_where_configured(): void {
