@@ -29,3 +29,18 @@ package-lock.json
 package.json
 release.config.js
 tsconfig.json
+
+# Tests
+.cache
+bin
+phpunit.xml.dist
+tests
+
+# Agent tooling
+.agents
+.beads
+.claude
+.codex
+.cursor
+AGENTS.md
+CLAUDE.md
