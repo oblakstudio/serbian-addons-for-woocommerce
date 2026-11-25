@@ -47,6 +47,8 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: gd, imagick, mbstring, pdo_sqlite, sqlite3, zip
           coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
+          # pcov only watches lib/ by default - config/ and woocommerce/ templates are in scope too.
+          ini-values: pcov.directory=., pcov.exclude="~vendor~"
           tools: composer:v2
 
       - name: Install Composer dependencies

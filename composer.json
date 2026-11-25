@@ -65,7 +65,7 @@
     ],
     "test:coverage": [
       "@test:install",
-      "@php vendor/bin/phpunit --coverage-text --coverage-clover=.cache/coverage/clover.xml --coverage-html=.cache/coverage/html",
+      "@php -d pcov.directory=. vendor/bin/phpunit --coverage-text --coverage-clover=.cache/coverage/clover.xml --coverage-html=.cache/coverage/html",
       "@php bin/check-coverage.php .cache/coverage/clover.xml"
     ],
     "test:install": "bash bin/install-wp-tests.sh",
