@@ -79,6 +79,11 @@ class Address_Field_Controller {
             unset( $fields['address_2'], $fields['state'] );
         }
 
+        // Persons only: there is no company to enter, in any country.
+        if ( 'person' === $this->config->get( 'core', 'enabled_customer_types' ) ) {
+            unset( $fields['company'] );
+        }
+
         // The company field depends on the customer type only in the RS locale - elsewhere it is a regular field.
         return \array_merge( $fields, \wcsrb_get_company_fields() );
     }
