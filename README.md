@@ -9,6 +9,7 @@
 ![WordPress Plugin Active Installs](https://img.shields.io/wordpress/plugin/installs/serbian-addons-for-woocommerce)
 
 [![Build](https://github.com/oblakstudio/serbian-addons-for-woocommerce/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/oblakstudio/serbian-addons-for-woocommerce/actions/workflows/release.yml)
+[![codecov](https://codecov.io/gh/oblakstudio/serbian-addons-for-woocommerce/graph/badge.svg?branch=master)](https://codecov.io/gh/oblakstudio/serbian-addons-for-woocommerce)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b74fbb99a47980b1e72c/maintainability)](https://codeclimate.com/github/oblakstudio/serbian-addons-for-woocommerce/maintainability)
 ![GitHub](https://img.shields.io/github/license/oblakstudio/serbian-addons-for-woocommerce)
