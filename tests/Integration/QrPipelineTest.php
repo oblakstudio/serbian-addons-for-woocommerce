@@ -10,7 +10,6 @@ namespace Oblak\WCSRB\Tests\Integration;
 
 use chillerlan\QRCode\Data\QRMatrix;
 use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
 use Oblak\WCSRB\Gateway\Gateway_Payment_Slip_IPS_Handler;
 use Oblak\WCSRB\QR\QR_Code_Options;
 use Oblak\WCSRB\QR\QR_Generator_GD;
@@ -278,7 +277,7 @@ class QrPipelineTest extends TestCase {
      * @return string
      */
     private function decode( string $image ): string {
-        return (string) ( new QRCode( new QROptions( array( 'readerUseImagickIfAvailable' => false ) ) ) )->readFromBlob( $image );
+        return $this->decode_qr( $image );
     }
 
     /**

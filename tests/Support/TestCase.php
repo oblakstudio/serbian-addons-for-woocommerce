@@ -171,6 +171,52 @@ abstract class TestCase extends \WP_UnitTestCase {
     }
 
     /**
+     * Decode a QR code image like a (tolerant) scanner would.
+     *
+     * chillerlan's reader is a strict port of ZXing's detector and can misjudge the module size of
+     * soft (anti-aliased, JPEG compressed) images that phones read without trouble. Retry with
+     * grayscale / contrast pre-processing and, where available, the Imagick luminance source;
+     * fail only when no configuration can read the code.
+     *
+     * @param  string $image Image blob or file path.
+     * @return string        Decoded data.
+     *
+     * @throws \Throwable The last reader error when the code cannot be read.
+     */
+    protected function decode_qr( string $image ): string {
+        $attempts = array(
+            array(),
+            array(
+                'readerGrayscale'        => true,
+                'readerIncreaseContrast' => true,
+            ),
+        );
+
+        if ( \extension_loaded( 'imagick' ) ) {
+            $attempts[] = array(
+                'readerGrayscale'             => true,
+                'readerIncreaseContrast'      => true,
+                'readerUseImagickIfAvailable' => true,
+            );
+        }
+
+        foreach ( $attempts as $options ) {
+            $reader = new \chillerlan\QRCode\QRCode(
+                new \chillerlan\QRCode\QROptions( $options + array( 'readerUseImagickIfAvailable' => false ) ),
+            );
+
+            try {
+                // Binary image data always contains NUL bytes, file paths never do.
+                return (string) ( \str_contains( $image, "\0" ) ? $reader->readFromBlob( $image ) : $reader->readFromFile( $image ) );
+            } catch ( \Throwable $e ) {
+                $error = $e;
+            }
+        }
+
+        throw $error;
+    }
+
+    /**
      * Remove generated IPS QR code files.
      */
     protected function clean_ips_dir(): void {

@@ -8,8 +8,6 @@
 
 namespace Oblak\WCSRB\Tests\Integration;
 
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
 use Oblak\WCSRB\Services\Payments;
 use Oblak\WCSRB\Services\QR_Code_Manager;
 use Oblak\WCSRB\Tests\Support\TestCase;
@@ -52,9 +50,7 @@ class QrCodeGenerationTest extends TestCase {
 
         $this->assertFileExists( $file );
 
-        $reader = new QRCode( new QROptions( array( 'readerUseImagickIfAvailable' => false ) ) );
-
-        return (string) $reader->readFromFile( $file );
+        return $this->decode_qr( $file );
     }
 
     /**
