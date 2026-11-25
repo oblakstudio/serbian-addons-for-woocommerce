@@ -429,8 +429,8 @@ msgid "Payment code"
 msgstr "Шифра плаћања"
 
 #: config/pg-slip-settings.php:120
-msgid "Payment code on the payment slip"
-msgstr "Шифра плаћања која ће бити приказана на општој уплатници"
+msgid "Payment code is a three digit number used to properly route transactions."
+msgstr "Шифра плаћања је троцифрени број који служи за правилно усмеравање трансакције."
 
 #: woocommerce/checkout/payment-slip.php:35
 msgid "Payment instructions"
@@ -452,9 +452,17 @@ msgstr "Модел за позив на број"
 msgid "Payment purpose"
 msgstr "Сврха уплате"
 
+#: config/pg-slip-settings.php:156
+msgid "Payment purpose is a short description of the payment. It is used to inform the recipient about the payment."
+msgstr "Сврха уплате је кратак опис уплате. Примаоцу говори на шта се уплата односи."
+
 #: config/pg-slip-settings.php:141 woocommerce/checkout/payment-slip.php:174
 msgid "Payment reference"
 msgstr "Позив на број"
+
+#: config/pg-slip-settings.php:149
+msgid "Payment reference is a unique code that identifies the payment. It is used to match the payment with the order."
+msgstr "Позив на број је јединствена ознака уплате. Служи за повезивање уплате са наруџбином."
 
 #: config/pg-slip-settings.php:71 lib/Gateway/Gateway_Payment_Slip.php:68
 msgid "Payment Slip"

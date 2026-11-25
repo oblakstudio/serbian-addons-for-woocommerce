@@ -133,6 +133,37 @@ class GatewayPaymentSlipTest extends TestCase {
         $this->assertSame( $before, \has_action( 'woocommerce_new_order' ), 'An already loaded handler is not registered twice' );
     }
 
+    public function test_init_action_fires_only_for_a_usable_gateway(): void {
+        $initialized = array();
+        \add_action(
+            'wcsrb_payment_slip_init',
+            static function ( $gw ) use ( &$initialized ) {
+                $initialized[] = $gw;
+            },
+        );
+
+        $this->make_gateway( array( 'enabled' => 'no' ) )->init_gateway();
+
+        \update_option( 'woocommerce_currency', 'EUR' );
+        $this->make_gateway()->init_gateway();
+
+        \update_option( 'woocommerce_currency', 'RSD' );
+        $gateway = $this->make_gateway();
+        $gateway->init_gateway();
+
+        $this->assertSame( array( $gateway ), $initialized );
+    }
+
+    public function test_site_icon_link_opens_the_site_identity_customizer_section(): void {
+        $description = $this->make_gateway_on_settings_screen()->get_form_fields()['qrcode_image']['description'];
+
+        \preg_match( '/<a [^>]*href="([^"]+)"/', $description, $link );
+        \parse_str( (string) \wp_parse_url( \html_entity_decode( $link[1] ), \PHP_URL_QUERY ), $query );
+
+        $this->assertStringStartsWith( \admin_url( 'customize.php' ), \html_entity_decode( $link[1] ) );
+        $this->assertSame( array( 'section' => 'title_tagline' ), $query['autofocus'] ?? null );
+    }
+
     public function test_is_valid_for_use(): void {
         $this->assertTrue( $this->gateway()->is_valid_for_use() );
 
@@ -153,19 +184,39 @@ class GatewayPaymentSlipTest extends TestCase {
         $this->assertTrue( $this->update_gateway_settings( array( 'bank_account' => '' ) )->needs_setup() );
     }
 
-    public function test_post_data_always_contains_the_multiselects(): void {
-        $key = $this->gateway()->get_option_key();
+    public function test_clearing_the_visibility_multiselects_is_saved(): void {
+        $gateway = $this->gateway();
 
-        $_POST = array( $key . '_title' => 'Uplatnica' );
-        $data  = $this->gateway()->get_post_data();
+        $this->save_slip_settings( 'auto', '%order_id%-%year%' );
+        $this->assertSame( array( 'order', 'email' ), $gateway->display, 'Fixture: shown everywhere' );
 
-        $this->assertSame( 'Uplatnica', $data[ $key . '_title' ] );
-        $this->assertSame( array(), $data[ $key . '_display' ], 'Clearing a multiselect must be saved' );
-        $this->assertSame( array(), $data[ $key . '_qrcode_shown' ] );
+        // A cleared multiselect is not posted at all.
+        unset( $_POST[ $gateway->get_field_key( 'display' ) ], $_POST[ $gateway->get_field_key( 'qrcode_shown' ) ] );
+        $gateway->process_admin_options();
+        $gateway->init_settings();
 
-        $_POST = array( $key . '_display' => array( 'order' ) );
+        $this->assertSame( array(), $gateway->display );
+        $this->assertSame( array(), $gateway->qrcode_shown );
+    }
 
-        $this->assertSame( array( 'order' ), $this->gateway()->get_post_data()[ $key . '_display' ] );
+    public function test_saving_model_97_forces_the_mod97_payment_reference(): void {
+        $this->save_slip_settings( 'mod97', '%order_id%' );
+
+        $this->assertSame( '%mod97%-%order_id%-%year%', $this->saved_slip_settings()['payment_reference'] );
+    }
+
+    public function test_saving_model_97_uses_the_order_number_when_it_is_filtered(): void {
+        \add_filter( 'woocommerce_order_number', static fn( $n ) => 'WC-' . $n );
+
+        $this->save_slip_settings( 'mod97', '%order_id%-%year%' );
+
+        $this->assertSame( '%mod97%-%order_number%', $this->saved_slip_settings()['payment_reference'] );
+    }
+
+    public function test_saving_another_model_keeps_the_custom_payment_reference(): void {
+        $this->save_slip_settings( 'auto', '%year%-%order_id%' );
+
+        $this->assertSame( '%year%-%order_id%', $this->saved_slip_settings()['payment_reference'] );
     }
 
     public function test_process_payment_puts_order_on_hold_and_empties_cart(): void {
@@ -346,6 +397,35 @@ class GatewayPaymentSlipTest extends TestCase {
         $_REQUEST = $_GET;
 
         return $this->make_gateway();
+    }
+
+    /**
+     * Save the payment slip settings form the way wp-admin posts it.
+     *
+     * @param  string $model     Payment model.
+     * @param  string $reference Payment reference.
+     */
+    private function save_slip_settings( string $model, string $reference ): void {
+        $gateway = $this->gateway();
+        $_POST   = array();
+
+        foreach ( Fixtures::gateway_settings() as $key => $value ) {
+            $_POST[ $gateway->get_field_key( $key ) ] = 'yes' === $value ? '1' : $value;
+        }
+
+        $_POST[ $gateway->get_field_key( 'payment_model' ) ]     = $model;
+        $_POST[ $gateway->get_field_key( 'payment_reference' ) ] = $reference;
+
+        $gateway->process_admin_options();
+    }
+
+    /**
+     * Get the payment slip settings stored in the database.
+     *
+     * @return array<string,mixed>
+     */
+    private function saved_slip_settings(): array {
+        return \get_option( $this->gateway()->get_option_key() );
     }
 
     /**

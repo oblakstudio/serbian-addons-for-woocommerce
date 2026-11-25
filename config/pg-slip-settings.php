@@ -35,7 +35,7 @@ $qr_img_desc = static function ( int $icon ) {
         __( 'You can set the image via %1$s', 'serbian-addons-for-woocommerce' ),
         sprintf(
             '<a target="_blank" href="%1$s">%2$s</a> (%3$s)',
-            esc_url( admin_url( 'customize.php' ) ),
+            esc_url( add_query_arg( 'autofocus[section]', 'title_tagline', admin_url( 'customize.php' ) ) ),
             esc_html__( 'Customizer', 'default' ),
             esc_html__( 'Site Identity', 'default' ),
         ),
@@ -117,7 +117,7 @@ return array(
         'options'           => static fn() => wcsrb_format_payment_code_select(),
         'default'           => 'auto',
         'description'       => __( 'You can choose a payment code only if you limit checkout to a single customer type.', 'serbian-addons-for-woocommerce' ),
-        'desc_tip'          => __( 'Payment code on the payment slip', 'serbian-addons-for-woocommerce' ),
+        'desc_tip'          => __( 'Payment code is a three digit number used to properly route transactions.', 'serbian-addons-for-woocommerce' ),
         'custom_attributes' => static fn() => array_merge(
             array(),
             1 === count( wcsrb_format_payment_code_select() ) ? array( 'readonly' => 'readonly' ) : array(),
@@ -146,12 +146,14 @@ return array(
             'data-auto'  => has_filter( 'woocommerce_order_number' ) ? '%order_number%' : '%order_id%-%year%',
             'data-mod97' => has_filter( 'woocommerce_order_number' ) ? '%mod97%-%order_number%' : '%mod97%-%order_id%-%year%',
         ),
+        'desc_tip'          => __( 'Payment reference is a unique code that identifies the payment. It is used to match the payment with the order.', 'serbian-addons-for-woocommerce' ),
     ),
 
     'payment_purpose'     => array(
-        'title'   => __( 'Payment purpose', 'serbian-addons-for-woocommerce' ),
-        'type'    => 'text',
-        'default' => __( 'Order payment', 'serbian-addons-for-woocommerce' ),
+        'title'    => __( 'Payment purpose', 'serbian-addons-for-woocommerce' ),
+        'type'     => 'text',
+        'default'  => __( 'Order payment', 'serbian-addons-for-woocommerce' ),
+        'desc_tip' => __( 'Payment purpose is a short description of the payment. It is used to inform the recipient about the payment.', 'serbian-addons-for-woocommerce' ),
     ),
 
     'qrcode'              => array(
