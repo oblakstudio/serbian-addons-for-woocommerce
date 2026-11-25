@@ -176,7 +176,7 @@ class Payments {
      * @return string              Formatted payment reference.
      */
     private function format_reference( string $reference, WC_Order $order, string $context ): string {
-        $replacements = \wcsrb_get_payment_reference_replacement_pairs( $order );
+        $replacements = \wcsrb_get_payment_reference_replacement_pairs( $order, $reference );
         $reference    = \strtr( $reference, $replacements );
         return 'display' === $context ? $reference : \str_replace( '-', '', $reference );
     }

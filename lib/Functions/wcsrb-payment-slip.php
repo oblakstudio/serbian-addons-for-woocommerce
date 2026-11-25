@@ -15,7 +15,7 @@
 function wcsrb_is_rsd( string $currency ): bool {
     $currency = trim( trim( $currency ), '.' );
 
-    return preg_match( '/^(rsd|рсд|din|din|dinar)$/i', $currency );
+    return 1 === preg_match( '/^(rsd|рсд|din|дин|dinar|динар)$/iu', $currency );
 }
 
 /**
@@ -151,9 +151,9 @@ function wcsrb_format_payment_reference_description(): string {
             '<a href="#" data-code="%s" class="button button-secondary replacement" style="margin-right: 10px;">
                 <span class="tips" data-tip="%s">%s</span>
             </a>',
-            $key,
-            $value,
-            $key,
+            esc_attr( $key ),
+            esc_attr( $value ),
+            esc_html( $key ),
         );
     }
 
@@ -163,23 +163,34 @@ function wcsrb_format_payment_reference_description(): string {
 /**
  * Get the replacement pairs for the payment reference.
  *
- * @param WC_Order $order The order.
- * @return array          The replacement pairs.
+ * The `%mod97%` control number is calculated from the reference the pairs are applied to, so it
+ * always matches the rest of that reference (a model 97 requirement).
+ *
+ * @param  WC_Order $order     The order.
+ * @param  string   $reference Optional. Reference template the pairs will be applied to.
+ *                             Default `%order_number%%year%` (the pre 3.9.5 behaviour).
+ * @return array               The replacement pairs.
+ *
+ * @since 3.9.5 Added the `$reference` parameter.
  */
-function wcsrb_get_payment_reference_replacement_pairs( $order ): array {
+function wcsrb_get_payment_reference_replacement_pairs( $order, string $reference = '%order_number%%year%' ): array {
+    $date  = $order->get_date_created();
     $pairs = array(
         '%customer_id%'  => $order->get_customer_id(),
-        '%day%'          => $order->get_date_created()->date( 'd' ),
-        '%mod97%'        => wcsrb_calculate_check_digit(
-            (string) $order->get_order_number(),
-            (string) $order->get_date_created()->date( 'Y' ),
-        ),
-        '%month%'        => $order->get_date_created()->date( 'm' ),
-        '%order_date%'   => $order->get_date_created()->date( 'd-m-Y' ),
+        '%day%'          => $date->date( 'd' ),
+        '%month%'        => $date->date( 'm' ),
+        '%order_date%'   => $date->date( 'd-m-Y' ),
         '%order_id%'     => $order->get_id(),
         '%order_number%' => $order->get_order_number(),
-        '%year%'         => $order->get_date_created()->date( 'Y' ),
+        '%year%'         => $date->date( 'Y' ),
     );
+
+    $mod97 = static fn( array $pairs ) => wcsrb_calculate_mod97(
+        strtr( str_replace( '%mod97%', '', $reference ), array_diff_key( $pairs, array( '%mod97%' => '' ) ) ),
+    );
+
+    $pairs['%mod97%'] = $mod97( $pairs );
+    $control_number   = $pairs['%mod97%'];
 
     /**
      * Filters the replacement pairs for the payment reference.
@@ -190,7 +201,40 @@ function wcsrb_get_payment_reference_replacement_pairs( $order ): array {
      *
      * @since 2.3.0
      */
-    return apply_filters( 'woocommerce_serbian_payment_reference_replacement_pairs', $pairs, $order );
+    $pairs = apply_filters( 'woocommerce_serbian_payment_reference_replacement_pairs', $pairs, $order );
+
+    // The filter may have changed other pairs - keep the control number in sync unless it was overridden.
+    if ( ( $pairs['%mod97%'] ?? null ) === $control_number ) {
+        $pairs['%mod97%'] = $mod97( $pairs );
+    }
+
+    return $pairs;
+}
+
+/**
+ * Calculates the model 97 control number (ISO 7064 MOD 97-10) for a payment reference.
+ *
+ * Characters other than ASCII letters and digits are ignored and letters are converted to numbers
+ * (A = 10 ... Z = 35). The remainder is calculated digit by digit, so references of any length work.
+ *
+ * @param  string $reference Payment reference without the control number.
+ * @return string            Two digit control number.
+ *
+ * @since 3.9.5
+ */
+function wcsrb_calculate_mod97( string $reference ): string {
+    $digits    = preg_replace_callback(
+        '/[A-Z]/',
+        static fn( array $m ) => (string) wcsrb_string_to_reference( $m[0] ),
+        strtoupper( preg_replace( '/[^a-z0-9]/i', '', $reference ) ),
+    );
+    $remainder = 0;
+
+    foreach ( str_split( $digits . '00' ) as $digit ) {
+        $remainder = ( $remainder * 10 + (int) $digit ) % 97;
+    }
+
+    return str_pad( (string) ( 98 - $remainder ), 2, '0', STR_PAD_LEFT );
 }
 
 /**
@@ -201,11 +245,7 @@ function wcsrb_get_payment_reference_replacement_pairs( $order ): array {
  * @return string               Check digit.
  */
 function wcsrb_calculate_check_digit( $order_number, $order_year ): string {
-    $number = (int) wcsrb_calculate_number_for_reference( $order_number . $order_year );
-
-    $remainder = $number % 97;
-
-    return str_pad( strval( 98 - $remainder ), 2, '0', STR_PAD_LEFT );
+    return wcsrb_calculate_mod97( $order_number . $order_year );
 }
 
 /**
@@ -223,8 +263,12 @@ function wcsrb_string_to_reference( $letter ): int {
  *
  * @param  string $order_number Order number.
  * @return int                  Reference number.
+ *
+ * @deprecated 3.9.5 Overflows for long references. Use wcsrb_calculate_mod97().
  */
 function wcsrb_calculate_number_for_reference( $order_number ): int {
+    _deprecated_function( __FUNCTION__, '3.9.5', 'wcsrb_calculate_mod97' );
+
     $length = strlen( $order_number );
     $result = '';
 
@@ -240,8 +284,8 @@ function wcsrb_calculate_number_for_reference( $order_number ): int {
 /**
  * Get the IPS QR Code base directory.
  *
- * @return string The IPS QR Code base directory.
+ * @return string The IPS QR Code base directory (`WCRS_IPS_DIR` if defined).
  */
 function wcsrb_get_ips_basedir(): string {
-    return wp_upload_dir()['basedir'] . '/wcrs-ips';
+    return xwp_app( 'wcsrb' )->get( 'ips.basedir' );
 }
