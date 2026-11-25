@@ -11,10 +11,15 @@ parameters:
   bootstrapFiles:
     - vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
   ignoreErrors:
+    # XWP_Asset_Bundle::offsetGet() is documented as non-null but returns null for unknown files.
     -
-      identifier: argument.type
+      identifier: nullsafe.neverNull
       paths:
-        - lib/Utils/Payments.php
+        - lib/Gateway/Gateway_Payment_Slip.php
+    -
+      identifier: nullCoalesce.expr
+      paths:
+        - lib/Gateway/Gateway_Payment_Slip.php
     -
       identifier: constant.notFound
       paths:
