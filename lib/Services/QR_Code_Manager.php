@@ -9,6 +9,7 @@ namespace Oblak\WCSRB\Services;
 
 use chillerlan\QRCode\QRCode;
 use DI\Attribute\Inject;
+use Oblak\WCSRB\QR\QR_Code_Options;
 use Oblak\WCSRB\Services\Payments;
 use WC_Order;
 
@@ -47,10 +48,23 @@ class QR_Code_Manager {
      * @return bool
      */
     public function create( WC_Order $order, string $format = 'jpg' ): bool {
-        return $this->save(
-            $this->get_filename( $order, $format ),
-            $this->make( $this->payments->get_qr_string( $order ) ),
-        );
+        try {
+            $image = $this->make( $this->payments->get_qr_string( $order ) );
+        } catch ( \Throwable $e ) {
+            // Runs while the order is being created - a QR code problem must never fail the checkout.
+            \wc_get_logger()->error(
+                \sprintf(
+                    'Could not generate the IPS QR code for order #%d: %s',
+                    $order->get_id(),
+                    $e->getMessage(),
+                ),
+                array( 'source' => 'serbian-addons-for-woocommerce' ),
+            );
+
+            return false;
+        }
+
+        return $this->save( $this->get_filename( $order, $format ), $image );
     }
 
     /**
@@ -72,7 +86,7 @@ class QR_Code_Manager {
         }
 
         return 'base64' === $format
-            ? 'data:image/jpg;base64, ' . \base64_encode( $data )
+            ? 'data:image/jpeg;base64,' . \base64_encode( $data )
             : $data;
     }
 
@@ -117,7 +131,11 @@ class QR_Code_Manager {
      * @return string
      */
     protected function make( string $data ) {
-        return \xwp_app( 'wcsrb' )->call( array( QRCode::class, 'render' ), array( $data ) );
+        // Fresh instances for every code: QRCode::render() appends $data to the segments of all
+        // previous renders, and the options must reflect the current gateway settings.
+        $qrcode = new QRCode( \xwp_app( 'wcsrb' )->make( QR_Code_Options::class ) );
+
+        return $qrcode->render( $data );
     }
 
     /**

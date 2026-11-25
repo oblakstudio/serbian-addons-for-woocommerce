@@ -12,11 +12,10 @@ use Oblak\WCSRB\QR\QR_Generator_GD;
 use Oblak\WCSRB\QR\QR_Generator_ImageMagick;
 use Oblak\WCSRB\Utils\Installer;
 
+// Environment dependent choices (constant defined / imagick installed).
 return array(
     'ips.basedir'           => \DI\factory(
-        static fn() => \defined( 'WCRS_IPS_DIR' )
-            ? WCRS_IPS_DIR
-            : \wp_upload_dir()['basedir'] . '/wcrs-ips',
+        static fn() => \defined( 'WCRS_IPS_DIR' ) ? WCRS_IPS_DIR : \wp_upload_dir()['basedir'] . '/wcrs-ips',
     ),
     'ips.generator'         => \DI\factory(
         static fn() => \class_exists( \Imagick::class )

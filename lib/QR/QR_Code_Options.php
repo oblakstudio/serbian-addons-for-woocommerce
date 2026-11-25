@@ -57,7 +57,7 @@ class QR_Code_Options extends QROptions {
     private function parse_opts( array $opts, string $generator ): array {
         $isgd = QR_Generator_GD::class === $generator;
 
-        $logo = $opts['qrcode_image'] ? \get_option( 'site_icon', 0 ) : 0;
+        $logo = $opts['qrcode_image'] ? $this->get_logo_file() : null;
         $qrdc = $isgd ? $this->hex2rgb( $opts['qrcode_color'] ) : $opts['qrcode_color'];
         $qrcc = $isgd ? $this->hex2rgb( $opts['qrcode_corner_color'] ) : $opts['qrcode_corner_color'];
 
@@ -97,7 +97,7 @@ class QR_Code_Options extends QROptions {
                 array(
                     'addLogoSpace'    => true,
                     'eccLevel'        => EccLevel::H,
-                    'logo'            => \get_attached_file( $logo ),
+                    'logo'            => $logo,
                     'logoSpaceHeight' => 20,
                     'logoSpaceWidth'  => 20,
                 ),
@@ -135,7 +135,14 @@ class QR_Code_Options extends QROptions {
      * @return array       RGB color.
      */
     private function hex2rgb( string $hex ): array {
-        $hex = \hexdec( \ltrim( $hex, '#' ) );
+        $hex = \ltrim( $hex, '#' );
+
+        // Expand the short notation: #f80 => #ff8800.
+        if ( 3 === \strlen( $hex ) ) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+
+        $hex = \hexdec( $hex );
 
         $r = ( $hex >> 16 ) & 0xFF;
         $g = ( $hex >> 8 ) & 0xFF;
@@ -145,21 +152,24 @@ class QR_Code_Options extends QROptions {
     }
 
     /**
+     * Get the site icon file used as the QR code logo.
+     *
+     * A missing or unreadable file means no logo - it must never stop the QR code (or the order).
+     *
+     * @return string|null
+     */
+    private function get_logo_file(): ?string {
+        $file = \get_attached_file( (int) \get_option( 'site_icon', 0 ) );
+
+        return $file && \is_file( $file ) && \is_readable( $file ) ? $file : null;
+    }
+
+    /**
      * Set the logo file path
      *
-     * @param  string $logo Logo file path.
-     *
-     * @throws \chillerlan\QRCode\QRCodeException If the logo file is invalid.
+     * @param  string|null $logo Logo file path, validated by get_logo_file().
      */
     protected function set_logo( ?string $logo = null ): void {
-        if ( ! $logo ) {
-            return;
-        }
-
-        if ( ! \file_exists( $logo ) || ! \is_file( $logo ) || ! \is_readable( $logo ) ) {
-			throw new \chillerlan\QRCode\QRCodeException( 'Invalid logo file' );
-		}
-
-		$this->logo = $logo;
+        $this->logo = $logo;
     }
 }

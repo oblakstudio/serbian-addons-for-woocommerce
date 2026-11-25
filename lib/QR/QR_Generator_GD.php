@@ -38,8 +38,8 @@ class QR_Generator_GD extends QRGdImageJPEG {
         \imagecopyresampled(
             $this->image,
             $image,
-            ( $ql - $lw ) / 2,
-            ( $ql - $lh ) / 2,
+            \intdiv( $ql - $lw, 2 ),
+            \intdiv( $ql - $lh, 2 ),
             0,
             0,
             $lw,
