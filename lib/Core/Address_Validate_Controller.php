@@ -66,6 +66,27 @@ class Address_Validate_Controller {
         }
     }
 
+    /**
+     * Clears the company numbers when a customer saves the billing address as a person.
+     *
+     * The address form only disables the fields. Runs after validation, before the customer is saved.
+     *
+     * @param  int          $user_id  User ID.
+     * @param  string       $type     Address type being edited - billing or shipping.
+     * @param  array        $address  Address fields.
+     * @param  \WC_Customer $customer Customer being saved.
+     *
+     * @since 3.11.0
+     */
+    #[Action( tag: 'woocommerce_after_save_address_validation', priority: 100 )]
+    public function clear_person_company_numbers( int $user_id, string $type, array $address, \WC_Customer $customer ) {
+        if ( 'billing' !== $type || 'company' === \wcsrb_get_customer_type( $customer ) ) {
+            return;
+        }
+
+        $customer->delete_meta_data( 'billing_mb' );
+        $customer->delete_meta_data( 'billing_pib' );
+    }
 
     /**
      * Validates the checkout fields.
