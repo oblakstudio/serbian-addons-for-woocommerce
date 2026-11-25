@@ -57,3 +57,8 @@ if command -v bd >/dev/null 2>&1; then
   if [ "$_bd_exit" -ne 0 ]; then exit "$_bd_exit"; fi
 fi
 # --- END BEADS INTEGRATION v1.3.0 ---
+
+# DCO: every commit carries a Developer Certificate of Origin sign-off (the GitHub DCO
+# check requires it). Same trailer as `git commit -s`, added once per identity.
+_dco_ident=$(git var GIT_COMMITTER_IDENT | sed 's/>.*/>/')
+git interpret-trailers --in-place --if-exists addIfDifferent --trailer "Signed-off-by: ${_dco_ident}" "$1"

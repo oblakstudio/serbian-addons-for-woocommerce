@@ -23,6 +23,14 @@ bd close <id>         # Complete work
 bd dolt push          # Push beads data to remote
 ```
 
+## DCO Sign-off
+
+Every commit must carry a Developer Certificate of Origin sign-off: commit with `git commit -s`.
+The `DCO` check on pull requests fails without it, and it is required to merge into `master`.
+`.beads/hooks/prepare-commit-msg` adds the trailer automatically (no duplicates with `-s`);
+cherry-pick/rebase keep it only with `--signoff`. Fix a missed sign-off on a pushed branch with a
+remediation commit (see `.github/dco.yml`), not a force-push.
+
 ## Non-Interactive Shell Commands
 
 **ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.

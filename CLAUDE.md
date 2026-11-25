@@ -74,4 +74,14 @@ _Add a brief overview of your project architecture_
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+### DCO sign-off on every commit
+
+Every commit must carry a Developer Certificate of Origin sign-off - the `DCO` check on pull
+requests fails without it, and it is required to merge into `master`.
+
+- Commit with `git commit -s` (or `--signoff`), including commits made by agents.
+- `.beads/hooks/prepare-commit-msg` adds the trailer automatically when `core.hooksPath` points
+  at `.beads/hooks` (`bd hooks install`); `-s` on top of it is not duplicated.
+- Rewriting commits (cherry-pick, rebase) keeps sign-offs only with `--signoff`.
+- Missed one on a pushed branch? Add a remediation commit (allowed by `.github/dco.yml`)
+  instead of force-pushing.
