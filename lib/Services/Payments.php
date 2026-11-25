@@ -47,9 +47,7 @@ class Payments {
      * @param  string   $context Context of the data.
      */
     public function format_order_data( WC_Order $order, string $context = 'display' ): array {
-        $data = $order->get_meta( '_payment_slip_data', true )
-            ?:
-            $order->get_meta( '_wcsrb_payment_data', true );
+        $data = $this->get_slip_data( $order );
 
         return array(
             'account'   => $this->format_account( $data['account'], $context ),
@@ -62,6 +60,35 @@ class Payments {
             'reference' => $this->format_reference( $data['reference'], $order, $context ),
             'total'     => $this->format_total( $order, $context ),
         );
+    }
+
+    /**
+     * Gets the payment slip data stored on the order.
+     *
+     * Orders switched to the payment slip gateway after checkout (or created while it was disabled)
+     * have no stored data, and legacy orders may have partial data. Missing values fall back to the
+     * current gateway settings.
+     *
+     * @param  WC_Order $order Order object.
+     * @return array{account: string, code: string, model: string, purpose: string, reference: string}
+     *
+     * @since 3.9.5
+     */
+    public function get_slip_data( WC_Order $order ): array {
+        $data = array();
+
+        foreach ( array( '_payment_slip_data', '_wcsrb_payment_data' ) as $key ) {
+            $meta = $order->get_meta( $key, true );
+
+            if ( \is_array( $meta ) && $meta ) {
+                $data = $meta;
+                break;
+            }
+        }
+
+        $data = \wp_parse_args( $data, \wcsrb_slip_gw()->get_payment_data() );
+
+        return \array_map( static fn( $value ) => \is_scalar( $value ) ? (string) $value : '', $data );
     }
 
     /**
