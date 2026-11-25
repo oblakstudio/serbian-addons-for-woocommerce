@@ -1,0 +1,81 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - beta
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned for reproducible runs - bump together with the plugin's "tested up to" headers.
+  WP_VERSION: '7.1.5'
+  WC_VERSION: '11.3.1'
+  SQLITE_VERSION: '3.1.3'
+
+jobs:
+  phpunit:
+    name: PHP ${{ matrix.php }} / ${{ matrix.storage }} storage
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.0', '8.4']
+        storage: ['hpos', 'legacy']
+        include:
+          - php: '8.4'
+            storage: 'hpos'
+            coverage: true
+    env:
+      WCSRB_TESTS_HPOS: ${{ matrix.storage == 'hpos' && '1' || '0' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # The runner context is not available in job level env.
+      - name: Set test environment directory
+        run: echo "WCSRB_TESTS_DIR=${{ runner.temp }}/wcsrb-wp-tests" >> "$GITHUB_ENV"
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: gd, imagick, mbstring, pdo_sqlite, sqlite3, zip
+          coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Cache WordPress test downloads
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/wcsrb-wp-tests/downloads
+          key: wp-tests-${{ env.WP_VERSION }}-${{ env.WC_VERSION }}-${{ env.SQLITE_VERSION }}
+
+      - name: Install WordPress test environment
+        run: composer test:install
+
+      - name: Run tests
+        if: ${{ ! matrix.coverage }}
+        run: vendor/bin/phpunit
+
+      - name: Run tests with coverage
+        if: ${{ matrix.coverage }}
+        run: vendor/bin/phpunit --coverage-text --coverage-clover=.cache/coverage/clover.xml
+
+      - name: Require 100% coverage of the payment gateway code
+        if: ${{ matrix.coverage }}
+        run: php bin/check-coverage.php .cache/coverage/clover.xml
+
+      - name: Upload coverage report
+        if: ${{ matrix.coverage }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-clover
+          path: .cache/coverage/clover.xml
