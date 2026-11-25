@@ -14,18 +14,25 @@ export class SlipSettingsController {
   }
 
   finalize(): void {
-    this.model.addEventListener('change', () => this.setPaymentReference());
+    this.model.addEventListener('change', () => this.setPaymentReference(true));
     this.btns.forEach((btn) =>
       btn.addEventListener('click', (e) => this.toggleReplacement(e)),
     );
 
-    this.toggleClasses();
-    this.setPaymentReference();
+    // On load keep the saved reference - only a model change resets it.
+    this.setPaymentReference(false);
   }
 
-  private setPaymentReference(): void {
+  /**
+   * Locks the reference for model 97, unlocks it for the other models.
+   *
+   * @param reset Replace a custom reference with the automatic one (when the model changes).
+   */
+  private setPaymentReference(reset: boolean): void {
     if (this.model.value !== 'mod97') {
-      this.ref.value = this.ref.dataset.auto;
+      if (reset) {
+        this.ref.value = this.ref.dataset.auto;
+      }
       this.btns.forEach((btn) => btn.classList.remove('disabled'));
       this.ref.readOnly = false;
       this.toggleClasses();
