@@ -1,0 +1,9 @@
+# DCO GitHub App - https://github.com/dcoapp/app
+#
+# Every commit needs a Developer Certificate of Origin sign-off (`git commit -s`;
+# .beads/hooks/prepare-commit-msg adds it automatically). A missed sign-off can be fixed
+# with a remediation commit instead of rewriting a pushed branch.
+require:
+  members: true
+allowRemediationCommits:
+  individual: true
