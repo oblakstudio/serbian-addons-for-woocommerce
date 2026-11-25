@@ -196,18 +196,27 @@ class Gateway_Payment_Slip extends Gateway_Base {
     public function add_payment_data( int|WC_Order $order ) {
         $order = \wc_get_order( $order );
 
-        $data = array(
-            'model'     => $this->payment_model,
-            'reference' => $this->payment_reference,
-            'purpose'   => $this->payment_purpose,
-            'code'      => $this->payment_code,
-            'account'   => $this->bank_account,
-        );
-
         $order->delete_meta_data( '_payment_slip_data' );
         $order->delete_meta_data( '_payment_slip_ips_data' );
-        $order->update_meta_data( '_wcsrb_payment_data', $data );
+        $order->update_meta_data( '_wcsrb_payment_data', $this->get_payment_data() );
         $order->save();
+    }
+
+    /**
+     * Get the payment slip data from the current gateway settings.
+     *
+     * @return array{model: string, reference: string, purpose: string, code: string, account: string}
+     *
+     * @since 3.9.5
+     */
+    public function get_payment_data(): array {
+        return array(
+            'model'     => (string) $this->payment_model,
+            'reference' => (string) $this->payment_reference,
+            'purpose'   => (string) $this->payment_purpose,
+            'code'      => (string) $this->payment_code,
+            'account'   => (string) $this->bank_account,
+        );
     }
 
     /**
@@ -245,9 +254,14 @@ class Gateway_Payment_Slip extends Gateway_Base {
      */
     #[Filter( tag: 'woocommerce_email_styles', priority: 9999, invoke: Filter::INV_PROXIED, args: 2 )]
     public function add_css_to_emails( string $css, WC_Email $email, XWP_Asset_Bundle $bundle ) {
-        if ( 'customer_on_hold_order' === $email->id && \wcsrb_order_has_slip( $email->object, true ) ) {
-            $css .= $bundle['css/email/template.css']->data() . "\n";
-            $css .= $bundle['css/front/main.css']->data() . "\n";
+        if ( 'customer_on_hold_order' !== $email->id || ! \wcsrb_order_has_slip( $email->object, true ) ) {
+            return $css;
+        }
+
+        // Styling is optional - a missing build file must never break the email.
+        foreach ( array( 'css/email/template.css', 'css/front/main.css' ) as $file ) {
+            // Bundle::offsetGet() is documented as non-null, but returns null for unknown files.
+            $css .= ( $bundle[ $file ]?->data() ?? '' ) . "\n";
         }
 
         return $css;

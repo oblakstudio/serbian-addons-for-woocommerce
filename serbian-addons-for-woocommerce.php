@@ -7,9 +7,9 @@
  * Requires PHP:         8.0
  * Author:               Oblak Studio
  * Author URI:           https://oblak.studio
- * Tested up to:         6.6
+ * Tested up to:         7.1.5
  * WC requires at least: 8.5
- * WC tested up to:      9.3
+ * WC tested up to:      11.3.1
  * License:              GPLv2 or later
  * License URI:          https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:          serbian-addons-for-woocommerce

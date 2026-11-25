@@ -85,7 +85,7 @@ return array(
         'type'        => 'title',
         'description' => '',
     ),
-    'display'             => $display_opts( __( 'Where to display the QR Code', 'serbian-addons-for-woocommerce' ) ),
+    'display'             => $display_opts( __( 'Where to display the payment slip', 'serbian-addons-for-woocommerce' ) ),
 
     'style'               => array(
         'title'       => __( 'Style', 'serbian-addons-for-woocommerce' ),
@@ -95,8 +95,8 @@ return array(
             'modern'  => __( 'Modern', 'serbian-addons-for-woocommerce' ),
         ),
         'default'     => 'modern',
-		'description' => __( 'Defines the style of the payment slip', 'serbian-addons-for-woocommerce' ),
-		'desc_tip'    => true,
+        'description' => __( 'Defines the style of the payment slip', 'serbian-addons-for-woocommerce' ),
+        'desc_tip'    => true,
     ),
     'bank_account'        => array(
         'title'       => __( 'Bank account', 'serbian-addons-for-woocommerce' ),
@@ -160,7 +160,7 @@ return array(
         'description' => __( 'Settings for NBS IPS QR Code', 'serbian-addons-for-woocommerce' ),
     ),
 
-    'qrcode_shown'        => $display_opts( __( 'Where to display the payment slip', 'serbian-addons-for-woocommerce' ) ),
+    'qrcode_shown'        => $display_opts( __( 'Where to display the QR Code', 'serbian-addons-for-woocommerce' ) ),
 
     'qrcode_color'        => array(
         'title'       => __( 'Dot color', 'serbian-addons-for-woocommerce' ),
@@ -197,12 +197,12 @@ return array(
         'description' => '',
     ),
     'debug'               => array(
-		'title'       => __( 'Debug log', 'woocommerce' ),
+        'title'       => __( 'Debug log', 'woocommerce' ),
         'type'        => 'checkbox',
         'label'       => __( 'Enable logging', 'woocommerce' ),
         'default'     => 'no',
         'description' => static fn() => sprintf(
-			// translators: %s is a placeholder for a URL.
+            // translators: %s is a placeholder for a URL.
             __( 'Log Payment Slip events and review them on the <a href="%s">Logs screen</a>.<br>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.', 'serbian-addons-for-woocommerce' ),
             esc_url( LoggingUtil::get_logs_tab_url() ),
         ),

@@ -35,9 +35,13 @@ class Address_Validate_Controller {
      */
     #[Action( tag: 'wcsrb_update_order_billing_field' )]
     public function validate_order_field_update( $field, $value, \WC_Order $order ) {
+        // WooCommerce applies the posted address props only after all field callbacks ran, so the
+        // order still holds the old country/type here - validate against the submitted ones.
+        $country  = $this->posted( '_billing_country' ) ?? $order->get_billing_country( 'edit' );
+        $type     = $this->posted( '_billing_type' ) ?? $order->get_meta( '_billing_type', true, 'edit' );
         $validate = array(
-            'billing_country'     => $order->get_billing_country( 'edit' ),
-            'billing_type'        => $order->get_meta( '_billing_type', true, 'edit' ),
+            'billing_country'     => $country,
+            'billing_type'        => $type,
             \ltrim( $field, '_' ) => $value,
         );
 
@@ -48,8 +52,6 @@ class Address_Validate_Controller {
 
         $order->update_meta_data( $field, $value );
     }
-
-
 
     /**
      * Validates the saved address.
@@ -76,5 +78,18 @@ class Address_Validate_Controller {
         foreach ( $this->validator->validate( $fields, 'billing' ) as $err ) {
             $error->add( $err['code'], $err['message'], array( 'id' => $err['id'] ) );
         }
+    }
+
+    /**
+     * Get a value submitted with the order edit form.
+     *
+     * Only called from WooCommerce's order data meta box save routine, which verified the nonce.
+     *
+     * @param  string $key Field key.
+     * @return string|null
+     */
+    private function posted( string $key ): ?string {
+        // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        return isset( $_POST[ $key ] ) ? \wc_clean( \wp_unslash( $_POST[ $key ] ) ) : null;
     }
 }

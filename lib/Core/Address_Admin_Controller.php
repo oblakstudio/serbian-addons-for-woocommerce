@@ -29,10 +29,12 @@ class Address_Admin_Controller {
      * @return array      Modified order update messages.
      */
     #[Filter( tag: 'woocommerce_order_updated_messages', priority: 99 )]
+    #[Filter( tag: 'post_updated_messages', priority: 99 )]
     public function add_order_update_message( $msg ): array {
+        // Codes match Field_Validator: 665 = required, 666 = company number (MB), 667 = tax number (PIB).
         $msg['shop_order'][665] = \__( 'Field is required', 'serbian-addons-for-woocommerce' );
-        $msg['shop_order'][666] = \__( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' );
-        $msg['shop_order'][667] = \__( 'Company Number is invalid', 'serbian-addons-for-woocommerce' );
+        $msg['shop_order'][666] = \__( 'Company Number is invalid', 'serbian-addons-for-woocommerce' );
+        $msg['shop_order'][667] = \__( 'Company Tax Number is invalid', 'serbian-addons-for-woocommerce' );
 
         return $msg;
     }
@@ -40,10 +42,14 @@ class Address_Admin_Controller {
     /**
      * Change the order update redirect URL to include the error message.
      *
+     * HPOS uses `woocommerce_redirect_order_location`, legacy (post) storage `redirect_post_location`.
+     * Errors are only collected while an order is being saved, so other post types are unaffected.
+     *
      * @param  string $r Redirect URL.
      * @return string
      */
     #[Filter( tag: 'woocommerce_redirect_order_location', priority: 99 )]
+    #[Filter( tag: 'redirect_post_location', priority: 99 )]
     public function modify_order_update_redirect_url( string $r ): string {
         if ( $this->validator->has_errors() ) {
             $r = \add_query_arg( 'message', $this->validator->last_error()['cb_id'], $r );

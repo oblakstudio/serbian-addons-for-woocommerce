@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutOutputDuringTests="true"
+	cacheResultFile=".cache/phpunit/result.cache"
+	>
+	<testsuites>
+		<testsuite name="integration">
+			<directory suffix="Test.php">tests/Integration</directory>
+		</testsuite>
+	</testsuites>
+
+	<coverage cacheDirectory=".cache/phpunit/coverage">
+		<include>
+			<directory suffix=".php">config</directory>
+			<directory suffix=".php">lib</directory>
+			<directory suffix=".php">woocommerce</directory>
+			<file>serbian-addons-for-woocommerce.php</file>
+		</include>
+	</coverage>
+</phpunit>

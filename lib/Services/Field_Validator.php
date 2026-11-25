@@ -77,7 +77,19 @@ class Field_Validator {
     }
 
     /**
+     * Clears the validation errors collected so far.
+     *
+     * @since 3.9.5
+     */
+    public function reset(): void {
+        $this->errors = array();
+    }
+
+    /**
      * Validates the address fields.
+     *
+     * Errors are also collected for the rest of the request (see has_errors() / last_error()),
+     * because wp-admin validates every order field in a separate call.
      *
      * @param  array<string,array>  $fields  Address fields.
      * @param  'billing'|'shipping' $type    Address type being validated.
@@ -88,7 +100,7 @@ class Field_Validator {
      *   code: string,
      *   id: string,
      *   message: string
-     * }>
+     * }> Errors found by this call.
      */
     public function validate( array $fields, string $type, bool $force = false, ?array $address = null ): array {
         if ( ! $this->needs_validation( $fields, $type, $force ) ) {
@@ -96,12 +108,16 @@ class Field_Validator {
         }
 
         $address ??= \WC()->countries->get_address_fields( $fields[ "{$type}_country" ], $type . '_' );
+        $errors    = array();
 
         foreach ( $this->get_field_validators( \array_keys( $fields ) ) as $key => $args ) {
-            $this->validate_field( $fields[ $key ] ?? '', $key, $args, $address[ $key ] );
+            $errors[] = $this->validate_field( $fields[ $key ] ?? '', $key, $args, $address[ $key ] ?? array() );
         }
 
-        return $this->errors;
+        $errors       = \array_values( \array_filter( $errors ) );
+        $this->errors = \array_merge( $this->errors, $errors );
+
+        return $errors;
     }
 
     /**
@@ -111,15 +127,16 @@ class Field_Validator {
      * @param  string $key   Field key.
      * @param  array  $args  Validation arguments.
      * @param  array  $field Field data.
+     * @return null|array{cb_id: int, code: string, id: string, message: string}
      */
-    protected function validate_field( mixed $value, string $key, array $args, array $field ) {
-        $error = match ( true ) {
+    protected function validate_field( mixed $value, string $key, array $args, array $field ): ?array {
+        return match ( true ) {
             ! $value => array(
-                'cb_id'   => $args['cb_id'] ?? 665,
+                'cb_id'   => 665,
                 'code'    => "{$key}_required",
                 'id'      => $key,
                 // Translators: %s is the field label.
-                'message' => \sprintf( \__( '%s is a required field.', 'woocommerce' ), $field['label'] ),
+                'message' => \sprintf( \__( '%s is a required field.', 'woocommerce' ), $field['label'] ?? $key ),
             ),
             ! $args['callback']( $value ) => array(
                 'cb_id'   => $args['cb_id'] ?? 0,
@@ -129,12 +146,6 @@ class Field_Validator {
             ),
             default       => null,
         };
-
-		if ( ! $error ) {
-			return;
-		}
-
-        $this->errors[] = $error;
 	}
 
     /**
@@ -191,8 +202,6 @@ class Field_Validator {
      * @return bool
      */
 	protected function needs_validation( array $fields, string $address = 'billing', bool $force = false, ): bool {
-		$this->errors = array();
-
 		if ( $force ) {
 			return true;
 		}

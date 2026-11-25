@@ -101,7 +101,8 @@ class Gateway_Payment_Slip_IPS_Handler {
         if (
             'customer_on_hold_order' !== $email->id ||
             $sent_to_admin || $plain_text ||
-            ! \wcsrb_can_display_qr( $order, 'email' )
+            ! \wcsrb_can_display_qr( $order, 'email' ) ||
+            ! $this->qrc->has_qrcode( $order )
         ) {
             return;
         }
@@ -122,12 +123,18 @@ class Gateway_Payment_Slip_IPS_Handler {
      */
     #[Action( tag: 'phpmailer_init', priority: 99 )]
     public function add_inline_image( PHPMailer $phpmailer ) {
-        if ( ! $this->filename ) {
+        $filename       = $this->filename;
+        $this->filename = null;
+
+        if ( ! $filename || ! \is_readable( $filename ) ) {
             return;
         }
 
-        $phpmailer->addEmbeddedImage( $this->filename, 'ips-qr-code', 'ips-qr-code.jpg' );
-
-        $this->filename = null;
+        try {
+            $phpmailer->addEmbeddedImage( $filename, 'ips-qr-code', 'ips-qr-code.jpg' );
+        } catch ( \PHPMailer\PHPMailer\Exception ) {
+            // The QR code is a convenience - never let it stop the email.
+            return;
+        }
     }
 }

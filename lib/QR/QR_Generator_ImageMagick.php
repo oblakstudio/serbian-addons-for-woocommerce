@@ -29,7 +29,7 @@ class QR_Generator_ImageMagick extends QRImagick {
         }
 
         $size = ( $this->options->logoSpaceWidth - 2 ) * $this->options->scale;
-        $pos  = \floor( ( $this->moduleCount * $this->options->scale - $size ) / 2 );
+        $pos  = \intdiv( $this->moduleCount * $this->options->scale - $size, 2 );
 
         $logo = new Imagick( $this->options->logo );
 		$logo->resizeImage( $size, $size, Imagick::FILTER_LANCZOS, 0.85, true );

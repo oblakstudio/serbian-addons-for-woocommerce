@@ -4,3 +4,11 @@ languages/*backup*
 languages/*.php
 node_modules
 vendor
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
+*.gate.lock*
+.cache
