@@ -47,24 +47,28 @@ class Order_Edit_Page_Controller {
     public function view_nbs_ips_qr_code() {
         \check_ajax_referer( 'wcsrb-view-ips-qr-code', 'security' );
 
-        $privs = \current_user_can( 'manage_woocommerce' );
-        $order = \wc_get_order( (int) \xwp_fetch_get_var( 'order_id', '0' ) );
-        $file  = $this->qrc->get_filename( $order );
-        $data  = $this->qrc->read( $order, 'raw' );
-
-        if ( ! $privs || ! $order || ! $data ) {
-            exit;
+        if ( ! \current_user_can( 'manage_woocommerce' ) ) {
+            \wp_die( '-1', 403 );
         }
 
+        $order = \wc_get_order( (int) \xwp_fetch_get_var( 'order_id', '0' ) );
+        $data  = $order ? $this->qrc->read( $order, 'raw' ) : '';
+
+        if ( ! $data ) {
+            \wp_die( '0', 404 );
+        }
+
+        $file = $this->qrc->get_filename( $order );
+
         \wc_nocache_headers();
-        \header( "Content-Disposition: inline; filename=\"ips-qr-order-{$order->get_id()}\"" );
+        \header( "Content-Disposition: inline; filename=\"ips-qr-order-{$order->get_id()}.jpg\"" );
         \header( 'Content-Length: ' . \xwp_wpfs()->size( $file ) );
         \header( 'Content-Type: image/jpeg' );
         \header( 'Date: ' . \gmdate( 'D, d M Y H:i:s T', \xwp_wpfs()->mtime( $file ) ) );
 
         echo $data; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-        exit;
+        \wp_die();
     }
 
     /**
