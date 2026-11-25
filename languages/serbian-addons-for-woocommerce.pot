@@ -370,7 +370,7 @@ msgstr ""
 
 #: lib/Core/Address_Display_Controller.php:133
 msgctxt "Address display"
-msgid "Tax Identification Number"
+msgid "Tax Number"
 msgstr ""
 
 #: lib/Functions/wcsrb-helpers.php:16

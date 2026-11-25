@@ -50,7 +50,7 @@ class Address_Display_Controller {
      * Custom fields added are:
      *  - Type
      *  - Company Number
-     *  - Tax Identification Number
+     *  - Tax Number
      *
      * @param  string[] $replacements  Replacements array.
      * @param  array    $args          Address data.
@@ -130,7 +130,7 @@ class Address_Display_Controller {
             ),
             'pib'        => \sprintf(
                 '%s: %s',
-                \_x( 'Tax Identification Number', 'Address display', 'serbian-addons-for-woocommerce' ),
+                \_x( 'Tax Number', 'Address display', 'serbian-addons-for-woocommerce' ),
                 $data['pib'] ?: "\n",
             ),
 
