@@ -63,7 +63,7 @@ msgstr "МБ"
 
 #: lib/Core/Address_Display_Controller.php:133
 msgctxt "Address display"
-msgid "Tax Identification Number"
+msgid "Tax Number"
 msgstr "ПИБ"
 
 #: config/pg-slip-settings.php:195

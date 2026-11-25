@@ -9,6 +9,7 @@
 namespace Oblak\WCSRB\Tests\Integration;
 
 use Oblak\WCSRB\Core\Address_Field_Controller;
+use Oblak\WCSRB\Tests\Support\Fixtures;
 use Oblak\WCSRB\Tests\Support\TestCase;
 
 /**
@@ -58,6 +59,31 @@ class AddressFieldLocaleTest extends TestCase {
 
         $this->assertTrue( $countries->get_address_fields( 'US', 'billing_' )['billing_company']['required'] );
         $this->assertFalse( $countries->get_address_fields( 'RS', 'billing_' )['billing_company']['required'], 'Serbian persons have no company - companies are validated by customer type' );
+    }
+
+    public function test_persons_only_stores_have_no_company_field_in_any_country(): void {
+        $this->set_core_setting( 'enabled_customer_types', 'person' );
+        \update_option( 'woocommerce_checkout_company_field', 'required' );
+        $countries = new \WC_Countries();
+
+        foreach ( array( 'RS', 'DE', 'US' ) as $country ) {
+            $this->assertArrayNotHasKey( 'billing_company', $countries->get_address_fields( $country, 'billing_' ), $country );
+        }
+    }
+
+    public function test_companies_only_stores_keep_the_company_field(): void {
+        $this->set_core_setting( 'enabled_customer_types', 'company' );
+        $countries = new \WC_Countries();
+
+        $this->assertArrayHasKey( 'billing_company', $countries->get_address_fields( 'RS', 'billing_' ) );
+        $this->assertArrayHasKey( 'billing_company', $countries->get_address_fields( 'DE', 'billing_' ) );
+    }
+
+    public function test_company_address_shows_the_company_and_tax_numbers(): void {
+        $address = $this->create_order( array( 'type' => 'company' ) )->get_formatted_billing_address();
+
+        $this->assertStringContainsString( 'Company Number: ' . Fixtures::MB, $address );
+        $this->assertStringContainsString( 'Tax Number: ' . Fixtures::PIB, $address, 'Same label as the checkout field' );
     }
 
     public function test_a_hidden_company_field_stays_hidden(): void {
