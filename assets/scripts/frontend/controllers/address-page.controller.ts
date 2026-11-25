@@ -31,8 +31,21 @@ export default class AddressPageController {
   }
 
   private toggleFields($input: JQuery<HTMLInputElement>): void {
+    const $company = $<HTMLParagraphElement>('#billing_company_field');
+    const $numbers = $<HTMLParagraphElement>('#billing_mb_field, #billing_pib_field');
+
+    // The customer type only exists for Serbian addresses - elsewhere the company field is a regular
+    // WooCommerce field (WooCommerce sets its label and required state), and MB / PIB do not apply.
+    if ($('#billing_country').val() !== 'RS') {
+      $company.removeClass('entity-type-toggle').find('input').prop({ 'aria-required': null, disabled: false });
+      $company.find('label abbr.required, label abbr.optional').remove();
+      $numbers.removeClass('shown validate-required').find('input').prop('disabled', true);
+
+      return;
+    }
+
     const required = $input.val() === 'company';
-    const $field = $<HTMLParagraphElement>('.entity-type-toggle');
+    const $field = $company.addClass('entity-type-toggle').add($numbers);
 
     $field.find('input').prop({
       'aria-required': required,
