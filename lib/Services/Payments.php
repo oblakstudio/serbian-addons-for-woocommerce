@@ -129,7 +129,7 @@ class Payments {
             $args[ $key ] = $value;
         }
 
-        return $args;
+        return $this->remove_empty_optional_tags( $args, '' === $data['reference'] );
     }
 
     /**
@@ -251,7 +251,7 @@ class Payments {
     private function format_purpose( string $purpose, string $context ): string {
         return 'display' === $context
             ? $purpose
-            : $this->shorten_address( $purpose );
+            : $this->shorten_address( $purpose, 35 );
     }
 
     /**
@@ -281,25 +281,42 @@ class Payments {
     }
 
     /**
-     * Shortens the address to fit the IPS QR code
+     * Shortens the text to fit an IPS QR code tag.
      *
-     * @param  string $address Address to shorten.
-     * @return string          Shortened address.
+     * Whole trailing lines are dropped first, then the text is cut. Lengths are in characters
+     * (not bytes) and cuts never split a multibyte character.
+     *
+     * @param  string $text Text to shorten.
+     * @param  int    $max  Maximum length in characters. NBS: 70 for N and P, 35 for S.
+     * @return string       Shortened text.
      */
-    private function shorten_address( string $address ): string {
-        $address = \preg_replace( '/<br\/?>/', "\n", $address );
-        $count   = 1;
-        $length  = \strlen( $address );
+    private function shorten_address( string $text, int $max = 70 ): string {
+        $text = \trim( \preg_replace( '/<br\s*\/?>/i', "\n", $text ) );
 
-        while ( 70 < $length && $count > 0 ) {
-            $address = \preg_replace( "/\n.*$/", '', $address, -1, $count );
-            $length  = \strlen( $address );
+        while ( \mb_strlen( $text ) > $max && \str_contains( $text, "\n" ) ) {
+            $text = \trim( \substr( $text, 0, \strrpos( $text, "\n" ) ) );
         }
 
-        if ( 70 < $length && 0 === $count ) {
-            $address = \substr( $address, 0, 70 );
+        return \trim( \mb_substr( $text, 0, $max ) );
+    }
+
+    /**
+     * Removes optional IPS tags without a value - NBS rejects empty tags such as `S:`.
+     *
+     * @param  array<string,string> $tags         IPS tags.
+     * @param  bool                 $no_reference Whether the payment reference is empty.
+     * @return array<string,string>
+     */
+    private function remove_empty_optional_tags( array $tags, bool $no_reference ): array {
+        // RO always holds the model, it is empty when there is no reference.
+        if ( $no_reference ) {
+            unset( $tags['RO'] );
         }
 
-        return \trim( $address );
+        return \array_filter(
+            $tags,
+            static fn( $value, $key ) => '' !== $value || ! \in_array( $key, array( 'P', 'S' ), true ),
+            \ARRAY_FILTER_USE_BOTH,
+        );
     }
 }
