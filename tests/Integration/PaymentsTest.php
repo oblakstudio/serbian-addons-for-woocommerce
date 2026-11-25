@@ -157,6 +157,13 @@ class PaymentsTest extends TestCase {
         $this->assertTrue( $seen );
     }
 
+    public function test_new_instance_formats_with_the_given_config(): void {
+        $payments = new Payments( new \Oblak\WCSRB\Services\Config() );
+
+        $this->assertFalse( $payments->is_formatting() );
+        $this->assertSame( $this->payments()->get_data( $this->create_order() )['company'], $payments->get_data( $this->create_order() )['company'] );
+    }
+
     /**
      * Get the payments service.
      *
