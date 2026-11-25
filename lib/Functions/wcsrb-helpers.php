@@ -67,6 +67,36 @@ function wcsrb_get_serbian_banks() {
 }
 
 /**
+ * Validates a Serbian bank account number - a bank from wcsrb_get_serbian_banks() and matching check digits.
+ *
+ * @param  string $acct Account number, in the short or long format, with or without separators.
+ * @return bool
+ *
+ * @since 3.10.0
+ */
+function wcsrb_validate_bank_account( string $acct ): bool {
+    $acct = wcsrb_format_bank_acct( $acct, 'long', '' );
+
+    return 18 === strlen( $acct ) &&
+        ctype_digit( $acct ) &&
+        isset( wcsrb_get_serbian_banks()[ substr( $acct, 0, 3 ) ] ) &&
+        Oblak\mod97( (int) substr( $acct, 0, 16 ), (int) substr( $acct, 16 ) );
+}
+
+/**
+ * Get the store bank accounts saved in the company settings.
+ *
+ * @return array<int,string>
+ *
+ * @since 3.10.0
+ */
+function wcsrb_get_bank_accounts(): array {
+    $accounts = get_option( 'woocommerce_store_bank_accounts', array() );
+
+    return xwp_str_to_arr( $accounts['acct'] ?? $accounts );
+}
+
+/**
  * Format a bank account number
  *
  * @param  string $acct   The account number.
