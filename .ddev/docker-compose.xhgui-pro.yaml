@@ -21,7 +21,7 @@ volumes:
 services:
   xhgui-ui:
     container_name: ddev-${DDEV_SITENAME}-xhgui-ui
-    image: xhgui/xhgui:latest
+    image: xhgui/xhgui:latest@sha256:8b0f24546e8cdb193cf12c495af924b406d5b7b4b9bbab52065fb675e5d690b0
     volumes:
       - "hxgui-ui-nginx:/run/nginx"
       - "./xhgui/config/nginx.conf:/etc/nginx/http.d/default.conf:ro"
