@@ -154,6 +154,32 @@ class GatewayPaymentSlipTest extends TestCase {
         $this->assertSame( array( $gateway ), $initialized );
     }
 
+    public function test_visibility_field_helper_builds_the_location_multiselect(): void {
+        $field = \wcsrb_format_gw_display_option( 'Where to show it' );
+
+        $this->assertSame( 'multiselect', $field['type'] );
+        $this->assertSame( 'Where to show it', $field['description'] );
+        $this->assertSame( array( 'order', 'email' ), \array_keys( $field['options'] ), 'Store pages first' );
+        $this->assertSame( array(), $field['default'] );
+        $this->assertSame( 'wc-enhanced-select', $field['class'] );
+    }
+
+    public function test_qr_image_description_helper_shows_the_current_site_icon(): void {
+        $without = \wcsrb_format_gw_qr_img_desc( 0 );
+
+        \preg_match( '/<a [^>]*href="([^"]+)"/', $without, $link );
+        \parse_str( (string) \wp_parse_url( \html_entity_decode( $link[1] ), \PHP_URL_QUERY ), $query );
+
+        $this->assertSame( array( 'section' => 'title_tagline' ), $query['autofocus'] ?? null );
+        $this->assertStringNotContainsString( 'Current image', $without );
+
+        $icon = $this->site_icon();
+        $with = \wcsrb_format_gw_qr_img_desc( $icon );
+
+        $this->assertStringContainsString( 'Current image', $with );
+        $this->assertStringContainsString( \wp_get_attachment_image_url( $icon, array( 16, 16 ) ), $with );
+    }
+
     public function test_site_icon_link_opens_the_site_identity_customizer_section(): void {
         $description = $this->make_gateway_on_settings_screen()->get_form_fields()['qrcode_image']['description'];
 

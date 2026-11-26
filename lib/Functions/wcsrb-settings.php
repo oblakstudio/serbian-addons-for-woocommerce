@@ -88,3 +88,65 @@ function wcsrb_format_payment_code_select() {
      */
     return apply_filters( 'woocommerce_serbian_payment_code_select', $options );
 }
+
+/**
+ * Formats a payment slip visibility setting - where the slip or the QR code is shown.
+ *
+ * @param  string $desc Setting description.
+ * @return array<string,mixed> WooCommerce settings API multiselect field.
+ *
+ * @since 3.12.0
+ */
+function wcsrb_format_gw_display_option( string $desc ): array {
+    // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+    return array(
+        'title'             => __( 'Visibility', 'serbian-addons-for-woocommerce' ),
+        'type'              => 'multiselect',
+        'options'           => array(
+            'order' => __( 'Store pages', 'serbian-addons-for-woocommerce' ),
+            'email' => __( 'Customer e-mails', 'serbian-addons-for-woocommerce' ),
+        ),
+        'default'           => array(),
+        'description'       => $desc,
+        'desc_tip'          => true,
+        'custom_attributes' => array(
+            'data-placeholder' => __( 'Select locations for display', 'serbian-addons-for-woocommerce' ),
+            'data-allow_clear' => 'true',
+        ),
+        'class'             => 'wc-enhanced-select',
+    );
+    // phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+}
+
+/**
+ * Formats the description of the QR code image setting: where to set the image, and the current one.
+ *
+ * @param  int $icon Site icon attachment ID, 0 for none.
+ * @return string
+ *
+ * @since 3.12.0
+ */
+function wcsrb_format_gw_qr_img_desc( int $icon ): string {
+    $desc = array(
+        sprintf(
+            // translators: %1$s customizer link html.
+            __( 'You can set the image via %1$s', 'serbian-addons-for-woocommerce' ),
+            sprintf(
+                '<a target="_blank" href="%1$s">%2$s</a> (%3$s)',
+                esc_url( add_query_arg( 'autofocus[section]', 'title_tagline', admin_url( 'customize.php' ) ) ),
+                esc_html__( 'Customizer', 'default' ),
+                esc_html__( 'Site Identity', 'default' ),
+            ),
+        ),
+    );
+
+    if ( 0 < $icon ) {
+        $desc[] = sprintf(
+            // translators: %s current image HTML.
+            __( 'Current image: %s', 'serbian-addons-for-woocommerce' ),
+            wp_get_attachment_image( $icon, array( 16, 16 ), false ),
+        );
+    }
+
+    return implode( '<br>', $desc );
+}
