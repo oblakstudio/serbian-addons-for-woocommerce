@@ -35,13 +35,15 @@ class Address_Field_Controller {
     #[Filter( tag: 'woocommerce_default_address_fields', priority: 999999 )]
     public function add_customer_type_field( array $fields ): array {
         $enabled_type = $this->config->get( 'core', 'enabled_customer_types' );
-        $type_field   = array(
+        // Hidden and optional by default - only the RS locale turns it on (countries without a locale use these defaults).
+        $type_field = array(
             'class'    => array( 'form-row-wide', 'entity-type-control', 'update_totals_on_change', 'address-field' ),
             'default'  => 'person',
+            'hidden'   => true,
             'label'    => \__( 'Customer type', 'serbian-addons-for-woocommerce' ),
             'options'  => \wcsrb_get_entity_types(),
             'priority' => 21,
-            'required' => true,
+            'required' => false,
             'type'     => 'radio',
         );
 
@@ -82,6 +84,17 @@ class Address_Field_Controller {
         // Persons only: there is no company to enter, in any country.
         if ( 'person' === $this->config->get( 'core', 'enabled_customer_types' ) ) {
             unset( $fields['company'] );
+        } elseif ( ! isset( $fields['company'] ) ) {
+            // WooCommerce drops the field when its company setting is "hidden" (its default on block-first stores),
+            // but a Serbian company always enters its name - keep a hidden one, the RS locale shows it for companies.
+            $fields['company'] = array(
+                'autocomplete' => 'organization',
+                'class'        => array( 'form-row-wide' ),
+                'hidden'       => true,
+                'label'        => \__( 'Company name', 'woocommerce' ),
+                'priority'     => 30,
+                'required'     => false,
+            );
         }
 
         // The company field depends on the customer type only in the RS locale - elsewhere it is a regular field.
@@ -147,37 +160,37 @@ class Address_Field_Controller {
             ? array( 81, 82 )
             : array( 82, 81 );
 
-        // Merged into WooCommerce's own RS locale (optional district, required postcode and city).
         // phpcs:disable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
-        $locale['RS'] = \array_replace_recursive(
-            $locale['RS'] ?? array(),
-            array(
-                'type'     => array(
-                    'required' => true,
-                    'hidden'   => false,
+        $serbia = array(
+            'type'     => array(
+                'required' => true,
+                'hidden'   => false,
+            ),
+            // Persons have no company - companies are validated by customer type (Field_Validator).
+            'company'  => \array_merge(
+                array(
+                    'class'    => array( 'form-row-wide', 'entity-type-toggle', 'shown' ),
+                    'required' => false,
                 ),
-                // Persons have no company - companies are validated by customer type (Field_Validator).
-                'company'  => \array_merge(
-                    array(
-                        'class'    => array( 'form-row-wide', 'entity-type-toggle', 'shown' ),
-                        'required' => false,
-                    ),
-                    $company_props,
-                ),
-                'mb'       => $company_props,
-                'pib'      => $company_props,
-                'postcode' => array(
-                    'priority' => $pfp,
-                ),
-                'city'     => array(
-                    'priority' => $cfp,
-                ),
-                'country'  => array(
-                    'priority' => 91,
-                ),
+                $company_props,
+            ),
+            'mb'       => $company_props,
+            'pib'      => $company_props,
+            'postcode' => array(
+                'priority' => $pfp,
+            ),
+            'city'     => array(
+                'priority' => $cfp,
+            ),
+            'country'  => array(
+                'priority' => 91,
             ),
         );
         // phpcs:enable SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys.IncorrectKeyOrder
+
+        // Merged into WooCommerce's own RS locale (optional district, required postcode and city).
+        // The block checkout turns the customer fields off again (Block_Checkout_Field_Controller).
+        $locale['RS'] = \array_replace_recursive( $locale['RS'] ?? array(), $serbia );
 
         return $locale;
     }

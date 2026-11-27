@@ -15,9 +15,11 @@ use Oblak\WCSRB\Services\Config;
  * @since 3.8.0
  */
 function wcsrb_get_company_fields(): array {
+    // Hidden by default - only the RS locale shows them (countries without a locale use these defaults).
     $fields = array(
         'mb'  => array(
             'class'    => array( 'form-row-first', 'address-field', 'entity-type-toggle', 'shown' ),
+            'hidden'   => true,
             'label'    => \__( 'Company Number', 'serbian-addons-for-woocommerce' ),
             'priority' => 31,
             'type'     => 'text',
@@ -25,6 +27,7 @@ function wcsrb_get_company_fields(): array {
         ),
         'pib' => array(
             'class'    => array( 'form-row-last', 'address-field', 'entity-type-toggle', 'shown' ),
+            'hidden'   => true,
             'label'    => \__( 'Tax Number', 'serbian-addons-for-woocommerce' ),
             'priority' => 32,
             'type'     => 'text',

@@ -89,7 +89,11 @@ class AddressFieldLocaleTest extends TestCase {
     public function test_a_hidden_company_field_stays_hidden(): void {
         \update_option( 'woocommerce_checkout_company_field', 'hidden' );
 
-        $this->assertArrayNotHasKey( 'company', ( new \WC_Countries() )->get_default_address_fields() );
+        $company = ( new \WC_Countries() )->get_default_address_fields()['company'] ?? array();
+
+        // Kept only so the RS locale can show it to Serbian companies.
+        $this->assertTrue( $company['hidden'] ?? false );
+        $this->assertFalse( $company['required'] ?? true );
     }
 
     public function test_a_single_customer_type_is_preset_and_not_asked(): void {
@@ -162,5 +166,54 @@ class AddressFieldLocaleTest extends TestCase {
         $this->assertFalse( $fields['billing_pib']['hidden'] );
         $this->assertSame( array( 81, 82 ), array( $fields['billing_postcode']['priority'], $fields['billing_city']['priority'] ), 'Postcode before city' );
         $this->assertSame( 91, $fields['billing_country']['priority'] );
+    }
+
+    public function test_serbian_companies_get_a_company_field_when_woocommerce_hides_it(): void {
+        // WooCommerce's default on block-first stores - a Serbian company must still enter its name.
+        \update_option( 'woocommerce_checkout_company_field', 'hidden' );
+
+        $countries = new \WC_Countries();
+        $serbia    = $countries->get_address_fields( 'RS', 'billing_' );
+        $germany   = $countries->get_address_fields( 'DE', 'billing_' );
+
+        $this->assertArrayHasKey( 'billing_company', $serbia );
+        $this->assertFalse( $serbia['billing_company']['hidden'] );
+        $this->assertFalse( $serbia['billing_company']['required'], 'Required by customer type (Field_Validator), not for persons' );
+        $this->assertTrue( $germany['billing_company']['hidden'] ?? true, 'Outside Serbia the store setting still hides it' );
+    }
+
+    public function test_countries_without_a_locale_get_no_customer_fields(): void {
+        $countries = new \WC_Countries();
+
+        $this->assertArrayNotHasKey( 'HR', $countries->get_country_locale(), 'Croatia falls back to the default locale' );
+
+        $fields = $countries->get_address_fields( 'HR', 'billing_' );
+
+        foreach ( array( 'type', 'mb', 'pib' ) as $key ) {
+            $this->assertTrue( $fields[ "billing_{$key}" ]['hidden'] ?? false, "{$key} is hidden" );
+            $this->assertFalse( $fields[ "billing_{$key}" ]['required'] ?? false, "{$key} is optional" );
+        }
+    }
+
+    public function test_store_api_requests_do_not_get_the_classic_customer_fields(): void {
+        // The block checkout has no customer type, MB or PIB fields (yet) - requiring them rejects every Serbian address.
+        $previous               = $_SERVER['REQUEST_URI'] ?? null;
+        $_SERVER['REQUEST_URI'] = '/wp-json/wc/store/v1/checkout';
+
+        $serbia = ( new \WC_Countries() )->get_country_locale()['RS'];
+
+        $_SERVER['REQUEST_URI'] = $previous;
+
+        foreach ( array( 'type', 'mb', 'pib' ) as $key ) {
+            $this->assertSame(
+                array(
+                    'hidden'   => true,
+                    'required' => false,
+                ),
+                $serbia[ $key ],
+                $key,
+            );
+        }
+        $this->assertSame( 81, $serbia['postcode']['priority'], 'The rest of the Serbian locale is kept' );
     }
 }

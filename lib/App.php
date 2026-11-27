@@ -7,6 +7,7 @@
 
 namespace Oblak\WCSRB;
 
+use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 use Oblak\WCSRB\Services\Config;
 use XWP\DI\Decorators\Action;
 use XWP\DI\Decorators\Filter;
@@ -27,6 +28,8 @@ use XWP\DI\Interfaces\On_Initialize;
         Core\Address_Display_Controller::class,
         Core\Address_Field_Controller::class,
         Core\Address_Validate_Controller::class,
+        Core\Block_Checkout_Data_Controller::class,
+        Core\Block_Checkout_Field_Controller::class,
         Utils\Installer::class,
         Utils\Template_Extender::class,
     ),
@@ -49,19 +52,17 @@ class App implements On_Initialize {
     }
 
     /**
-     * Declares compatibility with WooCommerce HPOS
+     * Declares compatibility with WooCommerce HPOS and the Cart & Checkout blocks
      */
     #[Action( tag: 'before_woocommerce_init', priority: 10 )]
-    public function declare_hpos_compatibility() {
+    public function declare_feature_compatibility() {
         if ( ! \class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
             return;
         }
 
-        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
-            'custom_order_tables',
-            WCRS_PLUGIN_FILE,
-            true,
-        );
+        foreach ( array( 'custom_order_tables', 'cart_checkout_blocks' ) as $feature ) {
+            \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( $feature, WCRS_PLUGIN_FILE, true );
+        }
     }
 
     /**
@@ -84,6 +85,18 @@ class App implements On_Initialize {
         $gateways[] = $gw;
 
         return $gateways;
+    }
+
+    /**
+     * Offers the payment slip in the block checkout.
+     *
+     * Not injected: the registry runs on every request, and the block builds the gateway only when it is used.
+     *
+     * @param  PaymentMethodRegistry $registry Block payment method registry.
+     */
+    #[Action( tag: 'woocommerce_blocks_payment_method_type_registration', priority: 10 )]
+    public function register_block_payment_method( PaymentMethodRegistry $registry ): void {
+        $registry->register( new Gateway\Gateway_Payment_Slip_Block() );
     }
 
     /**
