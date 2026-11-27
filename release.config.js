@@ -2,7 +2,7 @@
 const generateConfig = require('@x-wp/semantic-release-config').default;
 
 const config = generateConfig({
-  branches: ['master', { name: 'beta', prerelease: true }],
+  branches: ['master'],
   type: 'plugin',
   name: 'Serbian Addons for WooCommerce',
   slug: 'serbian-addons-for-woocommerce',
