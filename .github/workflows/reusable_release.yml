@@ -10,7 +10,8 @@ on:
       node_version:
         description: 'Node version to use for building assets'
         required: false
-        default: '20'
+        # @wordpress/scripts and @woocommerce/dependency-extraction-webpack-plugin need >= 24.15.
+        default: '24'
         type: string
       with_assets:
         description: 'Whether to build assets in the release'

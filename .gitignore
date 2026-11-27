@@ -5,6 +5,12 @@ languages/*.php
 node_modules
 vendor
 
+# DDEV dev site (WordPress core, uploads)
+public_html/
+debug.log
+cron.log
+wc-logs/
+
 # Beads / Dolt files (added by bd init)
 .dolt/
 *.db

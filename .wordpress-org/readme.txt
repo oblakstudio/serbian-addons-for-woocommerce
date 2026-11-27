@@ -2,10 +2,10 @@
 Contributors: oblakstudio, seebeen
 Donate link: https://srbizasrbe.org
 Tags: serbia, woocommerce, woocommerce-serbia
-Requires at least: 6.5
+Requires at least: 6.9
 Tested up to: 7.1.5
 Requires PHP: 8.0
-WC requires at least: 8.5
+WC requires at least: 10.8
 WC tested up to: 11.3.1
 Stable tag: 0.0.0
 License: GPLv2 or later
@@ -23,6 +23,7 @@ Secondary objective is to make life easier for owners and administrators of Serb
 
 * Customer types - persons and companies
 * Additional fields for company number and tax number
+* Works with both the WooCommerce Checkout block and the classic checkout
 * Remove unneeded fields in Serbia (Address 2 and State)
 * Company fields are automatically hidden when purchasing as a person
 * Disallow specific customer types from making orders
@@ -40,6 +41,7 @@ Payment Slip Gateway is a payment gateway that allows you to generate a standard
 
 * Fully customizable, and can be used to generate payment instructions for any bank in Serbia.
 * Standardized with latest WooCommerce features, so it can be used with any WooCommerce theme.
+* Available in the WooCommerce Checkout block and the classic checkout
 * Compatible with multi-currency plugins, so it will work only for Serbian dinar.
 * Customizable payment reference - with optional model 97 support
 * Bank account number validation
@@ -90,4 +92,5 @@ Initial Release
 
 == Upgrade Notice ==
 
-None so far
+= 4.0.0 =
+Requires WooCommerce 10.8 and WordPress 6.9. Adds Checkout block support for the customer type, company name, company number, tax number and the payment slip.

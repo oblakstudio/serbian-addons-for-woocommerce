@@ -1,0 +1,19 @@
+// Block checkout: Company Number and Tax Number side by side in the contact section, like the first and last name
+// in the address form. WooCommerce's breakpoint: the .wc-block-checkout container from 400px; narrower stays stacked.
+@container (min-width: 400px) {
+  .wc-block-checkout__contact-fields .wc-block-components-address-form:has(> .wc-block-components-address-form__wcsrb-mb) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 12px;
+    justify-content: space-between;
+
+    > * {
+      flex: 1 0 100%;
+    }
+
+    > .wc-block-components-address-form__wcsrb-mb,
+    > .wc-block-components-address-form__wcsrb-pib {
+      flex: 1 0 calc(50% - 12px);
+    }
+  }
+}

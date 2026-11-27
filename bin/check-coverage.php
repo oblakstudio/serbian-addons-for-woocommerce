@@ -17,6 +17,7 @@ $scope  = array(
 	'lib/Admin/Order_Edit_Page_Controller.php',
 	'lib/Functions/wcsrb-payment-slip.php',
 	'lib/Gateway/Gateway_Payment_Slip.php',
+	'lib/Gateway/Gateway_Payment_Slip_Block.php',
 	'lib/Gateway/Gateway_Payment_Slip_IPS_Handler.php',
 	'lib/QR/QR_Code_Options.php',
 	'lib/QR/QR_Generator_GD.php',

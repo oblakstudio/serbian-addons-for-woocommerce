@@ -3,11 +3,13 @@
   "description": "A WPWebpack project A WPWebpack project",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "webpack --config assets/webpack/webpack.config.ts",
-    "build:production": "webpack --env production --config assets/webpack/webpack.config.ts",
+    "build": "webpack --config assets/webpack/webpack.config.ts && npm run build:blocks",
+    "build:production": "webpack --env production --config assets/webpack/webpack.config.ts && npm run build:blocks",
     "watch": "webpack --watch --config assets/webpack/webpack.config.ts",
+    "build:blocks": "wp-scripts build --config assets/webpack/webpack.blocks.config.js",
+    "watch:blocks": "wp-scripts start --config assets/webpack/webpack.blocks.config.js",
     "build:release": "npm run build:production",
-    "build:pot": "wp i18n make-pot . languages/serbian-addons-for-woocommerce.pot --domain=serbian-addons-for-woocommerce --exclude=dist,.cache,bin,.ddev",
+    "build:pot": "wp i18n make-pot . languages/serbian-addons-for-woocommerce.pot --domain=serbian-addons-for-woocommerce --exclude=dist,.cache,bin,.ddev,public_html",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
     "lint:scripts": "eslint assets/scripts",
     "lint:styles": "stylelint \"assets/styles/**/*.{css,sass,scss,sss,less}\"",
@@ -23,6 +25,8 @@
     "@types/wordpress__admin": "^5.8.4",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "@woocommerce/dependency-extraction-webpack-plugin": "5.1.0",
+    "@wordpress/scripts": "37.1.0",
     "@x-wp/semantic-release-config": "^1",
     "@x-wp/wordpack": "^1.3",
     "conventional-changelog-conventionalcommits": "^8.0.0",
@@ -39,6 +43,9 @@
     "webpack-cli": "^5"
   },
   "engines": {
-    "node": ">=20.8.1"
+    "node": ">=24.15.0"
+  },
+  "overrides": {
+    "webpackbar": "7.0.0"
   }
 }

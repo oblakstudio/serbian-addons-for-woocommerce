@@ -36,6 +36,22 @@ class BootstrapTest extends TestCase {
         $this->assertSame( 'serbian-addons-for-woocommerce/serbian-addons-for-woocommerce.php', \WCRS_PLUGIN_BASE );
     }
 
+    public function test_compatibility_with_hpos_and_the_cart_and_checkout_blocks_is_declared(): void {
+        // WooCommerce takes declarations only from plugins it finds in the plugins folder - the test install loads
+        // this one from the checkout, so list it and declare again.
+        require_once \ABSPATH . 'wp-admin/includes/plugin.php';
+        $plugins                      = \get_plugins();
+        $plugins[ \WCRS_PLUGIN_BASE ] = \get_plugin_data( \WCRS_PLUGIN_FILE, false, false );
+        \wp_cache_set( 'plugins', array( '' => $plugins ), 'plugins' );
+
+        \do_action( 'before_woocommerce_init' );
+
+        $features = \Automattic\WooCommerce\Utilities\FeaturesUtil::get_compatible_features_for_plugin( \WCRS_PLUGIN_BASE );
+
+        $this->assertContains( 'custom_order_tables', $features['compatible'] );
+        $this->assertContains( 'cart_checkout_blocks', $features['compatible'] );
+    }
+
     public function test_payment_slip_gateway_is_registered_and_available(): void {
         $gateways = \WC()->payment_gateways()->payment_gateways();
 

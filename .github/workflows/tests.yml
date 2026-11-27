@@ -5,36 +5,45 @@ on:
   push:
     branches:
       - master
-      - beta
 
 concurrency:
   group: tests-${{ github.ref }}
   cancel-in-progress: true
 
 env:
-  # Pinned for reproducible runs - bump together with the plugin's "tested up to" headers.
+  # Pinned for reproducible runs - bump together with the plugin's "tested up to" headers
+  # (WooCommerce versions are in the phpunit job matrix: tested up to + the minimum).
   WP_VERSION: '7.1.5'
-  WC_VERSION: '11.3.1'
   SQLITE_VERSION: '3.1.3'
 
 jobs:
   phpunit:
-    name: PHP ${{ matrix.php }} / ${{ matrix.storage }} storage
+    name: PHP ${{ matrix.php }} / ${{ matrix.storage }} storage / WC ${{ matrix.wc }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         php: ['8.0', '8.4']
         storage: ['hpos', 'legacy']
+        wc: ['11.3.1']
         include:
           # Coverage of both storages - Codecov merges the flagged reports.
           - php: '8.4'
             storage: 'hpos'
+            wc: '11.3.1'
             coverage: true
           - php: '8.4'
             storage: 'legacy'
+            wc: '11.3.1'
             coverage: true
+          # The minimum WooCommerce version (block checkout fields need 10.8+). Legacy storage: WooCommerce 10.8's
+          # HPOS refund query is not supported by the SQLite drop-in, and its error output stalls the
+          # separate-process Store API tests. HPOS is covered on the current version above.
+          - php: '8.0'
+            storage: 'legacy'
+            wc: '10.8.1'
     env:
+      WC_VERSION: ${{ matrix.wc }}
       WCSRB_TESTS_HPOS: ${{ matrix.storage == 'hpos' && '1' || '0' }}
 
     steps:

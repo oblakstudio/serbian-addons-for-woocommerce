@@ -1,22 +1,22 @@
-# Copyright (C) 2024 Oblak Studio
+# Copyright (C) 2026 Oblak Studio
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Serbian Addons for WooCommerce 0.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/serbian-addons-for-woocommerce\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/block-gateway\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-10-11T12:15:15+02:00\n"
+"POT-Creation-Date: 2026-11-26T16:10:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: serbian-addons-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: serbian-addons-for-woocommerce.php
-#: lib/Utils/Installer.php:32
+#: lib/Utils/Installer.php:37
 msgid "Serbian Addons for WooCommerce"
 msgstr ""
 
@@ -48,176 +48,154 @@ msgstr ""
 msgid "Name of your business"
 msgstr ""
 
-#: config/pg-slip-settings.php:14
-msgid "Visibility"
-msgstr ""
-
-#: config/pg-slip-settings.php:17
-msgid "Store pages"
-msgstr ""
-
-#: config/pg-slip-settings.php:18
-msgid "Customer e-mails"
-msgstr ""
-
-#: config/pg-slip-settings.php:24
-msgid "Select locations for display"
-msgstr ""
-
-#. translators: %1$s customizer link html.
-#: config/pg-slip-settings.php:35
-msgid "You can set the image via %1$s"
-msgstr ""
-
-#. translators: %s current image HTML.
-#: config/pg-slip-settings.php:47
-msgid "Current image: %s"
-msgstr ""
-
-#: config/pg-slip-settings.php:63
+#: config/pg-slip-settings.php:16
 msgid "Enable Payment Slip"
 msgstr ""
 
-#: config/pg-slip-settings.php:71
-#: lib/Gateway/Gateway_Payment_Slip.php:68
+#: config/pg-slip-settings.php:24
+#: lib/Gateway/Gateway_Payment_Slip.php:78
+#: assets/blocks/payment-slip/index.js:15
 msgid "Payment Slip"
 msgstr ""
 
-#: config/pg-slip-settings.php:78
+#: config/pg-slip-settings.php:31
 msgid "Pay by sending us money via wire transfer"
 msgstr ""
 
-#: config/pg-slip-settings.php:84
+#: config/pg-slip-settings.php:37
 msgid "Slip settings"
 msgstr ""
 
-#: config/pg-slip-settings.php:88
-msgid "Where to display the QR Code"
+#: config/pg-slip-settings.php:41
+msgid "Where to display the payment slip"
 msgstr ""
 
-#: config/pg-slip-settings.php:91
+#: config/pg-slip-settings.php:44
 msgid "Style"
 msgstr ""
 
-#: config/pg-slip-settings.php:94
+#: config/pg-slip-settings.php:47
 msgid "Classic"
 msgstr ""
 
-#: config/pg-slip-settings.php:95
+#: config/pg-slip-settings.php:48
 msgid "Modern"
 msgstr ""
 
-#: config/pg-slip-settings.php:98
+#: config/pg-slip-settings.php:51
 msgid "Defines the style of the payment slip"
 msgstr ""
 
-#: config/pg-slip-settings.php:102
+#: config/pg-slip-settings.php:55
 msgid "Bank account"
 msgstr ""
 
-#: config/pg-slip-settings.php:105
+#: config/pg-slip-settings.php:58
 msgid "Bank account number"
 msgstr ""
 
 #. translators: %1$s opening link tag, %2$s closing link tag.
-#: config/pg-slip-settings.php:108
+#: config/pg-slip-settings.php:61
+#, php-format
 msgid "You can add your bank account details in the %1$sCompany settings%2$s ."
 msgstr ""
 
-#: config/pg-slip-settings.php:115
-#: woocommerce/checkout/payment-slip.php:105
+#: config/pg-slip-settings.php:68
+#: woocommerce/checkout/payment-slip.php:104
 msgid "Payment code"
 msgstr ""
 
-#: config/pg-slip-settings.php:119
+#: config/pg-slip-settings.php:72
 msgid "You can choose a payment code only if you limit checkout to a single customer type."
 msgstr ""
 
-#: config/pg-slip-settings.php:120
+#: config/pg-slip-settings.php:73
 msgid "Payment code is a three digit number used to properly route transactions."
 msgstr ""
 
-#: config/pg-slip-settings.php:128
+#: config/pg-slip-settings.php:81
 msgid "Payment model"
 msgstr ""
 
-#: config/pg-slip-settings.php:132
+#: config/pg-slip-settings.php:85
 msgid "Payment model for the payment reference"
 msgstr ""
 
 #. translators: %1$s line break.
-#: config/pg-slip-settings.php:135
+#: config/pg-slip-settings.php:88
+#, php-format
 msgid "Choosing the model 97 will automatically set the payment reference.%1$sWe recommend using model 97 because payment processor guarantees verbatim reference transfer only if it is done via model 97 "
 msgstr ""
 
-#: config/pg-slip-settings.php:141
-#: woocommerce/checkout/payment-slip.php:174
+#: config/pg-slip-settings.php:94
+#: woocommerce/checkout/payment-slip.php:173
 msgid "Payment reference"
 msgstr ""
 
-#: config/pg-slip-settings.php:149
+#: config/pg-slip-settings.php:102
 msgid "Payment reference is a unique code that identifies the payment. It is used to match the payment with the order."
 msgstr ""
 
-#: config/pg-slip-settings.php:152
-#: woocommerce/checkout/payment-slip.php:65
+#: config/pg-slip-settings.php:106
+#: woocommerce/checkout/payment-slip.php:64
 msgid "Payment purpose"
 msgstr ""
 
-#: config/pg-slip-settings.php:156
-msgid "Payment purpose is a short description of the payment. It is used to inform the recipient about the payment."
-msgstr ""
-
-#: config/pg-slip-settings.php:154
+#: config/pg-slip-settings.php:108
 msgid "Order payment"
 msgstr ""
 
-#: config/pg-slip-settings.php:158
+#: config/pg-slip-settings.php:109
+msgid "Payment purpose is a short description of the payment. It is used to inform the recipient about the payment."
+msgstr ""
+
+#: config/pg-slip-settings.php:113
 msgid "QR Code"
 msgstr ""
 
-#: config/pg-slip-settings.php:160
+#: config/pg-slip-settings.php:115
 msgid "Settings for NBS IPS QR Code"
 msgstr ""
 
-#: config/pg-slip-settings.php:163
-msgid "Where to display the payment slip"
+#: config/pg-slip-settings.php:118
+msgid "Where to display the QR Code"
 msgstr ""
 
-#: config/pg-slip-settings.php:166
+#: config/pg-slip-settings.php:121
 msgid "Dot color"
 msgstr ""
 
-#: config/pg-slip-settings.php:169
+#: config/pg-slip-settings.php:124
 msgid "Color of the dots on the QR code"
 msgstr ""
 
-#: config/pg-slip-settings.php:174
+#: config/pg-slip-settings.php:129
 msgid "Corner dot color"
 msgstr ""
 
-#: config/pg-slip-settings.php:177
+#: config/pg-slip-settings.php:132
 msgid "Color of the corner dots on the QR code"
 msgstr ""
 
-#: config/pg-slip-settings.php:182
+#: config/pg-slip-settings.php:137
 msgid "Show image"
 msgstr ""
 
-#: config/pg-slip-settings.php:184
+#: config/pg-slip-settings.php:139
 msgid "Show image on QR code"
 msgstr ""
 
-#: config/pg-slip-settings.php:186
+#: config/pg-slip-settings.php:141
 msgid "Image that will be shown on the QR code. "
 msgstr ""
 
-#: config/pg-slip-settings.php:195
+#: config/pg-slip-settings.php:150
 msgid "Advanced Settings"
 msgstr ""
 
 #. translators: %s is a placeholder for a URL.
-#: config/pg-slip-settings.php:206
+#: config/pg-slip-settings.php:161
+#, php-format
 msgid "Log Payment Slip events and review them on the <a href=\"%s\">Logs screen</a>.<br>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished."
 msgstr ""
 
@@ -293,24 +271,24 @@ msgstr ""
 msgid "Enter bank account"
 msgstr ""
 
-#: lib/Admin/Order_Edit_Page_Controller.php:80
+#: lib/Admin/Order_Edit_Page_Controller.php:102
 msgid "Regenerate IPS QR code"
 msgstr ""
 
-#: lib/Admin/Order_Edit_Page_Controller.php:99
-#: lib/Services/QR_Code_Manager.php:100
+#: lib/Admin/Order_Edit_Page_Controller.php:121
+#: lib/Services/QR_Code_Manager.php:144
 msgid "IPS QR Code"
 msgstr ""
 
-#: lib/Admin/Order_Edit_Page_Controller.php:121
+#: lib/Admin/Order_Edit_Page_Controller.php:144
 msgid "No IPS QR code available for this order."
 msgstr ""
 
-#: lib/Admin/Order_Edit_Page_Controller.php:149
+#: lib/Admin/Order_Edit_Page_Controller.php:172
 msgid "Copy IPS QR string"
 msgstr ""
 
-#: lib/Admin/Order_Edit_Page_Controller.php:150
+#: lib/Admin/Order_Edit_Page_Controller.php:173
 msgid "Copied!"
 msgstr ""
 
@@ -320,6 +298,7 @@ msgstr ""
 
 #. Translators: %s is a link to the company settings page.
 #: lib/Admin/Plugin_Settings_Page.php:60
+#, php-format
 msgid "Store settings have been moved %s"
 msgstr ""
 
@@ -329,37 +308,39 @@ msgstr ""
 
 #. Translators: %s is the invalid bank account number.
 #: lib/Admin/Plugin_Settings_Page.php:154
+#, php-format
 msgid "Invalid bank account number: %s"
 msgstr ""
 
-#: lib/Core/Address_Admin_Controller.php:33
+#: lib/Core/Address_Admin_Controller.php:35
 msgid "Field is required"
 msgstr ""
 
-#: lib/Core/Address_Admin_Controller.php:34
-#: lib/Services/Field_Validator.php:168
-msgid "Company Tax Number is invalid"
-msgstr ""
-
-#: lib/Core/Address_Admin_Controller.php:35
+#: lib/Core/Address_Admin_Controller.php:36
 msgid "Company Number is invalid"
 msgstr ""
 
-#: lib/Core/Address_Admin_Controller.php:71
-#: lib/Core/Address_Admin_Controller.php:139
-#: lib/Core/Address_Field_Controller.php:41
+#: lib/Core/Address_Admin_Controller.php:37
+#: lib/Core/Block_Checkout_Field_Controller.php:267
+#: lib/Services/Field_Validator.php:179
+msgid "Company Tax Number is invalid"
+msgstr ""
+
+#: lib/Core/Address_Admin_Controller.php:77
+#: lib/Core/Address_Admin_Controller.php:145
+#: lib/Core/Address_Field_Controller.php:43
 msgid "Customer type"
 msgstr ""
 
-#: lib/Core/Address_Admin_Controller.php:78
-#: lib/Core/Address_Admin_Controller.php:147
-#: lib/Functions/wcsrb-address-field-fns.php:21
+#: lib/Core/Address_Admin_Controller.php:84
+#: lib/Core/Address_Admin_Controller.php:153
+#: lib/Functions/wcsrb-address-field-fns.php:23
 msgid "Company Number"
 msgstr ""
 
-#: lib/Core/Address_Admin_Controller.php:83
-#: lib/Core/Address_Admin_Controller.php:152
-#: lib/Functions/wcsrb-address-field-fns.php:28
+#: lib/Core/Address_Admin_Controller.php:89
+#: lib/Core/Address_Admin_Controller.php:158
+#: lib/Functions/wcsrb-address-field-fns.php:31
 msgid "Tax Number"
 msgstr ""
 
@@ -373,22 +354,32 @@ msgctxt "Address display"
 msgid "Tax Number"
 msgstr ""
 
+#: lib/Core/Block_Checkout_Field_Controller.php:143
+msgid "Buying as a company"
+msgstr ""
+
+#: lib/Core/Block_Checkout_Field_Controller.php:266
+#: lib/Services/Field_Validator.php:173
+msgid "Company number is invalid"
+msgstr ""
+
 #: lib/Functions/wcsrb-helpers.php:16
-#: lib/Functions/wcsrb-settings.php:56
-#: lib/Functions/wcsrb-settings.php:70
-#: lib/Functions/wcsrb-settings.php:76
+#: lib/Functions/wcsrb-settings.php:57
+#: lib/Functions/wcsrb-settings.php:71
+#: lib/Functions/wcsrb-settings.php:77
 msgid "Person"
 msgstr ""
 
 #: lib/Functions/wcsrb-helpers.php:17
-#: lib/Functions/wcsrb-settings.php:50
-#: lib/Functions/wcsrb-settings.php:69
-#: lib/Functions/wcsrb-settings.php:73
+#: lib/Functions/wcsrb-settings.php:51
+#: lib/Functions/wcsrb-settings.php:70
+#: lib/Functions/wcsrb-settings.php:74
 msgid "Company"
 msgstr ""
 
 #. Translators: %s is the bank name.
 #: lib/Functions/wcsrb-helpers.php:37
+#, php-format
 msgid "%s Bank"
 msgstr ""
 
@@ -496,28 +487,28 @@ msgstr ""
 msgid "Bank of China"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:107
-#: lib/Functions/wcsrb-settings.php:46
+#: lib/Functions/wcsrb-payment-slip.php:104
+#: lib/Functions/wcsrb-settings.php:47
 msgid "Automatic"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:108
+#: lib/Functions/wcsrb-payment-slip.php:105
 msgid "Model 97"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:131
+#: lib/Functions/wcsrb-payment-slip.php:128
 msgid "Customer ID"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:134
+#: lib/Functions/wcsrb-payment-slip.php:131
 msgid "Order date"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:135
+#: lib/Functions/wcsrb-payment-slip.php:132
 msgid "Order ID"
 msgstr ""
 
-#: lib/Functions/wcsrb-payment-slip.php:136
+#: lib/Functions/wcsrb-payment-slip.php:133
 msgid "Order number"
 msgstr ""
 
@@ -526,79 +517,107 @@ msgid "Select bank account"
 msgstr ""
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:52
+#: lib/Functions/wcsrb-settings.php:53
+#, php-format
 msgid "%d - Interim expenses"
 msgstr ""
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:54
+#: lib/Functions/wcsrb-settings.php:55
+#, php-format
 msgid "%d - Final expenses"
 msgstr ""
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:59
+#: lib/Functions/wcsrb-settings.php:60
+#, php-format
 msgid "%d - Transactions on behalf of a person"
 msgstr ""
 
 #. Translators: %d is the payment code.
-#: lib/Functions/wcsrb-settings.php:63
+#: lib/Functions/wcsrb-settings.php:64
+#, php-format
 msgid "%d - Other transactions"
 msgstr ""
 
-#: lib/Gateway/Gateway_Payment_Slip.php:69
+#: lib/Functions/wcsrb-settings.php:103
+msgid "Visibility"
+msgstr ""
+
+#: lib/Functions/wcsrb-settings.php:106
+msgid "Store pages"
+msgstr ""
+
+#: lib/Functions/wcsrb-settings.php:107
+msgid "Customer e-mails"
+msgstr ""
+
+#: lib/Functions/wcsrb-settings.php:113
+msgid "Select locations for display"
+msgstr ""
+
+#. translators: %1$s customizer link html.
+#: lib/Functions/wcsrb-settings.php:133
+#, php-format
+msgid "You can set the image via %1$s"
+msgstr ""
+
+#. translators: %s current image HTML.
+#: lib/Functions/wcsrb-settings.php:146
+#, php-format
+msgid "Current image: %s"
+msgstr ""
+
+#: lib/Gateway/Gateway_Payment_Slip.php:79
 msgid "Have your customers pay you by sending you money via wire transfer."
 msgstr ""
 
-#: lib/Gateway/Gateway_Payment_Slip.php:138
+#: lib/Gateway/Gateway_Payment_Slip.php:167
 msgid "Serbian Payment Slip does not support your store currency."
 msgstr ""
 
-#: lib/Gateway/Gateway_Payment_Slip.php:142
+#: lib/Gateway/Gateway_Payment_Slip.php:171
 msgid "Serbian Payment Slip requires at least one bank account."
 msgstr ""
 
-#: lib/Services/Field_Validator.php:156
+#: lib/Services/Field_Validator.php:167
 msgid "Company name is required"
 msgstr ""
 
-#: lib/Services/Field_Validator.php:162
-msgid "Company number is invalid"
-msgstr ""
-
-#: lib/Utils/Installer.php:63
-#: lib/Utils/Installer.php:64
+#: lib/Utils/Installer.php:68
+#: lib/Utils/Installer.php:69
 msgid "Settings"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:26
+#: woocommerce/checkout/payment-slip-qr-code.php:27
 msgid "Instant payment"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:37
+#: woocommerce/checkout/payment-slip-qr-code.php:38
 msgid "The NBS IPS QR code is an innovative way to perform instant payments using mobile devices."
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:40
+#: woocommerce/checkout/payment-slip-qr-code.php:41
 msgid " Security is guaranteed by the standards of the National Bank of Serbia."
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:43
+#: woocommerce/checkout/payment-slip-qr-code.php:44
 msgid "How to pay"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:47
+#: woocommerce/checkout/payment-slip-qr-code.php:48
 msgid "Select IPS SCAN in the m-banking app"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:50
+#: woocommerce/checkout/payment-slip-qr-code.php:51
 msgid "Scan the QR code"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:53
+#: woocommerce/checkout/payment-slip-qr-code.php:54
 msgid "Confirm with your PIN or fingerprint"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip-qr-code.php:56
+#: woocommerce/checkout/payment-slip-qr-code.php:57
 msgid "Payment is complete"
 msgstr ""
 
@@ -610,18 +629,18 @@ msgstr ""
 msgid "Sender"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:80
+#: woocommerce/checkout/payment-slip.php:79
 msgid "Reciever"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:121
+#: woocommerce/checkout/payment-slip.php:120
 msgid "Amount"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:151
+#: woocommerce/checkout/payment-slip.php:150
 msgid "Account payable"
 msgstr ""
 
-#: woocommerce/checkout/payment-slip.php:166
+#: woocommerce/checkout/payment-slip.php:165
 msgid "Model"
 msgstr ""
