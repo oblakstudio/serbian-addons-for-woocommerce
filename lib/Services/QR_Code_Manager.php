@@ -56,6 +56,9 @@ class QR_Code_Manager {
             return false;
         }
 
+        // PHP caches file stats per request (and touch() does not always clear them) - read the real time.
+        \clearstatcache( true, $file );
+
         return \xwp_wpfs()->mtime( $file ) < $modified->getTimestamp();
     }
 
