@@ -1,5 +1,7 @@
 # Dirs
 .ddev
+public_html
+wc-logs
 .git
 .github
 .wordpress-org
@@ -27,6 +29,8 @@ composer.json
 composer.lock
 constants.php
 output.log
+debug.log
+cron.log
 package-lock.json
 package.json
 release.config.js

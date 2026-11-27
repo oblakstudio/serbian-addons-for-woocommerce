@@ -3,6 +3,6 @@ services:
     volumes:
       - '$HOME/projects/plugins:/home/venom/projects/plugins'
       - '$HOME/projects/composer:/home/venom/projects/composer'
-      - '$HOME/projects/plugins/serbian-addons-for-woocommerce:/var/www/html/public_html/wp-content/plugins/serbian-addons-for-woocommerce'
-      - '$HOME/projects/plugins/woocommerce-nestpay:/var/www/html/public_html/wp-content/plugins/wc-serbian-nestpay:ro'
+      # Expose this checkout (or worktree) as the plugin of the dev site.
+      - '${DDEV_APPROOT}:/var/www/html/public_html/wp-content/plugins/serbian-addons-for-woocommerce'
       - '$HOME/projects/plugins/woocommerce-efis:/var/www/html/public_html/wp-content/plugins/woocommerce-efis'
