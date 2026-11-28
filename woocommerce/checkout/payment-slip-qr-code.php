@@ -1,20 +1,10 @@
-<?php //phpcs:disable SlevomatCodingStandard.Functions.RequireMultiLineCall.RequiredMultiLineCall
+<?php
 /**
- * Payment Slip template
+ * Stacked QR Code Payment Slip Template (Web + Email)
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/checkout/payment-slip-qr-code.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://docs.woocommerce.com/document/template-structure/
  * @package Serbian Addons for WooCommerce
  * @subpackage Templates
- * @version 2.3.0
- *
+ * @version 2.8.0
  * @var string $alt QR Code image alt.
  * @var string $src QR Code image.
  */
@@ -22,44 +12,64 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 
-<section class="woocommerce-order-ips-qr-code">
 <?php if ( '' !== $src ) : ?>
-    <h2><?php esc_html_e( 'Instant payment', 'serbian-addons-for-woocommerce' ); ?></h2>
-    <table class="qr-code">
-        <tbody>
-            <tr>
-                <td class="qr-code-wrap">
-                    <div class="qr-code-holder">
-                        <img src="<?php echo esc_attr( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>">
-                    </div>
-                </td>
-                <td class="qr-code-desc">
-                    <p>
-                        <?php esc_html_e( 'The NBS IPS QR code is an innovative way to perform instant payments using mobile devices.', 'serbian-addons-for-woocommerce' ); ?>
-                    </p>
-                    <p>
-                        <?php esc_html_e( ' Security is guaranteed by the standards of the National Bank of Serbia.', 'serbian-addons-for-woocommerce' ); ?>
-                    </p>
-                    <h3>
-                        <?php esc_html_e( 'How to pay', 'serbian-addons-for-woocommerce' ); ?>
-                    </h3>
-                    <ol>
-                        <li>
-                            <?php esc_html_e( 'Select IPS SCAN in the m-banking app', 'serbian-addons-for-woocommerce' ); ?>
-                        </li>
-                        <li>
-                            <?php esc_html_e( 'Scan the QR code', 'serbian-addons-for-woocommerce' ); ?>
-                        </li>
-                        <li>
-                            <?php esc_html_e( 'Confirm with your PIN or fingerprint', 'serbian-addons-for-woocommerce' ); ?>
-                        </li>
-                        <li>
-                            <?php esc_html_e( 'Payment is complete', 'serbian-addons-for-woocommerce' ); ?>
-                        </li>
-                    </ol>
-                </td>
-            </tr>
-        </tbody>
+<section class="woocommerce-order-ips-qr-code" style="font-family: Arial, sans-serif; max-width:600px; margin:auto; padding:10px;">
+    <h2 style="text-align:center; font-size:18px; margin-bottom:15px;">
+        <?php esc_html_e( 'Instant payment', 'serbian-addons-for-woocommerce' ); ?>
+    </h2>
+
+    <!-- Outer table for stacking -->
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; table-layout:fixed;">
+
+        <!-- Description header -->
+        <tr>
+            <td style="background-color:#f0f0f0; padding:8px; font-weight:bold;">
+                <?php esc_html_e( 'Description', 'serbian-addons-for-woocommerce' ); ?>
+            </td>
+        </tr>
+
+        <!-- Description content -->
+        <tr>
+            <td style="padding:8px;">
+                <p style="margin:5px 0;"><?php esc_html_e( 'The NBS IPS QR code is an innovative way to perform instant payments using mobile devices.', 'serbian-addons-for-woocommerce' ); ?></p>
+                <p style="margin:5px 0;"><?php esc_html_e( 'Security is guaranteed by the standards of the National Bank of Serbia.', 'serbian-addons-for-woocommerce' ); ?></p>
+            </td>
+        </tr>
+
+        <!-- QR Code image -->
+        <tr>
+            <td style="text-align:center; padding:10px;">
+                <img src="<?php echo esc_attr( $src ); ?>" alt="<?php echo esc_attr( $alt ); ?>" style="width:150px; max-width:100%; height:auto; display:block; margin:auto;">
+            </td>
+        </tr>
+
+        <!-- How to pay header -->
+        <tr>
+            <td style="background-color:#f0f0f0; padding:8px; font-weight:bold;">
+                <?php esc_html_e( 'How to pay', 'serbian-addons-for-woocommerce' ); ?>
+            </td>
+        </tr>
+
+        <!-- How to pay instructions -->
+        <tr>
+            <td style="padding:8px;">
+                <ol style="margin:5px 0; padding-left:20px;">
+                    <li><?php esc_html_e( 'Select IPS SCAN in the m-banking app', 'serbian-addons-for-woocommerce' ); ?></li>
+                    <li><?php esc_html_e( 'Scan the QR code', 'serbian-addons-for-woocommerce' ); ?></li>
+                    <li><?php esc_html_e( 'Confirm with your PIN or fingerprint', 'serbian-addons-for-woocommerce' ); ?></li>
+                    <li><?php esc_html_e( 'Payment is complete', 'serbian-addons-for-woocommerce' ); ?></li>
+                </ol>
+            </td>
+        </tr>
     </table>
-<?php endif; ?>
+
+    <!-- Print-friendly styles -->
+    <style>
+        @media print {
+            body * { visibility: hidden; }
+            .woocommerce-order-ips-qr-code, .woocommerce-order-ips-qr-code * { visibility: visible; }
+            .woocommerce-order-ips-qr-code { position:absolute; top:0; left:0; width:100%; }
+        }
+    </style>
 </section>
+<?php endif; ?>
